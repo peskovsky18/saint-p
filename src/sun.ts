@@ -18,14 +18,14 @@ export class SunSystem {
   public ambientLight: THREE.AmbientLight;
   public hemiLight: THREE.HemisphereLight;
   public date: Date;
-  public manualTime: number | null = 13.5; // Default to bright sunny afternoon (13:30) like Warsaw-Izo
+  public manualTime: number | null = 13.75; // Default to bright warm sunny afternoon (13:45)
   public forceWhiteNight: boolean = false;
 
   constructor(scene: THREE.Scene) {
     this.date = new Date();
 
-    // Directional Sun Light
-    this.dirLight = new THREE.DirectionalLight(0xfffae8, 2.2);
+    // Directional Sun Light - Radiant warm sunlight
+    this.dirLight = new THREE.DirectionalLight(0xfff6dc, 2.75);
     this.dirLight.castShadow = true;
     this.dirLight.shadow.mapSize.width = 4096;
     this.dirLight.shadow.mapSize.height = 4096;
@@ -33,7 +33,7 @@ export class SunSystem {
     this.dirLight.shadow.camera.far = 3000;
     
     // Orthographic shadow volume covering the central area tightly for maximum pixel sharpness
-    const shadowSize = 650;
+    const shadowSize = 750;
     this.dirLight.shadow.camera.left = -shadowSize;
     this.dirLight.shadow.camera.right = shadowSize;
     this.dirLight.shadow.camera.top = shadowSize;
@@ -41,9 +41,9 @@ export class SunSystem {
     this.dirLight.shadow.bias = -0.0002;
     this.dirLight.shadow.normalBias = 0.02;
 
-    // Ambient Lighting - High-contrast European lighting (deep crisp shadows)
-    this.ambientLight = new THREE.AmbientLight(0x7e94a8, 0.52);
-    this.hemiLight = new THREE.HemisphereLight(0xa5c2dc, 0x424952, 0.35);
+    // Ambient Lighting - Radiant European sunny day lighting
+    this.ambientLight = new THREE.AmbientLight(0x8eb4da, 0.70);
+    this.hemiLight = new THREE.HemisphereLight(0xb8d9fc, 0x586470, 0.48);
 
     scene.add(this.dirLight);
     scene.add(this.dirLight.target);
@@ -135,12 +135,13 @@ export class SunSystem {
     const ambColor = new THREE.Color();
 
     if (nightFactor < 0.1) {
-      // Bright Daytime - Crisp Warsaw-Izo style high-contrast sunlight
-      skyColor.setHex(0xa3c5e8); // Nordic clear blue
-      sunColor.setHex(0xfffae8);
-      ambColor.setHex(0x768fa8);
-      this.dirLight.intensity = 2.2;
-      this.ambientLight.intensity = 0.52;
+      // Bright Daytime - Radiant warm sunlight over Saint Petersburg
+      skyColor.setHex(0x6aaef5); // Radiant Baltic summer blue sky
+      sunColor.setHex(0xfff6dc); // Warm brilliant golden sunshine
+      ambColor.setHex(0x8eb4da); // Sky ambient fill
+      this.dirLight.intensity = 2.75;
+      this.ambientLight.intensity = 0.70;
+      this.hemiLight.intensity = 0.48;
     } else if (nightFactor < 0.4) {
       // Golden Hour / Sunset over the Gulf of Finland
       const t = (nightFactor - 0.1) / 0.3;

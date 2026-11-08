@@ -26,15 +26,24 @@ export class WeatherSystem {
   private snowCount = 1200;
 
   constructor(scene: THREE.Scene) {
-    this.fog = new THREE.FogExp2(0xa3c5e8, 0.00035);
+    this.fog = new THREE.FogExp2(0x8ec2f8, 0.00015);
     scene.fog = this.fog;
 
     this.initRain(scene);
     this.initSnow(scene);
 
-    this.fetchLiveWeather();
-    // Refresh weather every 15 minutes
-    setInterval(() => this.fetchLiveWeather(), 15 * 60 * 1000);
+    // Default to bright, joyful, sunny Saint Petersburg
+    this.data = {
+      temperature: 22,
+      precipitation: 0,
+      rain: 0,
+      snowfall: 0,
+      cloudCover: 0,
+      weatherCode: 0,
+      windSpeed: 2.5,
+      description: 'Ясно, солнечно'
+    };
+    this.applyWeather(this.data);
   }
 
   private initRain(scene: THREE.Scene) {
@@ -146,7 +155,8 @@ export class WeatherSystem {
     } else if (this.isRaining || this.isSnowing) {
       this.fog.density = 0.0007;
     } else {
-      this.fog.density = 0.00035;
+      this.fog.density = 0.00015;
+      this.fog.color.setHex(0x8ec2f8);
     }
   }
 
@@ -158,7 +168,8 @@ export class WeatherSystem {
     if (type === 'clear') {
       this.isRaining = false;
       this.isSnowing = false;
-      this.fog.density = 0.0002;
+      this.fog.density = 0.00015;
+      this.fog.color.setHex(0x8ec2f8);
     } else if (type === 'rain') {
       this.isRaining = true;
       this.isSnowing = false;

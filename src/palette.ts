@@ -37,9 +37,11 @@ export const PALETTE = {
 
   // Roofs (Iconic St. Petersburg folded tin / zinc / copper roofs - ZERO PITCH BLACK!)
   roofTinRed: 0xb85444,      // Iron Minium Red (Сурик)
-  roofZincGrey: 0x8393a2,    // Folded Zinc Steel (Светлая оцинковка)
-  roofLightZinc: 0x9eb0c0,   // Clean New Galvanized Steel
-  roofCopperGreen: 0x5a917d, // Oxidized Malachite Copper Patina
+  roofZincGrey: 0x8e9dae,    // Folded Zinc Steel (Светлая оцинковка)
+  roofLightZinc: 0xa4b4c4,   // Clean New Galvanized Steel
+  roofCopperGreen: 0x5a8a72, // Oxidized Malachite Copper Patina
+  roofSlateGrey: 0x606c78,   // Nordic Slate / Dark Zinc (Графит)
+  roofWarmSand: 0x9e8870,    // Weathered Ochre Sand Tin (Охристая жесть)
 
   // Gold Spires & Domes
   goldSpire: 0xffd034,       // Admiralty & Peter & Paul Spires

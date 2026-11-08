@@ -4,7 +4,7 @@ import json
 import urllib.request
 import os
 
-port = 9436
+port = 9437
 chrome_proc = subprocess.Popen([
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     '--headless',
@@ -19,27 +19,27 @@ time.sleep(2.5)
 
 views = [
     {
-        'name': 'clean_alexander_garden_admiralty.png',
-        'target': {'x': -300, 'z': 240},
-        'zoom': 180,
+        'name': 'sunny_volumetric_roofs_residential_blocks.png',
+        'target': {'x': 450, 'z': 350},
+        'zoom': 130,
         'action': 'window.app.ui.toggleQuickJump(false);'
     },
     {
-        'name': 'clean_water_neva_and_palace_square.png',
-        'target': {'x': -50, 'z': 20},
-        'zoom': 220,
+        'name': 'sunny_volumetric_roofs_admiralty_palace.png',
+        'target': {'x': -200, 'z': 200},
+        'zoom': 170,
         'action': 'window.app.ui.toggleQuickJump(false);'
     },
     {
-        'name': 'clean_nevsky_and_fontanka_bridges.png',
+        'name': 'sunny_volumetric_roofs_fontanka_bridges.png',
         'target': {'x': 1050, 'z': 650},
-        'zoom': 180,
+        'zoom': 160,
         'action': 'window.app.ui.toggleQuickJump(false);'
     },
     {
-        'name': 'clean_wide_city_central_district.png',
-        'target': {'x': 1200, 'z': 400},
-        'zoom': 650,
+        'name': 'sunny_volumetric_roofs_wide_cityscape.png',
+        'target': {'x': 1100, 'z': 450},
+        'zoom': 620,
         'action': 'window.app.ui.toggleQuickJump(false);'
     }
 ]
@@ -69,7 +69,7 @@ try:
         ws.send(JSON.stringify({{
           id: 10,
           method: "Runtime.evaluate",
-          params: {{ expression: "Boolean(window.app && window.app.trees && window.app.trees.canopyMesh && window.app.water && window.app.water.riverMesh && window.app.ground && window.app.ground.roadMesh)" }}
+          params: {{ expression: "Boolean(window.app && window.app.realBuildings && window.app.realBuildings.roofMesh && window.app.trees && window.app.trees.canopyMesh)" }}
         }}));
       }}, 500);
     }};
@@ -82,7 +82,7 @@ try:
         window.app.cameraCtrl.zoomLevel = ${{v.zoom}};
         window.app.cameraCtrl.targetZoomLevel = ${{v.zoom}};
         window.app.cameraCtrl.resize(1440, 900);
-        window.app.sun.setTime(13.5);
+        window.app.sun.setTime(13.75);
         ${{v.action || ''}}
       `;
       ws.send(JSON.stringify({{
@@ -96,16 +96,6 @@ try:
       const d = JSON.parse(msg.data);
       if (d.id === 10 && d.result?.result?.value === true && polling) {{
         polling = false;
-        // Query tree count
-        ws.send(JSON.stringify({{
-          id: 15,
-          method: "Runtime.evaluate",
-          params: {{ expression: "window.app.trees.canopyMesh.count" }}
-        }}));
-      }}
-
-      if (d.id === 15) {{
-        console.log("LIVE TREE COUNT RENDERED IN SCENE: " + d.result?.result?.value);
         applyNextView();
       }}
 
@@ -128,17 +118,17 @@ try:
         if (viewIdx < views.length) {{
           applyNextView();
         }} else {{
-          console.log("ALL VERIFICATION VIEWS SAVED SUCCESSFULLY!");
+          console.log("ALL SUNNY VOLUMETRIC ROOF VIEWS SAVED!");
           process.exit(0);
         }}
       }}
     }};
     '''
 
-    with open('/tmp/verify_clean_trees.mjs', 'w') as f:
+    with open('/tmp/verify_sunny_roofs.mjs', 'w') as f:
         f.write(node_code)
 
-    res = subprocess.run(['node', '/tmp/verify_clean_trees.mjs'], capture_output=True, text=True, timeout=40)
+    res = subprocess.run(['node', '/tmp/verify_sunny_roofs.mjs'], capture_output=True, text=True, timeout=40)
     print("Node output:\n", res.stdout)
     if res.stderr:
         print("Node error:\n", res.stderr)

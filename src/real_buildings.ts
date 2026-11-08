@@ -291,16 +291,88 @@ export class RealBuildingsSystem {
   }
 
   /**
-   * Authentic St. Petersburg Folded Tin / Zinc / Copper Roof Palette (NO PITCH BLACK!)
+   * Computes inward ridge polygon (P_ridge) for 3D pitched & mansard roofs
+   */
+  private computeRoofRidgePolygon(
+    pts: { x: number; z: number }[],
+    insetDist: number,
+    cx: number,
+    cz: number
+  ): { x: number; z: number }[] {
+    const n = pts.length;
+    if (n < 3) return pts;
+
+    // Calculate signed area to determine winding order (CCW vs CW)
+    let area = 0;
+    for (let i = 0; i < n; i++) {
+      const j = (i + 1) % n;
+      area += pts[i].x * pts[j].z - pts[j].x * pts[i].z;
+    }
+    const isCCW = area > 0;
+
+    const ridgePts: { x: number; z: number }[] = [];
+
+    for (let i = 0; i < n; i++) {
+      const pPrev = pts[(i - 1 + n) % n];
+      const pCurr = pts[i];
+      const pNext = pts[(i + 1) % n];
+
+      // Edge 1: prev -> curr
+      const e1x = pCurr.x - pPrev.x;
+      const e1z = pCurr.z - pPrev.z;
+      const l1 = Math.hypot(e1x, e1z) || 1.0;
+      const n1x = isCCW ? -e1z / l1 : e1z / l1;
+      const n1z = isCCW ? e1x / l1 : -e1x / l1;
+
+      // Edge 2: curr -> next
+      const e2x = pNext.x - pCurr.x;
+      const e2z = pNext.z - pCurr.z;
+      const l2 = Math.hypot(e2x, e2z) || 1.0;
+      const n2x = isCCW ? -e2z / l2 : e2z / l2;
+      const n2z = isCCW ? e2x / l2 : -e2x / l2;
+
+      // Inward bisector normal
+      let bx = n1x + n2x;
+      let bz = n1z + n2z;
+      const bLen = Math.hypot(bx, bz);
+      if (bLen < 0.001) {
+        bx = n1x;
+        bz = n1z;
+      } else {
+        bx /= bLen;
+        bz /= bLen;
+      }
+
+      // Miter scale clamped to prevent sharp spikes
+      const dot = n1x * bx + n1z * bz;
+      const miterScale = Math.min(2.2, 1.0 / Math.max(0.35, dot));
+
+      // Limit inward distance so vertices don't cross centroid
+      const distToCenter = Math.hypot(cx - pCurr.x, cz - pCurr.z);
+      const actualDist = Math.min(insetDist * miterScale, distToCenter * 0.65);
+
+      ridgePts.push({
+        x: pCurr.x + bx * actualDist,
+        z: pCurr.z + bz * actualDist
+      });
+    }
+
+    return ridgePts;
+  }
+
+  /**
+   * Authentic St. Petersburg Folded Tin / Zinc / Copper Roof Palette (Rich Historical Variety)
    */
   private getRandomRoofColor(id: number): THREE.Color {
     const roofPal = [
-      PALETTE.roofTinRed,      // Warm Minium Red (кирпично-красный сурик)
-      PALETTE.roofZincGrey,    // Steel Zinc Grey (светлая стальная оцинковка)
-      PALETTE.roofLightZinc,   // Clean Light Zinc (светло-серебристый)
-      PALETTE.roofCopperGreen  // Patinated Malachite Copper (малахитово-зелёный)
+      PALETTE.roofZincGrey,    // Steel Zinc Grey (светлая стальная оцинковка) ~ 25%
+      PALETTE.roofLightZinc,   // Clean Light Zinc (светло-серебристый) ~ 20%
+      PALETTE.roofCopperGreen, // Patinated Malachite Copper (малахитово-зелёный) ~ 18%
+      PALETTE.roofSlateGrey,   // Nordic Slate / Dark Zinc (благородный графит) ~ 15%
+      PALETTE.roofTinRed,      // Warm Minium Red (кирпично-красный сурик) ~ 15%
+      PALETTE.roofWarmSand     // Weathered Ochre Sand Tin (охристая жесть) ~ 7%
     ];
-    return new THREE.Color(roofPal[Math.abs(id) % roofPal.length]);
+    return new THREE.Color(roofPal[Math.abs(id * 19) % roofPal.length]);
   }
 
   /**
@@ -562,33 +634,98 @@ export class RealBuildingsSystem {
         centroidX /= numPts;
         centroidZ /= numPts;
 
-        // 3. Build Triangulated Roof Surface
-        const flatCoords: number[] = [];
-        for (const p of pts) {
-          flatCoords.push(p.x, p.z);
+        // Bounding box dimensions of the building footprint
+        let minX = pts[0].x, maxX = pts[0].x, minZ = pts[0].z, maxZ = pts[0].z;
+        for (let i = 1; i < numPts; i++) {
+          const p = pts[i];
+          if (p.x < minX) minX = p.x;
+          if (p.x > maxX) maxX = p.x;
+          if (p.z < minZ) minZ = p.z;
+          if (p.z > maxZ) maxZ = p.z;
         }
+        const bWidth = maxX - minX;
+        const bDepth = maxZ - minZ;
+        const minDim = Math.min(bWidth, bDepth);
 
-        const indices = earcut(flatCoords);
-        for (let i = 0; i < indices.length; i += 3) {
-          const p0 = pts[indices[i]];
-          const p1 = pts[indices[i + 1]];
-          const p2 = pts[indices[i + 2]];
+        // 3. Build 3D Volumetric Pitched & Mansard Roof (Скатно-вальмовая кровля Петербурга)
+        // Historic roofs rise 1.8m to 3.2m above eaves, creating distinct sunlit and shaded facets
+        const pitchHeight = lmType ? 1.8 : Math.max(1.8, Math.min(3.2, 1.5 + (b.levels || 4) * 0.25));
+        const insetDist = Math.max(1.5, Math.min(3.2, minDim * 0.28));
 
-          roofPositions.push(
-            p0.x, height, p0.z,
-            p1.x, height, p1.z,
-            p2.x, height, p2.z
-          );
-          roofNormals.push(0, 1, 0, 0, 1, 0, 0, 1, 0);
+        const ridgePts = this.computeRoofRidgePolygon(pts, insetDist, centroidX, centroidZ);
+
+        // A. Sloped Roof Facets (Скаты вальмовой / мансардной крыши)
+        for (let i = 0; i < numPts; i++) {
+          const p1 = pts[i];
+          const p2 = pts[(i + 1) % numPts];
+          const r1 = ridgePts[i];
+          const r2 = ridgePts[(i + 1) % numPts];
+
+          const v0x = p1.x, v0y = height, v0z = p1.z;
+          const v1x = p2.x, v1y = height, v1z = p2.z;
+          const v2x = r2.x, v2y = height + pitchHeight, v2z = r2.z;
+          const v3x = r1.x, v3y = height + pitchHeight, v3z = r1.z;
+
+          // Normal of Triangle 1 (v0, v1, v2)
+          const d1x = v1x - v0x, d1y = v1y - v0y, d1z = v1z - v0z;
+          const d2x = v2x - v0x, d2y = v2y - v0y, d2z = v2z - v0z;
+          let nx = d1y * d2z - d1z * d2y;
+          let ny = d1z * d2x - d1x * d2z;
+          let nz = d1x * d2y - d1y * d2x;
+          const nLen = Math.hypot(nx, ny, nz) || 1.0;
+          nx /= nLen; ny /= nLen; nz /= nLen;
+
+          // Triangle 1: (v0, v1, v2)
+          roofPositions.push(v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z);
+          roofNormals.push(nx, ny, nz, nx, ny, nz, nx, ny, nz);
           roofColors.push(
             roofCol.r, roofCol.g, roofCol.b,
             roofCol.r, roofCol.g, roofCol.b,
             roofCol.r, roofCol.g, roofCol.b
           );
+          roofUvs.push(v0x / 4.0, v0z / 4.0, v1x / 4.0, v1z / 4.0, v2x / 4.0, v2z / 4.0);
+
+          // Triangle 2: (v0, v2, v3)
+          roofPositions.push(v0x, v0y, v0z, v2x, v2y, v2z, v3x, v3y, v3z);
+          roofNormals.push(nx, ny, nz, nx, ny, nz, nx, ny, nz);
+          roofColors.push(
+            roofCol.r, roofCol.g, roofCol.b,
+            roofCol.r, roofCol.g, roofCol.b,
+            roofCol.r, roofCol.g, roofCol.b
+          );
+          roofUvs.push(v0x / 4.0, v0z / 4.0, v2x / 4.0, v2z / 4.0, v3x / 4.0, v3z / 4.0);
+
+          // Hip and ridge edge seam line
+          edgePositions.push(v0x, v0y, v0z, v3x, v3y, v3z);
+          edgePositions.push(v3x, v3y, v3z, v2x, v2y, v2z);
+        }
+
+        // B. Elevated Flat Ridge Deck / Mansard Platform
+        const flatRidgeCoords: number[] = [];
+        for (const r of ridgePts) {
+          flatRidgeCoords.push(r.x, r.z);
+        }
+        const ridgeIndices = earcut(flatRidgeCoords);
+        for (let i = 0; i < ridgeIndices.length; i += 3) {
+          const r0 = ridgePts[ridgeIndices[i]];
+          const r1 = ridgePts[ridgeIndices[i + 1]];
+          const r2 = ridgePts[ridgeIndices[i + 2]];
+
+          roofPositions.push(
+            r0.x, height + pitchHeight, r0.z,
+            r1.x, height + pitchHeight, r1.z,
+            r2.x, height + pitchHeight, r2.z
+          );
+          roofNormals.push(0, 1, 0, 0, 1, 0, 0, 1, 0);
+          roofColors.push(
+            roofCol.r * 1.04, roofCol.g * 1.04, roofCol.b * 1.04,
+            roofCol.r * 1.04, roofCol.g * 1.04, roofCol.b * 1.04,
+            roofCol.r * 1.04, roofCol.g * 1.04, roofCol.b * 1.04
+          );
           roofUvs.push(
-            p0.x / 4.0, p0.z / 4.0,
-            p1.x / 4.0, p1.z / 4.0,
-            p2.x / 4.0, p2.z / 4.0
+            r0.x / 4.0, r0.z / 4.0,
+            r1.x / 4.0, r1.z / 4.0,
+            r2.x / 4.0, r2.z / 4.0
           );
         }
 
@@ -598,18 +735,26 @@ export class RealBuildingsSystem {
           const bSeed = Math.abs(b.id * 13.7);
           const numChimneys = 1 + (Math.floor(bSeed) % 3);
 
-          // Chimneys (печные трубы)
+          // Chimneys (печные трубы) on top of the volumetric roof
           for (let c = 0; c < numChimneys; c++) {
             const angle = (bSeed + c * 2.1) % (Math.PI * 2);
-            const dist = 3.0 + (c * 4.5);
+            const dist = Math.min(insetDist * 0.8, 2.0 + (c * 2.5));
             const cx = centroidX + Math.cos(angle) * dist;
             const cz = centroidZ + Math.sin(angle) * dist;
 
+            // Red brick chimney stack
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              cx, height + 0.85, cz,
-              0.8, 1.7, 0.8,
+              cx, height + pitchHeight + 0.9, cz,
+              0.8, 1.8, 0.8,
               new THREE.Color(0xa84838) // St. Petersburg red brick chimney
+            );
+            // Terracotta chimney cowl / cap (дымник)
+            this.appendBox(
+              detailPositions, detailNormals, detailColors,
+              cx, height + pitchHeight + 1.85, cz,
+              1.0, 0.15, 1.0,
+              new THREE.Color(0x5a3428)
             );
           }
 
@@ -617,16 +762,16 @@ export class RealBuildingsSystem {
           if (b.levels && b.levels >= 4) {
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              centroidX + 2.0, height + 1.2, centroidZ - 1.5,
-              3.4, 2.4, 2.6,
+              centroidX + 1.5, height + pitchHeight + 1.1, centroidZ - 1.0,
+              3.2, 2.2, 2.4,
               new THREE.Color(0xd0c8bc)
             );
 
             // Steel communication antenna mast on top of penthouse
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              centroidX + 2.0, height + 2.4 + 1.8, centroidZ - 1.5,
-              0.16, 3.6, 0.16,
+              centroidX + 1.5, height + pitchHeight + 2.2 + 1.6, centroidZ - 1.0,
+              0.16, 3.2, 0.16,
               new THREE.Color(0x404852)
             );
           }
@@ -634,26 +779,31 @@ export class RealBuildingsSystem {
           // Metal ventilation unit (вентиляционный короб)
           this.appendBox(
             detailPositions, detailNormals, detailColors,
-            centroidX - 2.5, height + 0.55, centroidZ + 1.8,
+            centroidX - 2.0, height + pitchHeight + 0.55, centroidZ + 1.2,
             1.6, 1.1, 1.4,
             new THREE.Color(0x949da6)
           );
 
-          // Dormer Mansard Windows (слуховые окна Петербурга)
-          if (b.levels && b.levels >= 3) {
-            const dormerDist = Math.max(3.0, (numChimneys * 3.5));
-            const dx = centroidX + Math.cos(bSeed) * dormerDist;
-            const dz = centroidZ + Math.sin(bSeed) * dormerDist;
+          // Dormer Mansard Windows (слуховые окна Петербурга) on the roof slope
+          if (b.levels && b.levels >= 3 && numPts >= 4) {
+            const p1 = pts[0];
+            const p2 = pts[1];
+            const r1 = ridgePts[0];
+            const r2 = ridgePts[1];
+            const dormX = (p1.x + p2.x + r1.x + r2.x) * 0.25;
+            const dormZ = (p1.z + p2.z + r1.z + r2.z) * 0.25;
+            const dormY = height + pitchHeight * 0.45;
+
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              dx, height + 0.7, dz,
-              1.6, 1.4, 1.8,
+              dormX, dormY, dormZ,
+              1.5, 1.3, 1.6,
               roofCol
             );
             // Dormer glass pane
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              dx, height + 0.7, dz + 0.95,
+              dormX, dormY, dormZ + 0.75,
               1.1, 0.9, 0.15,
               new THREE.Color(0x1a2430)
             );
