@@ -88,6 +88,15 @@ export class CameraController {
   public minZoom: number = 35;
   public maxZoom: number = 850;
 
+  // Flight camera & zoom settings
+  public flightZoomLevel: number = 42;
+  public targetFlightZoomLevel: number = 42;
+  public minFlightZoom: number = 18;
+  public maxFlightZoom: number = 160;
+  public flightCameraMode: 'chase' | 'wide' | 'cockpit' = 'chase';
+  private wasInFlight: boolean = false;
+  public flightSimRef?: FlightSimulator;
+
   // Rotation settings: 45°, 135°, 225°, 315°
   public yawIndex: number = 0;
   public targetYaw: number = Math.PI / 4;
@@ -172,6 +181,40 @@ export class CameraController {
     return Math.round((280 / this.zoomLevel) * 100);
   }
 
+  public cycleFlightCamera(): string {
+    if (this.flightCameraMode === 'chase') {
+      this.flightCameraMode = 'wide';
+      this.targetFlightZoomLevel = 85;
+      return 'Панорама';
+    } else if (this.flightCameraMode === 'wide') {
+      this.flightCameraMode = 'cockpit';
+      this.targetFlightZoomLevel = 26;
+      return 'Кабина';
+    } else {
+      this.flightCameraMode = 'chase';
+      this.targetFlightZoomLevel = 42;
+      return 'Хвост';
+    }
+  }
+
+  public getFlightCameraModeName(): string {
+    if (this.flightCameraMode === 'chase') return 'Хвост';
+    if (this.flightCameraMode === 'wide') return 'Панорама';
+    return 'Кабина';
+  }
+
+  public zoomFlightIn(factor: number = 0.85) {
+    this.targetFlightZoomLevel = Math.max(this.minFlightZoom, this.targetFlightZoomLevel * factor);
+  }
+
+  public zoomFlightOut(factor: number = 1.18) {
+    this.targetFlightZoomLevel = Math.min(this.maxFlightZoom, this.targetFlightZoomLevel * factor);
+  }
+
+  public getFlightZoomPercent(): number {
+    return Math.round((42 / this.flightZoomLevel) * 100);
+  }
+
   public startCinematic() {
     this.isCinematic = true;
     this.cinematicTimeInWaypoint = 0;
@@ -230,6 +273,11 @@ export class CameraController {
     window.addEventListener('wheel', (e) => {
       // Allow scrolling inside dialogs or dropdowns without zooming
       if ((e.target as HTMLElement).closest('.spb-dialog-body, .spb-tour-scroll')) return;
+      if (this.flightSimRef && this.flightSimRef.isActive) {
+        const factor = e.deltaY > 0 ? 1.14 : 0.88;
+        this.targetFlightZoomLevel = Math.max(this.minFlightZoom, Math.min(this.maxFlightZoom, this.targetFlightZoomLevel * factor));
+        return;
+      }
       if (this.isCinematic) this.stopCinematic();
       const factor = e.deltaY > 0 ? 1.12 : 0.89;
       this.targetZoomLevel = Math.max(this.minZoom, Math.min(this.maxZoom, this.targetZoomLevel * factor));
@@ -269,7 +317,11 @@ export class CameraController {
           e.touches[0].clientY - e.touches[1].clientY
         );
         const factor = touchStartDist / dist;
-        this.targetZoomLevel = Math.max(this.minZoom, Math.min(this.maxZoom, this.targetZoomLevel * factor));
+        if (this.flightSimRef && this.flightSimRef.isActive) {
+          this.targetFlightZoomLevel = Math.max(this.minFlightZoom, Math.min(this.maxFlightZoom, this.targetFlightZoomLevel * factor));
+        } else {
+          this.targetZoomLevel = Math.max(this.minZoom, Math.min(this.maxZoom, this.targetZoomLevel * factor));
+        }
         touchStartDist = dist;
       }
     });
@@ -294,22 +346,73 @@ export class CameraController {
   }
 
   public update(deltaTime: number, flightSim?: FlightSimulator) {
+    this.flightSimRef = flightSim;
+
     if (flightSim && flightSim.isActive) {
       if (this.isCinematic) this.stopCinematic();
-      // Flight Simulator Mode: Camera tracks behind aircraft
+      this.wasInFlight = true;
+
+      // Smooth Flight Zoom
+      this.flightZoomLevel += (this.targetFlightZoomLevel - this.flightZoomLevel) * Math.min(1.0, deltaTime * 12.0);
+      this.camera.left = -this.flightZoomLevel * this.aspect;
+      this.camera.right = this.flightZoomLevel * this.aspect;
+      this.camera.top = this.flightZoomLevel;
+      this.camera.bottom = -this.flightZoomLevel;
+      this.camera.updateProjectionMatrix();
+
+      // Update Camera position according to flightCameraMode
       const planePos = flightSim.position;
       const planeYaw = flightSim.yaw;
+      const planePitch = flightSim.pitch;
+      const forwardDir = flightSim.getForwardDirection();
 
-      const followDist = 80;
-      const followHeight = 45;
+      if (this.flightCameraMode === 'cockpit') {
+        // Over-the-shoulder Cockpit / Nose View looking over the windscreen into the city
+        const camX = planePos.x - Math.sin(planeYaw) * 12.0;
+        const camY = planePos.y + 7.2 - Math.sin(planePitch) * 4.0;
+        const camZ = planePos.z - Math.cos(planeYaw) * 12.0;
+        this.camera.position.set(camX, camY, camZ);
+        this.camera.lookAt(
+          planePos.x + forwardDir.x * 45,
+          planePos.y + 1.5 + forwardDir.y * 25,
+          planePos.z + forwardDir.z * 45
+        );
+      } else if (this.flightCameraMode === 'wide') {
+        // High Wide Panorama
+        const followDist = this.flightZoomLevel * 2.2;
+        const followHeight = this.flightZoomLevel * 1.25;
+        const camX = planePos.x - Math.sin(planeYaw) * followDist;
+        const camY = planePos.y + followHeight;
+        const camZ = planePos.z - Math.cos(planeYaw) * followDist;
+        this.camera.position.set(camX, camY, camZ);
+        this.camera.lookAt(planePos.x, planePos.y + 4, planePos.z);
+      } else {
+        // Chase view (Behind & slightly above with pitch responsiveness)
+        const followDist = this.flightZoomLevel * 1.35;
+        const followHeight = this.flightZoomLevel * 0.52;
+        const camX = planePos.x - Math.sin(planeYaw) * followDist;
+        const camY = planePos.y + followHeight - Math.sin(planePitch) * (followDist * 0.35);
+        const camZ = planePos.z - Math.cos(planeYaw) * followDist;
+        this.camera.position.set(camX, camY, camZ);
+        this.camera.lookAt(
+          planePos.x + forwardDir.x * 16,
+          planePos.y + 2.5 + forwardDir.y * 10,
+          planePos.z + forwardDir.z * 16
+        );
+      }
 
-      const camX = planePos.x - Math.sin(planeYaw) * followDist;
-      const camY = planePos.y + followHeight;
-      const camZ = planePos.z - Math.cos(planeYaw) * followDist;
-
-      this.camera.position.set(camX, camY, camZ);
-      this.camera.lookAt(planePos.x, planePos.y + 10, planePos.z);
+      this.currentTarget.copy(planePos);
       return;
+    }
+
+    if (this.wasInFlight) {
+      this.wasInFlight = false;
+      this.camera.left = -this.zoomLevel * this.aspect;
+      this.camera.right = this.zoomLevel * this.aspect;
+      this.camera.top = this.zoomLevel;
+      this.camera.bottom = -this.zoomLevel;
+      this.camera.updateProjectionMatrix();
+      this.updateCameraTransform();
     }
 
     // Cinematic Drone Mode

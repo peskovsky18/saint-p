@@ -308,7 +308,7 @@ export class UIManager {
   }
 
   /**
-   * Flight Simulator HUD (Warsaw-Izo clean dark panel with live telemetry)
+   * Flight Simulator HUD (Warsaw-Izo clean dark panel with live telemetry and controls)
    */
   private createFlightHud() {
     this.flightHudEl = document.createElement('div');
@@ -319,7 +319,7 @@ export class UIManager {
       <div class="w-flight-hud-main">
         <div class="w-flight-stat">
           <span class="w-stat-lbl">СКОРОСТЬ</span>
-          <span class="w-stat-val" id="w-flight-speed">162 км/ч</span>
+          <span class="w-stat-val" id="w-flight-speed">158 км/ч</span>
         </div>
         <div class="w-flight-sep"></div>
         <div class="w-flight-stat">
@@ -331,16 +331,79 @@ export class UIManager {
           <span class="w-stat-lbl">ТЯГА</span>
           <span class="w-stat-val" id="w-flight-throttle">65%</span>
         </div>
-        <button class="w-flight-exit-btn" id="w-flight-exit">Выход из полёта (F)</button>
+        <div class="w-flight-sep"></div>
+        <div class="w-flight-stat">
+          <span class="w-stat-lbl">ВЕРТ. СКОР.</span>
+          <span class="w-stat-val" id="w-flight-vspeed">+0.0 м/с</span>
+        </div>
+
+        <div class="w-flight-sep"></div>
+
+        <!-- Zoom Controls -->
+        <div class="w-flight-zoom-ctrl">
+          <span class="w-stat-lbl">ЗУМ</span>
+          <div class="w-flight-btn-group">
+            <button class="w-flight-btn" id="w-flight-zoom-out" title="Отдалить (-)">-</button>
+            <span class="w-flight-val" id="w-flight-zoom-val">100%</span>
+            <button class="w-flight-btn" id="w-flight-zoom-in" title="Приблизить (+)">+</button>
+          </div>
+        </div>
+
+        <div class="w-flight-sep"></div>
+
+        <!-- Camera Mode, Invert & Mouse Toggles -->
+        <button class="w-flight-btn w-flight-action-btn" id="w-flight-cam" title="Переключить ракурс (V)">
+          Ракурс: <span id="w-flight-cam-val">Хвост</span>
+        </button>
+
+        <button class="w-flight-btn w-flight-action-btn" id="w-flight-invert" title="Инверсия тангажа (I)">
+          Тангаж: <span id="w-flight-invert-val">Прямой</span>
+        </button>
+
+        <button class="w-flight-btn w-flight-action-btn" id="w-flight-mouse" title="Управление мышью (M)">
+          Мышь: <span id="w-flight-mouse-val">Выкл</span>
+        </button>
+
+        <button class="w-flight-exit-btn" id="w-flight-exit" title="Завершить полёт (F)">Выход (F)</button>
       </div>
       <div class="w-flight-tips">
-        W/S: тангаж • A/D: крен • Q/E: тяга двигателей
+        W/S: высота • A/D: поворот • Пробел: форсаж • Колесо: зум • V: ракурс • I: инверсия • M: мышь
       </div>
     `;
     this.container.appendChild(this.flightHudEl);
 
+    // Event listeners for flight HUD controls
     this.flightHudEl.querySelector('#w-flight-exit')!.addEventListener('click', () => {
       this.toggleFlightMode(false);
+    });
+
+    this.flightHudEl.querySelector('#w-flight-zoom-in')!.addEventListener('click', () => {
+      this.camera.zoomFlightIn();
+    });
+
+    this.flightHudEl.querySelector('#w-flight-zoom-out')!.addEventListener('click', () => {
+      this.camera.zoomFlightOut();
+    });
+
+    this.flightHudEl.querySelector('#w-flight-cam')!.addEventListener('click', () => {
+      const modeName = this.camera.cycleFlightCamera();
+      const el = document.getElementById('w-flight-cam-val');
+      if (el) el.textContent = modeName;
+      this.showToast(`Ракурс камеры: ${modeName}`);
+    });
+
+    this.flightHudEl.querySelector('#w-flight-invert')!.addEventListener('click', () => {
+      const isInverted = this.flight.toggleInvertPitch();
+      const el = document.getElementById('w-flight-invert-val');
+      if (el) el.textContent = isInverted ? 'Авиа' : 'Прямой';
+      this.showToast(isInverted ? 'Режим тангажа: Авиационный (W = пикирование)' : 'Режим тангажа: Прямой (W = набор высоты)');
+    });
+
+    this.flightHudEl.querySelector('#w-flight-mouse')!.addEventListener('click', () => {
+      const isMouse = this.flight.toggleMouseControl();
+      const el = document.getElementById('w-flight-mouse-val');
+      if (el) el.textContent = isMouse ? 'Вкл' : 'Выкл';
+      this.showToast(isMouse ? 'Управление мышью включено' : 'Управление мышью выключено');
     });
   }
 
@@ -855,6 +918,42 @@ export class UIManager {
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
 
       const key = e.key.toLowerCase();
+
+      // Special hotkeys when flight simulator is active
+      if (this.flight.isActive) {
+        if (key === 'f' || key === 'escape') {
+          this.toggleFlightMode(false);
+          return;
+        } else if (key === 'v') {
+          const modeName = this.camera.cycleFlightCamera();
+          const el = document.getElementById('w-flight-cam-val');
+          if (el) el.textContent = modeName;
+          this.showToast(`Ракурс камеры: ${modeName}`);
+          return;
+        } else if (key === 'i') {
+          const isInverted = this.flight.toggleInvertPitch();
+          const el = document.getElementById('w-flight-invert-val');
+          if (el) el.textContent = isInverted ? 'Авиа' : 'Прямой';
+          this.showToast(isInverted ? 'Режим тангажа: Авиационный (W = пикирование)' : 'Режим тангажа: Прямой (W = набор высоты)');
+          return;
+        } else if (key === 'm') {
+          const isMouse = this.flight.toggleMouseControl();
+          const el = document.getElementById('w-flight-mouse-val');
+          if (el) el.textContent = isMouse ? 'Вкл' : 'Выкл';
+          this.showToast(isMouse ? 'Управление мышью включено' : 'Управление мышью выключено');
+          return;
+        } else if (key === '+' || key === '=') {
+          this.camera.zoomFlightIn();
+          return;
+        } else if (key === '-' || key === '_') {
+          this.camera.zoomFlightOut();
+          return;
+        } else if (key === 'q' || key === 'e' || key === ' ' || key === 'w' || key === 's' || key === 'a' || key === 'd') {
+          // Flight physics keys (boost, airbrake, steering) - do not trigger camera rotation or map zoom reset
+          return;
+        }
+      }
+
       if (key === 'n') {
         this.toggleWhiteNightMode();
       } else if (key === 'c') {
@@ -1035,15 +1134,29 @@ export class UIManager {
       scaleText.textContent = `${scaleM} м`;
     }
 
-    // 4. Update Flight HUD Telemetry if flight mode is active
+    // 4. Update Flight HUD Telemetry and controls if flight mode is active
     if (this.flight.isActive) {
       const stats = this.flight.getFlightStats();
       const spdEl = document.getElementById('w-flight-speed');
       const altEl = document.getElementById('w-flight-alt');
       const thrEl = document.getElementById('w-flight-throttle');
+      const vspeedEl = document.getElementById('w-flight-vspeed');
+      const zoomValEl = document.getElementById('w-flight-zoom-val');
+      const camEl = document.getElementById('w-flight-cam-val');
+      const invEl = document.getElementById('w-flight-invert-val');
+      const msEl = document.getElementById('w-flight-mouse-val');
+
       if (spdEl) spdEl.textContent = `${stats.speedKmh} км/ч`;
       if (altEl) altEl.textContent = `${stats.altitudeMeters} м`;
       if (thrEl) thrEl.textContent = `${stats.throttlePct}%`;
+      if (vspeedEl) {
+        const sign = stats.vSpeedMs > 0 ? '+' : '';
+        vspeedEl.textContent = `${sign}${stats.vSpeedMs.toFixed(1)} м/с`;
+      }
+      if (zoomValEl) zoomValEl.textContent = `${this.camera.getFlightZoomPercent()}%`;
+      if (camEl) camEl.textContent = this.camera.getFlightCameraModeName();
+      if (invEl) invEl.textContent = stats.invertPitch ? 'Авиа' : 'Прямой';
+      if (msEl) msEl.textContent = stats.mouseControl ? 'Вкл' : 'Выкл';
     }
 
     // 5. Update Bridge Status Badge in Modal if visible

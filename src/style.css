@@ -729,7 +729,7 @@ kbd {
 .w-flight-hud-main {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .w-flight-stat {
@@ -756,6 +756,69 @@ kbd {
   width: 1px;
   height: 22px;
   background: var(--w-border);
+}
+
+.w-flight-zoom-ctrl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.w-flight-btn-group {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.w-flight-btn {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.w-flight-btn:hover {
+  background: rgba(229, 168, 35, 0.2);
+  color: var(--w-gold-light);
+}
+
+.w-flight-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--w-gold);
+  font-family: monospace;
+  padding: 0 4px;
+  min-width: 38px;
+  text-align: center;
+}
+
+.w-flight-action-btn {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.w-flight-action-btn span {
+  color: var(--w-gold);
+  font-weight: 700;
+}
+
+.w-flight-action-btn:hover {
+  border-color: var(--w-gold);
+  background: rgba(229, 168, 35, 0.12);
+  color: #ffffff;
 }
 
 .w-flight-tips {
