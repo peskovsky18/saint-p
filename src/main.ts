@@ -71,7 +71,8 @@ class SaintPIzoApp {
       this.water,
       this.weather,
       this.flight,
-      this.cameraCtrl
+      this.cameraCtrl,
+      this.landmarks
     );
 
     // 6. Listeners & Loop
@@ -102,18 +103,19 @@ class SaintPIzoApp {
     this.scene.background = sunState.skyColor;
 
     // 2. Update Water, Buildings & Landmarks
+    // 3. Update Environment, Water, Windows & Landmarks
+    const curHour = this.sun.getEffectiveDate().getHours() + this.sun.getEffectiveDate().getMinutes() / 60;
     this.water.update(deltaTime, sunState.nightFactor);
     this.realBuildings.update(sunState.nightFactor);
-    this.landmarks.update(deltaTime, sunState.nightFactor);
+    this.landmarks.update(deltaTime, sunState.nightFactor, curHour);
 
-    // 3. Update Bridges (with automatic St. Petersburg bridge schedule)
-    const curHour = this.sun.getEffectiveDate().getHours() + this.sun.getEffectiveDate().getMinutes() / 60;
+    // 4. Update Bridges (with automatic St. Petersburg bridge schedule)
     this.bridges.update(deltaTime, curHour, sunState.nightFactor);
 
-    // 4. Update Public Transit (Cars, Trams, Meteor, Boats, Streetlamps)
+    // 5. Update Public Transit (Cars, Trams, Meteor, Boats, Streetlamps)
     this.transit.update(deltaTime, this.bridges.areOpen, sunState.nightFactor);
 
-    // 5. Update Flight Simulator Physics
+    // 6. Update Flight Simulator Physics
     this.flight.update(deltaTime);
 
     // 6. Update Camera & Dynamic Ground Tracking

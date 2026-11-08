@@ -5,6 +5,7 @@ import { WaterSystem } from './water';
 import { WeatherSystem } from './weather';
 import { FlightSimulator } from './flight';
 import { CameraController } from './camera';
+import { LandmarksSystem } from './landmarks';
 import { metersToLatLon } from './geo';
 
 export interface LandmarkInfo {
@@ -91,13 +92,23 @@ export const LANDMARK_DATA: LandmarkInfo[] = [
   },
   {
     id: 'peter_paul',
-    name: 'Петропавловский собор',
-    style: 'Петровское барокко',
-    architect: 'Доменико Трезини',
-    years: '1712—1733',
-    coords: { x: 115.4, y: 70, z: -1157.7 },
-    zoom: 190,
-    description: 'Историческое ядро Санкт-Петербурга, заложенное 27 мая 1703 года. Колокольня собора с золоченой иглой шпиля высотой 122.5 метра и парящим ангелом — высотная доминанта центра города.'
+    name: 'Петропавловская крепость и собор',
+    style: 'Петровское барокко и фортификация',
+    architect: 'Доменико Трезини, Бурхард Миних',
+    years: '1703—1733',
+    coords: { x: 145, y: 35, z: -1020 },
+    zoom: 160,
+    description: 'Историческое ядро Санкт-Петербурга на Заячьем острове, заложенное 27 мая 1703 года. Гранитные бастионы Нарышкина и Государева, Флагшточная башня с ежедневным полуденным выстрелом сигнальной пушки в 12:00, Комендантская пристань и золоченый 122.5-метровый шпиль собора с парящим ангелом.'
+  },
+  {
+    id: 'new_holland',
+    name: 'Новая Голландия и Арка Валлен-Деламота',
+    style: 'Ранний русский классицизм',
+    architect: 'Жан-Батист Валлен-Деламот, Савва Чевакинский',
+    years: '1765—1788',
+    coords: { x: -1334, y: 25, z: 1220 },
+    zoom: 140,
+    description: 'Шедевр промышленной архитектуры XVIII века на рукотворном треугольном острове. Монументальная кирпично-гранитная триумфальная арка над каналом, знаменитый кольцевой замок «Бутылка», внутренний водный ковш и парк культуры.'
   },
   {
     id: 'smolny',
@@ -165,7 +176,8 @@ export class UIManager {
     private water: WaterSystem,
     private weather: WeatherSystem,
     private flight: FlightSimulator,
-    private camera: CameraController
+    private camera: CameraController,
+    private landmarks: LandmarksSystem
   ) {
     this.container = document.createElement('div');
     this.container.id = 'warsaw-ui-root';
@@ -254,6 +266,9 @@ export class UIManager {
       <button class="w-icon-btn" id="w-btn-sun" title="Освещение, погода и Нева (T)">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
+      <button class="w-icon-btn" id="w-btn-cannon" title="Полуденный выстрел пушки Нарышкина бастиона (K)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="6" cy="18" r="3"/><line x1="6" y1="18" x2="19" y2="7"/><path d="M14 6l6-2-2 6"/></svg>
+      </button>
       <button class="w-icon-btn" id="w-btn-fullscreen" title="Полноэкранный режим">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
       </button>
@@ -292,6 +307,10 @@ export class UIManager {
       } else {
         document.exitFullscreen().catch(() => {});
       }
+    });
+
+    this.topToolbarEl.querySelector('#w-btn-cannon')!.addEventListener('click', () => {
+      this.fireNoonCannon();
     });
 
     this.topToolbarEl.querySelector('#w-btn-sun')!.addEventListener('click', () => {
@@ -913,6 +932,11 @@ export class UIManager {
     }
   }
 
+  public fireNoonCannon() {
+    this.landmarks.fireNoonCannon();
+    this.showToast('12:00 — Традиционный полуденный выстрел со стены Нарышкина бастиона!');
+  }
+
   private setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
@@ -968,6 +992,8 @@ export class UIManager {
         this.toggleTimeModal();
       } else if (key === 'b') {
         this.bridges.toggleBridge();
+      } else if (key === 'k') {
+        this.fireNoonCannon();
       } else if (key === 'q') {
         this.camera.rotateLeft();
       } else if (key === 'e') {

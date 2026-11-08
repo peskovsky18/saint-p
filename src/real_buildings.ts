@@ -53,25 +53,43 @@ export class RealBuildingsSystem {
   private initLandmarkMaterials() {
     const texLoader = new THREE.TextureLoader();
 
-    const landmarkDefs: Record<string, { file: string; uScale: number; vScale: number }> = {
-      hermitage: { file: '/textures/landmarks/hermitage.jpg', uScale: 6.0, vScale: 23.5 },
-      general_staff: { file: '/textures/landmarks/general_staff.jpg', uScale: 6.5, vScale: 24.0 },
-      admiralty: { file: '/textures/landmarks/admiralty.jpg', uScale: 8.5, vScale: 18.0 },
-      isaac: { file: '/textures/landmarks/isaac.jpg', uScale: 7.5, vScale: 28.0 },
-      spas: { file: '/textures/landmarks/spas.jpg', uScale: 5.5, vScale: 26.0 },
-      exchange: { file: '/textures/landmarks/exchange.jpg', uScale: 6.5, vScale: 20.0 },
-      peter_paul: { file: '/textures/landmarks/peter_paul.jpg', uScale: 6.5, vScale: 22.0 },
-      kazan: { file: '/textures/landmarks/kazan.jpg', uScale: 6.5, vScale: 26.0 }
+    const landmarkDefs: Record<string, { file: string; uScale: number; vScale: number; color: number }> = {
+      hermitage: { file: 'textures/landmarks/hermitage.jpg', uScale: 6.0, vScale: 23.5, color: PALETTE.hermitageGreen },
+      general_staff: { file: 'textures/landmarks/general_staff.jpg', uScale: 6.5, vScale: 24.0, color: PALETTE.empireYellow },
+      admiralty: { file: 'textures/landmarks/admiralty.jpg', uScale: 8.5, vScale: 18.0, color: PALETTE.empireYellow },
+      isaac: { file: 'textures/landmarks/isaac.jpg', uScale: 7.5, vScale: 28.0, color: PALETTE.isaacGranite },
+      spas: { file: 'textures/landmarks/spas.jpg', uScale: 5.5, vScale: 26.0, color: PALETTE.spbBrick },
+      exchange: { file: 'textures/landmarks/exchange.jpg', uScale: 6.5, vScale: 20.0, color: PALETTE.spbWhiteStone },
+      peter_paul: { file: 'textures/landmarks/peter_paul.jpg', uScale: 6.5, vScale: 22.0, color: PALETTE.spbWhiteStone },
+      kazan: { file: 'textures/landmarks/kazan.jpg', uScale: 6.5, vScale: 26.0, color: PALETTE.empireStone }
     };
 
+    const baseUrl = (import.meta as any).env?.BASE_URL || './';
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+
     for (const [key, def] of Object.entries(landmarkDefs)) {
-      const tex = texLoader.load(def.file);
+      const texPath = `${cleanBase}${def.file}`;
+      const tex = texLoader.load(
+        texPath,
+        (t) => {
+          t.wrapS = THREE.RepeatWrapping;
+          t.wrapT = THREE.RepeatWrapping;
+          t.magFilter = THREE.NearestFilter;
+          t.minFilter = THREE.NearestFilter;
+          t.needsUpdate = true;
+        },
+        undefined,
+        (err) => {
+          console.warn(`Landmark texture ${key} load warning at ${texPath}:`, err);
+        }
+      );
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
       tex.magFilter = THREE.NearestFilter;
       tex.minFilter = THREE.NearestFilter;
 
       this.landmarkMaterials[key] = new THREE.MeshLambertMaterial({
+        color: def.color,
         map: tex,
         emissiveMap: this.emissiveTex,
         emissive: new THREE.Color(0x000000),

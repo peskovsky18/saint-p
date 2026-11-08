@@ -10,6 +10,8 @@ export const PALETTE = {
   waterFoam: 0x7da4bc,
   graniteEmbankment: 0x696f78,
   graniteSteps: 0x7d838c,
+  graniteGray: 0x5a5f68,
+  spbGranitePink: 0xb06d60,
   pavementStone: 0x8a909a,
   asphalt: 0x474c54,
   cobblestone: 0x6e747d,
@@ -41,6 +43,7 @@ export const PALETTE = {
   roofLightZinc: 0xa4b4c4,   // Clean New Galvanized Steel
   roofCopperGreen: 0x5a8a72, // Oxidized Malachite Copper Patina
   roofSlateGrey: 0x606c78,   // Nordic Slate / Dark Zinc (Графит)
+  roofDarkZinc: 0x545d68,    // Historic Dark Folded Tin
   roofWarmSand: 0x9e8870,    // Weathered Ochre Sand Tin (Охристая жесть)
 
   // Gold Spires & Domes

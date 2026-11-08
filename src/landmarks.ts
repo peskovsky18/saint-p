@@ -1,6 +1,75 @@
 import * as THREE from 'three';
 import { PALETTE } from './palette';
 
+class CannonAudioSynth {
+  private ctx: AudioContext | null = null;
+
+  public playBoom() {
+    try {
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!this.ctx) this.ctx = new AudioCtx();
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+      const now = this.ctx.currentTime;
+
+      // 1. High-pressure initial muzzle crack (white noise transient)
+      const bufLen = Math.floor(this.ctx.sampleRate * 0.35);
+      const noiseBuf = this.ctx.createBuffer(1, bufLen, this.ctx.sampleRate);
+      const data = noiseBuf.getChannelData(0);
+      for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
+
+      const noiseSrc = this.ctx.createBufferSource();
+      noiseSrc.buffer = noiseBuf;
+
+      const noiseFilter = this.ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(650, now);
+      noiseFilter.frequency.exponentialRampToValueAtTime(90, now + 0.3);
+
+      const noiseGain = this.ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.95, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+      noiseSrc.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(this.ctx.destination);
+      noiseSrc.start(now);
+
+      // 2. Heavy sub-bass boom (115 Hz drop down to 28 Hz)
+      const osc = this.ctx.createOscillator();
+      const oscGain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(115, now);
+      osc.frequency.exponentialRampToValueAtTime(28, now + 0.9);
+
+      oscGain.gain.setValueAtTime(1.0, now);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 1.25);
+
+      osc.connect(oscGain);
+      oscGain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 1.25);
+
+      // 3. Reverberant low-frequency Neva river echo
+      const echoOsc = this.ctx.createOscillator();
+      const echoGain = this.ctx.createGain();
+      echoOsc.type = 'triangle';
+      echoOsc.frequency.setValueAtTime(48, now + 0.12);
+      echoOsc.frequency.exponentialRampToValueAtTime(18, now + 2.2);
+
+      echoGain.gain.setValueAtTime(0.0, now);
+      echoGain.gain.setValueAtTime(0.35, now + 0.12);
+      echoGain.gain.exponentialRampToValueAtTime(0.0001, now + 2.4);
+
+      echoOsc.connect(echoGain);
+      echoGain.connect(this.ctx.destination);
+      echoOsc.start(now + 0.12);
+      echoOsc.stop(now + 2.4);
+    } catch {
+      // Audio autoplay policy or unsupported
+    }
+  }
+}
+
 export class LandmarksSystem {
   public group: THREE.Group;
   private streetLampsMat!: THREE.MeshBasicMaterial;
@@ -8,6 +77,16 @@ export class LandmarksSystem {
   public floodlightMat!: THREE.MeshBasicMaterial;
   public rostralFlameMat!: THREE.MeshBasicMaterial;
   private totalTime: number = 0;
+
+  // Cannon shot FX & audio
+  private cannonAudio: CannonAudioSynth = new CannonAudioSynth();
+  private cannonFlashMesh!: THREE.Mesh;
+  private cannonFlashLight!: THREE.PointLight;
+  private cannonSmokeGroup!: THREE.Group;
+  private cannonShockwave!: THREE.Mesh;
+  private cannonSmokeMeshes: { mesh: THREE.Mesh; baseVel: THREE.Vector3; seed: number }[] = [];
+  public cannonShotTimer: number = -1;
+  public hasFiredAtNoon: boolean = false;
 
   constructor(scene: THREE.Scene) {
     this.group = new THREE.Group();
@@ -45,6 +124,8 @@ export class LandmarksSystem {
     this.buildAdmiraltySpire();
     this.buildStIsaacsDome();
     this.buildPeterAndPaulSpire();
+    this.buildPeterAndPaulBastions();
+    this.buildNewHollandIsland();
     this.buildRostralColumns();
     this.buildGeneralStaffChariot();
     this.buildBronzeHorseman();
@@ -309,6 +390,399 @@ export class LandmarksSystem {
     ppGroup.add(angel);
 
     this.group.add(ppGroup);
+  }
+
+  /**
+   * Бастионы Петропавловской крепости и орудия Полуденного выстрела
+   * Нарышкин бастион, Флагшточная башня с флагом, Невская куртина, Невские ворота,
+   * Комендантская пристань и сигнальные пушки Д-30.
+   */
+  private buildPeterAndPaulBastions() {
+    const ppFortress = new THREE.Group();
+    ppFortress.name = 'peter-and-paul-bastions';
+
+    const pinkGraniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbGranitePink, flatShading: true });
+    const grayGraniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.graniteGray, flatShading: true });
+    const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
+    const metalMat = new THREE.MeshLambertMaterial({ color: 0x2b3036, flatShading: true });
+    const roofCopperMat = new THREE.MeshLambertMaterial({ color: 0x4f8268, flatShading: true });
+
+    // 1. Нарышкин бастион (Naryshkin Bastion)
+    // Шестиугольный гранитный бастион, выступающий в акваторию Невы
+    const naryshkinBase = new THREE.Mesh(new THREE.CylinderGeometry(36, 42, 13.5, 6), pinkGraniteMat);
+    naryshkinBase.position.set(160, 6.75, -985);
+    naryshkinBase.rotation.y = Math.PI / 6;
+    naryshkinBase.castShadow = true;
+    naryshkinBase.receiveShadow = true;
+    ppFortress.add(naryshkinBase);
+
+    // Гранитный парапет по периметру площадки
+    const parapet = new THREE.Mesh(new THREE.CylinderGeometry(36.5, 36.5, 1.4, 6, 1, true), grayGraniteMat);
+    parapet.position.set(160, 14.2, -985);
+    parapet.rotation.y = Math.PI / 6;
+    ppFortress.add(parapet);
+
+    // 2. Флагшточная башня Нарышкина бастиона (Flagstaff Tower)
+    const flagTower = new THREE.Group();
+    flagTower.position.set(171, 13.5, -957);
+
+    // Восьмигранный каменный павильон
+    const towerBody = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 4.0, 7.5, 8), stoneMat);
+    towerBody.position.y = 3.75;
+    towerBody.castShadow = true;
+    flagTower.add(towerBody);
+
+    // Смотровые окна-арки
+    for (let i = 0; i < 4; i++) {
+      const win = new THREE.Mesh(new THREE.BoxGeometry(0.8, 2.2, 0.4), metalMat);
+      const ang = (i / 4) * Math.PI * 2;
+      win.position.set(Math.sin(ang) * 3.7, 4.2, Math.cos(ang) * 3.7);
+      win.rotation.y = ang;
+      flagTower.add(win);
+    }
+
+    // Восьмигранный медный шатер
+    const towerRoof = new THREE.Mesh(new THREE.ConeGeometry(4.4, 4.2, 8), roofCopperMat);
+    towerRoof.position.y = 9.6;
+    towerRoof.castShadow = true;
+    flagTower.add(towerRoof);
+
+    // Флагшток и императорский гюйс
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 11.0, 8), stoneMat);
+    pole.position.y = 15.0;
+    flagTower.add(pole);
+
+    const flagGeo = new THREE.PlaneGeometry(3.2, 2.0);
+    const flagMat = new THREE.MeshLambertMaterial({
+      color: 0x2b5299,
+      side: THREE.DoubleSide
+    });
+    const flag = new THREE.Mesh(flagGeo, flagMat);
+    flag.position.set(1.7, 18.5, 0);
+    flagTower.add(flag);
+
+    ppFortress.add(flagTower);
+
+    // 3. Сигнальные гаубицы Д-30 на Нарышкином бастионе (Noon Signal Cannons)
+    const gunPositions = [
+      { x: 165, y: 13.5, z: -963 },
+      { x: 174, y: 13.5, z: -966 }
+    ];
+
+    for (const gp of gunPositions) {
+      const gunGroup = new THREE.Group();
+      gunGroup.position.set(gp.x, gp.y, gp.z);
+
+      const carriage = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.9, 2.8), metalMat);
+      carriage.position.y = 0.55;
+      gunGroup.add(carriage);
+
+      for (const wx of [-0.85, 0.85]) {
+        const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.35, 12), metalMat);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(wx, 0.65, 0.2);
+        gunGroup.add(wheel);
+      }
+
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.32, 4.2, 10), metalMat);
+      barrel.rotation.x = Math.PI / 2 - 0.12;
+      barrel.position.set(0, 1.25, 1.2);
+      barrel.castShadow = true;
+      gunGroup.add(barrel);
+
+      ppFortress.add(gunGroup);
+    }
+
+    // 4. Визуальные эффекты пушечного выстрела (Flash, Smoke, Shockwave)
+    this.cannonFlashMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(2.4, 12, 12),
+      new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.0 })
+    );
+    this.cannonFlashMesh.position.set(165, 15.2, -960);
+    ppFortress.add(this.cannonFlashMesh);
+
+    this.cannonFlashLight = new THREE.PointLight(0xffcc44, 0.0, 140);
+    this.cannonFlashLight.position.set(165, 15.5, -960);
+    ppFortress.add(this.cannonFlashLight);
+
+    this.cannonSmokeGroup = new THREE.Group();
+    this.cannonSmokeGroup.position.set(165, 15.5, -960);
+
+    const smokeMat = new THREE.MeshBasicMaterial({
+      color: 0xf5f5f5,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false
+    });
+
+    this.cannonSmokeMeshes = [];
+    for (let i = 0; i < 9; i++) {
+      const sm = new THREE.Mesh(new THREE.SphereGeometry(1.2, 10, 10), smokeMat.clone());
+      this.cannonSmokeGroup.add(sm);
+      this.cannonSmokeMeshes.push({
+        mesh: sm,
+        baseVel: new THREE.Vector3(
+          (Math.random() - 0.3) * 6.5,
+          3.5 + Math.random() * 5.5,
+          (Math.random() - 0.6) * 6.5
+        ),
+        seed: Math.random() * Math.PI * 2
+      });
+    }
+    ppFortress.add(this.cannonSmokeGroup);
+
+    const shockwaveGeo = new THREE.RingGeometry(0.5, 2.5, 32);
+    const shockwaveMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.0,
+      side: THREE.DoubleSide
+    });
+    this.cannonShockwave = new THREE.Mesh(shockwaveGeo, shockwaveMat);
+    this.cannonShockwave.rotation.x = -Math.PI / 2;
+    this.cannonShockwave.position.set(165, 0.2, -960);
+    ppFortress.add(this.cannonShockwave);
+
+    // 5. Невская куртина и Невские ворота (Nevsky Curtain & Gate)
+    const curtain = new THREE.Mesh(new THREE.BoxGeometry(110, 13.0, 16.0), pinkGraniteMat);
+    curtain.position.set(65, 6.5, -1015);
+    curtain.rotation.y = 0.22;
+    curtain.castShadow = true;
+    curtain.receiveShadow = true;
+    ppFortress.add(curtain);
+
+    const gateGroup = new THREE.Group();
+    gateGroup.position.set(72, 0, -1005);
+    gateGroup.rotation.y = 0.22;
+
+    const gatePortico = new THREE.Mesh(new THREE.BoxGeometry(14, 14.5, 3.5), grayGraniteMat);
+    gatePortico.position.set(0, 7.25, 0);
+    gateGroup.add(gatePortico);
+
+    for (const cx of [-4.5, -1.5, 1.5, 4.5]) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.65, 11.5, 12), grayGraniteMat);
+      col.position.set(cx, 5.75, 2.0);
+      col.castShadow = true;
+      gateGroup.add(col);
+    }
+
+    const pediment = new THREE.Mesh(new THREE.ConeGeometry(8.5, 3.5, 4), grayGraniteMat);
+    pediment.rotation.y = Math.PI / 4;
+    pediment.position.set(0, 13.5, 1.0);
+    gateGroup.add(pediment);
+
+    ppFortress.add(gateGroup);
+
+    // 6. Комендантская пристань со ступенями в Неву (Commandant's Pier)
+    const pier = new THREE.Mesh(new THREE.BoxGeometry(22, 1.8, 18), grayGraniteMat);
+    pier.position.set(72, 0.9, -990);
+    pier.rotation.y = 0.22;
+    pier.castShadow = true;
+    ppFortress.add(pier);
+
+    for (let step = 0; step < 4; step++) {
+      const st = new THREE.Mesh(new THREE.BoxGeometry(18, 0.45, 1.6), pinkGraniteMat);
+      st.position.set(72, 0.45 - step * 0.4, -980 + step * 1.5);
+      st.rotation.y = 0.22;
+      ppFortress.add(st);
+    }
+
+    // 7. Государев бастион (Gosudarev Bastion)
+    const gosuBase = new THREE.Mesh(new THREE.CylinderGeometry(34, 40, 13.5, 6), pinkGraniteMat);
+    gosuBase.position.set(-35, 6.75, -1035);
+    gosuBase.rotation.y = -Math.PI / 8;
+    gosuBase.castShadow = true;
+    gosuBase.receiveShadow = true;
+    ppFortress.add(gosuBase);
+
+    // 8. Трубецкой бастион (Trubetskoy Bastion)
+    const trubBase = new THREE.Mesh(new THREE.CylinderGeometry(32, 38, 13.5, 6), pinkGraniteMat);
+    trubBase.position.set(275, 6.75, -995);
+    trubBase.rotation.y = Math.PI / 5;
+    trubBase.castShadow = true;
+    trubBase.receiveShadow = true;
+    ppFortress.add(trubBase);
+
+    this.group.add(ppFortress);
+  }
+
+  /**
+   * Архитектурный ансамбль острова Новая Голландия
+   * Монументальная Арка Валлен-Деламота над каналом, кольцевой замок «Бутылка»,
+   * корпуса кирпичных лесных складов, внутренний ковш и парк.
+   */
+  private buildNewHollandIsland() {
+    const nhGroup = new THREE.Group();
+    nhGroup.name = 'new-holland-ensemble';
+
+    const brickMat = new THREE.MeshLambertMaterial({ color: 0x9b382d, flatShading: true });
+    const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
+    const roofZincMat = new THREE.MeshLambertMaterial({ color: PALETTE.roofDarkZinc, flatShading: true });
+    const woodMat = new THREE.MeshLambertMaterial({ color: 0x6e4e37, flatShading: true });
+    const lawnMat = new THREE.MeshLambertMaterial({ color: 0x4f8f3c, flatShading: true });
+
+    // 1. Монументальная Арка Новой Голландии (Vallin de la Mothe Arch)
+    // Координаты: x = -1333.7, z = 1277.1
+    const archGroup = new THREE.Group();
+    archGroup.position.set(-1333.7, 0, 1277.1);
+
+    const leftPylon = new THREE.Mesh(new THREE.BoxGeometry(8.5, 23.0, 7.5), brickMat);
+    leftPylon.position.set(-9.5, 11.5, 0);
+    leftPylon.castShadow = true;
+    leftPylon.receiveShadow = true;
+    archGroup.add(leftPylon);
+
+    const rightPylon = new THREE.Mesh(new THREE.BoxGeometry(8.5, 23.0, 7.5), brickMat);
+    rightPylon.position.set(9.5, 11.5, 0);
+    rightPylon.castShadow = true;
+    rightPylon.receiveShadow = true;
+    archGroup.add(rightPylon);
+
+    // Колоннада из тосканских гранитных колонн
+    for (const cx of [-13.2, -6.0, 6.0, 13.2]) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.85, 18.5, 12), stoneMat);
+      col.position.set(cx, 9.25, 4.0);
+      col.castShadow = true;
+      archGroup.add(col);
+
+      const colRear = col.clone();
+      colRear.position.z = -4.0;
+      archGroup.add(colRear);
+    }
+
+    // Полуциркульный арочный свод
+    const archVault = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 5.2, 7.6, 16, 1, false, 0, Math.PI), stoneMat);
+    archVault.rotation.z = Math.PI / 2;
+    archVault.rotation.x = Math.PI / 2;
+    archVault.position.set(0, 16.5, 0);
+    archVault.castShadow = true;
+    archGroup.add(archVault);
+
+    // Кирпичный аттик и карниз
+    const attic = new THREE.Mesh(new THREE.BoxGeometry(27.8, 5.5, 7.8), brickMat);
+    attic.position.set(0, 20.25, 0);
+    attic.castShadow = true;
+    archGroup.add(attic);
+
+    const cornice = new THREE.Mesh(new THREE.BoxGeometry(28.6, 1.2, 8.4), stoneMat);
+    cornice.position.set(0, 23.4, 0);
+    archGroup.add(cornice);
+
+    nhGroup.add(archGroup);
+
+    // 2. Кольцевой замок «Бутылка» (The Bottle Building)
+    const bottleGroup = new THREE.Group();
+    bottleGroup.position.set(-1395, 0, 1235);
+
+    const bottleWall = new THREE.Mesh(
+      new THREE.CylinderGeometry(26, 26, 15.5, 32, 1, false, 0.15, Math.PI * 2 - 0.3),
+      brickMat
+    );
+    bottleWall.position.y = 7.75;
+    bottleWall.castShadow = true;
+    bottleWall.receiveShadow = true;
+    bottleGroup.add(bottleWall);
+
+    const innerCourtyard = new THREE.Mesh(
+      new THREE.CylinderGeometry(14, 14, 15.6, 24, 1, true),
+      brickMat
+    );
+    innerCourtyard.position.y = 7.75;
+    bottleGroup.add(innerCourtyard);
+
+    const bottleRoof = new THREE.Mesh(
+      new THREE.CylinderGeometry(24, 27, 4.5, 32, 1, false, 0.15, Math.PI * 2 - 0.3),
+      roofZincMat
+    );
+    bottleRoof.position.y = 17.5;
+    bottleRoof.castShadow = true;
+    bottleGroup.add(bottleRoof);
+
+    const bGate = new THREE.Mesh(new THREE.BoxGeometry(4.5, 6.0, 14.0), stoneMat);
+    bGate.position.set(0, 3.0, 20.0);
+    bottleGroup.add(bGate);
+
+    nhGroup.add(bottleGroup);
+
+    // 3. Кирпичные лесные склады (Historic Timber Storehouses)
+    const storehouseWing1 = new THREE.Mesh(new THREE.BoxGeometry(110, 14.5, 18), brickMat);
+    storehouseWing1.position.set(-1430, 7.25, 1145);
+    storehouseWing1.rotation.y = 0.45;
+    storehouseWing1.castShadow = true;
+    storehouseWing1.receiveShadow = true;
+    nhGroup.add(storehouseWing1);
+
+    const roofWing1 = new THREE.Mesh(new THREE.ConeGeometry(14, 5.5, 4), roofZincMat);
+    roofWing1.scale.set(112 / 14, 1.0, 20 / 14);
+    roofWing1.rotation.y = 0.45 + Math.PI / 4;
+    roofWing1.position.set(-1430, 16.5, 1145);
+    roofWing1.castShadow = true;
+    nhGroup.add(roofWing1);
+
+    const storehouseWing2 = new THREE.Mesh(new THREE.BoxGeometry(95, 14.5, 18), brickMat);
+    storehouseWing2.position.set(-1270, 7.25, 1205);
+    storehouseWing2.rotation.y = -0.35;
+    storehouseWing2.castShadow = true;
+    storehouseWing2.receiveShadow = true;
+    nhGroup.add(storehouseWing2);
+
+    const roofWing2 = new THREE.Mesh(new THREE.ConeGeometry(14, 5.5, 4), roofZincMat);
+    roofWing2.scale.set(97 / 14, 1.0, 20 / 14);
+    roofWing2.rotation.y = -0.35 + Math.PI / 4;
+    roofWing2.position.set(-1270, 16.5, 1205);
+    roofWing2.castShadow = true;
+    nhGroup.add(roofWing2);
+
+    // 4. Внутренний ковш и набережные Новой Голландии (Inner Basin & Boardwalk)
+    for (const side of [-1, 1]) {
+      const pier = new THREE.Mesh(new THREE.BoxGeometry(5.0, 0.45, 65), woodMat);
+      pier.position.set(-1334 + side * 28, 0.4, 1160);
+      nhGroup.add(pier);
+    }
+    const pierNorth = new THREE.Mesh(new THREE.BoxGeometry(58, 0.45, 5.0), woodMat);
+    pierNorth.position.set(-1334, 0.4, 1128);
+    nhGroup.add(pierNorth);
+
+    const parkLawn = new THREE.Mesh(new THREE.BoxGeometry(45, 0.35, 40), lawnMat);
+    parkLawn.position.set(-1334, 0.25, 1200);
+    nhGroup.add(parkLawn);
+
+    // Историческое здание Кузни (The Smithy)
+    const forge = new THREE.Mesh(new THREE.BoxGeometry(16, 6.5, 12), brickMat);
+    forge.position.set(-1305, 3.25, 1120);
+    forge.castShadow = true;
+    nhGroup.add(forge);
+
+    const forgeRoof = new THREE.Mesh(new THREE.ConeGeometry(10, 3.5, 4), roofZincMat);
+    forgeRoof.scale.set(18 / 10, 1.0, 14 / 10);
+    forgeRoof.rotation.y = Math.PI / 4;
+    forgeRoof.position.set(-1305, 7.8, 1120);
+    nhGroup.add(forgeRoof);
+
+    this.group.add(nhGroup);
+  }
+
+  public fireNoonCannon(): boolean {
+    this.cannonShotTimer = 0.0;
+    this.cannonAudio.playBoom();
+
+    if (this.cannonFlashMesh) {
+      (this.cannonFlashMesh.material as THREE.MeshBasicMaterial).opacity = 1.0;
+      this.cannonFlashLight.intensity = 5.0;
+    }
+
+    for (const sm of this.cannonSmokeMeshes) {
+      sm.mesh.position.set(0, 0, 0);
+      sm.mesh.scale.set(0.5, 0.5, 0.5);
+      (sm.mesh.material as THREE.MeshBasicMaterial).opacity = 0.75;
+    }
+
+    if (this.cannonShockwave) {
+      this.cannonShockwave.scale.set(1.0, 1.0, 1.0);
+      (this.cannonShockwave.material as THREE.MeshBasicMaterial).opacity = 0.85;
+    }
+
+    return true;
   }
 
   /**
@@ -1076,22 +1550,86 @@ export class LandmarksSystem {
     this.group.add(lavra);
   }
 
-  public update(deltaTime: number, nightFactor: number) {
+  public update(deltaTime: number, nightFactor: number, curHour?: number) {
     this.totalTime += deltaTime;
 
-    // Pulse red aviation warning beacons (1.2 Hz flash)
+    // 1. Handle Cannon Shot Animation (Flash, Smoke, Shockwave)
+    if (this.cannonShotTimer >= 0) {
+      this.cannonShotTimer += deltaTime;
+
+      // Muzzle Flash (0.14s)
+      if (this.cannonShotTimer < 0.14) {
+        const flashAlpha = 1.0 - (this.cannonShotTimer / 0.14);
+        (this.cannonFlashMesh.material as THREE.MeshBasicMaterial).opacity = flashAlpha;
+        this.cannonFlashLight.intensity = 6.0 * flashAlpha;
+      } else {
+        (this.cannonFlashMesh.material as THREE.MeshBasicMaterial).opacity = 0.0;
+        this.cannonFlashLight.intensity = 0.0;
+      }
+
+      // Volumetric Expanding Smoke Clouds (3.6s)
+      if (this.cannonShotTimer < 3.6) {
+        const t = this.cannonShotTimer / 3.6;
+        const fade = Math.max(0.0, 1.0 - t * t);
+
+        for (let i = 0; i < this.cannonSmokeMeshes.length; i++) {
+          const item = this.cannonSmokeMeshes[i];
+          // Drift and billow upward and across the Neva with the breeze
+          item.mesh.position.x = item.baseVel.x * this.cannonShotTimer;
+          item.mesh.position.y = item.baseVel.y * this.cannonShotTimer;
+          item.mesh.position.z = item.baseVel.z * this.cannonShotTimer;
+
+          // Expand volumetric radius
+          const scale = 1.0 + t * 9.5;
+          item.mesh.scale.set(scale, scale, scale);
+
+          (item.mesh.material as THREE.MeshBasicMaterial).opacity = fade * 0.72;
+        }
+      } else {
+        for (const item of this.cannonSmokeMeshes) {
+          (item.mesh.material as THREE.MeshBasicMaterial).opacity = 0.0;
+        }
+      }
+
+      // Shockwave on Neva water surface (2.0s)
+      if (this.cannonShockwave && this.cannonShotTimer < 2.0) {
+        const st = this.cannonShotTimer / 2.0;
+        const swScale = 1.0 + st * 18.0;
+        this.cannonShockwave.scale.set(swScale, swScale, swScale);
+        (this.cannonShockwave.material as THREE.MeshBasicMaterial).opacity = (1.0 - st) * 0.85;
+      } else if (this.cannonShockwave) {
+        (this.cannonShockwave.material as THREE.MeshBasicMaterial).opacity = 0.0;
+      }
+
+      if (this.cannonShotTimer >= 3.8) {
+        this.cannonShotTimer = -1;
+      }
+    }
+
+    // 2. Automatic daily Noon Cannon Shot (12:00)
+    if (curHour !== undefined) {
+      const isNearNoon = Math.abs(curHour - 12.0) < 0.04; // between 11:58 and 12:02
+      if (isNearNoon && !this.hasFiredAtNoon) {
+        this.hasFiredAtNoon = true;
+        this.fireNoonCannon();
+      } else if (Math.abs(curHour - 12.0) > 0.4) {
+        this.hasFiredAtNoon = false;
+      }
+    }
+
+    // 3. Pulse red aviation warning beacons (1.2 Hz flash)
     const flash = Math.sin(this.totalTime * 4.5) > 0.2 ? 1.0 : 0.15;
     this.beaconMat.opacity = flash;
 
-    // Turn on warm amber street lamps at dusk / night
+    // 4. Turn on warm amber street lamps at dusk / night
     const lampGlow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.12) * 2.8));
     this.streetLampsMat.opacity = lampGlow;
 
-    // Floodlights on iconic spires and domes (Admiralty, St. Isaac's, Peter & Paul)
+    // 5. Floodlights on iconic spires and domes (Admiralty, St. Isaac's, Peter & Paul)
     const floodlightGlow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.15) * 2.4));
     this.floodlightMat.opacity = floodlightGlow * 0.75;
 
-    // Flaming torches on Rostral columns with organic flame flicker
+    // 6. Flaming torches on Rostral columns with organic flame flicker
     if (nightFactor > 0.2) {
       const flicker = 0.75 + Math.sin(this.totalTime * 14.0) * 0.25;
       this.rostralFlameMat.opacity = Math.min(1.0, (nightFactor - 0.2) * 2.5) * flicker;

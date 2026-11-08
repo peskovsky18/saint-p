@@ -362,42 +362,41 @@ export class CameraController {
 
       // Update Camera position according to flightCameraMode
       const planePos = flightSim.position;
-      const planeYaw = flightSim.yaw;
-      const planePitch = flightSim.pitch;
       const forwardDir = flightSim.getForwardDirection();
 
       if (this.flightCameraMode === 'cockpit') {
-        // Over-the-shoulder Cockpit / Nose View looking over the windscreen into the city
-        const camX = planePos.x - Math.sin(planeYaw) * 12.0;
-        const camY = planePos.y + 7.2 - Math.sin(planePitch) * 4.0;
-        const camZ = planePos.z - Math.cos(planeYaw) * 12.0;
-        this.camera.position.set(camX, camY, camZ);
+        // Cockpit / Pilot View directly behind windscreen looking forward
+        const camPos = planePos.clone().sub(forwardDir.clone().multiplyScalar(4.5));
+        camPos.y += 4.2;
+        this.camera.position.copy(camPos);
         this.camera.lookAt(
-          planePos.x + forwardDir.x * 45,
-          planePos.y + 1.5 + forwardDir.y * 25,
-          planePos.z + forwardDir.z * 45
+          planePos.x + forwardDir.x * 60,
+          planePos.y + 2.0 + forwardDir.y * 30,
+          planePos.z + forwardDir.z * 60
         );
       } else if (this.flightCameraMode === 'wide') {
-        // High Wide Panorama
+        // High Wide Panorama (behind and elevated)
         const followDist = this.flightZoomLevel * 2.2;
-        const followHeight = this.flightZoomLevel * 1.25;
-        const camX = planePos.x - Math.sin(planeYaw) * followDist;
-        const camY = planePos.y + followHeight;
-        const camZ = planePos.z - Math.cos(planeYaw) * followDist;
-        this.camera.position.set(camX, camY, camZ);
-        this.camera.lookAt(planePos.x, planePos.y + 4, planePos.z);
-      } else {
-        // Chase view (Behind & slightly above with pitch responsiveness)
-        const followDist = this.flightZoomLevel * 1.35;
-        const followHeight = this.flightZoomLevel * 0.52;
-        const camX = planePos.x - Math.sin(planeYaw) * followDist;
-        const camY = planePos.y + followHeight - Math.sin(planePitch) * (followDist * 0.35);
-        const camZ = planePos.z - Math.cos(planeYaw) * followDist;
-        this.camera.position.set(camX, camY, camZ);
+        const followHeight = this.flightZoomLevel * 1.35;
+        const camPos = planePos.clone().sub(forwardDir.clone().multiplyScalar(followDist));
+        camPos.y += followHeight;
+        this.camera.position.copy(camPos);
         this.camera.lookAt(
-          planePos.x + forwardDir.x * 16,
-          planePos.y + 2.5 + forwardDir.y * 10,
-          planePos.z + forwardDir.z * 16
+          planePos.x + forwardDir.x * 20,
+          planePos.y + 4.0,
+          planePos.z + forwardDir.z * 20
+        );
+      } else {
+        // Chase view (strictly behind tail & slightly above, tracking forward heading)
+        const followDist = this.flightZoomLevel * 1.45;
+        const followHeight = this.flightZoomLevel * 0.55;
+        const camPos = planePos.clone().sub(forwardDir.clone().multiplyScalar(followDist));
+        camPos.y += followHeight;
+        this.camera.position.copy(camPos);
+        this.camera.lookAt(
+          planePos.x + forwardDir.x * 25,
+          planePos.y + 3.0 + forwardDir.y * 12,
+          planePos.z + forwardDir.z * 25
         );
       }
 
