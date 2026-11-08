@@ -80,12 +80,32 @@ export class TransitSystem {
   public pedestrians: Pedestrian[] = [];
   public streetlampsMesh: THREE.Mesh | null = null;
   public streetlampsLanternMesh: THREE.Mesh | null = null;
+  public streetlampGroundGlowMesh: THREE.Mesh | null = null;
+  private streetlampLanternMat: THREE.MeshBasicMaterial;
+  private streetlampGroundGlowMat: THREE.MeshBasicMaterial;
+  private carHeadlightMat: THREE.MeshBasicMaterial;
   private animTime: number = 0;
 
   constructor(scene: THREE.Scene) {
     this.group = new THREE.Group();
     this.group.name = 'transit-and-vehicles';
     scene.add(this.group);
+
+    this.streetlampLanternMat = new THREE.MeshBasicMaterial({ color: 0xfffae2 });
+    this.streetlampGroundGlowMat = new THREE.MeshBasicMaterial({
+      color: 0xffdd77,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
+    this.carHeadlightMat = new THREE.MeshBasicMaterial({
+      color: 0xfffae0,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
 
     this.parkedCarsGroup = new THREE.Group();
     this.parkedCarsGroup.name = 'parked-cars';
@@ -154,6 +174,21 @@ export class TransitSystem {
     const rl2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.18, 0.35), lightRearMat);
     rl2.position.set(-2.18, 0.65, -0.65);
     car.add(rl2);
+
+    // Forward headlight illumination beam on asphalt (+X)
+    const beamGeo = new THREE.BufferGeometry();
+    const bPos = [
+      2.2, -0.29, -0.85,
+      12.0, -0.29, -3.2,
+      12.0, -0.29, 3.2,
+      2.2, -0.29, -0.85,
+      12.0, -0.29, 3.2,
+      2.2, -0.29, 0.85
+    ];
+    beamGeo.setAttribute('position', new THREE.Float32BufferAttribute(bPos, 3));
+    const beamMesh = new THREE.Mesh(beamGeo, this.carHeadlightMat);
+    beamMesh.renderOrder = 8;
+    car.add(beamMesh);
 
     return car;
   }
@@ -233,6 +268,21 @@ export class TransitSystem {
     rl2.position.set(-2.87, 0.85, -0.85);
     van.add(rl2);
 
+    // Forward headlight illumination beam on asphalt (+X)
+    const vanBeamGeo = new THREE.BufferGeometry();
+    const vbPos = [
+      2.5, -0.32, -1.0,
+      13.0, -0.32, -3.5,
+      13.0, -0.32, 3.5,
+      2.5, -0.32, -1.0,
+      13.0, -0.32, 3.5,
+      2.5, -0.32, 1.0
+    ];
+    vanBeamGeo.setAttribute('position', new THREE.Float32BufferAttribute(vbPos, 3));
+    const vanBeamMesh = new THREE.Mesh(vanBeamGeo, this.carHeadlightMat);
+    vanBeamMesh.renderOrder = 8;
+    van.add(vanBeamMesh);
+
     return van;
   }
 
@@ -288,6 +338,21 @@ export class TransitSystem {
     const rl2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.45), lightRearMat);
     rl2.position.set(-5.76, 1.0, -0.85);
     bus.add(rl2);
+
+    // Forward bus headlight illumination beam on asphalt (+X)
+    const busBeamGeo = new THREE.BufferGeometry();
+    const bbPos = [
+      5.8, -0.62, -1.2,
+      18.0, -0.62, -4.5,
+      18.0, -0.62, 4.5,
+      5.8, -0.62, -1.2,
+      18.0, -0.62, 4.5,
+      5.8, -0.62, 1.2
+    ];
+    busBeamGeo.setAttribute('position', new THREE.Float32BufferAttribute(bbPos, 3));
+    const busBeamMesh = new THREE.Mesh(busBeamGeo, this.carHeadlightMat);
+    busBeamMesh.renderOrder = 8;
+    bus.add(busBeamMesh);
 
     return bus;
   }
@@ -1257,9 +1322,28 @@ export class TransitSystem {
     const lanternGeo = new THREE.BufferGeometry();
     lanternGeo.setAttribute('position', new THREE.Float32BufferAttribute(lanternPositions, 3));
     lanternGeo.computeVertexNormals();
-    const lanternMat = new THREE.MeshBasicMaterial({ color: 0xfffae2 });
-    this.streetlampsLanternMesh = new THREE.Mesh(lanternGeo, lanternMat);
+    this.streetlampsLanternMesh = new THREE.Mesh(lanternGeo, this.streetlampLanternMat);
     this.group.add(this.streetlampsLanternMesh);
+
+    // Create ground illuminated glow spots under each streetlamp
+    const groundGlowPositions: number[] = [];
+    const glowRadius = 3.6;
+    for (const lamp of lampPositions) {
+      for (let s = 0; s < 8; s++) {
+        const a1 = (s / 8) * Math.PI * 2;
+        const a2 = ((s + 1) / 8) * Math.PI * 2;
+        groundGlowPositions.push(
+          lamp.x, 0.28, lamp.z,
+          lamp.x + Math.cos(a1) * glowRadius, 0.28, lamp.z + Math.sin(a1) * glowRadius,
+          lamp.x + Math.cos(a2) * glowRadius, 0.28, lamp.z + Math.sin(a2) * glowRadius
+        );
+      }
+    }
+    const glowGeo = new THREE.BufferGeometry();
+    glowGeo.setAttribute('position', new THREE.Float32BufferAttribute(groundGlowPositions, 3));
+    this.streetlampGroundGlowMesh = new THREE.Mesh(glowGeo, this.streetlampGroundGlowMat);
+    this.streetlampGroundGlowMesh.renderOrder = 8;
+    this.group.add(this.streetlampGroundGlowMesh);
   }
 
   private catmullRom(p0: number, p1: number, p2: number, p3: number, t: number): number {
@@ -1303,8 +1387,20 @@ export class TransitSystem {
     return { pos, tangent };
   }
 
-  public update(deltaTime: number, bridgesOpen: boolean) {
+  public update(deltaTime: number, bridgesOpen: boolean, nightFactor?: number) {
     this.animTime += deltaTime;
+
+    // Update Night Illumination (streetlamps glow, car headlights on asphalt)
+    if (nightFactor !== undefined) {
+      const glow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.15) * 2.5));
+      this.streetlampGroundGlowMat.opacity = glow * 0.40;
+      this.carHeadlightMat.opacity = glow * 0.45;
+      if (glow > 0.05) {
+        this.streetlampLanternMat.color.setHex(0xffdf66); // Rich warm amber glow
+      } else {
+        this.streetlampLanternMat.color.setHex(0xfffae2);
+      }
+    }
 
     // 1. Update Trams with smooth orientation along track
     for (const tram of this.trams) {

@@ -108,10 +108,10 @@ class SaintPIzoApp {
 
     // 3. Update Bridges (with automatic St. Petersburg bridge schedule)
     const curHour = this.sun.getEffectiveDate().getHours() + this.sun.getEffectiveDate().getMinutes() / 60;
-    this.bridges.update(deltaTime, curHour);
+    this.bridges.update(deltaTime, curHour, sunState.nightFactor);
 
-    // 4. Update Public Transit (Cars, Trams, Meteor, Boats)
-    this.transit.update(deltaTime, this.bridges.areOpen);
+    // 4. Update Public Transit (Cars, Trams, Meteor, Boats, Streetlamps)
+    this.transit.update(deltaTime, this.bridges.areOpen, sunState.nightFactor);
 
     // 5. Update Flight Simulator Physics
     this.flight.update(deltaTime);

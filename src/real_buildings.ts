@@ -254,17 +254,24 @@ export class RealBuildingsSystem {
     eCtx.fillStyle = '#000000';
     eCtx.fillRect(0, 0, fw, fh);
 
+    const warmWindowColors = ['#ffe89c', '#ffd068', '#ffa742', '#fff0b8', '#ffba66'];
     for (let bi = 0; bi < bays.length; bi++) {
       const bx = bays[bi];
       for (let fi = 0; fi < floorsY.length; fi++) {
         const seed = Math.sin(bi * 93.1 + fi * 41.7) * 0.5 + 0.5;
-        if (seed > 0.35) {
+        // ~45% of windows illuminated at night
+        if (seed > 0.32) {
           const by = floorsY[fi];
           const wx = bx - winW / 2;
           const wy = by - winH / 2;
-          const warmAmber = seed > 0.7 ? '#ffe89c' : '#ffd068';
-          eCtx.fillStyle = warmAmber;
+          const col = warmWindowColors[Math.floor(seed * 11) % warmWindowColors.length];
+          eCtx.fillStyle = col;
           eCtx.fillRect(wx + 2, wy + 2, winW - 4, winH - 4);
+
+          // Dark interior crossbar silhouettes (шпросы)
+          eCtx.fillStyle = 'rgba(20, 24, 30, 0.45)';
+          eCtx.fillRect(wx + 2, wy + winH / 2, winW - 4, 1.5);
+          eCtx.fillRect(wx + winW / 2, wy + 2, 1.5, winH - 4);
         }
       }
     }

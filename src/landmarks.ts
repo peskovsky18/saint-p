@@ -5,6 +5,8 @@ export class LandmarksSystem {
   public group: THREE.Group;
   private streetLampsMat!: THREE.MeshBasicMaterial;
   private beaconMat!: THREE.MeshBasicMaterial;
+  public floodlightMat!: THREE.MeshBasicMaterial;
+  public rostralFlameMat!: THREE.MeshBasicMaterial;
   private totalTime: number = 0;
 
   constructor(scene: THREE.Scene) {
@@ -22,6 +24,20 @@ export class LandmarksSystem {
       color: 0xff1e1e,
       transparent: true,
       opacity: 1.0
+    });
+
+    this.floodlightMat = new THREE.MeshBasicMaterial({
+      color: 0xffdf78,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false
+    });
+
+    this.rostralFlameMat = new THREE.MeshBasicMaterial({
+      color: 0xff6600,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false
     });
 
     this.buildAlexanderColumn();
@@ -169,10 +185,19 @@ export class LandmarksSystem {
     spire.castShadow = true;
     spireGroup.add(spire);
 
+    // Architectural Floodlight Glow on Spire
+    const spireGlow = new THREE.Mesh(new THREE.ConeGeometry(3.2, 36.5, 12), this.floodlightMat);
+    spireGlow.position.y = 44;
+    spireGroup.add(spireGlow);
+
     // Golden Ship weathervane (Кораблик)
     const ship = new THREE.Mesh(new THREE.BoxGeometry(2.8, 2.0, 0.4), goldMat);
     ship.position.y = 63;
     spireGroup.add(ship);
+
+    const shipGlow = new THREE.Mesh(new THREE.BoxGeometry(3.0, 2.2, 0.6), this.floodlightMat);
+    shipGlow.position.y = 63;
+    spireGroup.add(shipGlow);
 
     this.group.add(spireGroup);
   }
@@ -211,6 +236,12 @@ export class LandmarksSystem {
     dome.scale.set(1.0, 1.25, 1.0);
     dome.castShadow = true;
     isaacGroup.add(dome);
+
+    // Architectural Floodlight Glow on Main Dome
+    const domeGlow = new THREE.Mesh(new THREE.SphereGeometry(17.8, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), this.floodlightMat);
+    domeGlow.position.y = 16;
+    domeGlow.scale.set(1.0, 1.25, 1.0);
+    isaacGroup.add(domeGlow);
 
     // 4 Corner Belfries with Golden Domes
     const belfryOffset = 26;
@@ -267,6 +298,11 @@ export class LandmarksSystem {
     spire.castShadow = true;
     ppGroup.add(spire);
 
+    // Architectural Floodlight Glow on Spire
+    const needleGlow = new THREE.Mesh(new THREE.ConeGeometry(4.0, 65.5, 12), this.floodlightMat);
+    needleGlow.position.y = 74;
+    ppGroup.add(needleGlow);
+
     // Angel with Cross on Top
     const angel = new THREE.Mesh(new THREE.BoxGeometry(2.2, 3.2, 1.2), goldMat);
     angel.position.y = 107;
@@ -311,6 +347,11 @@ export class LandmarksSystem {
       const brazier = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 1.6, 3.2, 8), bronzeMat);
       brazier.position.y = 31.5;
       colGroup.add(brazier);
+
+      // Flaming torch for festivals and White Nights
+      const flame = new THREE.Mesh(new THREE.ConeGeometry(2.2, 5.0, 8), this.rostralFlameMat);
+      flame.position.y = 35.5;
+      colGroup.add(flame);
 
       this.group.add(colGroup);
     }
@@ -1045,5 +1086,17 @@ export class LandmarksSystem {
     // Turn on warm amber street lamps at dusk / night
     const lampGlow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.12) * 2.8));
     this.streetLampsMat.opacity = lampGlow;
+
+    // Floodlights on iconic spires and domes (Admiralty, St. Isaac's, Peter & Paul)
+    const floodlightGlow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.15) * 2.4));
+    this.floodlightMat.opacity = floodlightGlow * 0.75;
+
+    // Flaming torches on Rostral columns with organic flame flicker
+    if (nightFactor > 0.2) {
+      const flicker = 0.75 + Math.sin(this.totalTime * 14.0) * 0.25;
+      this.rostralFlameMat.opacity = Math.min(1.0, (nightFactor - 0.2) * 2.5) * flicker;
+    } else {
+      this.rostralFlameMat.opacity = 0.0;
+    }
   }
 }

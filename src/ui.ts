@@ -245,6 +245,9 @@ export class UIManager {
       <button class="w-icon-btn" id="w-btn-postcard" title="Создать открытку «Привет из Петербурга» (P)">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       </button>
+      <button class="w-icon-btn" id="w-btn-night" title="Белые ночи и подсветка города (N)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
       <button class="w-icon-btn" id="w-btn-flight" title="Симулятор полёта над городом (F)">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
       </button>
@@ -273,6 +276,10 @@ export class UIManager {
 
     this.topToolbarEl.querySelector('#w-btn-postcard')!.addEventListener('click', () => {
       this.createPostcard();
+    });
+
+    this.topToolbarEl.querySelector('#w-btn-night')!.addEventListener('click', () => {
+      this.toggleWhiteNightMode();
     });
 
     this.topToolbarEl.querySelector('#w-btn-flight')!.addEventListener('click', () => {
@@ -827,12 +834,30 @@ export class UIManager {
     }, 2500);
   }
 
+  public toggleWhiteNightMode() {
+    const isCurrentlyDay = (this.sun.manualTime ?? 12) >= 6 && (this.sun.manualTime ?? 12) <= 20;
+    const nightBtn = document.getElementById('w-btn-night');
+    if (isCurrentlyDay) {
+      this.sun.forceWhiteNight = true;
+      this.sun.setTime(23.5);
+      if (nightBtn) nightBtn.classList.add('active');
+      this.showToast('Режим «Белые ночи»: зажжена вечерняя иллюминация');
+    } else {
+      this.sun.forceWhiteNight = false;
+      this.sun.setTime(13.75);
+      if (nightBtn) nightBtn.classList.remove('active');
+      this.showToast('Режим «Солнечный день»');
+    }
+  }
+
   private setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
 
       const key = e.key.toLowerCase();
-      if (key === 'c') {
+      if (key === 'n') {
+        this.toggleWhiteNightMode();
+      } else if (key === 'c') {
         this.toggleCinematicMode();
       } else if (key === 'h') {
         this.toggleMinimalHud();

@@ -16,11 +16,19 @@ export class BridgeSystem {
   public areOpen: boolean = false;
   public openProgress: number = 0; // 0.0 (closed) to 1.0 (fully open)
   private targetProgress: number = 0;
+  public illuminationMat: THREE.MeshBasicMaterial;
 
   constructor(scene: THREE.Scene) {
     this.group = new THREE.Group();
     this.group.name = 'bridges';
     scene.add(this.group);
+
+    this.illuminationMat = new THREE.MeshBasicMaterial({
+      color: 0xffe680,
+      transparent: true,
+      opacity: 0.0,
+      depthWrite: false
+    });
 
     this.createPalaceBridge();
     this.createTrinityBridge();
@@ -149,6 +157,36 @@ export class BridgeSystem {
       direction: -1
     });
 
+    // Architectural Night Illumination LEDs along spans and parapets
+    const ledPositions: number[] = [];
+    const addBox = (ox: number, oy: number, oz: number, sx: number, sy: number, sz: number) => {
+      const hx = sx / 2, hy = sy / 2, hz = sz / 2;
+      ledPositions.push(
+        ox - hx, oy - hy, oz + hz,  ox + hx, oy - hy, oz + hz,  ox + hx, oy + hy, oz + hz,
+        ox - hx, oy - hy, oz + hz,  ox + hx, oy + hy, oz + hz,  ox - hx, oy + hy, oz + hz,
+        ox + hx, oy - hy, oz - hz,  ox - hx, oy - hy, oz - hz,  ox - hx, oy + hy, oz - hz,
+        ox + hx, oy - hy, oz - hz,  ox - hx, oy + hy, oz - hz,  ox + hx, oy + hy, oz - hz,
+        ox - hx, oy + hy, oz + hz,  ox + hx, oy + hy, oz + hz,  ox + hx, oy + hy, oz - hz,
+        ox - hx, oy + hy, oz + hz,  ox + hx, oy + hy, oz - hz,  ox - hx, oy + hy, oz - hz,
+        ox - hx, oy - hy, oz - hz,  ox + hx, oy - hy, oz - hz,  ox + hx, oy - hy, oz + hz,
+        ox - hx, oy - hy, oz - hz,  ox + hx, oy - hy, oz + hz,  ox - hx, oy - hy, oz + hz,
+        ox + hx, oy - hy, oz + hz,  ox + hx, oy - hy, oz - hz,  ox + hx, oy + hy, oz - hz,
+        ox + hx, oy - hy, oz + hz,  ox + hx, oy + hy, oz - hz,  ox + hx, oy + hy, oz + hz,
+        ox - hx, oy - hy, oz - hz,  ox - hx, oy - hy, oz + hz,  ox - hx, oy + hy, oz + hz,
+        ox - hx, oy - hy, oz - hz,  ox - hx, oy + hy, oz + hz,  ox - hx, oy + hy, oz - hz,
+      );
+    };
+
+    for (let x = -length * 0.46; x <= length * 0.46; x += 4.5) {
+      for (const z of [-width / 2 + 1, width / 2 - 1]) {
+        addBox(x, height / 2 + 0.6, z, 0.4, 0.4, 0.4);
+      }
+    }
+    const ledGeo = new THREE.BufferGeometry();
+    ledGeo.setAttribute('position', new THREE.Float32BufferAttribute(ledPositions, 3));
+    const ledMesh = new THREE.Mesh(ledGeo, this.illuminationMat);
+    bridgeGroup.add(ledMesh);
+
     this.group.add(bridgeGroup);
   }
 
@@ -276,7 +314,12 @@ export class BridgeSystem {
     this.toggleDraw();
   }
 
-  public update(deltaTime: number, hourOfDay?: number) {
+  public update(deltaTime: number, hourOfDay?: number, nightFactor?: number) {
+    if (nightFactor !== undefined) {
+      const glow = Math.min(1.0, Math.max(0.0, (nightFactor - 0.15) * 2.5));
+      this.illuminationMat.opacity = glow;
+    }
+
     // If hourOfDay is supplied, check official Saint Petersburg bridge schedule (01:10 to 04:55)
     if (hourOfDay !== undefined) {
       const isScheduleOpen = hourOfDay >= 1.15 && hourOfDay <= 4.9;
