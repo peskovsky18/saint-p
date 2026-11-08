@@ -78,6 +78,7 @@ class SaintPIzoApp {
     // 6. Listeners & Loop
     (window as any).app = this;
     window.addEventListener('resize', () => this.onResize());
+    (window as any).spbApp = this;
     this.animate(0);
   }
 
