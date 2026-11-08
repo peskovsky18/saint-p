@@ -1,0 +1,26 @@
+{
+  "name": "spb-izo",
+  "version": "0.1.0",
+  "description": "Isometric pixel-art map of Saint Petersburg drawn live in the browser from open data",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -m 'Deploy to GitHub Pages'"
+  },
+  "dependencies": {
+    "earcut": "^3.2.4",
+    "suncalc": "^2.1.2",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@types/earcut": "^3.0.0",
+    "@types/suncalc": "^1.9.2",
+    "@types/three": "^0.187.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6"
+  }
+}

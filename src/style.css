@@ -1,0 +1,835 @@
+/* ==========================================================================
+   Saint Petersburg Isometric Architectural Visualization
+   Faithful Recreation of Warsaw-Izo by Bedirhan Yıldırım
+   ========================================================================== */
+
+:root {
+  --w-bg: #14171dee;
+  --w-bg-card: #161b24f5;
+  --w-bg-hover: #222834;
+  --w-border: #2c3340;
+  --w-border-hover: #3d4656;
+  --w-gold: #e5a823;
+  --w-gold-light: #ffd257;
+  --w-text: #e6edf4;
+  --w-text-muted: #8e9baa;
+  --w-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #10141a;
+  font-family: var(--w-font);
+  color: var(--w-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#canvas-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ==========================================================================
+   Warsaw-Izo UI Root Overlay
+   ========================================================================== */
+#warsaw-ui-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Top-Left: Online Counter Badge
+   ========================================================================== */
+.w-online-badge {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  background: var(--w-bg);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.w-online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.w-online-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: #dbe2ea;
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================================================
+   Top-Center: Floating District Name Plate
+   ========================================================================== */
+.w-district-plate {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--w-bg);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  padding: 5px 18px;
+  text-align: center;
+  pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.w-district-title {
+  color: var(--w-gold);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.w-district-sub {
+  color: var(--w-text-muted);
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* ==========================================================================
+   Top-Right: Minimalist Toolbar Buttons
+   ========================================================================== */
+.w-top-toolbar {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.w-icon-btn {
+  width: 32px;
+  height: 32px;
+  background: var(--w-bg);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  color: #cdd6e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.w-icon-btn:hover {
+  background: var(--w-bg-hover);
+  border-color: var(--w-gold);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Bottom-Right: Vertical Navigation & Zoom Pill
+   ========================================================================== */
+.w-nav-pill {
+  position: absolute;
+  bottom: 44px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--w-bg);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  padding: 2px;
+  pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.w-pill-btn {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: #d0d8e2;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.w-pill-btn:hover {
+  background: var(--w-bg-hover);
+  color: #ffffff;
+}
+
+.w-pill-sep {
+  width: 20px;
+  height: 1px;
+  background: var(--w-border);
+  margin: 2px auto;
+}
+
+/* ==========================================================================
+   Bottom-Right: Scale Bar & Coordinate Status Line
+   ========================================================================== */
+.w-status-bar {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: auto;
+}
+
+.w-scale-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.w-scale-bar {
+  width: 50px;
+  height: 3px;
+  background: #cbd5e1;
+  border-left: 2px solid #cbd5e1;
+  border-right: 2px solid #cbd5e1;
+  display: inline-block;
+}
+
+.w-scale-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: #a4b0be;
+}
+
+.w-status-line {
+  font-size: 10px;
+  font-family: monospace;
+  color: #a4b0be;
+  letter-spacing: 0.3px;
+  background: rgba(16, 20, 26, 0.75);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   3D Projected Yellow [i] Markers Floating Over Landmarks
+   ========================================================================== */
+.w-poi-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.w-poi-marker {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--w-gold);
+  border: 1.5px solid #10141a;
+  border-radius: 3px;
+  padding: 1px 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+  z-index: 15;
+}
+
+.w-poi-box {
+  color: #10141a;
+  font-weight: 800;
+  font-size: 11px;
+  font-family: sans-serif;
+  line-height: 1;
+}
+
+.w-poi-tooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #141820;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--w-border);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.w-poi-marker:hover {
+  transform: scale(1.2);
+  background: var(--w-gold-light);
+}
+
+.w-poi-marker:hover .w-poi-tooltip {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Architectural Landmark Card (Upper-Right)
+   ========================================================================== */
+.w-card {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  width: 350px;
+  max-width: calc(100vw - 32px);
+  background: var(--w-bg-card);
+  border: 1px solid var(--w-border);
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  z-index: 25;
+  pointer-events: auto;
+  animation: wSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.w-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.w-card-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--w-gold);
+}
+
+.w-card-close {
+  background: none;
+  border: none;
+  color: var(--w-text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.w-card-close:hover {
+  color: #ffffff;
+}
+
+.w-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.w-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.w-meta-row {
+  display: flex;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.w-meta-lbl {
+  color: var(--w-text-muted);
+  width: 85px;
+  flex-shrink: 0;
+}
+
+.w-meta-val {
+  color: #d8e2ec;
+  font-weight: 500;
+}
+
+.w-card-desc {
+  font-size: 11px;
+  line-height: 1.55;
+  color: #a8b6c4;
+  margin-bottom: 12px;
+}
+
+.w-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.w-btn-action {
+  padding: 5px 12px;
+  background: rgba(229, 168, 35, 0.15);
+  border: 1px solid var(--w-gold);
+  border-radius: 4px;
+  color: var(--w-gold-light);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.w-btn-action:hover {
+  background: var(--w-gold);
+  color: #10141a;
+}
+
+/* ==========================================================================
+   Modals & Dialogs (Time / About / QuickJump)
+   ========================================================================== */
+.w-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  width: 440px;
+  max-width: calc(100vw - 32px);
+  background: var(--w-bg-card);
+  border: 1px solid var(--w-border);
+  border-radius: 6px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75);
+  display: none;
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.w-dialog.open {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.w-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--w-border);
+}
+
+.w-dialog-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--w-gold);
+}
+
+.w-dialog-close {
+  background: none;
+  border: none;
+  color: var(--w-text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.w-dialog-close:hover {
+  color: #ffffff;
+}
+
+.w-dialog-body {
+  padding: 16px;
+}
+
+/* Quick Jump Side Drawer (Warsaw-Izo clean right panel - non-intrusive) */
+.w-quickjump-dialog {
+  position: absolute;
+  top: 52px;
+  right: 16px;
+  left: auto;
+  transform: translateX(24px) scale(0.98);
+  width: 350px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 100px);
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  z-index: 120;
+}
+
+.w-quickjump-dialog.open {
+  display: flex;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.w-quickjump-search-wrap {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--w-border);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.w-jump-search {
+  width: 100%;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11.5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.w-jump-search:focus {
+  border-color: var(--w-gold);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.w-quickjump-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+  padding: 10px 12px;
+}
+
+.w-jump-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.w-jump-item:hover {
+  background: var(--w-bg-hover);
+  border-color: var(--w-gold);
+}
+
+.jump-title {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jump-sub {
+  color: var(--w-text-muted);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+/* Time Modal */
+.w-time-clock {
+  font-size: 38px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--w-gold-light);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.w-slider-wrap {
+  margin-bottom: 16px;
+}
+
+.w-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.w-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--w-gold);
+  box-shadow: 0 0 8px rgba(229, 168, 35, 0.8);
+  cursor: pointer;
+}
+
+.w-slider-marks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 9.5px;
+  color: var(--w-text-muted);
+}
+
+.w-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.w-preset-btn {
+  padding: 6px;
+  font-size: 10.5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  color: var(--w-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.w-preset-btn:hover {
+  background: var(--w-bg-hover);
+  border-color: var(--w-gold);
+}
+
+.w-whitenight-box {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.w-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* About Modal */
+.w-about-content {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #b8c4d2;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.w-about-content h4 {
+  color: var(--w-gold);
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.w-about-content ul {
+  padding-left: 16px;
+  margin-bottom: 8px;
+}
+
+.w-shortcuts-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  margin-top: 6px;
+  font-size: 10.5px;
+  align-items: center;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 9.5px;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  color: #ffffff;
+}
+
+
+/* Flight Simulator Cockpit HUD (Warsaw-Izo Minimalist Style) */
+.w-flight-hud {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--w-bg);
+  border: 1px solid var(--w-gold);
+  border-radius: 6px;
+  pointer-events: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+
+.w-flight-hud-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.w-flight-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w-stat-lbl {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--w-text-muted);
+}
+
+.w-stat-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--w-gold);
+  font-family: monospace;
+}
+
+.w-flight-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--w-border);
+}
+
+.w-flight-tips {
+  font-size: 10px;
+  color: #94a3b8;
+  letter-spacing: 0.3px;
+}
+
+.w-flight-exit-btn {
+  padding: 5px 12px;
+  background: rgba(229, 168, 35, 0.15);
+  border: 1px solid var(--w-gold);
+  border-radius: 4px;
+  color: var(--w-gold-light);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.w-flight-exit-btn:hover {
+  background: var(--w-gold);
+  color: #10141a;
+}
+
+.w-weather-btn,
+.w-hydro-btn {
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  color: var(--w-text);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.w-weather-btn:hover,
+.w-hydro-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.w-weather-btn.active,
+.w-hydro-btn.active {
+  background: rgba(229, 168, 35, 0.18);
+  border-color: var(--w-gold);
+  color: var(--w-gold-light);
+  font-weight: 600;
+}
+
+.w-dialog-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--w-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--w-border);
+}
+
+.w-dialog-section-title:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.w-icon-btn.active {
+  background: rgba(229, 168, 35, 0.2);
+  border-color: var(--w-gold);
+  color: var(--w-gold-light);
+}
