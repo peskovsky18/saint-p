@@ -110,7 +110,7 @@ class SaintPIzoApp {
     // 3. Update Environment, Water, Windows & Landmarks
     const curHour = this.sun.getEffectiveDate().getHours() + this.sun.getEffectiveDate().getMinutes() / 60;
     this.water.update(deltaTime, sunState.nightFactor);
-    this.realBuildings.update(sunState.nightFactor);
+    this.realBuildings.update(sunState.nightFactor, deltaTime);
     this.landmarks.update(deltaTime, sunState.nightFactor, curHour);
     this.quays.update(deltaTime, sunState.nightFactor);
 

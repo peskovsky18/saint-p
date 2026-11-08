@@ -13,15 +13,15 @@ export interface OSMBuilding {
   polygon: [number, number][]; // [lon, lat]
 }
 
-export const LANDMARK_DEFS: Record<string, { file: string; uScale: number; vScale: number; color: number }> = {
-  hermitage: { file: 'textures/landmarks/hermitage.jpg', uScale: 96.0, vScale: 23.5, color: PALETTE.hermitageGreen },
-  general_staff: { file: 'textures/landmarks/general_staff.jpg', uScale: 15.0, vScale: 24.0, color: PALETTE.empireYellow },
-  admiralty: { file: 'textures/landmarks/admiralty.jpg', uScale: 20.0, vScale: 18.0, color: PALETTE.empireYellow },
-  isaac: { file: 'textures/landmarks/isaac.jpg', uScale: 28.0, vScale: 28.0, color: PALETTE.isaacGranite },
-  spas: { file: 'textures/landmarks/spas.jpg', uScale: 16.0, vScale: 26.0, color: PALETTE.spbBrick },
-  exchange: { file: 'textures/landmarks/exchange.jpg', uScale: 26.0, vScale: 20.0, color: PALETTE.spbWhiteStone },
-  peter_paul: { file: 'textures/landmarks/peter_paul.jpg', uScale: 16.0, vScale: 22.0, color: PALETTE.spbWhiteStone },
-  kazan: { file: 'textures/landmarks/kazan.jpg', uScale: 16.0, vScale: 26.0, color: PALETTE.empireStone }
+export const LANDMARK_DEFS: Record<string, { uScale: number; vScale: number; color: number }> = {
+  hermitage: { uScale: 14.0, vScale: 23.5, color: PALETTE.hermitageGreen },
+  general_staff: { uScale: 12.0, vScale: 24.0, color: PALETTE.empireYellow },
+  admiralty: { uScale: 14.0, vScale: 18.0, color: PALETTE.empireYellow },
+  isaac: { uScale: 16.0, vScale: 28.0, color: PALETTE.isaacGranite },
+  spas: { uScale: 12.0, vScale: 26.0, color: PALETTE.spbBrick },
+  exchange: { uScale: 14.0, vScale: 20.0, color: PALETTE.spbWhiteStone },
+  peter_paul: { uScale: 12.0, vScale: 22.0, color: PALETTE.spbWhiteStone },
+  kazan: { uScale: 12.0, vScale: 26.0, color: PALETTE.empireStone }
 };
 
 interface WallBuffers {
@@ -41,6 +41,18 @@ export class RealBuildingsSystem {
   public edgesMesh: THREE.LineSegments | null = null;
   public landmarkMeshes: Map<string, THREE.Mesh> = new Map();
 
+  // Voxel Chimney Smoke Animation (Warsaw-izo standard)
+  private chimneySmokePositions: THREE.Vector3[] = [];
+  private chimneySmokeMesh: THREE.InstancedMesh | null = null;
+  private chimneySmokeData: {
+    chimneyIdx: number;
+    age: number;
+    maxAge: number;
+    driftX: number;
+    driftZ: number;
+    riseSpeed: number;
+  }[] = [];
+
   private wallMat!: THREE.MeshLambertMaterial;
   private roofMat!: THREE.MeshLambertMaterial;
   private landmarkMaterials: Record<string, THREE.MeshLambertMaterial> = {};
@@ -59,40 +71,11 @@ export class RealBuildingsSystem {
   }
 
   /**
-   * Loads real photo textures for iconic St. Petersburg landmarks with crisp filtering
+   * Generates pure procedural pixel-art facade textures for iconic St. Petersburg landmarks with NearestFilter
    */
   private initLandmarkMaterials() {
-    const texLoader = new THREE.TextureLoader();
-
-    const baseUrl = (import.meta as any).env?.BASE_URL || './';
-    const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
-
     for (const [key, def] of Object.entries(LANDMARK_DEFS)) {
-      const texPath = `${cleanBase}${def.file}`;
-      const tex = texLoader.load(
-        texPath,
-        (t) => {
-          t.colorSpace = THREE.SRGBColorSpace;
-          t.wrapS = THREE.RepeatWrapping;
-          t.wrapT = THREE.RepeatWrapping;
-          t.magFilter = THREE.LinearFilter;
-          t.minFilter = THREE.LinearMipmapLinearFilter;
-          t.generateMipmaps = true;
-          t.needsUpdate = true;
-        },
-        undefined,
-        (err) => {
-          console.warn(`Landmark texture ${key} load warning at ${texPath}:`, err);
-        }
-      );
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.wrapS = THREE.RepeatWrapping;
-      tex.wrapT = THREE.RepeatWrapping;
-      tex.magFilter = THREE.LinearFilter;
-      tex.minFilter = THREE.LinearMipmapLinearFilter;
-      tex.generateMipmaps = true;
-
-      // Color 0xffffff ensures real photographic landmark textures render in full vibrancy without muddy tinting!
+      const tex = this.createLandmarkPixelArtTexture(key);
       this.landmarkMaterials[key] = new THREE.MeshLambertMaterial({
         color: 0xffffff,
         map: tex,
@@ -102,6 +85,413 @@ export class RealBuildingsSystem {
         flatShading: true
       });
     }
+  }
+
+  /**
+   * Handcrafts procedural pixel-art facades for St. Petersburg landmarks matching the Warsaw-izo standard
+   */
+  private createLandmarkPixelArtTexture(key: string): THREE.CanvasTexture {
+    const w = 256;
+    const h = 256;
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d')!;
+
+    const applyNoise = (color1: string, color2: string, step: number = 4, threshold: number = 0.65) => {
+      for (let y = 0; y < h; y += step) {
+        for (let x = 0; x < w; x += step) {
+          const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+          const frac = n - Math.floor(n);
+          if (frac > threshold) {
+            ctx.fillStyle = frac > 0.82 ? color1 : color2;
+            ctx.fillRect(x, y, step, step);
+          }
+        }
+      }
+    };
+
+    if (key === 'hermitage') {
+      // 1. Winter Palace / Hermitage (Rastrelli Elizabeth Baroque)
+      ctx.fillStyle = '#4ea391';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#5eb5a3', '#439281', 4, 0.65);
+
+      // Rusticated ground floor (bottom 30%)
+      ctx.fillStyle = '#3a7d6e';
+      ctx.fillRect(0, h * 0.70, w, h * 0.30);
+      for (let y = h * 0.70; y < h; y += 12) {
+        ctx.fillStyle = '#225448';
+        ctx.fillRect(0, y, w, 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, y + 2, w, 1);
+      }
+
+      // White marble belt course
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, h * 0.68, w, 6);
+      ctx.fillStyle = '#225448';
+      ctx.fillRect(0, h * 0.68 + 6, w, 2);
+
+      // Piano Nobile belt course
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, h * 0.28, w, 5);
+      ctx.fillStyle = '#225448';
+      ctx.fillRect(0, h * 0.28 + 5, w, 2);
+
+      // Crowning entablature and balustrade with golden statues/urns
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, 14);
+      ctx.fillStyle = '#225448';
+      ctx.fillRect(0, 14, w, 2);
+      for (let x = 8; x < w; x += 16) {
+        ctx.fillStyle = '#d4af37';
+        ctx.fillRect(x - 2, 2, 5, 8);
+        ctx.fillRect(x - 4, 4, 9, 4);
+      }
+
+      // 4 Window Bays with Paired Corinthian Pilasters
+      const bays = [w * 0.125, w * 0.375, w * 0.625, w * 0.875];
+      for (const bx of bays) {
+        // Paired pilasters flanking bays
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 26, h * 0.28, 6, h * 0.40);
+        ctx.fillRect(bx - 18, h * 0.28, 6, h * 0.40);
+        ctx.fillRect(bx + 12, h * 0.28, 6, h * 0.40);
+        ctx.fillRect(bx + 20, h * 0.28, 6, h * 0.40);
+        // Soft teal shadow on right pilaster edge
+        ctx.fillStyle = '#78a89c';
+        ctx.fillRect(bx - 20, h * 0.28, 1.5, h * 0.40);
+        ctx.fillRect(bx - 12, h * 0.28, 1.5, h * 0.40);
+        ctx.fillRect(bx + 18, h * 0.28, 1.5, h * 0.40);
+        ctx.fillRect(bx + 26, h * 0.28, 1.5, h * 0.40);
+
+        // Ground floor arched window
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 10, h * 0.74, 20, 36);
+        ctx.fillStyle = '#101c28';
+        ctx.fillRect(bx - 8, h * 0.76, 16, 32);
+
+        // Piano nobile tall French baroque window
+        const wx = bx - 10;
+        const wy = h * 0.34;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(wx - 3, wy - 4, 26, 68);
+        ctx.fillStyle = '#101c28';
+        ctx.fillRect(wx, wy, 20, 60);
+
+        // 8-pane glazing
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 2; c++) {
+            ctx.fillStyle = '#16283c';
+            ctx.fillRect(wx + 2 + c * 9, wy + 2 + r * 14, 7, 12);
+            ctx.fillStyle = '#2c4e6e';
+            ctx.fillRect(wx + 2 + c * 9, wy + 2 + r * 14, 5, 2);
+          }
+        }
+
+        // Golden Rococo cartouche & crest above window
+        ctx.fillStyle = '#d4af37';
+        ctx.fillRect(bx - 8, wy - 10, 16, 6);
+        ctx.fillRect(bx - 5, wy - 14, 10, 5);
+        ctx.fillStyle = '#fff099';
+        ctx.fillRect(bx - 3, wy - 12, 6, 3);
+
+        // Balcony slab and wrought-iron railing with gold rosettes
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(wx - 5, wy + 58, 30, 4);
+        ctx.fillStyle = '#161a20';
+        ctx.fillRect(wx - 4, wy + 50, 28, 8);
+        ctx.fillStyle = '#d4af37';
+        ctx.fillRect(bx - 2, wy + 52, 4, 4);
+
+        // Attic floor square baroque window
+        const awy = h * 0.08;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 9, awy - 2, 18, 28);
+        ctx.fillStyle = '#101c28';
+        ctx.fillRect(bx - 7, awy, 14, 24);
+        ctx.fillStyle = '#d4af37';
+        ctx.fillRect(bx - 4, awy - 6, 8, 4);
+      }
+    } else if (key === 'general_staff') {
+      // 2. General Staff Building (Carlo Rossi Empire)
+      ctx.fillStyle = '#e5b342';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#f0c256', '#d69e2e', 4, 0.65);
+
+      // Heavy granite ashlar rustication ground floor (bottom 30%)
+      ctx.fillStyle = '#7a6e60';
+      ctx.fillRect(0, h * 0.70, w, h * 0.30);
+      for (let y = h * 0.70; y < h; y += 14) {
+        ctx.fillStyle = '#4c4238';
+        ctx.fillRect(0, y, w, 2);
+        ctx.fillStyle = '#9e9282';
+        ctx.fillRect(0, y + 2, w, 1);
+      }
+
+      // Monumental belt course
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, h * 0.68, w, 6);
+      ctx.fillStyle = '#4c4238';
+      ctx.fillRect(0, h * 0.68 + 6, w, 2);
+
+      // Classical Doric frieze with triglyphs & metopes (top 15%)
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, 16);
+      ctx.fillStyle = '#8a7e6e';
+      ctx.fillRect(0, 16, w, 3);
+      for (let x = 6; x < w; x += 18) {
+        // Triglyph vertical channels
+        ctx.fillStyle = '#4c4238';
+        ctx.fillRect(x, 2, 2, 12);
+        ctx.fillRect(x + 4, 2, 2, 12);
+        ctx.fillRect(x + 8, 2, 2, 12);
+        // Metope military laurel wreath
+        ctx.fillStyle = '#7a6e5a';
+        ctx.fillRect(x + 13, 5, 4, 6);
+      }
+
+      // Colossal Doric columns
+      for (let c = 0; c < 4; c++) {
+        const cx = 32 + c * 64;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 5, h * 0.18, 10, h * 0.50);
+        ctx.fillStyle = '#b8b0a2';
+        ctx.fillRect(cx - 3, h * 0.18, 1.5, h * 0.50);
+        ctx.fillRect(cx + 1.5, h * 0.18, 1.5, h * 0.50);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 7, h * 0.16, 14, 5);
+      }
+
+      // Windows
+      const bays = [64, 128, 192];
+      for (const bx of bays) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 9, h * 0.74, 18, 32);
+        ctx.fillStyle = '#141c26';
+        ctx.fillRect(bx - 7, h * 0.76, 14, 28);
+
+        const wy = h * 0.32;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 10, wy - 4, 20, 52);
+        ctx.fillStyle = '#141c26';
+        ctx.fillRect(bx - 8, wy - 2, 16, 48);
+
+        // Triangular pediment
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(bx - 11, wy - 4);
+        ctx.lineTo(bx, wy - 14);
+        ctx.lineTo(bx + 11, wy - 4);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#6a5e4c';
+        ctx.fillRect(bx - 11, wy - 4, 22, 2);
+      }
+    } else if (key === 'admiralty') {
+      // 3. Admiralty (Zakharov High Empire)
+      ctx.fillStyle = '#e8ba46';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#f4c858', '#d4a434', 4, 0.65);
+
+      // Ashlar rustication base
+      ctx.fillStyle = '#bfa140';
+      ctx.fillRect(0, h * 0.72, w, h * 0.28);
+      for (let y = h * 0.72; y < h; y += 12) {
+        ctx.fillStyle = '#7a6422';
+        ctx.fillRect(0, y, w, 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, y + 2, w, 1);
+      }
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, h * 0.70, w, 6);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, 14);
+      ctx.fillStyle = '#7a6422';
+      ctx.fillRect(0, 14, w, 2);
+
+      // Bas-relief panels with Roman naval trophies
+      for (let x = 12; x < w; x += 48) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x, h * 0.22, 24, 18);
+        ctx.fillStyle = '#7a6422';
+        ctx.fillRect(x + 4, h * 0.25, 16, 12);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x + 8, h * 0.27, 8, 8);
+      }
+
+      for (let x = 24; x < w; x += 48) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x - 8, h * 0.38, 16, 40);
+        ctx.fillStyle = '#141c26';
+        ctx.fillRect(x - 6, h * 0.40, 12, 36);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x - 9, h * 0.36, 18, 3);
+      }
+    } else if (key === 'isaac') {
+      // 4. St. Isaac's Cathedral (Montferrand Classical / Rapakivi Granite)
+      ctx.fillStyle = '#7e3c32';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#944a3e', '#622a22', 3, 0.60);
+
+      // Monolithic granite columns
+      for (let c = 0; c < 4; c++) {
+        const cx = 32 + c * 64;
+        ctx.fillStyle = '#8a4236';
+        ctx.fillRect(cx - 7, 0, 14, h);
+        ctx.fillStyle = '#b85a4a';
+        for (let y = 10; y < h; y += 20) {
+          ctx.fillRect(cx - 4, y, 4, 4);
+          ctx.fillRect(cx + 1, y + 8, 3, 3);
+        }
+        ctx.fillStyle = '#4c4230';
+        ctx.fillRect(cx - 9, h * 0.15, 18, 8);
+        ctx.fillStyle = '#8c7e52';
+        ctx.fillRect(cx - 7, h * 0.16, 14, 3);
+        ctx.fillStyle = '#4c4230';
+        ctx.fillRect(cx - 9, h * 0.88, 18, 6);
+      }
+
+      // Ruskeala white marble panels behind columns
+      for (let b = 0; b < 3; b++) {
+        const bx = 64 + b * 64;
+        ctx.fillStyle = '#ece8e0';
+        ctx.fillRect(bx - 14, h * 0.24, 28, h * 0.58);
+        ctx.fillStyle = '#aba498';
+        ctx.fillRect(bx - 14, h * 0.44, 28, 2);
+        ctx.fillRect(bx - 14, h * 0.64, 28, 2);
+      }
+    } else if (key === 'spas') {
+      // 5. Savior on Spilled Blood (Russian Revival patterned brickwork)
+      ctx.fillStyle = '#ba3828';
+      ctx.fillRect(0, 0, w, h);
+
+      for (let y = 16; y < h; y += 32) {
+        ctx.fillStyle = '#e8b83a';
+        ctx.fillRect(0, y, w, 8);
+        for (let x = 0; x < w; x += 8) {
+          if ((x / 8) % 2 === 0) {
+            ctx.fillStyle = '#ba3828';
+            ctx.fillRect(x, y, 4, 8);
+          }
+        }
+      }
+
+      for (let y = 36; y < h; y += 48) {
+        for (let x = 12; x < w; x += 36) {
+          ctx.fillStyle = (x % 72 === 12) ? '#167a42' : '#1c4494';
+          ctx.fillRect(x, y, 12, 12);
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(x + 3, y + 3, 6, 6);
+        }
+      }
+
+      for (let x = 16; x < w; x += 48) {
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(x + 12, h * 0.24, 14, Math.PI, 0, false);
+        ctx.fill();
+        ctx.fillStyle = '#ba3828';
+        ctx.beginPath();
+        ctx.arc(x + 12, h * 0.24, 10, Math.PI, 0, false);
+        ctx.fill();
+        ctx.fillStyle = '#e2b42c';
+        ctx.fillRect(x + 6, h * 0.24, 12, 16);
+      }
+    } else if (key === 'exchange') {
+      // 6. Old Stock Exchange (Thomas de Thomon Greek Doric)
+      ctx.fillStyle = '#1e2024';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = '#8a5e54';
+      ctx.fillRect(0, h * 0.78, w, h * 0.22);
+      for (let y = h * 0.78; y < h; y += 12) {
+        ctx.fillStyle = '#54342e';
+        ctx.fillRect(0, y, w, 2);
+      }
+
+      for (let c = 0; c < 4; c++) {
+        const cx = 32 + c * 64;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 8, h * 0.14, 16, h * 0.66);
+        ctx.fillStyle = '#8a847a';
+        ctx.fillRect(cx - 5, h * 0.14, 1.5, h * 0.66);
+        ctx.fillRect(cx - 1, h * 0.14, 1.5, h * 0.66);
+        ctx.fillRect(cx + 3, h * 0.14, 1.5, h * 0.66);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 11, h * 0.11, 22, 8);
+      }
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h * 0.12);
+      ctx.fillStyle = '#8a847a';
+      ctx.fillRect(0, h * 0.12, w, 2);
+      for (let x = 12; x < w; x += 24) {
+        ctx.fillStyle = '#222428';
+        ctx.fillRect(x, 2, 2, 14);
+        ctx.fillRect(x + 4, 2, 2, 14);
+        ctx.fillRect(x + 8, 2, 2, 14);
+      }
+    } else if (key === 'peter_paul') {
+      // 7. Peter and Paul Cathedral (Trezzini Petrine Baroque)
+      ctx.fillStyle = '#ebc24c';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#f6d05e', '#d4a834', 4, 0.65);
+
+      for (let c = 0; c < 4; c++) {
+        const cx = 32 + c * 64;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx - 4, 0, 8, h);
+        ctx.fillStyle = '#8e7a46';
+        ctx.fillRect(cx + 2, 0, 2, h);
+      }
+
+      for (let b = 0; b < 3; b++) {
+        const bx = 64 + b * 64;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(bx - 10, h * 0.28, 20, 64);
+        ctx.beginPath();
+        ctx.arc(bx, h * 0.28, 10, Math.PI, 0, false);
+        ctx.fill();
+
+        ctx.fillStyle = '#16283c';
+        ctx.fillRect(bx - 8, h * 0.30, 16, 60);
+        ctx.beginPath();
+        ctx.arc(bx, h * 0.30, 8, Math.PI, 0, false);
+        ctx.fill();
+      }
+    } else {
+      // 8. Kazan Cathedral (Voronikhin Pudozh Limestone)
+      ctx.fillStyle = '#d4c6b0';
+      ctx.fillRect(0, 0, w, h);
+      applyNoise('#e2d6c2', '#b8a68e', 3, 0.60);
+
+      for (let y = 14; y < h; y += 18) {
+        ctx.fillStyle = '#887864';
+        ctx.fillRect(0, y, w, 2);
+      }
+
+      for (let c = 0; c < 4; c++) {
+        const cx = 32 + c * 64;
+        ctx.fillStyle = '#eae2d4';
+        ctx.fillRect(cx - 6, h * 0.16, 12, h * 0.70);
+        ctx.fillStyle = '#8c7f6e';
+        ctx.fillRect(cx - 3, h * 0.16, 1.5, h * 0.70);
+        ctx.fillRect(cx + 2, h * 0.16, 1.5, h * 0.70);
+      }
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.needsUpdate = true;
+    return tex;
   }
 
   /**
@@ -1015,6 +1405,10 @@ export class RealBuildingsSystem {
             );
             chimneyCount++;
 
+            if (this.chimneySmokePositions.length < 90) {
+              this.chimneySmokePositions.push(new THREE.Vector3(r1.x, height + pitchHeight + chH + 0.45, r1.z));
+            }
+
             // Intermediate chimney on long ridge lines
             if (rlen > 14.0 && chimneyCount < 6) {
               const midRx = (r1.x + r2.x) * 0.5;
@@ -1293,6 +1687,9 @@ export class RealBuildingsSystem {
       this.edgesMesh.frustumCulled = false;
       this.group.add(this.edgesMesh);
 
+      // Initialize Warsaw-izo style voxel chimney smoke
+      this.initChimneySmokeSystem();
+
       console.log(`Rendered ${this.totalBuildings} real buildings with raised parapets, chimneys, and ${this.landmarkMeshes.size} real textured landmarks.`);
     } catch (err) {
       console.warn('Real buildings load warning:', err);
@@ -1386,7 +1783,60 @@ export class RealBuildingsSystem {
     }
   }
 
-  public update(nightFactor: number) {
+  /**
+   * Initializes rising voxel smoke particles from historic St. Petersburg chimneys (Warsaw-izo standard)
+   */
+  private initChimneySmokeSystem() {
+    if (this.chimneySmokePositions.length === 0) return;
+
+    const smokeCount = Math.min(this.chimneySmokePositions.length * 2, 160);
+    const smokeGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+    const smokeMat = new THREE.MeshLambertMaterial({
+      color: 0xdddddd,
+      transparent: true,
+      opacity: 0.6,
+      flatShading: true
+    });
+
+    this.chimneySmokeMesh = new THREE.InstancedMesh(smokeGeo, smokeMat, smokeCount);
+    this.chimneySmokeMesh.frustumCulled = false;
+    this.chimneySmokeMesh.castShadow = false;
+
+    this.chimneySmokeData = [];
+    const dummy = new THREE.Object3D();
+
+    for (let i = 0; i < smokeCount; i++) {
+      const chIdx = i % this.chimneySmokePositions.length;
+      const maxAge = 2.5 + Math.random() * 2.0;
+      const age = Math.random() * maxAge;
+      const data = {
+        chimneyIdx: chIdx,
+        age,
+        maxAge,
+        driftX: 0.4 + Math.random() * 0.3,
+        driftZ: -0.3 + (Math.random() - 0.5) * 0.2,
+        riseSpeed: 1.1 + Math.random() * 0.4
+      };
+      this.chimneySmokeData.push(data);
+
+      const ch = this.chimneySmokePositions[chIdx];
+      const t = data.age / data.maxAge;
+      dummy.position.set(
+        ch.x + data.driftX * data.age,
+        ch.y + data.riseSpeed * data.age,
+        ch.z + data.driftZ * data.age
+      );
+      const s = 0.5 + t * 0.7;
+      dummy.scale.set(s, s, s);
+      dummy.updateMatrix();
+      this.chimneySmokeMesh.setMatrixAt(i, dummy.matrix);
+    }
+
+    this.chimneySmokeMesh.instanceMatrix.needsUpdate = true;
+    this.group.add(this.chimneySmokeMesh);
+  }
+
+  public update(nightFactor: number, dt: number = 0.016) {
     const glow = Math.max(0, nightFactor - 0.15) * 1.2;
     const r = glow * 1.0;
     const g = glow * 0.85;
@@ -1397,6 +1847,34 @@ export class RealBuildingsSystem {
     }
     for (const mat of Object.values(this.landmarkMaterials)) {
       mat.emissive.setRGB(r, g, b);
+    }
+
+    // Animate voxel chimney smoke particles (Warsaw-izo living city style)
+    if (this.chimneySmokeMesh && this.chimneySmokePositions.length > 0) {
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < this.chimneySmokeData.length; i++) {
+        const d = this.chimneySmokeData[i];
+        d.age += dt;
+        if (d.age >= d.maxAge) {
+          d.age = 0;
+          d.maxAge = 2.5 + Math.random() * 2.0;
+          d.driftX = 0.4 + Math.random() * 0.3;
+          d.driftZ = -0.3 + (Math.random() - 0.5) * 0.2;
+          d.riseSpeed = 1.1 + Math.random() * 0.4;
+        }
+        const ch = this.chimneySmokePositions[d.chimneyIdx];
+        const t = d.age / d.maxAge;
+        dummy.position.set(
+          ch.x + d.driftX * d.age,
+          ch.y + d.riseSpeed * d.age,
+          ch.z + d.driftZ * d.age
+        );
+        const s = (0.55 + t * 0.7) * (1.0 - t * 0.25);
+        dummy.scale.set(s, s, s);
+        dummy.updateMatrix();
+        this.chimneySmokeMesh.setMatrixAt(i, dummy.matrix);
+      }
+      this.chimneySmokeMesh.instanceMatrix.needsUpdate = true;
     }
   }
 }

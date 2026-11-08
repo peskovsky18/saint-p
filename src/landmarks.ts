@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PALETTE } from './palette';
 
 function createPedimentGeometry(width: number, height: number, depth: number): THREE.BufferGeometry {
@@ -104,10 +105,16 @@ export class LandmarksSystem {
   public cannonShotTimer: number = -1;
   public hasFiredAtNoon: boolean = false;
 
+  private gltfLoader: GLTFLoader = new GLTFLoader();
+  public voxelLandmarksGroup: THREE.Group = new THREE.Group();
+
   constructor(scene: THREE.Scene) {
     this.group = new THREE.Group();
     this.group.name = 'landmark-spires-and-monuments';
     scene.add(this.group);
+
+    this.voxelLandmarksGroup.name = 'blender-voxel-landmarks';
+    this.group.add(this.voxelLandmarksGroup);
 
     this.streetLampsMat = new THREE.MeshBasicMaterial({
       color: 0xffcc66,
@@ -155,6 +162,114 @@ export class LandmarksSystem {
     this.buildTauridePalace();
     this.buildMoscowStation();
     this.buildLavra();
+
+    this.loadVoxelLandmarkModels();
+  }
+
+  /**
+   * Loads high-fidelity voxel 3D models of St. Petersburg landmarks crafted in Blender via MCP
+   */
+  private loadVoxelLandmarkModels() {
+    const baseUrl = (import.meta as any).env?.BASE_URL || './';
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+
+    const models = [
+      {
+        file: 'models/winter_palace.glb',
+        pos: new THREE.Vector3(-22.7, 0.0, -57.7),
+        rotY: 0,
+        scale: 1.0,
+        name: 'blender-winter-palace',
+        procName: 'winter-palace-details'
+      },
+      {
+        file: 'models/st_isaacs.glb',
+        pos: new THREE.Vector3(-472.3, 0.0, 641.1),
+        rotY: 0,
+        scale: 1.0,
+        name: 'blender-st-isaacs',
+        procName: 'st-isaacs-dome'
+      },
+      {
+        file: 'models/admiralty.glb',
+        pos: new THREE.Vector3(-370.6, 0.5, 208.8),
+        rotY: 0,
+        scale: 1.0,
+        name: 'blender-admiralty',
+        procName: 'admiralty-spire'
+      },
+      {
+        file: 'models/spas_na_krovi.glb',
+        pos: new THREE.Vector3(800.2, 0.0, -24.7),
+        rotY: -Math.PI / 2,
+        scale: 1.0,
+        name: 'blender-spas-na-krovi',
+        procName: 'spas-na-krovi-ensemble'
+      },
+      {
+        file: 'models/stock_exchange.glb',
+        pos: new THREE.Vector3(-554.6, 0.0, -407.8),
+        rotY: Math.PI / 2 + 0.537,
+        scale: 1.0,
+        name: 'blender-stock-exchange',
+        procName: 'stock-exchange-temple'
+      },
+      {
+        file: 'models/peter_paul.glb',
+        pos: new THREE.Vector3(108.5, 0.0, -1155.0),
+        rotY: -Math.PI / 2,
+        scale: 1.0,
+        name: 'blender-peter-paul',
+        procName: 'peter-and-paul-spire'
+      }
+    ];
+
+    for (const m of models) {
+      const modelUrl = `${cleanBase}${m.file}`;
+      this.gltfLoader.load(
+        modelUrl,
+        (gltf) => {
+          const root = gltf.scene;
+          root.name = m.name;
+          root.position.copy(m.pos);
+          root.rotation.y = m.rotY;
+          root.scale.setScalar(m.scale);
+
+          root.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.castShadow = true;
+              mesh.receiveShadow = true;
+              if (mesh.material) {
+                const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+                for (const mat of mats) {
+                  if ('flatShading' in mat) {
+                    (mat as any).flatShading = true;
+                    mat.needsUpdate = true;
+                  }
+                }
+              }
+            }
+          });
+
+          // Smoothly retire procedural placeholder when high-fidelity Blender voxel model is active
+          // Note: Keep winter-palace-details visible so its 5-cupola Grand Church and 176 balustrade statues crown the roofline
+          if (m.procName && m.procName !== 'winter-palace-details') {
+            const proc = this.group.getObjectByName(m.procName);
+            if (proc) {
+              proc.visible = false;
+            }
+          }
+
+          this.voxelLandmarksGroup.add(root);
+          console.log(`Successfully loaded Blender voxel model: ${m.file}`);
+        },
+        undefined,
+        (err) => {
+          console.warn(`Voxel model ${m.file} load note (using procedural fallback):`, err);
+        }
+      );
+    }
   }
 
   /**
