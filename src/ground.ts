@@ -50,85 +50,131 @@ export class GroundSystem {
   }
 
   private createPixelTextures() {
-    // 1. High-Density Mini-Pixel Sidewalk Granite Flagstones (128x128)
+    // 1. High-Density Sidewalk Granite Flagstones (256x256)
     // Authentic St. Petersburg imperial granite paving slabs
     const swCanvas = document.createElement('canvas');
-    swCanvas.width = 128;
-    swCanvas.height = 128;
+    swCanvas.width = 256;
+    swCanvas.height = 256;
     const swCtx = swCanvas.getContext('2d')!;
 
-    swCtx.fillStyle = '#b8b2a8';
-    swCtx.fillRect(0, 0, 128, 128);
+    swCtx.fillStyle = '#b6b0a4';
+    swCtx.fillRect(0, 0, 256, 256);
 
-    const slabColors = ['#c5c0b6', '#b5afa5', '#cec9c0', '#a8a298', '#bcb7ad'];
-    const slabW = 16;
-    const slabH = 8;
-    for (let y = 0; y < 128; y += slabH) {
-      const rowOffset = (y / slabH) % 2 === 0 ? 0 : 8;
-      for (let x = -rowOffset; x < 128; x += slabW) {
-        swCtx.fillStyle = slabColors[Math.floor(Math.random() * slabColors.length)];
-        swCtx.fillRect(x + 1, y + 1, slabW - 1, slabH - 1);
-        // Mortar joint
-        swCtx.fillStyle = '#7c766e';
+    const slabColors = [
+      '#c8c2b6', '#bcb6aa', '#d2ccbf', '#a69f94', '#bfb9ad',
+      '#c2baa8', '#b4ac9a', '#cbbfb0', '#9c9488', '#d6cec0'
+    ];
+    const slabW = 32;
+    const slabH = 16;
+    for (let y = 0; y < 256; y += slabH) {
+      const rowOffset = (y / slabH) % 2 === 0 ? 0 : 16;
+      for (let x = -rowOffset; x < 256; x += slabW) {
+        const col = slabColors[Math.abs(Math.floor(Math.sin(x * 12.3 + y * 45.7) * 100)) % slabColors.length];
+        swCtx.fillStyle = col;
+        swCtx.fillRect(x + 1, y + 1, slabW - 2, slabH - 2);
+
+        // Bevel highlight on top and left edge
+        swCtx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+        swCtx.fillRect(x + 1, y + 1, slabW - 2, 1);
+        swCtx.fillRect(x + 1, y + 1, 1, slabH - 2);
+
+        // Dark recessed mortar joint
+        swCtx.fillStyle = '#6e675e';
         swCtx.fillRect(x, y, slabW, 1);
         swCtx.fillRect(x, y, 1, slabH);
       }
     }
-    // Subtle granite crystalline mineral flecks
-    for (let i = 0; i < 180; i++) {
-      const fx = Math.floor(Math.random() * 128);
-      const fy = Math.floor(Math.random() * 128);
-      swCtx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#635e57';
-      swCtx.fillRect(fx, fy, 1, 1);
+
+    // Subtle granite crystalline quartz and biotite mineral flecks
+    for (let i = 0; i < 600; i++) {
+      const fx = Math.floor(Math.random() * 256);
+      const fy = Math.floor(Math.random() * 256);
+      const rand = Math.random();
+      swCtx.fillStyle = rand > 0.6 ? '#ffffff' : (rand > 0.3 ? '#4e4942' : '#8c5a52');
+      swCtx.fillRect(fx, fy, 1.5, 1.5);
     }
-    // Cast-iron storm drain grates (ливневые решётки)
-    swCtx.fillStyle = '#3a3835';
-    swCtx.fillRect(28, 28, 8, 8);
-    swCtx.fillStyle = '#222120';
-    swCtx.fillRect(30, 29, 4, 6);
+
+    // Cast-iron historic manhole cover («С.-Петербургъ / Водопроводъ», 24x24)
+    swCtx.fillStyle = '#2d2b28';
+    swCtx.beginPath();
+    swCtx.arc(64, 64, 14, 0, Math.PI * 2);
+    swCtx.fill();
+    swCtx.fillStyle = '#423f3b';
+    swCtx.beginPath();
+    swCtx.arc(64, 64, 12, 0, Math.PI * 2);
+    swCtx.fill();
+    swCtx.fillStyle = '#1c1b19';
+    swCtx.beginPath();
+    swCtx.arc(64, 64, 8, 0, Math.PI * 2);
+    swCtx.fill();
+    // Concentric grip ribs
+    swCtx.strokeStyle = '#5a5650';
+    swCtx.lineWidth = 1;
+    swCtx.beginPath();
+    swCtx.arc(64, 64, 10, 0, Math.PI * 2);
+    swCtx.stroke();
+
+    // Cast-iron storm water drainage grates along the curb
+    swCtx.fillStyle = '#22201e';
+    swCtx.fillRect(160, 48, 28, 12);
+    swCtx.fillStyle = '#3a3733';
+    swCtx.fillRect(161, 49, 26, 10);
+    // Slotted drainage bars
+    swCtx.fillStyle = '#11100e';
+    for (let bx = 163; bx < 186; bx += 3) {
+      swCtx.fillRect(bx, 51, 1.5, 6);
+    }
 
     this.sidewalkTex = new THREE.CanvasTexture(swCanvas);
     this.sidewalkTex.wrapS = THREE.RepeatWrapping;
     this.sidewalkTex.wrapT = THREE.RepeatWrapping;
-    this.sidewalkTex.repeat.set(18000 / 3.0, 18000 / 3.0);
+    this.sidewalkTex.repeat.set(18000 / 4.0, 18000 / 4.0);
     this.sidewalkTex.magFilter = THREE.NearestFilter;
     this.sidewalkTex.minFilter = THREE.NearestFilter;
 
-    // 2. Pixel Grass Texture (64x64 mini-pixel flecks - vibrant sunny European park lawn)
+    // 2. Pixel Grass Texture (128x128 mini-pixel flecks - vibrant sunny park lawn)
     const gCanvas = document.createElement('canvas');
-    gCanvas.width = 64;
-    gCanvas.height = 64;
+    gCanvas.width = 128;
+    gCanvas.height = 128;
     const gCtx = gCanvas.getContext('2d')!;
-    gCtx.fillStyle = '#5c963e'; // Vibrant fresh green matching Warsaw-Izo
-    gCtx.fillRect(0, 0, 64, 64);
+    gCtx.fillStyle = '#569238';
+    gCtx.fillRect(0, 0, 128, 128);
 
-    const grassColors = ['#528836', '#69a747', '#487a2f', '#75b550', '#5e9940'];
-    for (let x = 0; x < 64; x += 2) {
-      for (let y = 0; y < 64; y += 2) {
-        if (Math.random() > 0.55) {
+    const grassColors = ['#4c8230', '#63a242', '#427429', '#70b24c', '#5b993e', '#7cc256'];
+    for (let x = 0; x < 128; x += 2) {
+      for (let y = 0; y < 128; y += 2) {
+        if (Math.random() > 0.45) {
           gCtx.fillStyle = grassColors[Math.floor(Math.random() * grassColors.length)];
           gCtx.fillRect(x, y, 2, 2);
         }
       }
     }
+    // Occasional delicate buttercup and clover specks
+    for (let i = 0; i < 40; i++) {
+      const fx = Math.floor(Math.random() * 128);
+      const fy = Math.floor(Math.random() * 128);
+      gCtx.fillStyle = Math.random() > 0.5 ? '#fff4b8' : '#eef8ea';
+      gCtx.fillRect(fx, fy, 2, 2);
+    }
+
     this.grassTex = new THREE.CanvasTexture(gCanvas);
     this.grassTex.wrapS = THREE.RepeatWrapping;
     this.grassTex.wrapT = THREE.RepeatWrapping;
     this.grassTex.magFilter = THREE.NearestFilter;
     this.grassTex.minFilter = THREE.NearestFilter;
 
-    // 3. Pixel Gravel / Park Promenade Texture (64x64 sandy beige gravel)
+    // 3. Pixel Gravel / Park Promenade Texture (128x128 sandy beige crushed granite)
     const grCanvas = document.createElement('canvas');
-    grCanvas.width = 64;
-    grCanvas.height = 64;
+    grCanvas.width = 128;
+    grCanvas.height = 128;
     const grCtx = grCanvas.getContext('2d')!;
-    grCtx.fillStyle = '#dcd2b8'; // Sand gravel paths in imperial gardens
-    grCtx.fillRect(0, 0, 64, 64);
+    grCtx.fillStyle = '#ddd2b6';
+    grCtx.fillRect(0, 0, 128, 128);
 
-    const gravelColors = ['#d2c6aa', '#e4dbc5', '#c8bca0', '#eee5cf'];
-    for (let x = 0; x < 64; x += 2) {
-      for (let y = 0; y < 64; y += 2) {
-        if (Math.random() > 0.6) {
+    const gravelColors = ['#d2c4a4', '#e6dbc4', '#c6b696', '#eee5cf', '#beac8a'];
+    for (let x = 0; x < 128; x += 2) {
+      for (let y = 0; y < 128; y += 2) {
+        if (Math.random() > 0.4) {
           grCtx.fillStyle = gravelColors[Math.floor(Math.random() * gravelColors.length)];
           grCtx.fillRect(x, y, 2, 2);
         }
@@ -140,22 +186,29 @@ export class GroundSystem {
     this.gravelTex.magFilter = THREE.NearestFilter;
     this.gravelTex.minFilter = THREE.NearestFilter;
 
-    // 4. Pixel Asphalt Texture (64x64 fine grain dark grey)
+    // 4. Pixel Asphalt Texture (128x128 fine grain dark grey with aggregate flecks)
     const aCanvas = document.createElement('canvas');
-    aCanvas.width = 64;
-    aCanvas.height = 64;
+    aCanvas.width = 128;
+    aCanvas.height = 128;
     const aCtx = aCanvas.getContext('2d')!;
-    aCtx.fillStyle = '#363a40';
-    aCtx.fillRect(0, 0, 64, 64);
+    aCtx.fillStyle = '#34383e';
+    aCtx.fillRect(0, 0, 128, 128);
 
-    const asphaltGrains = ['#303339', '#3d4249', '#2c2f34', '#424850'];
-    for (let x = 0; x < 64; x += 2) {
-      for (let y = 0; y < 64; y += 2) {
-        if (Math.random() > 0.65) {
+    const asphaltGrains = ['#2c3035', '#3c4148', '#26292d', '#444a52', '#30343a'];
+    for (let x = 0; x < 128; x += 2) {
+      for (let y = 0; y < 128; y += 2) {
+        if (Math.random() > 0.45) {
           aCtx.fillStyle = asphaltGrains[Math.floor(Math.random() * asphaltGrains.length)];
           aCtx.fillRect(x, y, 2, 2);
         }
       }
+    }
+    // Fine mineral silica sparkle in tarmac
+    for (let i = 0; i < 90; i++) {
+      const ax = Math.floor(Math.random() * 128);
+      const ay = Math.floor(Math.random() * 128);
+      aCtx.fillStyle = Math.random() > 0.5 ? '#707782' : '#525964';
+      aCtx.fillRect(ax, ay, 1, 1);
     }
     this.asphaltTex = new THREE.CanvasTexture(aCanvas);
     this.asphaltTex.wrapS = THREE.RepeatWrapping;
@@ -163,17 +216,17 @@ export class GroundSystem {
     this.asphaltTex.magFilter = THREE.NearestFilter;
     this.asphaltTex.minFilter = THREE.NearestFilter;
 
-    // 5. Red Bicycle Asphalt Texture (64x64 red asphalt matching Warsaw-Izo bike paths)
+    // 5. Red Bicycle Asphalt Texture (128x128 red asphalt matching European bike paths)
     const bCanvas = document.createElement('canvas');
-    bCanvas.width = 64;
-    bCanvas.height = 64;
+    bCanvas.width = 128;
+    bCanvas.height = 128;
     const bCtx = bCanvas.getContext('2d')!;
-    bCtx.fillStyle = '#943834';
-    bCtx.fillRect(0, 0, 64, 64);
-    const redGrains = ['#88322e', '#9f3f3b', '#7c2c28', '#aa4440'];
-    for (let x = 0; x < 64; x += 2) {
-      for (let y = 0; y < 64; y += 2) {
-        if (Math.random() > 0.6) {
+    bCtx.fillStyle = '#963a36';
+    bCtx.fillRect(0, 0, 128, 128);
+    const redGrains = ['#88302c', '#a2423e', '#7c2824', '#ac4844', '#70221e'];
+    for (let x = 0; x < 128; x += 2) {
+      for (let y = 0; y < 128; y += 2) {
+        if (Math.random() > 0.45) {
           bCtx.fillStyle = redGrains[Math.floor(Math.random() * redGrains.length)];
           bCtx.fillRect(x, y, 2, 2);
         }
@@ -185,34 +238,43 @@ export class GroundSystem {
     this.bikeLaneTex.magFilter = THREE.NearestFilter;
     this.bikeLaneTex.minFilter = THREE.NearestFilter;
 
-    // 6. Palace Square Cobblestone Granite Fan Texture (256x256 Rapakivi Fan Arcs)
+    // 6. Palace Square Cobblestone Granite Fan Texture (512x512 High-Res Rapakivi Fan Arcs)
     const cCanvas = document.createElement('canvas');
-    cCanvas.width = 256;
-    cCanvas.height = 256;
+    cCanvas.width = 512;
+    cCanvas.height = 512;
     const cCtx = cCanvas.getContext('2d')!;
-    cCtx.fillStyle = '#5c6068';
-    cCtx.fillRect(0, 0, 256, 256);
+    cCtx.fillStyle = '#4e525a';
+    cCtx.fillRect(0, 0, 512, 512);
 
     const stoneTones = [
-      '#7c433c', // Red Finnish Rapakivi granite
-      '#8c4d44',
-      '#666a74', // Grey granite
-      '#787d88',
-      '#525660',
-      '#444850'  // Dark basalt setts
+      '#82463e', // Red Finnish Rapakivi granite (Выборгский гранит)
+      '#925046',
+      '#743c36',
+      '#6a6e78', // Grey Karelian granite (Сердобольский гранит)
+      '#7c818c',
+      '#585c66',
+      '#484c56', // Polished dark gabbro / diabase
+      '#3c4048'
     ];
 
-    // Draw concentric cobblestone fan arches
+    // Draw concentric cobblestone fan arches with 3D sett relief
     const pSize = 4;
-    for (let y = 0; y < 256; y += pSize) {
-      for (let x = 0; x < 256; x += pSize) {
-        const fanAngle = Math.atan2((y % 64) - 32, (x % 64) - 32);
-        const fanDist = Math.hypot((y % 64) - 32, (x % 64) - 32);
-        const idx = Math.floor(Math.abs(Math.sin(fanDist * 0.4 + fanAngle * 3.0) * stoneTones.length)) % stoneTones.length;
+    for (let y = 0; y < 512; y += pSize) {
+      for (let x = 0; x < 512; x += pSize) {
+        const fanAngle = Math.atan2((y % 128) - 64, (x % 128) - 64);
+        const fanDist = Math.hypot((y % 128) - 64, (x % 128) - 64);
+        const idx = Math.floor(Math.abs(Math.sin(fanDist * 0.22 + fanAngle * 3.0) * stoneTones.length)) % stoneTones.length;
 
         cCtx.fillStyle = stoneTones[idx];
         cCtx.fillRect(x + 1, y + 1, pSize - 1, pSize - 1);
-        cCtx.fillStyle = '#3a3d44';
+
+        // Sunlight edge highlight on each sett
+        cCtx.fillStyle = 'rgba(255, 255, 255, 0.22)';
+        cCtx.fillRect(x + 1, y + 1, pSize - 1, 1);
+        cCtx.fillRect(x + 1, y + 1, 1, pSize - 1);
+
+        // Recessed bitumen/mortar joint
+        cCtx.fillStyle = '#282b32';
         cCtx.fillRect(x, y, pSize, 1);
         cCtx.fillRect(x, y, 1, pSize);
       }

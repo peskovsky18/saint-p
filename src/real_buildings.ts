@@ -72,6 +72,7 @@ export class RealBuildingsSystem {
       const tex = texLoader.load(
         texPath,
         (t) => {
+          t.colorSpace = THREE.SRGBColorSpace;
           t.wrapS = THREE.RepeatWrapping;
           t.wrapT = THREE.RepeatWrapping;
           t.magFilter = THREE.NearestFilter;
@@ -83,13 +84,15 @@ export class RealBuildingsSystem {
           console.warn(`Landmark texture ${key} load warning at ${texPath}:`, err);
         }
       );
+      tex.colorSpace = THREE.SRGBColorSpace;
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
       tex.magFilter = THREE.NearestFilter;
       tex.minFilter = THREE.NearestFilter;
 
+      // Color 0xffffff ensures real photographic landmark textures render in full vibrancy without muddy tinting!
       this.landmarkMaterials[key] = new THREE.MeshLambertMaterial({
-        color: def.color,
+        color: 0xffffff,
         map: tex,
         emissiveMap: this.emissiveTex,
         emissive: new THREE.Color(0x000000),
@@ -112,46 +115,82 @@ export class RealBuildingsSystem {
     const ctx = diffCanvas.getContext('2d')!;
 
     // Base plaster tone (neutral warm off-white so vertex colors tint accurately)
-    ctx.fillStyle = '#f2ede4';
+    ctx.fillStyle = '#f4efe6';
     ctx.fillRect(0, 0, fw, fh);
 
-    // Ground floor classical granite rustication (рустовка цокольного этажа)
+    // Micro-grain stucco noise for realistic plaster depth
+    for (let y = 0; y < fh; y += 4) {
+      for (let x = 0; x < fw; x += 4) {
+        const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+        const frac = n - Math.floor(n);
+        if (frac > 0.65) {
+          ctx.fillStyle = frac > 0.82 ? '#ffffff' : '#e6dfd3';
+          ctx.fillRect(x, y, 4, 4);
+        }
+      }
+    }
+
+    // Ground floor classical granite rustication (глубокая рустовка цокольного этажа)
     ctx.fillStyle = '#ded7cc';
-    ctx.fillRect(0, fh * 0.74, fw, fh * 0.26);
-    ctx.strokeStyle = '#baa894';
-    ctx.lineWidth = 2;
-    for (let y = fh * 0.74; y < fh; y += 12) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(fw, y);
-      ctx.stroke();
-    }
-
-    // Floor dividing stone cornices with shadow lips (междуэтажные карнизы)
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, fh * 0.38, fw, 5);
-    ctx.fillRect(0, fh * 0.72, fw, 7);
-    ctx.fillStyle = '#baa894';
-    ctx.fillRect(0, fh * 0.38 + 5, fw, 2);
-    ctx.fillRect(0, fh * 0.72 + 7, fw, 2);
-
-    // Roofline entablature and dentils (карниз с дентикулами)
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, fw, 12);
-    ctx.fillStyle = '#b09e8c';
-    ctx.fillRect(0, 12, fw, 2);
-    for (let x = 4; x < fw; x += 14) {
+    ctx.fillRect(0, fh * 0.73, fw, fh * 0.27);
+    
+    // Rustication horizontal grooves with cast shadow
+    for (let y = fh * 0.73; y < fh; y += 14) {
+      ctx.fillStyle = '#9c8c7c';
+      ctx.fillRect(0, y, fw, 2);
       ctx.fillStyle = '#ffffff';
-      ctx.fillRect(x, 14, 6, 4);
-      ctx.fillStyle = '#9e8c7c';
-      ctx.fillRect(x, 18, 6, 1);
+      ctx.fillRect(0, y + 2, fw, 1);
+    }
+    // Staggered vertical joints between rusticated granite blocks
+    for (let row = 0; row < 10; row++) {
+      const y = fh * 0.73 + row * 14;
+      const offset = (row % 2) * 32;
+      for (let x = offset; x < fw; x += 64) {
+        ctx.fillStyle = '#9c8c7c';
+        ctx.fillRect(x, y, 2, 14);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x + 2, y, 1, 14);
+      }
     }
 
-    // Windows (4 bays per repeating horizontal unit for fine mini-pixel density)
+    // Floor dividing stone cornices with shadow lips (междуэтажные тяги и карнизы)
+    // Belt course between 1st & 2nd floor
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, fh * 0.71, fw, 7);
+    ctx.fillStyle = '#b09e8c';
+    ctx.fillRect(0, fh * 0.71 + 7, fw, 3);
+    ctx.fillStyle = '#786858';
+    ctx.fillRect(0, fh * 0.71 + 10, fw, 1.5);
+
+    // Intermediate cornice between 2nd & 3rd floor
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, fh * 0.38, fw, 6);
+    ctx.fillStyle = '#b09e8c';
+    ctx.fillRect(0, fh * 0.38 + 6, fw, 2);
+
+    // Roofline entablature with classical dentils and modillions (венчающий карниз с дентикулами)
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, fw, 14);
+    ctx.fillStyle = '#b8a694';
+    ctx.fillRect(0, 14, fw, 3);
+    ctx.fillStyle = '#8c7a68';
+    ctx.fillRect(0, 17, fw, 1.5);
+
+    for (let x = 4; x < fw; x += 12) {
+      // White dentil block
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x, 18, 6, 5);
+      // Dentil drop shadow
+      ctx.fillStyle = '#7a6a5c';
+      ctx.fillRect(x, 23, 6, 2);
+      ctx.fillRect(x + 6, 18, 1.5, 7);
+    }
+
+    // Windows: 4 bays per repeating horizontal unit
     const bays = [fw * 0.125, fw * 0.375, fw * 0.625, fw * 0.875];
-    const floorsY = [fh * 0.18, fh * 0.52, fh * 0.84];
-    const winW = 26;
-    const winH = 38;
+    const floorsY = [fh * 0.19, fh * 0.53, fh * 0.84];
+    const winW = 28;
+    const winH = 40;
 
     for (const bx of bays) {
       for (let fi = 0; fi < floorsY.length; fi++) {
@@ -159,54 +198,99 @@ export class RealBuildingsSystem {
         const wx = bx - winW / 2;
         const wy = by - winH / 2;
 
-        // White stone architrave molding (наличник)
+        // White stone architrave molding surround (наличник)
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(wx - 3, wy - 4, winW + 6, winH + 8);
+        ctx.fillRect(wx - 4, wy - 5, winW + 8, winH + 10);
+        ctx.fillStyle = '#b4a290';
+        ctx.fillRect(wx - 4, wy + winH + 5, winW + 8, 2);
 
-        // Classical pediment (сандрик) above upper-floor windows
+        // Classical pediments (сандрики) above upper-floor windows
         if (fi === 0) {
-          ctx.beginPath();
-          ctx.moveTo(wx - 4, wy - 4);
-          ctx.lineTo(bx, wy - 12);
-          ctx.lineTo(wx + winW + 4, wy - 4);
-          ctx.closePath();
-          ctx.fill();
+          // Alternating triangular and segmental pediments (чередующиеся треугольные и лучковые сандрики)
+          const isTriangular = (Math.round(bx) % 2 === 0);
+          if (isTriangular) {
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(wx - 5, wy - 5);
+            ctx.lineTo(bx, wy - 15);
+            ctx.lineTo(wx + winW + 5, wy - 5);
+            ctx.closePath();
+            ctx.fill();
+            // Pediment drop shadow
+            ctx.fillStyle = '#8a7868';
+            ctx.fillRect(wx - 5, wy - 5, winW + 10, 2);
+          } else {
+            // Segmental curved pediment
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(bx, wy - 5, (winW + 10) / 2, Math.PI, 0, false);
+            ctx.fill();
+            ctx.fillStyle = '#8a7868';
+            ctx.fillRect(wx - 5, wy - 5, winW + 10, 2);
+          }
         }
 
-        // Glazing frame
+        // Window frame surround
         ctx.fillStyle = '#1c2633';
         ctx.fillRect(wx, wy, winW, winH);
 
-        // Individual window panes with white cross-bars (шпросы)
-        const paneW = (winW - 5) / 2;
-        const paneH = (winH - 6) / 3;
+        // 6-pane classical glazing (шестистворчатый переплёт со шпросами)
+        const paneW = (winW - 6) / 2;
+        const paneH = (winH - 8) / 3;
         for (let px = 0; px < 2; px++) {
           for (let py = 0; py < 3; py++) {
-            ctx.fillStyle = '#141e2a'; // deep reflective glass
-            ctx.fillRect(wx + 2 + px * (paneW + 2), wy + 2 + py * (paneH + 2), paneW, paneH);
-            // Subtle glass shine highlight
-            ctx.fillStyle = '#2c3e52';
-            ctx.fillRect(wx + 2 + px * (paneW + 2), wy + 2 + py * (paneH + 2), paneW * 0.6, 1);
+            const pxPos = wx + 2 + px * (paneW + 2);
+            const pyPos = wy + 2 + py * (paneH + 2);
+
+            // Deep reflective glass
+            ctx.fillStyle = '#141e2a';
+            ctx.fillRect(pxPos, pyPos, paneW, paneH);
+
+            // Sky reflection shine gradient
+            ctx.fillStyle = '#2c4258';
+            ctx.fillRect(pxPos, pyPos, paneW * 0.75, 1.5);
+            ctx.fillStyle = '#3c5874';
+            ctx.fillRect(pxPos, pyPos, 1.5, paneH * 0.6);
           }
         }
 
-        // Protruding stone window sill (подоконник)
+        // Stone window sill with decorative support brackets (подоконник с консолями)
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(wx - 4, wy + winH, winW + 8, 3);
-        ctx.fillStyle = '#9e8c7c';
-        ctx.fillRect(wx - 4, wy + winH + 3, winW + 8, 1);
+        ctx.fillRect(wx - 5, wy + winH, winW + 10, 3.5);
+        ctx.fillStyle = '#948270';
+        ctx.fillRect(wx - 5, wy + winH + 3.5, winW + 10, 1.5);
+        // Console brackets
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(wx - 2, wy + winH + 3.5, 4, 4);
+        ctx.fillRect(wx + winW - 2, wy + winH + 3.5, 4, 4);
+        ctx.fillStyle = '#7a6a58';
+        ctx.fillRect(wx - 2, wy + winH + 7.5, 4, 1.5);
+        ctx.fillRect(wx + winW - 2, wy + winH + 7.5, 4, 1.5);
 
-        // Wrought-iron balcony railings on piano nobile (2nd floor, fi === 1)
+        // Wrought-iron balcony on piano nobile (2nd floor, fi === 1)
         if (fi === 1) {
-          ctx.fillStyle = '#22262c';
-          ctx.fillRect(wx - 4, wy + winH - 6, winW + 8, 8);
-          // Vertical ornamental balusters
-          ctx.fillStyle = '#111418';
-          for (let bx = wx - 3; bx <= wx + winW + 3; bx += 3) {
-            ctx.fillRect(bx, wy + winH - 6, 1, 8);
+          // Cantilevered stone balcony slab
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(wx - 6, wy + winH - 2, winW + 12, 4);
+          ctx.fillStyle = '#8a7868';
+          ctx.fillRect(wx - 6, wy + winH + 2, winW + 12, 2);
+
+          // Wrought-iron openwork railing (ажурная чугунная решетка)
+          ctx.fillStyle = '#181c22';
+          ctx.fillRect(wx - 5, wy + winH - 12, winW + 10, 11);
+          // Balusters
+          for (let x = wx - 4; x <= wx + winW + 4; x += 3) {
+            ctx.fillStyle = '#101216';
+            ctx.fillRect(x, wy + winH - 12, 1.2, 11);
+            // Gilded rosette accents
+            if (x % 6 === 0) {
+              ctx.fillStyle = '#d4af37';
+              ctx.fillRect(x - 0.5, wy + winH - 7, 2, 2);
+            }
           }
-          ctx.fillStyle = '#555d6b';
-          ctx.fillRect(wx - 4, wy + winH - 6, winW + 8, 1); // Cast-iron handrail highlight
+          // Polished brass/handrail highlight
+          ctx.fillStyle = '#687280';
+          ctx.fillRect(wx - 5, wy + winH - 12, winW + 10, 1.5);
         }
       }
     }
@@ -217,44 +301,50 @@ export class RealBuildingsSystem {
     this.facadeTex.magFilter = THREE.NearestFilter;
     this.facadeTex.minFilter = THREE.NearestFilter;
 
-    // 2. High-Contrast Procedural Folded Tin Roof Texture (фальцевая кровля Петербурга, 128x128)
-    const rw = 128;
-    const rh = 128;
+    // 2. High-Resolution Folded Tin / Zinc Roof Texture (фальцевая кровля Петербурга, 256x256)
+    const rw = 256;
+    const rh = 256;
     const roofCanvas = document.createElement('canvas');
     roofCanvas.width = rw;
     roofCanvas.height = rh;
     const rCtx = roofCanvas.getContext('2d')!;
 
     // Clean neutral base for vertex color tinting
-    rCtx.fillStyle = '#f0f3f6';
+    rCtx.fillStyle = '#f2f5f8';
     rCtx.fillRect(0, 0, rw, rh);
 
-    // Subtle metal sheet surface noise
+    // Galvanized zinc spangle crystallization micro-noise
     for (let py = 0; py < rh; py += 4) {
       for (let px = 0; px < rw; px += 4) {
-        if ((px + py) % 8 === 0) {
-          rCtx.fillStyle = '#e4e9ee';
+        const seed = Math.sin(px * 37.1 + py * 89.3);
+        if (seed > 0.3) {
+          rCtx.fillStyle = seed > 0.7 ? '#ffffff' : '#e2e7ec';
           rCtx.fillRect(px, py, 4, 4);
         }
       }
     }
 
-    // Standing metal seams (стоячие фальцы) every 16 pixels with crisp light-edge & dark-lip shading
+    // Double standing seams (двойные стоячие фальцы) every 16 pixels with 3D profile
     for (let x = 0; x < rw; x += 16) {
-      rCtx.fillStyle = '#ffffff';
+      // Ambient shadow groove on left
+      rCtx.fillStyle = '#647280';
       rCtx.fillRect(x, 0, 1, rh);
-      rCtx.fillStyle = '#94a2b0';
+      // Sunlit highlighted fold crest
+      rCtx.fillStyle = '#ffffff';
       rCtx.fillRect(x + 1, 0, 1, rh);
-      rCtx.fillStyle = '#687786';
+      // Secondary fold bevel
+      rCtx.fillStyle = '#94a4b4';
       rCtx.fillRect(x + 2, 0, 1, rh);
     }
 
-    // Horizontal sheet cross-joints (лежачие фальцы) every 32 pixels
-    for (let y = 0; y < rh; y += 32) {
-      rCtx.fillStyle = '#ffffff';
+    // Horizontal sheet cross-joints (лежачие фальцы картин) every 48 pixels
+    for (let y = 0; y < rh; y += 48) {
+      rCtx.fillStyle = '#5c6a78';
       rCtx.fillRect(0, y, rw, 1);
-      rCtx.fillStyle = '#8291a0';
-      rCtx.fillRect(0, y + 1, rw, 1);
+      rCtx.fillStyle = '#ffffff';
+      rCtx.fillRect(0, y + 1, rw, 1.5);
+      rCtx.fillStyle = '#8a9aac';
+      rCtx.fillRect(0, y + 2.5, rw, 1);
     }
 
     this.roofTex = new THREE.CanvasTexture(roofCanvas);
@@ -272,13 +362,13 @@ export class RealBuildingsSystem {
     eCtx.fillStyle = '#000000';
     eCtx.fillRect(0, 0, fw, fh);
 
-    const warmWindowColors = ['#ffe89c', '#ffd068', '#ffa742', '#fff0b8', '#ffba66'];
+    const warmWindowColors = ['#ffeaa4', '#ffd270', '#ffa944', '#fff2c0', '#ffbe6c'];
     for (let bi = 0; bi < bays.length; bi++) {
       const bx = bays[bi];
       for (let fi = 0; fi < floorsY.length; fi++) {
         const seed = Math.sin(bi * 93.1 + fi * 41.7) * 0.5 + 0.5;
-        // ~45% of windows illuminated at night
-        if (seed > 0.32) {
+        // ~50% of windows illuminated at night
+        if (seed > 0.3) {
           const by = floorsY[fi];
           const wx = bx - winW / 2;
           const wy = by - winH / 2;
@@ -287,9 +377,16 @@ export class RealBuildingsSystem {
           eCtx.fillRect(wx + 2, wy + 2, winW - 4, winH - 4);
 
           // Dark interior crossbar silhouettes (шпросы)
-          eCtx.fillStyle = 'rgba(20, 24, 30, 0.45)';
-          eCtx.fillRect(wx + 2, wy + winH / 2, winW - 4, 1.5);
-          eCtx.fillRect(wx + winW / 2, wy + 2, 1.5, winH - 4);
+          eCtx.fillStyle = 'rgba(15, 18, 24, 0.55)';
+          eCtx.fillRect(wx + 2, wy + winH / 2, winW - 4, 2);
+          eCtx.fillRect(wx + winW / 2, wy + 2, 2, winH - 4);
+
+          // Subtle curtain silhouettes (силуэты штор)
+          if (seed > 0.6) {
+            eCtx.fillStyle = 'rgba(40, 25, 15, 0.45)';
+            eCtx.fillRect(wx + 2, wy + 2, 5, winH - 4);
+            eCtx.fillRect(wx + winW - 7, wy + 2, 5, winH - 4);
+          }
         }
       }
     }
