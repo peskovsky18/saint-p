@@ -44,7 +44,7 @@ export class GroundSystem {
 
     this.createPixelTextures();
     this.buildBaseGround();
-    this.buildPalaceSquareCobblestones();
+    // Palace Square paved with authentic imperial granite slabs from base ground
     this.loadParksAndGreenery();
     this.loadRoadNetwork();
   }

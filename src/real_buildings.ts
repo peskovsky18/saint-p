@@ -1009,13 +1009,15 @@ export class RealBuildingsSystem {
           Math.hypot(cx - 108.06, cz - 231.99) < 24 ||      // General Staff Archway (clears opening through building)
           Math.hypot(cx - (-474.05), cz - 644.49) < 65 ||   // St. Isaac Cathedral (removes crooked OSM block)
           (b.name && b.name.toLowerCase().includes('спас на крови')) || // Spas na Krovi
-          Math.hypot(cx - 800.2, cz - (-24.7)) < 35 ||      // Spas na Krovi footprint
+          Math.hypot(cx - 800.2, cz - (-24.7)) < 55 ||      // Spas na Krovi full footprint
           (b.name && b.name.toLowerCase().includes('казанский собор')) || // Kazan Cathedral
-          Math.hypot(cx - 567.8, cz - 600.8) < 68 ||        // Kazan Cathedral footprint
+          Math.hypot(cx - 567.8, cz - 600.8) < 80 ||        // Kazan Cathedral full footprint
           (b.name && b.name.toLowerCase().includes('смольный')) || // Smolny Cathedral
           Math.hypot(cx - 4485, cz - (-1007)) < 65 ||       // Smolny Cathedral footprint
-          b.id === 11490111000 || b.id === 11490110000 ||   // Stray Winter Palace front facade annexes
-          (cx >= -175 && cx <= 45 && cz >= -195 && cz <= 55 && b.id !== 69424000 && b.id !== 1067948000) // All other stray Winter Palace subparts
+          // Winter Palace full footprint (replaced by authentic procedural pixel-art ensemble)
+          (cx >= -185 && cx <= 90 && cz >= -205 && cz <= 55) ||
+          // Zayachy Island (Peter & Paul Fortress - replaced by authentic 6-bastion star fortress ensemble)
+          (cx >= -220 && cx <= 450 && cz >= -1420 && cz <= -900)
         ) {
           continue;
         }
@@ -1372,7 +1374,7 @@ export class RealBuildingsSystem {
             }
           }
 
-          // B. Multi-Flue Brick Chimneys with Cowls (Печные трубы с дымниками)
+          // B. Multi-Flue Brick Chimneys with Cowls (Sparse, authentic St. Petersburg historic chimneys)
           const chimneyBrickColors = [
             new THREE.Color(0xa84838), // Fired Red Brick
             new THREE.Color(0x8c382c), // Dark Soot Brick
@@ -1381,22 +1383,21 @@ export class RealBuildingsSystem {
           const cowlColor = new THREE.Color(0x322822); // Blackened cast iron cowl
           const pipeColor = new THREE.Color(0x6e483a); // Ceramic pipe flue
 
-          const chimneyStep = numPts <= 5 ? 1 : 2;
+          // Only ~30% of historic residential buildings feature rooftop chimneys, max 1-2 per building
+          const hasChimney = (b.levels || 4) >= 3 && ((b.id * 17) % 100 < 32) && minDim > 12.0;
           let chimneyCount = 0;
 
-          for (let i = 0; i < numPts && chimneyCount < 6; i += chimneyStep) {
-            const r1 = ridgePts[i];
-            const r2 = ridgePts[(i + 1) % numPts];
-            const rdx = r2.x - r1.x;
-            const rdz = r2.z - r1.z;
-            const rlen = Math.hypot(rdx, rdz);
+          if (hasChimney && ridgePts.length >= 3) {
+            const maxChimneysForBuilding = (bWidth > 35.0 || bDepth > 35.0) ? 2 : 1;
+            // Pick optimal ridge vertex away from corners
+            const pickIdx = Math.floor(bSeed) % ridgePts.length;
+            const r1 = ridgePts[pickIdx];
 
-            const colIdx = (Math.floor(bSeed) + chimneyCount) % chimneyBrickColors.length;
+            const colIdx = Math.floor(bSeed) % chimneyBrickColors.length;
             const brickCol = chimneyBrickColors[colIdx];
-            const isDoubleFlue = (chimneyCount % 2 === 0);
-            const chW = isDoubleFlue ? 1.5 : 0.9;
+            const chW = 1.2;
             const chD = 0.8;
-            const chH = 1.6 + ((chimneyCount * 3) % 4) * 0.2;
+            const chH = 1.8;
             const chY = height + pitchHeight + chH * 0.5;
 
             // Chimney base stack
@@ -1410,39 +1411,47 @@ export class RealBuildingsSystem {
             this.appendBox(
               detailPositions, detailNormals, detailColors,
               r1.x, height + pitchHeight + chH + 0.1, r1.z,
-              chW + 0.3, 0.16, chD + 0.3,
+              chW + 0.25, 0.16, chD + 0.25,
               cowlColor
             );
             // Smoke flues (гильзы дымоходов)
             this.appendBox(
               detailPositions, detailNormals, detailColors,
               r1.x, height + pitchHeight + chH + 0.26, r1.z,
-              chW * 0.6, 0.2, chD * 0.5,
+              chW * 0.55, 0.2, chD * 0.5,
               pipeColor
             );
             chimneyCount++;
 
-            if (this.chimneySmokePositions.length < 90) {
+            if (this.chimneySmokePositions.length < 50) {
               this.chimneySmokePositions.push(new THREE.Vector3(r1.x, height + pitchHeight + chH + 0.45, r1.z));
             }
 
-            // Intermediate chimney on long ridge lines
-            if (rlen > 14.0 && chimneyCount < 6) {
-              const midRx = (r1.x + r2.x) * 0.5;
-              const midRz = (r1.z + r2.z) * 0.5;
-              this.appendBox(
-                detailPositions, detailNormals, detailColors,
-                midRx, chY, midRz,
-                1.1, chH * 0.95, 0.8,
-                chimneyBrickColors[(colIdx + 1) % chimneyBrickColors.length]
-              );
-              this.appendBox(
-                detailPositions, detailNormals, detailColors,
-                midRx, height + pitchHeight + chH * 0.95 + 0.1, midRz,
-                1.4, 0.15, 1.1,
-                cowlColor
-              );
-              chimneyCount++;
+            // Optional 2nd chimney on exceptionally large tenement blocks
+            if (maxChimneysForBuilding > 1) {
+              const pickIdx2 = (pickIdx + Math.floor(ridgePts.length / 2)) % ridgePts.length;
+              const r2 = ridgePts[pickIdx2];
+              if (Math.hypot(r2.x - r1.x, r2.z - r1.z) > 22.0) {
+                this.appendBox(
+                  detailPositions, detailNormals, detailColors,
+                  r2.x, chY, r2.z,
+                  chW, chH, chD,
+                  brickCol
+                );
+                this.appendBox(
+                  detailPositions, detailNormals, detailColors,
+                  r2.x, height + pitchHeight + chH + 0.1, r2.z,
+                  chW + 0.25, 0.16, chD + 0.25,
+                  cowlColor
+                );
+                this.appendBox(
+                  detailPositions, detailNormals, detailColors,
+                  r2.x, height + pitchHeight + chH + 0.26, r2.z,
+                  chW * 0.55, 0.2, chD * 0.5,
+                  pipeColor
+                );
+                chimneyCount++;
+              }
             }
           }
 
@@ -1611,6 +1620,9 @@ export class RealBuildingsSystem {
         emissive: new THREE.Color(0x000000),
         vertexColors: true,
         side: THREE.DoubleSide,
+        polygonOffset: true,
+        polygonOffsetFactor: 1.0,
+        polygonOffsetUnits: 1.0,
         flatShading: true
       });
 
@@ -1650,6 +1662,9 @@ export class RealBuildingsSystem {
         map: this.roofTex,
         vertexColors: true,
         side: THREE.DoubleSide,
+        polygonOffset: true,
+        polygonOffsetFactor: 0.5,
+        polygonOffsetUnits: 0.5,
         flatShading: true
       });
 

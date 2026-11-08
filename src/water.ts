@@ -74,45 +74,78 @@ export class WaterSystem {
         varying vec2 vUv;
         varying vec3 vWorldPos;
 
-        void main() {
-          vec2 p = vWorldPos.xz;
-
-          // Graceful river flow towards West (Neva emptying into Gulf of Finland)
-          vec2 flow1 = vec2(-1.1, 0.15) * uTime * 1.2;
-          vec2 flow2 = vec2(-0.55, -0.35) * uTime * 0.85;
-          vec2 flow3 = vec2(-0.75, 0.25) * uTime * 1.5;
-
-          // Octave 1: Deep river swells (~18m wavelength)
-          vec2 p1 = (p + flow1) * 0.055;
-          float w1 = sin(p1.x * 2.2 + cos(p1.y * 1.6 + p1.x * 0.4));
-
-          // Octave 2: Mid-scale current ripples (~8m wavelength)
-          vec2 p2 = (p + flow2) * 0.125;
-          float w2 = cos(p2.y * 2.2 + sin(p2.x * 1.5 - uTime * 0.6));
-
-          // Octave 3: Subtle surface flow drift (~4.5m wavelength)
-          vec2 p3 = (p + flow3) * 0.22;
-          float w3 = sin(p3.x * 2.8 + p3.y * 2.4);
-
-          // Combined wave interference field (-1.0 to +1.0)
-          float wave = w1 * 0.55 + w2 * 0.32 + w3 * 0.13;
-
-          // Clean, harmonious river color gradation matching Warsaw-Izo Vistula
-          vec3 water;
-          if (wave < -0.28) {
-            water = uDeepColor;
-          } else if (wave < 0.24) {
-            water = uDayColor;
-          } else if (wave < 0.68) {
-            water = uLightColor;
-          } else if (wave < 0.86) {
-            water = uFoamColor;
+        // 4x4 Ordered Bayer Matrix for Authentic Retro Pixel Art Dithering
+        float bayer4(vec2 coord) {
+          vec2 b = mod(floor(coord), 4.0);
+          int x = int(b.x);
+          int y = int(b.y);
+          if (y == 0) {
+            if (x == 0) return 0.0 / 16.0;
+            if (x == 1) return 8.0 / 16.0;
+            if (x == 2) return 2.0 / 16.0;
+            return 10.0 / 16.0;
+          } else if (y == 1) {
+            if (x == 0) return 12.0 / 16.0;
+            if (x == 1) return 4.0 / 16.0;
+            if (x == 2) return 14.0 / 16.0;
+            return 6.0 / 16.0;
+          } else if (y == 2) {
+            if (x == 0) return 3.0 / 16.0;
+            if (x == 1) return 11.0 / 16.0;
+            if (x == 2) return 1.0 / 16.0;
+            return 9.0 / 16.0;
           } else {
-            water = uSparkleColor; // Rare glistening glints (top 4%)
+            if (x == 0) return 15.0 / 16.0;
+            if (x == 1) return 7.0 / 16.0;
+            if (x == 2) return 13.0 / 16.0;
+            return 5.0 / 16.0;
+          }
+        }
+
+        void main() {
+          // Discrete pixel grid coordinates (1.5m per pixel for crisp isometric pixel art)
+          const float pixelSize = 1.5;
+          vec2 p = floor(vWorldPos.xz / pixelSize) * pixelSize;
+          vec2 pixelCoord = floor(vWorldPos.xz / pixelSize);
+
+          // Discrete 8 FPS frame stepping for retro pixel art water flow
+          float t = floor(uTime * 7.5) / 7.5;
+
+          // Flow direction: Neva river flowing West into the Gulf of Finland
+          vec2 flow1 = vec2(-1.2, 0.12) * t * 1.1;
+          vec2 flow2 = vec2(-0.6, -0.28) * t * 0.8;
+
+          // Octave 1: Major river current wave fronts
+          vec2 p1 = (p + flow1) * 0.06;
+          float w1 = sin(p1.x * 2.4 + cos(p1.y * 1.8 + p1.x * 0.3));
+
+          // Octave 2: Secondary cross-currents and surface ripples
+          vec2 p2 = (p + flow2) * 0.14;
+          float w2 = cos(p2.y * 2.2 + sin(p2.x * 1.6 - t * 0.5));
+
+          // Combined wave height field
+          float wave = w1 * 0.65 + w2 * 0.35;
+
+          // Apply 4x4 Bayer dither threshold to eliminate harsh banding
+          float dither = (bayer4(pixelCoord) - 0.5) * 0.14;
+          float ditheredWave = wave + dither;
+
+          // Authentic 5-step pixel-art palette
+          vec3 water;
+          if (ditheredWave < -0.22) {
+            water = uDeepColor;   // Deep navigation channel
+          } else if (ditheredWave < 0.28) {
+            water = uDayColor;    // Flowing Neva river
+          } else if (ditheredWave < 0.68) {
+            water = uLightColor;  // Sunlit wave facets
+          } else if (ditheredWave < 0.88) {
+            water = uFoamColor;   // Crisp white-cyan wave crests
+          } else {
+            water = uSparkleColor;// Specular sun glints
           }
 
-          // Smooth twilight / night transition
-          vec3 nightWater = mix(uNightColor, vec3(0.10, 0.20, 0.32), clamp(wave * 0.5 + 0.5, 0.0, 1.0));
+          // Twilight / White Nights smooth illumination transition
+          vec3 nightWater = mix(uNightColor, vec3(0.08, 0.18, 0.30), clamp(wave * 0.5 + 0.5, 0.0, 1.0));
           water = mix(water, nightWater, uNight * 0.90);
 
           gl_FragColor = vec4(water, 0.98);

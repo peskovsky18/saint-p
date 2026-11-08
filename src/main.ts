@@ -46,6 +46,7 @@ class SaintPIzoApp {
     // 3. Renderer with Pixel Art Downscaling
     this.renderer = new THREE.WebGLRenderer({
       antialias: false,
+      logarithmicDepthBuffer: true,
       powerPreference: 'high-performance'
     });
     this.renderer.shadowMap.enabled = true;

@@ -247,10 +247,10 @@ export class BridgeSystem {
     bridgeGroup.name = 'palace-bridge';
 
     // Palace Bridge real GPS coordinates
-    const bridgeStartX = -268;
-    const bridgeStartZ = -25;
-    const bridgeEndX = -436;
-    const bridgeEndZ = -253;
+    const bridgeStartX = -276;
+    const bridgeStartZ = -45;
+    const bridgeEndX = -437;
+    const bridgeEndZ = -254;
 
     const angle = Math.atan2(bridgeEndZ - bridgeStartZ, bridgeEndX - bridgeStartX);
     const length = Math.hypot(bridgeEndX - bridgeStartX, bridgeEndZ - bridgeStartZ);
@@ -465,10 +465,10 @@ export class BridgeSystem {
     bridgeGroup.name = 'trinity-bridge';
 
     // Real geodetic coordinates
-    const startX = 930;
-    const startZ = -770;
-    const endX = 530;
-    const endZ = -1300;
+    const startX = 830;
+    const startZ = -735;
+    const endX = 612;
+    const endZ = -1248;
 
     const angle = Math.atan2(endZ - startZ, endX - startX);
     const length = Math.hypot(endX - startX, endZ - startZ);
@@ -547,10 +547,10 @@ export class BridgeSystem {
     bridgeGroup.name = 'annunciation-bridge';
 
     // Real geodetic coordinates
-    const startX = -875;
-    const startZ = 560;
-    const endX = -1340;
-    const endZ = 226;
+    const startX = -1320;
+    const startZ = 715;
+    const endX = -1465;
+    const endZ = 412;
 
     const angle = Math.atan2(endZ - startZ, endX - startX);
     const length = Math.hypot(endX - startX, endZ - startZ);
@@ -592,10 +592,10 @@ export class BridgeSystem {
     bridgeGroup.name = 'exchange-bridge';
 
     // Real geodetic coordinates
-    const startX = -475;
-    const startZ = -595;
-    const endX = -728;
-    const endZ = -1020;
+    const startX = -630;
+    const startZ = -600;
+    const endX = -615;
+    const endZ = -838;
 
     const angle = Math.atan2(endZ - startZ, endX - startX);
     const length = Math.hypot(endX - startX, endZ - startZ);
@@ -803,7 +803,7 @@ export class BridgeSystem {
     const bz = 440;
     const bridgeLen = 32.0;
     const bridgeW = 88.0; // Exceptionally wide square-bridge!
-    const deckY = 3.2;
+    const deckY = 0.35; // Flush with St. Isaac's Square grade level
 
     bridgeGroup.position.set(bx, 0, bz);
     bridgeGroup.rotation.y = 0.28;
@@ -813,15 +813,15 @@ export class BridgeSystem {
     const obeliskMat = new THREE.MeshLambertMaterial({ color: 0x22262c, flatShading: true });
     const goldMat = new THREE.MeshLambertMaterial({ color: 0xd4af37, flatShading: true });
 
-    // Wide Cast-iron Arch
-    const arch = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 2.8, bridgeW), blueArchMat);
-    arch.position.set(0, deckY - 1.2, 0);
+    // Wide Cast-iron Arch under bridge
+    const arch = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 1.2, bridgeW), blueArchMat);
+    arch.position.set(0, -0.6, 0);
     arch.castShadow = true;
     arch.receiveShadow = true;
     bridgeGroup.add(arch);
 
     // Roadway paving seamlessly integrating with St. Isaac's Square
-    const road = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 0.35, bridgeW), roadMat);
+    const road = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 0.25, bridgeW), roadMat);
     road.position.set(0, deckY, 0);
     road.receiveShadow = true;
     bridgeGroup.add(road);
