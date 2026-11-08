@@ -833,3 +833,129 @@ kbd {
   border-color: var(--w-gold);
   color: var(--w-gold-light);
 }
+
+/* Minimalist Pure Aesthetics HUD */
+.w-minimal-hud .w-top-toolbar,
+.w-minimal-hud .w-district-plate,
+.w-minimal-hud .w-online-badge,
+.w-minimal-hud .w-nav-pill,
+.w-minimal-hud .w-status-bar,
+.w-minimal-hud .w-poi-container,
+.w-minimal-hud .w-dialog,
+.w-minimal-hud .w-card {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.35s ease;
+}
+
+/* Floating Restore Button when in Minimal Mode */
+.w-restore-hud-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10000;
+  background: rgba(18, 22, 28, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+.w-restore-hud-btn:hover {
+  background: rgba(30, 36, 46, 0.95);
+  border-color: var(--w-gold);
+  color: #fff;
+}
+
+/* Cinematic Tour Bottom Banner */
+.w-cinema-banner {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(15, 18, 24, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 169, 59, 0.4);
+  border-radius: 12px;
+  padding: 12px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  text-align: center;
+  animation: w-slide-up 0.4s ease;
+}
+.w-cinema-badge {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--w-gold);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.w-cinema-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.w-cinema-sub {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+.w-cinema-exit {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.w-cinema-exit:hover {
+  background: rgba(229, 169, 59, 0.2);
+  border-color: var(--w-gold);
+  color: #fff;
+}
+
+/* Postcard toast notification */
+.w-toast {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  background: rgba(15, 23, 42, 0.94);
+  color: #ffffff;
+  border: 1px solid rgba(229, 169, 59, 0.5);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  animation: w-toast-pop 0.3s ease;
+}
+.w-toast-fade {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+@keyframes w-slide-up {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes w-toast-pop {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}

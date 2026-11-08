@@ -1,6 +1,82 @@
 import * as THREE from 'three';
 import { FlightSimulator } from './flight';
 
+export interface CinematicWaypoint {
+  name: string;
+  sub: string;
+  x: number;
+  z: number;
+  zoom: number;
+  duration: number; // in seconds
+}
+
+export const CINEMATIC_TOUR: CinematicWaypoint[] = [
+  {
+    name: 'Дворцовая площадь',
+    sub: 'Александровская колонна и Зимний дворец',
+    x: 0,
+    z: 75,
+    zoom: 175,
+    duration: 12
+  },
+  {
+    name: 'Главное Адмиралтейство',
+    sub: 'Золоченый шпиль и Александровский сад',
+    x: -330,
+    z: 260,
+    zoom: 160,
+    duration: 12
+  },
+  {
+    name: 'Стрелка Васильевского острова',
+    sub: 'Ростральные колонны, Здание Биржи и Нева',
+    x: -450,
+    z: -300,
+    zoom: 180,
+    duration: 14
+  },
+  {
+    name: 'Дворцовый мост и Зимний дворец',
+    sub: 'Панорама Невы и скоростные «Метеоры»',
+    x: -160,
+    z: -120,
+    zoom: 170,
+    duration: 13
+  },
+  {
+    name: 'Исаакиевский собор',
+    sub: 'Исаакиевская площадь и Медный всадник',
+    x: -480,
+    z: 620,
+    zoom: 160,
+    duration: 13
+  },
+  {
+    name: 'Спас на Крови',
+    sub: 'Канал Грибоедова и Михайловский сад',
+    x: 790,
+    z: -25,
+    zoom: 155,
+    duration: 13
+  },
+  {
+    name: 'Аничков мост и река Фонтанка',
+    sub: 'Невский проспект и речные трамвайчики',
+    x: 1605,
+    z: 730,
+    zoom: 165,
+    duration: 14
+  },
+  {
+    name: 'Площадь Восстания',
+    sub: 'Московский вокзал и Лиговский проспект',
+    x: 2320,
+    z: 880,
+    zoom: 190,
+    duration: 13
+  }
+];
+
 export class CameraController {
   public camera: THREE.OrthographicCamera;
   public target: THREE.Vector3;
@@ -20,6 +96,12 @@ export class CameraController {
   public isDragging: boolean = false;
   private lastMousePos = { x: 0, y: 0 };
   private aspect: number = 1;
+
+  // Cinematic drone mode
+  public isCinematic: boolean = false;
+  private cinematicIndex: number = 0;
+  private cinematicTimeInWaypoint: number = 0;
+  public onCinematicTitleChange?: (name: string, sub: string) => void;
 
   constructor(width: number, height: number) {
     this.aspect = width / height;
@@ -90,11 +172,37 @@ export class CameraController {
     return Math.round((280 / this.zoomLevel) * 100);
   }
 
+  public startCinematic() {
+    this.isCinematic = true;
+    this.cinematicTimeInWaypoint = 0;
+    const curWp = CINEMATIC_TOUR[this.cinematicIndex];
+    if (this.onCinematicTitleChange) {
+      this.onCinematicTitleChange(curWp.name, curWp.sub);
+    }
+  }
+
+  public stopCinematic() {
+    if (!this.isCinematic) return;
+    this.isCinematic = false;
+    if (this.onCinematicTitleChange) {
+      this.onCinematicTitleChange('', '');
+    }
+  }
+
+  public toggleCinematic() {
+    if (this.isCinematic) {
+      this.stopCinematic();
+    } else {
+      this.startCinematic();
+    }
+  }
+
   private setupEventListeners() {
     // Pan drag
     window.addEventListener('mousedown', (e) => {
       // Don't drag if clicking on interactive UI elements or dialogs
       if ((e.target as HTMLElement).closest('.spb-header, .spb-dock, .spb-dialog, .spb-card, .spb-tour-strip, button, input, a')) return;
+      if (this.isCinematic) this.stopCinematic();
       this.isDragging = true;
       this.lastMousePos = { x: e.clientX, y: e.clientY };
     });
@@ -122,7 +230,7 @@ export class CameraController {
     window.addEventListener('wheel', (e) => {
       // Allow scrolling inside dialogs or dropdowns without zooming
       if ((e.target as HTMLElement).closest('.spb-dialog-body, .spb-tour-scroll')) return;
-      
+      if (this.isCinematic) this.stopCinematic();
       const factor = e.deltaY > 0 ? 1.12 : 0.89;
       this.targetZoomLevel = Math.max(this.minZoom, Math.min(this.maxZoom, this.targetZoomLevel * factor));
     }, { passive: true });
@@ -131,6 +239,7 @@ export class CameraController {
     let touchStartDist = 0;
     window.addEventListener('touchstart', (e) => {
       if ((e.target as HTMLElement).closest('.spb-header, .spb-dock, .spb-dialog, .spb-card, .spb-tour-strip, button, input, a')) return;
+      if (this.isCinematic) this.stopCinematic();
       if (e.touches.length === 1) {
         this.isDragging = true;
         this.lastMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -186,6 +295,7 @@ export class CameraController {
 
   public update(deltaTime: number, flightSim?: FlightSimulator) {
     if (flightSim && flightSim.isActive) {
+      if (this.isCinematic) this.stopCinematic();
       // Flight Simulator Mode: Camera tracks behind aircraft
       const planePos = flightSim.position;
       const planeYaw = flightSim.yaw;
@@ -202,8 +312,37 @@ export class CameraController {
       return;
     }
 
+    // Cinematic Drone Mode
+    if (this.isCinematic) {
+      const curWp = CINEMATIC_TOUR[this.cinematicIndex];
+      const nextIdx = (this.cinematicIndex + 1) % CINEMATIC_TOUR.length;
+      const nextWp = CINEMATIC_TOUR[nextIdx];
+
+      this.cinematicTimeInWaypoint += deltaTime;
+      const progress = Math.min(1.0, this.cinematicTimeInWaypoint / curWp.duration);
+
+      // Smooth hermite ease-in-out
+      const ease = progress * progress * (3 - 2 * progress);
+
+      // Interpolate target and zoom
+      this.target.x = curWp.x + (nextWp.x - curWp.x) * ease;
+      this.target.z = curWp.z + (nextWp.z - curWp.z) * ease;
+      this.targetZoomLevel = curWp.zoom + (nextWp.zoom - curWp.zoom) * ease;
+
+      // Subtle slow yaw drift for cinematic depth
+      this.targetYaw += deltaTime * 0.012;
+
+      if (progress >= 1.0) {
+        this.cinematicIndex = nextIdx;
+        this.cinematicTimeInWaypoint = 0;
+        if (this.onCinematicTitleChange) {
+          this.onCinematicTitleChange(nextWp.name, nextWp.sub);
+        }
+      }
+    }
+
     // Smooth Target Interpolation
-    this.currentTarget.lerp(this.target, Math.min(1.0, deltaTime * 8.0));
+    this.currentTarget.lerp(this.target, Math.min(1.0, deltaTime * (this.isCinematic ? 3.0 : 8.0)));
 
     // Smooth Zoom Interpolation
     if (Math.abs(this.zoomLevel - this.targetZoomLevel) > 0.1) {

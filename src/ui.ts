@@ -182,7 +182,25 @@ export class UIManager {
     this.createTimeModal();
     this.createAboutModal();
     this.createQuickJumpModal();
+    this.createCinematicOverlay();
+    this.createMinimalHudRestoreButton();
     this.setupKeyboardShortcuts();
+
+    this.camera.onCinematicTitleChange = (name, sub) => {
+      const banner = document.getElementById('w-cinema-banner');
+      const titleEl = document.getElementById('w-cinema-title');
+      const subEl = document.getElementById('w-cinema-sub');
+      const cinemaBtn = document.getElementById('w-btn-cinema');
+      if (name) {
+        if (banner) banner.style.display = 'flex';
+        if (titleEl) titleEl.textContent = name;
+        if (subEl) subEl.textContent = sub;
+        if (cinemaBtn) cinemaBtn.classList.add('active');
+      } else {
+        if (banner) banner.style.display = 'none';
+        if (cinemaBtn) cinemaBtn.classList.remove('active');
+      }
+    };
   }
 
   /**
@@ -218,6 +236,15 @@ export class UIManager {
     this.topToolbarEl = document.createElement('nav');
     this.topToolbarEl.className = 'w-top-toolbar';
     this.topToolbarEl.innerHTML = `
+      <button class="w-icon-btn" id="w-btn-cinema" title="Кинематографичный кино-тур по городу (C)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </button>
+      <button class="w-icon-btn" id="w-btn-minimal" title="Чистая эстетика без интерфейса (H)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <button class="w-icon-btn" id="w-btn-postcard" title="Создать открытку «Привет из Петербурга» (P)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </button>
       <button class="w-icon-btn" id="w-btn-flight" title="Симулятор полёта над городом (F)">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
       </button>
@@ -235,6 +262,18 @@ export class UIManager {
       </button>
     `;
     this.container.appendChild(this.topToolbarEl);
+
+    this.topToolbarEl.querySelector('#w-btn-cinema')!.addEventListener('click', () => {
+      this.toggleCinematicMode();
+    });
+
+    this.topToolbarEl.querySelector('#w-btn-minimal')!.addEventListener('click', () => {
+      this.toggleMinimalHud();
+    });
+
+    this.topToolbarEl.querySelector('#w-btn-postcard')!.addEventListener('click', () => {
+      this.createPostcard();
+    });
 
     this.topToolbarEl.querySelector('#w-btn-flight')!.addEventListener('click', () => {
       this.toggleFlightMode();
@@ -641,12 +680,165 @@ export class UIManager {
     });
   }
 
+  private createCinematicOverlay() {
+    const cinemaBanner = document.createElement('div');
+    cinemaBanner.className = 'w-cinema-banner';
+    cinemaBanner.id = 'w-cinema-banner';
+    cinemaBanner.style.display = 'none';
+    cinemaBanner.innerHTML = `
+      <div class="w-cinema-badge">КИНО-ТУР ПО ПЕТЕРБУРГУ</div>
+      <div class="w-cinema-title" id="w-cinema-title">Дворцовая площадь</div>
+      <div class="w-cinema-sub" id="w-cinema-sub">Александровская колонна и Зимний дворец</div>
+      <button class="w-cinema-exit" id="w-cinema-exit">Выйти из тура (C)</button>
+    `;
+    this.container.appendChild(cinemaBanner);
+
+    cinemaBanner.querySelector('#w-cinema-exit')!.addEventListener('click', () => {
+      this.toggleCinematicMode(false);
+    });
+  }
+
+  private createMinimalHudRestoreButton() {
+    const restoreBtn = document.createElement('button');
+    restoreBtn.className = 'w-restore-hud-btn';
+    restoreBtn.id = 'w-restore-hud-btn';
+    restoreBtn.style.display = 'none';
+    restoreBtn.textContent = 'Показать интерфейс (H)';
+    restoreBtn.addEventListener('click', () => {
+      this.toggleMinimalHud(false);
+    });
+    this.container.appendChild(restoreBtn);
+  }
+
+  public toggleCinematicMode(force?: boolean) {
+    const shouldActive = force !== undefined ? force : !this.camera.isCinematic;
+    if (shouldActive) {
+      this.camera.startCinematic();
+    } else {
+      this.camera.stopCinematic();
+    }
+  }
+
+  public toggleMinimalHud(force?: boolean) {
+    const isMin = force !== undefined ? force : !document.body.classList.contains('w-minimal-hud');
+    document.body.classList.toggle('w-minimal-hud', isMin);
+    const restoreBtn = document.getElementById('w-restore-hud-btn');
+    if (restoreBtn) {
+      restoreBtn.style.display = isMin ? 'block' : 'none';
+    }
+    const minBtn = document.getElementById('w-btn-minimal');
+    if (minBtn) {
+      minBtn.classList.toggle('active', isMin);
+    }
+  }
+
+  public createPostcard() {
+    const glCanvas = document.querySelector('canvas');
+    if (!glCanvas) return;
+
+    const postCanvas = document.createElement('canvas');
+    postCanvas.width = 1920;
+    postCanvas.height = 1080;
+    const ctx = postCanvas.getContext('2d');
+    if (!ctx) return;
+
+    // Vintage warm linen passe-partout background
+    ctx.fillStyle = '#f8f5ee';
+    ctx.fillRect(0, 0, postCanvas.width, postCanvas.height);
+
+    // Inner photo margin
+    const margin = 44;
+    const bottomBand = 90;
+    const photoW = postCanvas.width - margin * 2;
+    const photoH = postCanvas.height - margin * 2 - bottomBand;
+
+    // Draw 3D scene
+    ctx.drawImage(glCanvas, 0, 0, glCanvas.width, glCanvas.height, margin, margin, photoW, photoH);
+
+    // Dual imperial frames (Brass/Gold and Charcoal)
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#c5a059';
+    ctx.strokeRect(margin, margin, photoW, photoH);
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(25, 27, 32, 0.4)';
+    ctx.strokeRect(margin - 6, margin - 6, photoW + 12, photoH + 12);
+
+    // Vintage St. Petersburg Lettering
+    ctx.fillStyle = '#1c1e22';
+    ctx.font = 'bold 34px "Cinzel", "Playfair Display", "Times New Roman", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('САНКТ-ПЕТЕРБУРГ', postCanvas.width / 2, postCanvas.height - 68);
+
+    ctx.fillStyle = '#7a6b57';
+    ctx.font = '500 16px "Georgia", serif';
+    const distTitle = document.getElementById('w-district-title')?.textContent || 'ДВОРЦОВЫЙ ОКРУГ';
+    ctx.fillText(`С ПРИВЕТОМ ИЗ СЕВЕРНОЙ СТОЛИЦЫ • ${distTitle.toUpperCase()} • ЛЕТО`, postCanvas.width / 2, postCanvas.height - 34);
+
+    // Stylized postal cancellation stamp in bottom right
+    const stampX = postCanvas.width - 160;
+    const stampY = postCanvas.height - 52;
+    ctx.strokeStyle = '#8c3a32';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(stampX, stampY, 32, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(stampX, stampY, 28, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = '#8c3a32';
+    ctx.font = 'bold 8px monospace';
+    ctx.fillText('САНКТ-ПЕТЕРБУРГ', stampX, stampY - 14);
+    ctx.fillText('ПОЧТА РОССИИ', stampX, stampY);
+    ctx.fillText('190000', stampX, stampY + 14);
+
+    // Wavy postmark lines
+    for (let w = -2; w <= 2; w++) {
+      ctx.beginPath();
+      ctx.moveTo(stampX - 80, stampY + w * 6);
+      ctx.bezierCurveTo(
+        stampX - 60, stampY + w * 6 - 4,
+        stampX - 50, stampY + w * 6 + 4,
+        stampX - 35, stampY + w * 6
+      );
+      ctx.stroke();
+    }
+
+    // Trigger instant download
+    const link = document.createElement('a');
+    link.download = `saint-petersburg-postcard-${Date.now()}.png`;
+    link.href = postCanvas.toDataURL('image/png');
+    link.click();
+
+    this.showToast('Открытка сохранена на устройство!');
+  }
+
+  public showToast(msg: string) {
+    const toast = document.createElement('div');
+    toast.className = 'w-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('w-toast-fade');
+      setTimeout(() => toast.remove(), 400);
+    }, 2500);
+  }
+
   private setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
 
       const key = e.key.toLowerCase();
-      if (key === 'f') {
+      if (key === 'c') {
+        this.toggleCinematicMode();
+      } else if (key === 'h') {
+        this.toggleMinimalHud();
+      } else if (key === 'p') {
+        this.createPostcard();
+      } else if (key === 'f') {
         this.toggleFlightMode();
       } else if (key === 't') {
         this.toggleTimeModal();
@@ -663,6 +855,8 @@ export class UIManager {
       } else if (key === ' ' || key === '0') {
         this.camera.resetZoom();
       } else if (key === 'escape') {
+        this.camera.stopCinematic();
+        this.toggleMinimalHud(false);
         this.toggleTimeModal(false);
         this.toggleAboutModal(false);
         this.toggleQuickJump(false);
