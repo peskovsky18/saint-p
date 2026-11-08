@@ -180,12 +180,12 @@ export class LandmarksSystem {
         rotY: 0,
         scale: 1.0,
         name: 'blender-winter-palace',
-        procName: 'winter-palace-details'
+        procName: ''
       },
       {
         file: 'models/st_isaacs.glb',
-        pos: new THREE.Vector3(-472.3, 0.0, 641.1),
-        rotY: 0,
+        pos: new THREE.Vector3(-474.05, 0.0, 644.49),
+        rotY: 0, // Perfectly straight axis-aligned with St. Isaac's Square, Senate Square & street grid
         scale: 1.0,
         name: 'blender-st-isaacs',
         procName: 'st-isaacs-dome'
@@ -201,10 +201,26 @@ export class LandmarksSystem {
       {
         file: 'models/spas_na_krovi.glb',
         pos: new THREE.Vector3(800.2, 0.0, -24.7),
-        rotY: -Math.PI / 2,
-        scale: 1.0,
+        rotY: 0, // Aligned with Griboedov Canal (West bell tower facing canal embankment)
+        scale: 1.0, // Authentic 1:1 metric architectural scale
         name: 'blender-spas-na-krovi',
         procName: 'spas-na-krovi-ensemble'
+      },
+      {
+        file: 'models/kazan_cathedral.glb',
+        pos: new THREE.Vector3(567.8, 0.0, 600.8),
+        rotY: -0.24, // Semicircular 96-column colonnade opening directly towards Nevsky Prospekt & Kazan Square
+        scale: 1.0,
+        name: 'blender-kazan-cathedral',
+        procName: 'kazan-cathedral-ensemble'
+      },
+      {
+        file: 'models/smolny_cathedral.glb',
+        pos: new THREE.Vector3(4475.0, 0.0, -1007.0),
+        rotY: 0,
+        scale: 1.0,
+        name: 'blender-smolny-cathedral',
+        procName: 'smolny-cathedral'
       },
       {
         file: 'models/stock_exchange.glb',
@@ -322,9 +338,8 @@ export class LandmarksSystem {
 
   /**
    * Зимний дворец (Winter Palace) Authentic 3D Architectural Ensemble
-   * 5-cupola Grand Church, 176 roofline balustrade statues and urns,
-   * Rococo pediments with gilded double-headed eagles, Royal Courtyard triple-arch gates,
-   * and paired Corinthian column porticoes.
+   * 176 roofline balustrade statues and classical urns,
+   * and Jordan entrance colonnade facing the Neva.
    */
   private buildWinterPalaceDetails() {
     const wpGroup = new THREE.Group();
@@ -333,102 +348,14 @@ export class LandmarksSystem {
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
     const trimMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
     const statueMat = new THREE.MeshLambertMaterial({ color: 0x4a4f48, flatShading: true });
-    const ironMat = new THREE.MeshLambertMaterial({ color: 0x1f2328, flatShading: true });
-    const graniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbGranitePink, flatShading: true });
 
-    // 1. Grand Cathedral of the Winter Palace (Большая соборная церковь Спаса Нерукотворного Образа)
-    // Eastern wing facing Jordan Staircase & Palace Square: x = 58.0, y = 23.5, z = -25.0
-    const churchCenter = new THREE.Vector3(58.0, 23.5, -25.0);
-
-    // Octagonal monumental drum with white Corinthian pilasters and arched baroque windows
-    const churchDrum = new THREE.Mesh(new THREE.CylinderGeometry(6.2, 6.8, 8.5, 8), trimMat);
-    churchDrum.position.set(churchCenter.x, churchCenter.y + 4.25, churchCenter.z);
-    churchDrum.castShadow = true;
-    wpGroup.add(churchDrum);
-
-    // Baroque arched windows on the drum
-    for (let i = 0; i < 8; i++) {
-      const ang = (i / 8) * Math.PI * 2;
-      const win = new THREE.Mesh(new THREE.BoxGeometry(1.4, 3.8, 0.4), statueMat);
-      win.position.set(
-        churchCenter.x + Math.sin(ang) * 6.3,
-        churchCenter.y + 4.5,
-        churchCenter.z + Math.cos(ang) * 6.3
-      );
-      win.rotation.y = ang;
-      wpGroup.add(win);
-    }
-
-    // Central Gilded Hemispherical Dome (diameter ~12m)
-    const churchDomeGeo = new THREE.SphereGeometry(5.8, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.6);
-    const churchDome = new THREE.Mesh(churchDomeGeo, goldMat);
-    churchDome.scale.set(1.0, 1.35, 1.0);
-    churchDome.position.set(churchCenter.x, churchCenter.y + 8.5, churchCenter.z);
-    churchDome.castShadow = true;
-    wpGroup.add(churchDome);
-
-    // Gilded light lantern atop central dome
-    const churchLantern = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 2.0, 5.5, 8), trimMat);
-    churchLantern.position.set(churchCenter.x, churchCenter.y + 17.0, churchCenter.z);
-    churchLantern.castShadow = true;
-    wpGroup.add(churchLantern);
-
-    const churchCupola = new THREE.Mesh(new THREE.SphereGeometry(2.2, 12, 10), goldMat);
-    churchCupola.scale.set(1.0, 1.4, 1.0);
-    churchCupola.position.set(churchCenter.x, churchCenter.y + 20.2, churchCenter.z);
-    churchCupola.castShadow = true;
-    wpGroup.add(churchCupola);
-
-    const churchCross = new THREE.Mesh(new THREE.BoxGeometry(0.35, 4.2, 1.8), goldMat);
-    churchCross.position.set(churchCenter.x, churchCenter.y + 24.0, churchCenter.z);
-    wpGroup.add(churchCross);
-
-    // 4 Satellite Corner Gilded Onion Domes (Classic Russian 5-cupola composition)
-    const satDist = 7.2;
-    const satAngles = [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4];
-    for (const ang of satAngles) {
-      const sx = churchCenter.x + Math.cos(ang) * satDist;
-      const sz = churchCenter.z + Math.sin(ang) * satDist;
-
-      const satDrum = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.7, 4.8, 8), trimMat);
-      satDrum.position.set(sx, churchCenter.y + 8.0, sz);
-      satDrum.castShadow = true;
-      wpGroup.add(satDrum);
-
-      const satDome = new THREE.Mesh(new THREE.SphereGeometry(1.8, 10, 8), goldMat);
-      satDome.scale.set(1.0, 1.38, 1.0);
-      satDome.position.set(sx, churchCenter.y + 11.2, sz);
-      satDome.castShadow = true;
-      wpGroup.add(satDome);
-
-      const satCross = new THREE.Mesh(new THREE.BoxGeometry(0.25, 2.6, 1.2), goldMat);
-      satCross.position.set(sx, churchCenter.y + 13.8, sz);
-      wpGroup.add(satCross);
-    }
-
-    // 2. Small Church of the Winter Palace (Сретенская церковь в северо-западном ризалите)
-    const smallChurchPos = new THREE.Vector3(-135.0, 23.5, -140.0);
-    const smDrum = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.5, 5.0, 8), trimMat);
-    smDrum.position.set(smallChurchPos.x, smallChurchPos.y + 2.5, smallChurchPos.z);
-    wpGroup.add(smDrum);
-
-    const smDome = new THREE.Mesh(new THREE.SphereGeometry(3.0, 12, 10), goldMat);
-    smDome.scale.set(1.0, 1.35, 1.0);
-    smDome.position.set(smallChurchPos.x, smallChurchPos.y + 6.0, smallChurchPos.z);
-    smDome.castShadow = true;
-    wpGroup.add(smDome);
-
-    const smCross = new THREE.Mesh(new THREE.BoxGeometry(0.3, 3.2, 1.4), goldMat);
-    smCross.position.set(smallChurchPos.x, smallChurchPos.y + 9.8, smallChurchPos.z);
-    wpGroup.add(smCross);
-
-    // 3. 176 Authentic Roofline Balustrade Statues & Classical Decorative Urns
+    // 1. 176 Authentic Roofline Balustrade Statues & Classical Decorative Urns
     // Placed along all four outer parapets of the Winter Palace
     const balustradeLines: { start: [number, number]; end: [number, number]; count: number }[] = [
-      { start: [-170, 52], end: [85, 52], count: 42 },    // South / Palace Square facade
+      { start: [-170, 48], end: [85, 48], count: 42 },    // South / Palace Square facade
       { start: [-175, -198], end: [85, -198], count: 44 }, // North / Palace Embankment (Neva)
-      { start: [-178, -190], end: [-178, 48], count: 38 }, // West / Admiralty flank
-      { start: [90, -190], end: [90, 48], count: 38 }      // East / Small Hermitage flank
+      { start: [-175, -190], end: [-175, 45], count: 38 }, // West / Admiralty flank
+      { start: [88, -190], end: [88, 45], count: 38 }      // East / Small Hermitage flank
     ];
 
     for (const line of balustradeLines) {
@@ -463,40 +390,7 @@ export class LandmarksSystem {
       }
     }
 
-    // 4. Grand Royal Courtyard Triple-Arch Gates (Большой парадный двор Зимнего дворца)
-    // Monumental wrought-iron screen with gilded spearheads and imperial ciphers
-    const gatePos = new THREE.Vector3(-28, 0, 53.0);
-    const gatePiers = [-7.5, -3.2, 3.2, 7.5];
-
-    for (const px of gatePiers) {
-      const pier = new THREE.Mesh(new THREE.BoxGeometry(1.6, 7.5, 1.6), graniteMat);
-      pier.position.set(gatePos.x + px, 3.75, gatePos.z);
-      pier.castShadow = true;
-      wpGroup.add(pier);
-
-      const sphereFinial = new THREE.Mesh(new THREE.SphereGeometry(0.55, 8, 8), goldMat);
-      sphereFinial.position.set(gatePos.x + px, 8.0, gatePos.z);
-      wpGroup.add(sphereFinial);
-    }
-
-    // Central carriage arch grille
-    const mainGrille = new THREE.Mesh(new THREE.BoxGeometry(6.0, 6.0, 0.25), ironMat);
-    mainGrille.position.set(gatePos.x, 3.0, gatePos.z);
-    wpGroup.add(mainGrille);
-
-    // Gilded spearheads and crest on central arch
-    const crest = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.8, 0.35), goldMat);
-    crest.position.set(gatePos.x, 6.5, gatePos.z);
-    wpGroup.add(crest);
-
-    // Two side pedestrian grilles
-    for (const side of [-1, 1]) {
-      const sideGrille = new THREE.Mesh(new THREE.BoxGeometry(3.8, 5.0, 0.2), ironMat);
-      sideGrille.position.set(gatePos.x + side * 5.35, 2.5, gatePos.z);
-      wpGroup.add(sideGrille);
-    }
-
-    // 6. Jordan Entrance Colonnade (Иорданский подъезд со стороны Невы)
+    // 2. Jordan Entrance Colonnade (Иорданский подъезд со стороны Невы)
     const jordanGroup = new THREE.Group();
     jordanGroup.position.set(75, 0, -199.5);
     for (let cx = -6; cx <= 6; cx += 3) {

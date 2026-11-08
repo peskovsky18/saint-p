@@ -538,32 +538,42 @@ export class TransitSystem {
     ];
     addVariedVehiclesOnPath(palaceCircuit, 12, 0.028);
 
-    // 3. Dvortsovy Proyezd
-    const dvortsovyCenterline: THREE.Vector3[] = [
-      new THREE.Vector3(-265, 0.24, -33),
-      new THREE.Vector3(-256, 0.24, -21),
-      new THREE.Vector3(-209, 0.24, 40),
-      new THREE.Vector3(-169, 0.24, 92),
-      new THREE.Vector3(-136, 0.24, 135),
-      new THREE.Vector3(-113, 0.24, 272)
+    // 3. Palace Bridge & Dvortsovy Proyezd Continuous Two-Way Loop
+    // Connects Vasilyevsky Island (Birzhevaya Sq) <-> Palace Bridge <-> Dvortsovy Proyezd <-> Admiralteysky Prospekt turnaround
+    const palaceBridgeAndProyezdLoop: THREE.Vector3[] = [
+      // Southbound from Spit of Vasilyevsky Island across Palace Bridge to Dvortsovy Proyezd
+      new THREE.Vector3(-485, 0.24, -295),
+      new THREE.Vector3(-465, 0.24, -280),
+      new THREE.Vector3(-441, 4.4, -267),
+      new THREE.Vector3(-431, 4.6, -254),
+      new THREE.Vector3(-350, 4.8, -137),
+      new THREE.Vector3(-280, 4.6, -50),
+      new THREE.Vector3(-265, 2.0, -30),
+      new THREE.Vector3(-254, 0.24, -18),
+      new THREE.Vector3(-207, 0.24, 42),
+      new THREE.Vector3(-167, 0.24, 94),
+      new THREE.Vector3(-134, 0.24, 137),
+      new THREE.Vector3(-111, 0.24, 274),
+      // Turnaround loop at Admiralteysky Prospekt intersection (front of General Staff & Alexander Garden)
+      new THREE.Vector3(-105, 0.24, 285),
+      new THREE.Vector3(-118, 0.24, 292),
+      new THREE.Vector3(-130, 0.24, 282),
+      // Northbound lane along Dvortsovy Proyezd back towards Palace Bridge
+      new THREE.Vector3(-138, 0.24, 133),
+      new THREE.Vector3(-171, 0.24, 90),
+      new THREE.Vector3(-211, 0.24, 38),
+      new THREE.Vector3(-258, 0.24, -23),
+      new THREE.Vector3(-267, 2.0, -35),
+      // Northbound across Palace Bridge towards Vasilyevsky Island
+      new THREE.Vector3(-282, 4.6, -55),
+      new THREE.Vector3(-352, 4.8, -142),
+      new THREE.Vector3(-433, 4.6, -259),
+      new THREE.Vector3(-443, 4.4, -272),
+      // Turnaround loop on Birzhevaya Square (Spit of Vasilyevsky Island)
+      new THREE.Vector3(-470, 0.24, -310),
+      new THREE.Vector3(-490, 0.24, -315)
     ];
-    const dvortsovySouth = offsetPath(dvortsovyCenterline, 2.5);
-    const dvortsovyNorth = offsetPath([...dvortsovyCenterline].reverse(), 2.5);
-    addVariedVehiclesOnPath(dvortsovySouth, 4, 0.030);
-    addVariedVehiclesOnPath(dvortsovyNorth, 4, 0.030);
-
-    // 4. Palace Bridge (Дворцовый мост)
-    const palaceBridgeCenterline: THREE.Vector3[] = [
-      new THREE.Vector3(-265, 4.6, -33),
-      new THREE.Vector3(-280, 4.6, -53),
-      new THREE.Vector3(-350, 4.8, -140),
-      new THREE.Vector3(-431, 4.6, -257),
-      new THREE.Vector3(-441, 4.6, -270)
-    ];
-    const bridgeNorth = offsetPath(palaceBridgeCenterline, 2.2);
-    const bridgeSouth = offsetPath([...palaceBridgeCenterline].reverse(), 2.2);
-    addVariedVehiclesOnPath(bridgeNorth, 3, 0.028);
-    addVariedVehiclesOnPath(bridgeSouth, 3, 0.028);
+    addVariedVehiclesOnPath(palaceBridgeAndProyezdLoop, 14, 0.028);
 
     // 5. Sadovaya Street Loop (Field of Mars <-> Gostiny Dvor <-> Sennaya Square)
     const sadovayaCenterline: THREE.Vector3[] = [

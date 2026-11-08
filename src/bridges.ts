@@ -37,6 +37,8 @@ export class BridgeSystem {
     this.createBankBridge();
     this.createAnichkovBridge();
     this.createBlueBridge();
+    this.createGreenBridge();
+    this.createKazanskyBridge();
   }
 
   /**
@@ -634,15 +636,15 @@ export class BridgeSystem {
     const bridgeGroup = new THREE.Group();
     bridgeGroup.name = 'bank-bridge';
 
-    // Real geodetic coordinates near Kazan Cathedral & Singer House
-    const bx = 582;
-    const bz = 838;
-    const bridgeLen = 25.0;
-    const bridgeW = 3.8;
-    const deckY = 2.4;
+    // Real geodetic coordinates spanning Griboedov Canal connecting State University of Economics with Bankovsky Lane
+    const bx = 588.0;
+    const bz = 800.0;
+    const bridgeLen = 19.0;
+    const bridgeW = 3.4;
+    const deckY = 1.9;
 
     bridgeGroup.position.set(bx, 0, bz);
-    bridgeGroup.rotation.y = 0.48; // Angled across Griboedov Canal
+    bridgeGroup.rotation.y = 0.05; // Exactly perpendicular across Griboedov Canal waters
 
     const deckMat = new THREE.MeshLambertMaterial({ color: 0x6e523e, flatShading: true }); // Weathered oak deck
     const griffinMat = new THREE.MeshLambertMaterial({ color: 0x2e3238, flatShading: true }); // Dark patinated bronze
@@ -835,6 +837,102 @@ export class BridgeSystem {
     const globe = new THREE.Mesh(new THREE.SphereGeometry(0.35, 8, 8), goldMat);
     globe.position.set(bridgeLen / 2 - 1.5, deckY + 4.4, -bridgeW / 2 + 2.0);
     bridgeGroup.add(globe);
+
+    this.group.add(bridgeGroup);
+  }
+
+  /**
+   * Зелёный мост (Green Bridge) across Moyka River along Nevsky Prospekt
+   * William Hastie cast-iron masterpiece (1806) carrying 6 lanes of Nevsky Prospekt
+   */
+  private createGreenBridge() {
+    const bridgeGroup = new THREE.Group();
+    bridgeGroup.name = 'green-bridge';
+
+    const bx = 280.0;
+    const bz = 412.0;
+    const bridgeLen = 28.0;
+    const bridgeW = 34.0;
+    const deckY = 0.35;
+
+    bridgeGroup.position.set(bx, 0, bz);
+    bridgeGroup.rotation.y = -0.42; // Perpendicular across Moyka River aligning with Nevsky Prospekt
+
+    const deckMat = new THREE.MeshLambertMaterial({ color: PALETTE.asphalt, flatShading: true });
+    const ironMat = new THREE.MeshLambertMaterial({ color: 0x1e4634, flatShading: true }); // Malachite green cast iron
+    const goldMat = new THREE.MeshLambertMaterial({ color: 0xd4af37, flatShading: true });
+    const graniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbGranitePink, flatShading: true });
+
+    // Granite embankment abutments
+    for (const sx of [-bridgeLen / 2 + 2, bridgeLen / 2 - 2]) {
+      const abut = new THREE.Mesh(new THREE.BoxGeometry(4.5, 3.5, bridgeW + 4), graniteMat);
+      abut.position.set(sx, 1.25, 0);
+      bridgeGroup.add(abut);
+    }
+
+    // Cast-iron arch vault
+    const arch = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen - 4, 1.2, bridgeW), ironMat);
+    arch.position.set(0, deckY - 0.7, 0);
+    bridgeGroup.add(arch);
+
+    // Deck
+    const deck = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 0.3, bridgeW), deckMat);
+    deck.position.set(0, deckY, 0);
+    bridgeGroup.add(deck);
+
+    // Green cast-iron railings with gilded rosettes
+    for (const sz of [-bridgeW / 2 + 0.35, bridgeW / 2 - 0.35]) {
+      const rail = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 1.1, 0.35), ironMat);
+      rail.position.set(0, deckY + 0.65, sz);
+      bridgeGroup.add(rail);
+
+      for (let rx = -bridgeLen / 2 + 2; rx <= bridgeLen / 2 - 2; rx += 4) {
+        const rosette = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.35, 0.45), goldMat);
+        rosette.position.set(rx, deckY + 0.65, sz);
+        bridgeGroup.add(rosette);
+      }
+    }
+
+    this.group.add(bridgeGroup);
+  }
+
+  /**
+   * Казанский мост (Kazansky Bridge) across Griboedov Canal on Nevsky Prospekt
+   * Right in front of Kazan Cathedral and Singer House. Spans Griboedov Canal carrying 6 lanes of Nevsky
+   */
+  private createKazanskyBridge() {
+    const bridgeGroup = new THREE.Group();
+    bridgeGroup.name = 'kazansky-bridge';
+
+    const bx = 656.0;
+    const bz = 505.0;
+    const bridgeLen = 20.0;
+    const bridgeW = 34.0; // Carrying Nevsky Prospekt lanes across Griboedov Canal
+    const deckY = 0.35; // Flush with asphalt street level
+
+    bridgeGroup.position.set(bx, 0, bz);
+    bridgeGroup.rotation.y = -0.17; // Aligned with Griboedov Canal water channel
+
+    const deckMat = new THREE.MeshLambertMaterial({ color: PALETTE.asphalt, flatShading: true });
+    const graniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbGranitePink, flatShading: true });
+    const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
+
+    // Granite single vault arch
+    const arch = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen - 2, 1.4, bridgeW), stoneMat);
+    arch.position.set(0, deckY - 0.8, 0);
+    bridgeGroup.add(arch);
+
+    // Deck flush with Nevsky Prospekt
+    const deck = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 0.3, bridgeW), deckMat);
+    deck.position.set(0, deckY, 0);
+    bridgeGroup.add(deck);
+
+    // Granite parapets
+    for (const sz of [-bridgeW / 2 + 0.4, bridgeW / 2 - 0.4]) {
+      const parapet = new THREE.Mesh(new THREE.BoxGeometry(bridgeLen, 1.1, 0.6), graniteMat);
+      parapet.position.set(0, deckY + 0.65, sz);
+      bridgeGroup.add(parapet);
+    }
 
     this.group.add(bridgeGroup);
   }

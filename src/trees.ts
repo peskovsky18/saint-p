@@ -66,11 +66,17 @@ export class TreeSystem {
       // and 43 water bodies, with zero collision on roads or rivers.
       // =========================================================================
       for (const t of realTrees) {
-        const x = t.x ?? latLonToMeters(t.lat, t.lon).x;
-        const z = t.z ?? latLonToMeters(t.lat, t.lon).z;
-        if (Math.hypot(x, z) < 6000) {
+        const rawX = t.x ?? latLonToMeters(t.lat, t.lon).x;
+        const rawZ = t.z ?? latLonToMeters(t.lat, t.lon).z;
+        if (Math.hypot(rawX, rawZ) < 6000) {
+          // Natural organic jitter removes artificial line patterns from data sampling
+          const jx = ((Math.abs(t.id * 37) % 100) / 100 - 0.5) * 2.6;
+          const jz = ((Math.abs(t.id * 71) % 100) / 100 - 0.5) * 2.6;
+          const x = rawX + jx;
+          const z = rawZ + jz;
+
           const type = (t.type !== undefined) ? t.type : (Math.abs(t.id) % 6);
-          const scale = t.scale ?? (0.95 + (Math.abs(t.id * 17) % 15) / 100);
+          const scale = t.scale ?? (0.92 + (Math.abs(t.id * 17) % 20) / 100);
           addTree(x, z, scale, type);
         }
       }
@@ -138,8 +144,8 @@ export class TreeSystem {
         // Stand strictly upright at lawn elevation y = 0.14
         dummy.position.set(t.x, 0.14, t.z);
         dummy.scale.set(t.scale, t.scale, t.scale);
-        // rotation.set(0, 0, 0) guarantees 100% uniform edge alignment with the 45° isometric camera
-        dummy.rotation.set(0, 0, 0);
+        // Discrete 90-degree rotations give organic variety while preserving crisp isometric voxel alignment
+        dummy.rotation.set(0, (i % 4) * (Math.PI / 2), 0);
         dummy.updateMatrix();
 
         this.trunkMesh.setMatrixAt(i, dummy.matrix);
@@ -206,11 +212,11 @@ export class TreeSystem {
    * Excludes trees inside Palace Square cobblestones
    */
   private isInsidePalaceSquare(x: number, z: number): boolean {
-    return Math.hypot(x - 67.86, z - 87.72) < 88.0;
+    return Math.hypot(x - 67.86, z - 87.72) < 95.0;
   }
 
   /**
-   * Excludes trees inside major landmark buildings
+   * Excludes trees inside major landmark buildings, plazas, and bridges
    */
   private isInsideBuilding(x: number, z: number): boolean {
     // Admiralty building footprint (actual building, preserving Alexander Garden)
@@ -224,6 +230,23 @@ export class TreeSystem {
     ) {
       return true;
     }
+
+    // St. Isaac's Cathedral
+    if (Math.hypot(x - (-474.05), z - 644.49) < 65) return true;
+    // Kazan Cathedral and Colonnade Square
+    if (Math.hypot(x - 567.8, z - 600.8) < 68) return true;
+    // Spas na Krovi
+    if (Math.hypot(x - 800.2, z - (-24.7)) < 38) return true;
+    // Stock Exchange building & Rostral Columns plaza
+    if (Math.hypot(x - (-554.6), z - (-407.8)) < 45) return true;
+    if (Math.hypot(x - (-480), z - (-420)) < 36) return true;
+    // Peter and Paul Cathedral & Fortress central square
+    if (Math.hypot(x - 108.5, z - (-1155.0)) < 65) return true;
+    // Bronze Horseman plaza
+    if (Math.hypot(x - (-626.8), z - 264.4) < 32) return true;
+    // Palace Bridge span and abutments
+    if (Math.hypot(x - (-350), z - (-140)) < 110) return true;
+
     return false;
   }
 

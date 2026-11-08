@@ -1005,7 +1005,17 @@ export class RealBuildingsSystem {
           Math.hypot(cx - (-530.6), cz - (-538.2)) < 30 ||  // North Rostral Column (removes id: 19710429000)
           Math.hypot(cx - (-626.8), cz - 264.4) < 25 ||     // Bronze Horseman
           b.id === 3229958000 ||                            // Главная арка адмиралтейства (modeled in 3D in landmarks)
-          (b.name && b.name.toLowerCase().includes('ростраль')) // Any Rostral column marker
+          (b.name && b.name.toLowerCase().includes('ростраль')) || // Any Rostral column marker
+          Math.hypot(cx - 108.06, cz - 231.99) < 24 ||      // General Staff Archway (clears opening through building)
+          Math.hypot(cx - (-474.05), cz - 644.49) < 65 ||   // St. Isaac Cathedral (removes crooked OSM block)
+          (b.name && b.name.toLowerCase().includes('спас на крови')) || // Spas na Krovi
+          Math.hypot(cx - 800.2, cz - (-24.7)) < 35 ||      // Spas na Krovi footprint
+          (b.name && b.name.toLowerCase().includes('казанский собор')) || // Kazan Cathedral
+          Math.hypot(cx - 567.8, cz - 600.8) < 68 ||        // Kazan Cathedral footprint
+          (b.name && b.name.toLowerCase().includes('смольный')) || // Smolny Cathedral
+          Math.hypot(cx - 4485, cz - (-1007)) < 65 ||       // Smolny Cathedral footprint
+          b.id === 11490111000 || b.id === 11490110000 ||   // Stray Winter Palace front facade annexes
+          (cx >= -175 && cx <= 45 && cz >= -195 && cz <= 55 && b.id !== 69424000 && b.id !== 1067948000) // All other stray Winter Palace subparts
         ) {
           continue;
         }
@@ -1081,6 +1091,13 @@ export class RealBuildingsSystem {
           roofCol = this.parseColor(b.roof_color, PALETTE.roofTinRed);
         } else {
           roofCol = this.getRandomRoofColor(b.id);
+        }
+
+        // SPbU Twelve Colleges (Здание Двенадцати коллегий) - Domenico Trezzini Petrine Baroque
+        if (b.id === 3170387000) {
+          wallCol = new THREE.Color(0xb43c2c); // Petrine Terracotta Red
+          roofCol = new THREE.Color(PALETTE.roofZincGrey); // Steep zinc mansard
+          height = 16.5;
         }
 
         const targetBuffer = lmType && landmarkBuffers[lmType] ? landmarkBuffers[lmType] : standardWalls;
