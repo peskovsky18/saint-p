@@ -673,9 +673,10 @@ export class RealBuildingsSystem {
         const minDim = Math.min(bWidth, bDepth);
 
         // 3. Build 3D Volumetric Pitched & Mansard Roof (Скатно-вальмовая кровля Петербурга)
-        // Historic roofs rise 1.8m to 3.2m above eaves, creating distinct sunlit and shaded facets
-        const pitchHeight = lmType ? 1.8 : Math.max(1.8, Math.min(3.2, 1.5 + (b.levels || 4) * 0.25));
-        const insetDist = Math.max(1.5, Math.min(3.2, minDim * 0.28));
+        // Historic roofs rise 2.4m to 4.2m above eaves, creating distinct sunlit and shaded facets
+        const isResidentialHistoric = !lmType && (b.levels ? b.levels >= 4 : true);
+        const pitchHeight = lmType ? 1.8 : (isResidentialHistoric ? Math.max(2.4, Math.min(4.2, 2.0 + (b.levels || 4) * 0.35)) : 2.0);
+        const insetDist = Math.max(1.8, Math.min(4.2, minDim * 0.32));
 
         const ridgePts = this.computeRoofRidgePolygon(pts, insetDist, centroidX, centroidZ);
 
@@ -754,83 +755,296 @@ export class RealBuildingsSystem {
           );
         }
 
-        // 4. Procedural 3D Rooftop Superstructures (Warsaw-Izo Style)
-        // Historic chimneys, elevator penthouses, air vents
+        // 4. Procedural 3D Historic St. Petersburg Rooftop & Courtyard Details
         if (!lmType) {
-          const bSeed = Math.abs(b.id * 13.7);
-          const numChimneys = 1 + (Math.floor(bSeed) % 3);
+          const bSeed = Math.abs(b.id * 17.3);
 
-          // Chimneys (печные трубы) on top of the volumetric roof
-          for (let c = 0; c < numChimneys; c++) {
-            const angle = (bSeed + c * 2.1) % (Math.PI * 2);
-            const dist = Math.min(insetDist * 0.8, 2.0 + (c * 2.5));
-            const cx = centroidX + Math.cos(angle) * dist;
-            const cz = centroidZ + Math.sin(angle) * dist;
+          // A. Multi-Edge Rhythmic Dormer Windows (слуховые окна / люкарны)
+          if ((b.levels || 4) >= 3) {
+            for (let i = 0; i < numPts; i++) {
+              const p1 = pts[i];
+              const p2 = pts[(i + 1) % numPts];
+              const r1 = ridgePts[i];
+              const r2 = ridgePts[(i + 1) % numPts];
 
-            // Red brick chimney stack
-            this.appendBox(
-              detailPositions, detailNormals, detailColors,
-              cx, height + pitchHeight + 0.9, cz,
-              0.8, 1.8, 0.8,
-              new THREE.Color(0xa84838) // St. Petersburg red brick chimney
-            );
-            // Terracotta chimney cowl / cap (дымник)
-            this.appendBox(
-              detailPositions, detailNormals, detailColors,
-              cx, height + pitchHeight + 1.85, cz,
-              1.0, 0.15, 1.0,
-              new THREE.Color(0x5a3428)
-            );
+              const dx = p2.x - p1.x;
+              const dz = p2.z - p1.z;
+              const len = Math.hypot(dx, dz);
+              if (len < 9.0) continue;
+
+              const rx = dx / len;
+              const rz = dz / len;
+              const fx = -rz; // Outward facade normal
+              const fz = rx;
+
+              // Space dormers rhythmically every ~8.5m to 10m
+              const count = Math.min(4, Math.floor(len / 8.5));
+              if (count < 1) continue;
+
+              for (let k = 1; k <= count; k++) {
+                const t = k / (count + 1);
+                const ex = p1.x + dx * t;
+                const ez = p1.z + dz * t;
+                const r_midX = r1.x + (r2.x - r1.x) * t;
+                const r_midZ = r1.z + (r2.z - r1.z) * t;
+
+                const dormX = ex * 0.52 + r_midX * 0.48;
+                const dormZ = ez * 0.52 + r_midZ * 0.48;
+                const dormY = height + pitchHeight * 0.42;
+
+                // 1. Dormer body in roof tin color
+                this.appendOrientedBox(
+                  detailPositions, detailNormals, detailColors,
+                  dormX, dormY, dormZ,
+                  1.4, 1.3, 1.6,
+                  rx, rz, fx, fz,
+                  roofCol
+                );
+                // 2. Gable rooflet / pediment cap (козырёк слухового окна)
+                this.appendOrientedBox(
+                  detailPositions, detailNormals, detailColors,
+                  dormX + fx * 0.08, dormY + 0.72, dormZ + fz * 0.08,
+                  1.6, 0.22, 1.8,
+                  rx, rz, fx, fz,
+                  roofCol
+                );
+                // 3. Glazed window pane (тёмно-синее остекление)
+                this.appendOrientedBox(
+                  detailPositions, detailNormals, detailColors,
+                  dormX + fx * 0.74, dormY - 0.05, dormZ + fz * 0.74,
+                  0.95, 0.85, 0.12,
+                  rx, rz, fx, fz,
+                  new THREE.Color(0x16202c)
+                );
+                // 4. White stone sill (белокаменный подоконник)
+                this.appendOrientedBox(
+                  detailPositions, detailNormals, detailColors,
+                  dormX + fx * 0.76, dormY - 0.50, dormZ + fz * 0.76,
+                  1.15, 0.12, 0.22,
+                  rx, rz, fx, fz,
+                  new THREE.Color(0xdad5cb)
+                );
+              }
+            }
           }
 
-          // Elevator penthouse / roof access hut (лифтовая будка)
-          if (b.levels && b.levels >= 4) {
+          // B. Multi-Flue Brick Chimneys with Cowls (Печные трубы с дымниками)
+          const chimneyBrickColors = [
+            new THREE.Color(0xa84838), // Fired Red Brick
+            new THREE.Color(0x8c382c), // Dark Soot Brick
+            new THREE.Color(0xb25642)  // Terracotta
+          ];
+          const cowlColor = new THREE.Color(0x322822); // Blackened cast iron cowl
+          const pipeColor = new THREE.Color(0x6e483a); // Ceramic pipe flue
+
+          const chimneyStep = numPts <= 5 ? 1 : 2;
+          let chimneyCount = 0;
+
+          for (let i = 0; i < numPts && chimneyCount < 6; i += chimneyStep) {
+            const r1 = ridgePts[i];
+            const r2 = ridgePts[(i + 1) % numPts];
+            const rdx = r2.x - r1.x;
+            const rdz = r2.z - r1.z;
+            const rlen = Math.hypot(rdx, rdz);
+
+            const colIdx = (Math.floor(bSeed) + chimneyCount) % chimneyBrickColors.length;
+            const brickCol = chimneyBrickColors[colIdx];
+            const isDoubleFlue = (chimneyCount % 2 === 0);
+            const chW = isDoubleFlue ? 1.5 : 0.9;
+            const chD = 0.8;
+            const chH = 1.6 + ((chimneyCount * 3) % 4) * 0.2;
+            const chY = height + pitchHeight + chH * 0.5;
+
+            // Chimney base stack
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              centroidX + 1.5, height + pitchHeight + 1.1, centroidZ - 1.0,
-              3.2, 2.2, 2.4,
+              r1.x, chY, r1.z,
+              chW, chH, chD,
+              brickCol
+            );
+            // Overhanging cast-iron cap / cowl (металлический дымник)
+            this.appendBox(
+              detailPositions, detailNormals, detailColors,
+              r1.x, height + pitchHeight + chH + 0.1, r1.z,
+              chW + 0.3, 0.16, chD + 0.3,
+              cowlColor
+            );
+            // Smoke flues (гильзы дымоходов)
+            this.appendBox(
+              detailPositions, detailNormals, detailColors,
+              r1.x, height + pitchHeight + chH + 0.26, r1.z,
+              chW * 0.6, 0.2, chD * 0.5,
+              pipeColor
+            );
+            chimneyCount++;
+
+            // Intermediate chimney on long ridge lines
+            if (rlen > 14.0 && chimneyCount < 6) {
+              const midRx = (r1.x + r2.x) * 0.5;
+              const midRz = (r1.z + r2.z) * 0.5;
+              this.appendBox(
+                detailPositions, detailNormals, detailColors,
+                midRx, chY, midRz,
+                1.1, chH * 0.95, 0.8,
+                chimneyBrickColors[(colIdx + 1) % chimneyBrickColors.length]
+              );
+              this.appendBox(
+                detailPositions, detailNormals, detailColors,
+                midRx, height + pitchHeight + chH * 0.95 + 0.1, midRz,
+                1.4, 0.15, 1.1,
+                cowlColor
+              );
+              chimneyCount++;
+            }
+          }
+
+          // C. Pass-Through Gate Arches (Проходные арки / подворотни Петербурга)
+          if ((b.levels || 4) >= 3) {
+            let archPlaced = false;
+            for (let i = 0; i < numPts && !archPlaced; i++) {
+              const p1 = pts[i];
+              const p2 = pts[(i + 1) % numPts];
+              const dx = p2.x - p1.x;
+              const dz = p2.z - p1.z;
+              const len = Math.hypot(dx, dz);
+              if (len < 18.0) continue;
+
+              const rx = dx / len;
+              const rz = dz / len;
+              const fx = -rz; // Outward facade normal
+              const fz = rx;
+
+              const midX = (p1.x + p2.x) * 0.5;
+              const midZ = (p1.z + p2.z) * 0.5;
+
+              // 1. Dark Shadowed Passage Tunnel Interior (подворотня во двор)
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX, 2.1, midZ,
+                3.4, 4.2, 1.8,
+                rx, rz, fx, fz,
+                new THREE.Color(0x121519)
+              );
+
+              // 2. Neoclassical White Stone Portal Frame / Arch Top (белокаменная арка)
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX + fx * 0.08, 4.35, midZ + fz * 0.08,
+                3.8, 0.52, 0.35,
+                rx, rz, fx, fz,
+                new THREE.Color(0xd5cec2)
+              );
+
+              // 3. Prominent Arch Keystone (замковый камень)
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX + fx * 0.14, 4.45, midZ + fz * 0.14,
+                0.65, 0.72, 0.45,
+                rx, rz, fx, fz,
+                new THREE.Color(0xeee9de)
+              );
+
+              // 4. Rusticated Side Pilasters (рустованные пилоны)
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX - rx * 1.8 + fx * 0.08, 2.1, midZ - rz * 1.8 + fz * 0.08,
+                0.4, 4.2, 0.35,
+                rx, rz, fx, fz,
+                new THREE.Color(0xc9c2b6)
+              );
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX + rx * 1.8 + fx * 0.08, 2.1, midZ + rz * 1.8 + fz * 0.08,
+                0.4, 4.2, 0.35,
+                rx, rz, fx, fz,
+                new THREE.Color(0xc9c2b6)
+              );
+
+              // 5. Wrought Iron Gate Openwork (кованая чугунная решётка)
+              this.appendOrientedBox(
+                detailPositions, detailNormals, detailColors,
+                midX + fx * 0.04, 1.8, midZ + fz * 0.04,
+                3.2, 3.6, 0.08,
+                rx, rz, fx, fz,
+                new THREE.Color(0x24282e)
+              );
+
+              archPlaced = true;
+            }
+          }
+
+          // D. Courtyard-Well Fire Escapes (Пожарные лестницы во дворах-колодцах)
+          if (numPts >= 10 && (b.levels || 4) >= 4) {
+            for (let i = 1; i < numPts - 1; i += 3) {
+              const p1 = pts[i];
+              const p2 = pts[(i + 1) % numPts];
+              const dx = p2.x - p1.x;
+              const dz = p2.z - p1.z;
+              const len = Math.hypot(dx, dz);
+              if (len < 6.0 || len > 28.0) continue;
+
+              const rx = dx / len;
+              const rz = dz / len;
+              const fx = -rz; // Outward normal
+              const fz = rx;
+
+              const midX = (p1.x + p2.x) * 0.5;
+              const midZ = (p1.z + p2.z) * 0.5;
+
+              // Check if normal points towards centroid (inner courtyard wall)
+              const dotC = fx * (centroidX - midX) + fz * (centroidZ - midZ);
+              if (dotC > 0) {
+                const ladderH = height - 2.5;
+                const ladderY = 2.5 + ladderH * 0.5;
+
+                // Vertical steel rails
+                this.appendOrientedBox(
+                  detailPositions, detailNormals, detailColors,
+                  midX + fx * 0.35, ladderY, midZ + fz * 0.35,
+                  0.75, ladderH, 0.18,
+                  rx, rz, fx, fz,
+                  new THREE.Color(0x25282d)
+                );
+
+                // Balcony platforms every level
+                const levels = Math.min(6, b.levels || 4);
+                for (let lvl = 1; lvl < levels; lvl++) {
+                  const platY = lvl * 3.4;
+                  this.appendOrientedBox(
+                    detailPositions, detailNormals, detailColors,
+                    midX + fx * 0.55, platY, midZ + fz * 0.55,
+                    1.3, 0.15, 0.85,
+                    rx, rz, fx, fz,
+                    new THREE.Color(0x32363d)
+                  );
+                }
+                break; // One fire escape per courtyard building
+              }
+            }
+          }
+
+          // E. Elevator penthouse & ventilation for tall buildings (levels >= 5)
+          if (b.levels && b.levels >= 5) {
+            this.appendBox(
+              detailPositions, detailNormals, detailColors,
+              centroidX + 1.2, height + pitchHeight + 1.1, centroidZ - 1.0,
+              3.0, 2.2, 2.2,
               new THREE.Color(0xd0c8bc)
             );
-
-            // Steel communication antenna mast on top of penthouse
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              centroidX + 1.5, height + pitchHeight + 2.2 + 1.6, centroidZ - 1.0,
-              0.16, 3.2, 0.16,
+              centroidX + 1.2, height + pitchHeight + 2.2 + 1.5, centroidZ - 1.0,
+              0.16, 3.0, 0.16,
               new THREE.Color(0x404852)
             );
           }
 
-          // Metal ventilation unit (вентиляционный короб)
-          this.appendBox(
-            detailPositions, detailNormals, detailColors,
-            centroidX - 2.0, height + pitchHeight + 0.55, centroidZ + 1.2,
-            1.6, 1.1, 1.4,
-            new THREE.Color(0x949da6)
-          );
-
-          // Dormer Mansard Windows (слуховые окна Петербурга) on the roof slope
-          if (b.levels && b.levels >= 3 && numPts >= 4) {
-            const p1 = pts[0];
-            const p2 = pts[1];
-            const r1 = ridgePts[0];
-            const r2 = ridgePts[1];
-            const dormX = (p1.x + p2.x + r1.x + r2.x) * 0.25;
-            const dormZ = (p1.z + p2.z + r1.z + r2.z) * 0.25;
-            const dormY = height + pitchHeight * 0.45;
-
+          if (b.levels && b.levels >= 4) {
             this.appendBox(
               detailPositions, detailNormals, detailColors,
-              dormX, dormY, dormZ,
-              1.5, 1.3, 1.6,
-              roofCol
-            );
-            // Dormer glass pane
-            this.appendBox(
-              detailPositions, detailNormals, detailColors,
-              dormX, dormY, dormZ + 0.75,
-              1.1, 0.9, 0.15,
-              new THREE.Color(0x1a2430)
+              centroidX - 1.8, height + pitchHeight + 0.55, centroidZ + 1.0,
+              1.5, 1.1, 1.3,
+              new THREE.Color(0x949da6)
             );
           }
         }
@@ -976,6 +1190,59 @@ export class RealBuildingsSystem {
     for (const f of faces) {
       for (let i = 0; i < 18; i += 3) {
         pos.push(f.v[i], f.v[i + 1], f.v[i + 2]);
+        norm.push(f.n[0], f.n[1], f.n[2]);
+        col.push(color.r, color.g, color.b);
+      }
+    }
+  }
+
+  /**
+   * Appends an oriented 3D cuboid aligned to facade normal and eave directions
+   */
+  private appendOrientedBox(
+    pos: number[],
+    norm: number[],
+    col: number[],
+    cx: number, cy: number, cz: number,
+    w: number, h: number, d: number,
+    rx: number, rz: number, // Right unit vector (along facade/eave)
+    fx: number, fz: number, // Forward unit vector (outward normal)
+    color: THREE.Color
+  ) {
+    const hw = w / 2;
+    const hh = h / 2;
+    const hd = d / 2;
+
+    const v = [
+      [cx - rx * hw - fx * hd, cy - hh, cz - rz * hw - fz * hd],
+      [cx + rx * hw - fx * hd, cy - hh, cz + rz * hw - fz * hd],
+      [cx + rx * hw + fx * hd, cy - hh, cz + rz * hw + fz * hd],
+      [cx - rx * hw + fx * hd, cy - hh, cz - rz * hw + fz * hd],
+      [cx - rx * hw - fx * hd, cy + hh, cz - rz * hw - fz * hd],
+      [cx + rx * hw - fx * hd, cy + hh, cz + rz * hw - fz * hd],
+      [cx + rx * hw + fx * hd, cy + hh, cz + rz * hw + fz * hd],
+      [cx - rx * hw + fx * hd, cy + hh, cz - rz * hw + fz * hd]
+    ];
+
+    const faces = [
+      // Top (+Y)
+      { idx: [4, 5, 6, 4, 6, 7], n: [0, 1, 0] },
+      // Bottom (-Y)
+      { idx: [0, 2, 1, 0, 3, 2], n: [0, -1, 0] },
+      // Forward (+F, front face)
+      { idx: [3, 2, 6, 3, 6, 7], n: [fx, 0, fz] },
+      // Back (-F, rear face)
+      { idx: [1, 0, 4, 1, 4, 5], n: [-fx, 0, -fz] },
+      // Right (+R)
+      { idx: [2, 1, 5, 2, 5, 6], n: [rx, 0, rz] },
+      // Left (-R)
+      { idx: [0, 3, 7, 0, 7, 4], n: [-rx, 0, -rz] }
+    ];
+
+    for (const f of faces) {
+      for (const idx of f.idx) {
+        const pt = v[idx];
+        pos.push(pt[0], pt[1], pt[2]);
         norm.push(f.n[0], f.n[1], f.n[2]);
         col.push(color.r, color.g, color.b);
       }
