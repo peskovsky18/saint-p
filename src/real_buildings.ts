@@ -13,6 +13,17 @@ export interface OSMBuilding {
   polygon: [number, number][]; // [lon, lat]
 }
 
+export const LANDMARK_DEFS: Record<string, { file: string; uScale: number; vScale: number; color: number }> = {
+  hermitage: { file: 'textures/landmarks/hermitage.jpg', uScale: 96.0, vScale: 23.5, color: PALETTE.hermitageGreen },
+  general_staff: { file: 'textures/landmarks/general_staff.jpg', uScale: 15.0, vScale: 24.0, color: PALETTE.empireYellow },
+  admiralty: { file: 'textures/landmarks/admiralty.jpg', uScale: 20.0, vScale: 18.0, color: PALETTE.empireYellow },
+  isaac: { file: 'textures/landmarks/isaac.jpg', uScale: 28.0, vScale: 28.0, color: PALETTE.isaacGranite },
+  spas: { file: 'textures/landmarks/spas.jpg', uScale: 16.0, vScale: 26.0, color: PALETTE.spbBrick },
+  exchange: { file: 'textures/landmarks/exchange.jpg', uScale: 26.0, vScale: 20.0, color: PALETTE.spbWhiteStone },
+  peter_paul: { file: 'textures/landmarks/peter_paul.jpg', uScale: 16.0, vScale: 22.0, color: PALETTE.spbWhiteStone },
+  kazan: { file: 'textures/landmarks/kazan.jpg', uScale: 16.0, vScale: 26.0, color: PALETTE.empireStone }
+};
+
 interface WallBuffers {
   positions: number[];
   normals: number[];
@@ -48,26 +59,15 @@ export class RealBuildingsSystem {
   }
 
   /**
-   * Loads real photo textures for iconic St. Petersburg landmarks with crisp mini-pixel nearest filtering
+   * Loads real photo textures for iconic St. Petersburg landmarks with crisp filtering
    */
   private initLandmarkMaterials() {
     const texLoader = new THREE.TextureLoader();
 
-    const landmarkDefs: Record<string, { file: string; uScale: number; vScale: number; color: number }> = {
-      hermitage: { file: 'textures/landmarks/hermitage.jpg', uScale: 6.0, vScale: 23.5, color: PALETTE.hermitageGreen },
-      general_staff: { file: 'textures/landmarks/general_staff.jpg', uScale: 6.5, vScale: 24.0, color: PALETTE.empireYellow },
-      admiralty: { file: 'textures/landmarks/admiralty.jpg', uScale: 8.5, vScale: 18.0, color: PALETTE.empireYellow },
-      isaac: { file: 'textures/landmarks/isaac.jpg', uScale: 7.5, vScale: 28.0, color: PALETTE.isaacGranite },
-      spas: { file: 'textures/landmarks/spas.jpg', uScale: 5.5, vScale: 26.0, color: PALETTE.spbBrick },
-      exchange: { file: 'textures/landmarks/exchange.jpg', uScale: 6.5, vScale: 20.0, color: PALETTE.spbWhiteStone },
-      peter_paul: { file: 'textures/landmarks/peter_paul.jpg', uScale: 6.5, vScale: 22.0, color: PALETTE.spbWhiteStone },
-      kazan: { file: 'textures/landmarks/kazan.jpg', uScale: 6.5, vScale: 26.0, color: PALETTE.empireStone }
-    };
-
     const baseUrl = (import.meta as any).env?.BASE_URL || './';
     const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
 
-    for (const [key, def] of Object.entries(landmarkDefs)) {
+    for (const [key, def] of Object.entries(LANDMARK_DEFS)) {
       const texPath = `${cleanBase}${def.file}`;
       const tex = texLoader.load(
         texPath,
@@ -75,8 +75,9 @@ export class RealBuildingsSystem {
           t.colorSpace = THREE.SRGBColorSpace;
           t.wrapS = THREE.RepeatWrapping;
           t.wrapT = THREE.RepeatWrapping;
-          t.magFilter = THREE.NearestFilter;
-          t.minFilter = THREE.NearestFilter;
+          t.magFilter = THREE.LinearFilter;
+          t.minFilter = THREE.LinearMipmapLinearFilter;
+          t.generateMipmaps = true;
           t.needsUpdate = true;
         },
         undefined,
@@ -87,8 +88,9 @@ export class RealBuildingsSystem {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
-      tex.magFilter = THREE.NearestFilter;
-      tex.minFilter = THREE.NearestFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.generateMipmaps = true;
 
       // Color 0xffffff ensures real photographic landmark textures render in full vibrancy without muddy tinting!
       this.landmarkMaterials[key] = new THREE.MeshLambertMaterial({
@@ -514,34 +516,34 @@ export class RealBuildingsSystem {
   }
 
   private getLandmarkType(b: OSMBuilding): string | null {
-    const n = (b.name || '').toLowerCase();
+    const n = (b.name || '').toLowerCase().trim();
     const id = b.id;
 
-    if (n.includes('зимний дворец') || n.includes('эрмитаж') || id === 69424 || id === 270634 || id === 1067948 || id === 1202918) {
+    if (id === 69424000 || id === 270634000 || id === 1067948000 || id === 1202918000 || n === 'зимний дворец') {
       return 'hermitage';
     }
-    if (n.includes('главный штаб') || n.includes('арка главного штаба') || id === 1453436 || id === 309796655 || id === 100016301) {
+    if (id === 1453436000 || n === 'главный штаб') {
       return 'general_staff';
     }
-    if (n.includes('адмиралтейство') || id === 2612859) {
+    if (id === 2612859000 || n === 'адмиралтейство') {
       return 'admiralty';
     }
-    if (n.includes('исаакиевский') || id === 3229838) {
+    if (id === 3229838000 || n === 'исаакиевский собор') {
       return 'isaac';
     }
-    if (n.includes('кров') || n.includes('воскресения христова') || id === 28966446) {
+    if (id === 28966446 || n === 'собор воскресения христова на крови') {
       return 'spas';
     }
-    if (n.includes('биржа') || id === 3084726 || id === 19826133) {
+    if (id === 3084726000 || n === 'санкт-петербургская биржа') {
       return 'exchange';
     }
-    if (n.includes('петропавл') || id === 227969) {
+    if (id === 2594681000 || n === 'петропавловский собор') {
       return 'peter_paul';
     }
-    if (n.includes('казанск') || id === 11763697) {
+    if (id === 11763697000 || n === 'казанский собор') {
       return 'kazan';
     }
-    if (n.includes('троицкий собор') || id === 28808840) {
+    if (id === 28808840 || n.includes('троицкий собор')) {
       return 'lavra';
     }
     return null;
@@ -601,6 +603,39 @@ export class RealBuildingsSystem {
 
         if (pts.length < 3) continue;
 
+        // Skip standalone monuments that are procedurally modeled in LandmarksSystem:
+        // Alexander Column, Rostral Columns, Bronze Horseman, and Admiralty Arch subpart
+        let cx = 0, cz = 0;
+        for (const p of pts) { cx += p.x; cz += p.z; }
+        cx /= pts.length; cz /= pts.length;
+
+        if (
+          Math.hypot(cx - 67.86, cz - 87.72) < 25 ||         // Alexander Column (removes id: 2000648000 and 37 subparts)
+          Math.hypot(cx - (-426.4), cz - (-363.8)) < 30 ||  // South Rostral Column (removes id: 3084697000)
+          Math.hypot(cx - (-530.6), cz - (-538.2)) < 30 ||  // North Rostral Column (removes id: 19710429000)
+          Math.hypot(cx - (-626.8), cz - 264.4) < 25 ||     // Bronze Horseman
+          b.id === 3229958000 ||                            // Главная арка адмиралтейства (modeled in 3D in landmarks)
+          (b.name && b.name.toLowerCase().includes('ростраль')) // Any Rostral column marker
+        ) {
+          continue;
+        }
+
+        // Skip un-named OSM micro-subparts (columns, steps) that overlap major landmarks
+        if (!b.name || b.name.trim() === '') {
+          // Proximity to major landmarks: Stock Exchange (558 micro-parts), Isaac (14), Peter Paul (31), Admiralty (20), Winter Palace (7), Kazan (3)
+          if (
+            Math.hypot(cx - (-554.6), cz - (-407.8)) < 65 || // Stock Exchange
+            Math.hypot(cx - (-472.3), cz - 641.1) < 55 ||   // St. Isaac Cathedral
+            Math.hypot(cx - 108.5, cz - (-1155.0)) < 40 ||  // Peter & Paul Cathedral
+            Math.hypot(cx - (-370.6), cz - 208.8) < 160 ||  // Admiralty
+            Math.hypot(cx - (-22.7), cz - (-57.7)) < 130 || // Winter Palace
+            Math.hypot(cx - 567.8, cz - 600.8) < 70 ||      // Kazan Cathedral (removes parasitic rooftop boxes)
+            Math.hypot(cx - 800.2, cz - (-24.7)) < 40       // Spas na Krovi
+          ) {
+            continue;
+          }
+        }
+
         const lmType = this.getLandmarkType(b);
 
         // Strict historical heights
@@ -659,13 +694,15 @@ export class RealBuildingsSystem {
         }
 
         const targetBuffer = lmType && landmarkBuffers[lmType] ? landmarkBuffers[lmType] : standardWalls;
-        const uScale = lmType ? 6.0 : 4.0;
-        const vScale = height;
+        const lmDef = lmType ? LANDMARK_DEFS[lmType] : null;
+        const uScale = lmDef ? lmDef.uScale : 4.0;
+        const vScale = lmDef ? lmDef.vScale : height;
 
         // 1. Build Extruded Solid Vertical Walls
         const numPts = pts.length;
         let centroidX = 0;
         let centroidZ = 0;
+        let cumDist = 0;
 
         for (let i = 0; i < numPts; i++) {
           const p1 = pts[i];
@@ -682,8 +719,10 @@ export class RealBuildingsSystem {
           const nx = -dz / len;
           const nz = dx / len;
 
-          const uSpan = len / uScale;
-          const vSpan = height / vScale;
+          const u1 = cumDist / uScale;
+          const u2 = (cumDist + len) / uScale;
+          const v1 = 0.0;
+          const v2 = height / vScale;
 
           // Wall Quad
           targetBuffer.positions.push(
@@ -699,8 +738,8 @@ export class RealBuildingsSystem {
             nx, 0, nz, nx, 0, nz, nx, 0, nz
           );
           targetBuffer.uvs.push(
-            0, 0, uSpan, 0, uSpan, vSpan,
-            0, 0, uSpan, vSpan, 0, vSpan
+            u1, v1, u2, v1, u2, v2,
+            u1, v1, u2, v2, u1, v2
           );
           targetBuffer.colors.push(
             wallCol.r, wallCol.g, wallCol.b,
@@ -710,6 +749,7 @@ export class RealBuildingsSystem {
             wallCol.r, wallCol.g, wallCol.b,
             wallCol.r, wallCol.g, wallCol.b
           );
+          cumDist += len;
 
           // 2. Build Roof Parapet Lip (0.55m high, 0.45m wide border)
           // Creates distinct 3D isometric roof borders matching Warsaw-Izo
