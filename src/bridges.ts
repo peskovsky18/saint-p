@@ -45,10 +45,10 @@ export class BridgeSystem {
     bridgeGroup.name = 'palace-bridge';
 
     // Palace Bridge real GPS coordinates
-    const bridgeStartX = -60;
-    const bridgeStartZ = -75;
-    const bridgeEndX = -310;
-    const bridgeEndZ = -252;
+    const bridgeStartX = -268;
+    const bridgeStartZ = -25;
+    const bridgeEndX = -436;
+    const bridgeEndZ = -253;
 
     const angle = Math.atan2(bridgeEndZ - bridgeStartZ, bridgeEndX - bridgeStartX);
     const length = Math.hypot(bridgeEndX - bridgeStartX, bridgeEndZ - bridgeStartZ);

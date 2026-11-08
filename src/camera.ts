@@ -171,9 +171,19 @@ export class CameraController {
   /**
    * Smoothly navigates the camera to any coordinates across Saint Petersburg
    */
-  public flyTo(targetX: number, targetZ: number, zoomLevel: number = 180) {
+  public flyTo(targetX: number, targetZ: number, zoomLevel: number = 180, instant: boolean = false) {
     this.target.set(targetX, 0, targetZ);
     this.targetZoomLevel = Math.max(this.minZoom, Math.min(this.maxZoom, zoomLevel));
+    if (instant) {
+      this.currentTarget.copy(this.target);
+      this.zoomLevel = this.targetZoomLevel;
+      this.camera.left = -this.zoomLevel * this.aspect;
+      this.camera.right = this.zoomLevel * this.aspect;
+      this.camera.top = this.zoomLevel;
+      this.camera.bottom = -this.zoomLevel;
+      this.camera.updateProjectionMatrix();
+      this.updateCameraTransform();
+    }
   }
 
   public getZoomPercent(): number {

@@ -60,5 +60,11 @@ export const PALETTE = {
   // Transport
   tramRed: 0xbf3024,
   tramWhite: 0xf5f7fa,
-  meteorAqua: 0x2288a8
+  meteorAqua: 0x2288a8,
+
+  // Sculptures & Embankments
+  sphinxSyenite: 0x966858,   // Authentic Egyptian Aswan syenite granite
+  bronzeStatue: 0x3d473e,    // Monumental oxidized Saint Petersburg bronze
+  castIronBlack: 0x22252a,   // Classic Petersburg cast iron (mooring bollards, grilles)
+  copperPatina: 0x487a68     // Monumental copper & bronze patina
 };

@@ -11,6 +11,7 @@ import { GroundSystem } from './ground';
 import { TreeSystem } from './trees';
 import { RealBuildingsSystem } from './real_buildings';
 import { RailwaySystem } from './railways';
+import { QuaysAndSculpturesSystem } from './quays_and_sculptures';
 import { UIManager } from './ui';
 
 class SaintPIzoApp {
@@ -24,6 +25,7 @@ class SaintPIzoApp {
   public weather: WeatherSystem;
   public flight: FlightSimulator;
   public landmarks: LandmarksSystem;
+  public quays: QuaysAndSculpturesSystem;
   public ground: GroundSystem;
   public trees: TreeSystem;
   public realBuildings: RealBuildingsSystem;
@@ -63,6 +65,7 @@ class SaintPIzoApp {
     this.weather = new WeatherSystem(this.scene);
     this.flight = new FlightSimulator(this.scene);
     this.landmarks = new LandmarksSystem(this.scene);
+    this.quays = new QuaysAndSculpturesSystem(this.scene);
 
     // 5. UI
     this.ui = new UIManager(
@@ -109,6 +112,7 @@ class SaintPIzoApp {
     this.water.update(deltaTime, sunState.nightFactor);
     this.realBuildings.update(sunState.nightFactor);
     this.landmarks.update(deltaTime, sunState.nightFactor, curHour);
+    this.quays.update(deltaTime, sunState.nightFactor);
 
     // 4. Update Bridges (with automatic St. Petersburg bridge schedule)
     this.bridges.update(deltaTime, curHour, sunState.nightFactor);
