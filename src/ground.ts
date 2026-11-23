@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { splitIntoTiles } from './merge';
 import earcut from 'earcut';
 import { latLonToMeters } from './geo';
 import { PALETTE } from './palette';
@@ -449,8 +450,7 @@ export class GroundSystem {
       this.parkMesh = new THREE.Mesh(geo, mat);
       this.parkMesh.renderOrder = 2;
       this.parkMesh.receiveShadow = true;
-      this.parkMesh.frustumCulled = false;
-      this.group.add(this.parkMesh);
+      this.group.add(splitIntoTiles(this.parkMesh));
 
       // Gravel Paths Mesh
       const pathGeo = new THREE.BufferGeometry();
@@ -466,8 +466,7 @@ export class GroundSystem {
       this.gravelPathsMesh = new THREE.Mesh(pathGeo, pathMat);
       this.gravelPathsMesh.renderOrder = 3;
       this.gravelPathsMesh.receiveShadow = true;
-      this.gravelPathsMesh.frustumCulled = false;
-      this.group.add(this.gravelPathsMesh);
+      this.group.add(splitIntoTiles(this.gravelPathsMesh));
 
       console.log(`Rendered ${parks.length} real parks & gardens with sandy promenades.`);
     } catch (e) {
@@ -506,7 +505,11 @@ export class GroundSystem {
           rName.includes('дворцовый мост') ||
           rName.includes('троицкий мост') ||
           rName.includes('благовещенский мост') ||
-          rName.includes('биржевой мост')
+          rName.includes('биржевой мост') ||
+          rName.includes('литейный мост') ||
+          rName.includes('сампсониевский мост') ||
+          rName.includes('большеохтинский мост') ||
+          rName.includes('мост александра невского')
         ) {
           continue;
         }
@@ -757,8 +760,7 @@ export class GroundSystem {
       this.roadMesh = new THREE.Mesh(roadGeo, roadMat);
       this.roadMesh.renderOrder = 5;
       this.roadMesh.receiveShadow = true;
-      this.roadMesh.frustumCulled = false;
-      this.group.add(this.roadMesh);
+      this.group.add(splitIntoTiles(this.roadMesh));
 
       // 2. Red Bicycle Lanes Mesh
       if (bikePositions.length > 0) {
@@ -775,8 +777,7 @@ export class GroundSystem {
         this.bikeLaneMesh = new THREE.Mesh(bikeGeo, bikeMat);
         this.bikeLaneMesh.renderOrder = 6;
         this.bikeLaneMesh.receiveShadow = true;
-        this.bikeLaneMesh.frustumCulled = false;
-        this.group.add(this.bikeLaneMesh);
+        this.group.add(splitIntoTiles(this.bikeLaneMesh));
       }
 
       // 3. Road Markings Mesh (Crisp White Painted Lines, Zebras & Arrows)
@@ -790,8 +791,7 @@ export class GroundSystem {
       });
       this.markingsMesh = new THREE.Mesh(markGeo, markMat);
       this.markingsMesh.renderOrder = 7;
-      this.markingsMesh.frustumCulled = false;
-      this.group.add(this.markingsMesh);
+      this.group.add(splitIntoTiles(this.markingsMesh));
 
       // 4. Curbstones Mesh (Light Granite Curbs)
       const curbGeo = new THREE.BufferGeometry();
@@ -805,8 +805,7 @@ export class GroundSystem {
       this.curbsMesh = new THREE.Mesh(curbGeo, curbMat);
       this.curbsMesh.renderOrder = 8;
       this.curbsMesh.receiveShadow = true;
-      this.curbsMesh.frustumCulled = false;
-      this.group.add(this.curbsMesh);
+      this.group.add(splitIntoTiles(this.curbsMesh));
 
       console.log(`Rendered ${roads.length} real streets with asphalt, red bike lanes, markings, and granite curbs.`);
     } catch (e) {

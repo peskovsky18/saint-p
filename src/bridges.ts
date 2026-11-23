@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { PALETTE } from './palette';
+import { mergeStaticMeshes } from './merge';
 
 export interface BridgeWing {
   mesh: THREE.Object3D;
@@ -39,6 +40,34 @@ export class BridgeSystem {
     this.createBlueBridge();
     this.createGreenBridge();
     this.createKazanskyBridge();
+
+    // Other Neva bridges, endpoints from the OSM bridge ways (bank to bank)
+    this.createFixedNevaBridge('liteyny-bridge', 1922, -1145, 1971, -1530, 34, 5, 0x3a4540, 0x5c5048);
+    this.createFixedNevaBridge('sampsonievsky-bridge', 1141, -2010, 1371, -2029, 25, 2, 0x4f6470, 0x6d6a66);
+    this.createFixedNevaBridge('bolsheokhtinsky-bridge', 4663, -324, 5037, -303, 24, 2, 0x8fa9bf, 0x7a7a78, true);
+    this.createFixedNevaBridge('alexander-nevsky-bridge', 4173, 1711, 4816, 1451, 35, 4, 0x8a8f94, 0x8a8f94);
+
+    // Approach ramps: the decks stand 7-9 m above the street level of the
+    // model, so each end gets a short sloped ramp down to the embankment.
+    const ramps: [number, number, number, number, number, number][] = [
+      // startX, startZ, endX, endZ, width, deck top
+      [-276, -45, -437, -254, 28, 7.15],      // Palace
+      [830, -735, 612, -1248, 24, 8.8],       // Trinity
+      [-1320, 715, -1465, 412, 26, 8.3],      // Blagoveshchensky
+      [-630, -600, -615, -838, 22, 8.2],      // Exchange
+      [1922, -1145, 1971, -1530, 34, 8.3],    // Liteyny
+      [1141, -2010, 1371, -2029, 25, 8.3],    // Sampsonievsky
+      [4663, -324, 5037, -303, 24, 8.3],      // Bolsheokhtinsky
+      [4173, 1711, 4816, 1451, 35, 8.3]       // Alexander Nevsky
+    ];
+    for (const [sx, sz, ex, ez, w, top] of ramps) {
+      this.addApproachRamp(sx, sz, sx - ex, sz - ez, w, top);
+      this.addApproachRamp(ex, ez, ex - sx, ez - sz, w, top);
+    }
+
+    // Bake each bridge's static parts into a few meshes; drawbridge wings keep moving
+    const moving = new Set<THREE.Object3D>([...this.palaceBridgeWings, ...this.trinityBridgeWings].map((w) => w.pivot));
+    for (const bridge of [...this.group.children]) mergeStaticMeshes(bridge, moving);
   }
 
   /**
@@ -581,6 +610,84 @@ export class BridgeSystem {
     }
 
     this.group.add(bridgeGroup);
+  }
+
+  /**
+   * Fixed (non-opening) Neva bridge between two OSM endpoints: deck, arch
+   * girders, railings, lanterns and evenly spaced granite piers. The
+   * Bolsheokhtinsky bridge also gets its four riveted steel tower pavilions.
+   */
+  private createFixedNevaBridge(
+    name: string, startX: number, startZ: number, endX: number, endZ: number,
+    width: number, piers: number, steel: number, pier: number, towers = false
+  ) {
+    const bridgeGroup = new THREE.Group();
+    bridgeGroup.name = name;
+    const angle = Math.atan2(endZ - startZ, endX - startX);
+    const length = Math.hypot(endX - startX, endZ - startZ);
+    const deckY = 3.6;
+    bridgeGroup.position.set((startX + endX) / 2, 4.5, (startZ + endZ) / 2);
+    bridgeGroup.rotation.y = -angle;
+
+    const spanMat = new THREE.MeshLambertMaterial({ color: steel, flatShading: true });
+    const roadMat = new THREE.MeshLambertMaterial({ color: 0x2e333a, flatShading: true });
+    const body = new THREE.Mesh(new THREE.BoxGeometry(length, 3.8, width), spanMat);
+    body.castShadow = true;
+    body.receiveShadow = true;
+    bridgeGroup.add(body);
+    const road = new THREE.Mesh(new THREE.BoxGeometry(length, 0.4, width - 5), roadMat);
+    road.position.set(0, deckY, 0);
+    bridgeGroup.add(road);
+
+    this.createArchTrussGirders(bridgeGroup, length, 3.2, width, 0, deckY, steel);
+    this.createRailing(bridgeGroup, length, width, 0, deckY, 0x181c22);
+    this.createLanterns(bridgeGroup, length, width, 0, deckY, 22.0);
+
+    for (let i = 1; i <= piers; i++) {
+      const px = -length / 2 + (i * length) / (piers + 1);
+      this.createGranitePier(bridgeGroup, px, -2.5, 0, 11.0, 9.0, width + 4.5, pier);
+    }
+
+    if (towers) {
+      const towerMat = new THREE.MeshLambertMaterial({ color: steel, flatShading: true });
+      const capMat = new THREE.MeshLambertMaterial({ color: 0x3d4a57, flatShading: true });
+      for (let i = 1; i <= piers; i++) {
+        const px = -length / 2 + (i * length) / (piers + 1);
+        for (const side of [-1, 1]) {
+          const tower = new THREE.Mesh(new THREE.BoxGeometry(6, 18, 6), towerMat);
+          tower.position.set(px, deckY + 9, side * (width / 2 + 1));
+          tower.castShadow = true;
+          bridgeGroup.add(tower);
+          const spire = new THREE.Mesh(new THREE.ConeGeometry(4.2, 7, 4), capMat);
+          spire.rotation.y = Math.PI / 4;
+          spire.position.set(px, deckY + 21.5, side * (width / 2 + 1));
+          spire.castShadow = true;
+          bridgeGroup.add(spire);
+        }
+      }
+    }
+
+    this.group.add(bridgeGroup);
+  }
+
+  /** Sloped granite ramp from a bridge end (deck top `top`) down to the street, 15 m long. */
+  private addApproachRamp(x: number, z: number, dirX: number, dirZ: number, width: number, top: number) {
+    const len = 15;
+    const shape = new THREE.Shape();
+    shape.moveTo(0, 0);
+    shape.lineTo(len, 0);
+    shape.lineTo(len, 0.25);
+    shape.lineTo(0, top);
+    shape.closePath();
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: width - 2, bevelEnabled: false });
+    geo.translate(0, 0, -(width - 2) / 2);
+    const ramp = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: 0x3a3e44, flatShading: true }));
+    ramp.position.set(x, 0, z);
+    ramp.rotation.y = -Math.atan2(dirZ, dirX);
+    ramp.castShadow = true;
+    ramp.receiveShadow = true;
+    ramp.name = 'bridge-approach-ramp';
+    this.group.add(ramp);
   }
 
   /**

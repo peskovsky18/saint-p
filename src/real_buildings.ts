@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { splitIntoTiles } from './merge';
 import earcut from 'earcut';
 import { latLonToMeters } from './geo';
 import { PALETTE } from './palette';
@@ -29,6 +30,44 @@ interface WallBuffers {
   normals: number[];
   uvs: number[];
   colors: number[];
+}
+
+/**
+ * Real facade / roof colours (and heights where OSM levels are too low) of
+ * well-known buildings whose OSM ways carry no building:colour tag. Without
+ * this they would get a random palette colour.
+ */
+const KNOWN_BUILDINGS: Record<number, { wall: number; roof?: number; height?: number }> = {
+  238571000: { wall: 0xc9644a, roof: 0x8e9dae },               // Михайловский (Инженерный) замок: red-orange
+  1028087000: { wall: 0xe0a094, roof: 0x8e9dae },              // Строгановский дворец: pink
+  1147588000: { wall: 0xe2c16c, roof: 0x8e9dae },              // Большой Гостиный двор: yellow, white arcades
+  1390871000: { wall: 0xe2c16c, roof: 0x8e9dae },              // Малый Гостиный двор
+  1502547000: { wall: 0xe6c369, roof: 0x8e9dae, height: 16 },  // Михайловский дворец (Русский музей): yellow
+  3798383000: { wall: 0xc87561, roof: 0x8e9dae },              // Аничков дворец: terracotta red
+  2404499000: { wall: 0xe4d29c, roof: 0x8e9dae },              // Московский вокзал: pale yellow
+  969622000: { wall: 0xb9a79c, roof: 0x8e9dae },               // Мраморный дворец: grey-pink stone
+  3801092000: { wall: 0xe8d38e, roof: 0x879a8b, height: 14 },  // Таврический дворец: pale yellow
+  3296328000: { wall: 0x86c4bc, roof: 0x8e9dae },              // Кунсткамера: pale turquoise
+  3296329000: { wall: 0x86c4bc, roof: 0x8e9dae },              // Кунсткамера, east block
+  2133719000: { wall: 0x86b4d8, roof: 0x9aa8b6 }               // Смольный монастырь: sky blue
+};
+
+/** Zayachy Island parts drawn by LandmarksSystem instead of the OSM extrusion. */
+const FORTRESS_OUTLINE_IDS = new Set([
+  227969000,   // the whole fortress outline (would cover the island)
+  13084741000, // Nikolskaya curtain wall
+  2594690000,  // Alekseevsky ravelin earthwork
+  2594679000,  // Ioannovsky ravelin earthwork
+  8857004000   // Boat House (modelled with its statue-crowned roof)
+]);
+const FORTRESS_BASTIONS: [number, number, number][] = [
+  [180, -940, 42], [385, -1125, 40], [-105, -920, 40],
+  [-170, -1150, 38], [60, -1355, 42], [330, -1350, 38]
+];
+function isFortressModelled(id: number, cx: number, cz: number): boolean {
+  if (FORTRESS_OUTLINE_IDS.has(id)) return true;
+  if (Math.hypot(cx - 106, cz + 1170) < 45) return true; // cathedral and Grand Ducal burial vault
+  return FORTRESS_BASTIONS.some(([bx, bz, r]) => Math.hypot(cx - bx, cz - bz) < r);
 }
 
 export class RealBuildingsSystem {
@@ -1017,11 +1056,12 @@ export class RealBuildingsSystem {
           (b.name && b.name.toLowerCase().includes('казанский собор')) || // Kazan Cathedral
           Math.hypot(cx - 567.8, cz - 600.8) < 80 ||        // Kazan Cathedral full footprint
           (b.name && b.name.toLowerCase().includes('смольный')) || // Smolny Cathedral
-          Math.hypot(cx - 4485, cz - (-1007)) < 65 ||       // Smolny Cathedral footprint
+          Math.hypot(cx - 4510, cz - (-1007)) < 65 ||       // Smolny Cathedral footprint
           // Winter Palace full footprint (replaced by authentic procedural pixel-art ensemble)
           (cx >= -185 && cx <= 90 && cz >= -205 && cz <= 55) ||
-          // Zayachy Island (Peter & Paul Fortress - replaced by authentic 6-bastion star fortress ensemble)
-          (cx >= -220 && cx <= 450 && cz >= -1420 && cz <= -900)
+          // Peter & Paul Fortress: walls, bastions and the cathedral are modelled in
+          // LandmarksSystem; the buildings inside the walls come from OSM.
+          isFortressModelled(b.id, cx, cz)
         ) {
           continue;
         }
@@ -1065,6 +1105,8 @@ export class RealBuildingsSystem {
         } else if (lmType === 'lavra') {
           height = 18.0;
         }
+        const known = KNOWN_BUILDINGS[b.id];
+        if (known?.height) height = known.height;
         height = Math.max(7.0, Math.min(height, 35.0));
 
         // Facade color
@@ -1081,6 +1123,8 @@ export class RealBuildingsSystem {
           wallCol = new THREE.Color(PALETTE.empireStone);
         } else if (lmType === 'lavra') {
           wallCol = new THREE.Color(PALETTE.spbOchre);
+        } else if (known) {
+          wallCol = new THREE.Color(known.wall);
         } else if (b.color) {
           wallCol = this.parseColor(b.color, PALETTE.spbOchre);
         } else {
@@ -1093,6 +1137,8 @@ export class RealBuildingsSystem {
           roofCol = new THREE.Color(PALETTE.roofCopperGreen);
         } else if (lmType === 'general_staff' || lmType === 'admiralty' || lmType === 'exchange' || lmType === 'kazan' || lmType === 'lavra') {
           roofCol = new THREE.Color(PALETTE.roofZincGrey);
+        } else if (known?.roof) {
+          roofCol = new THREE.Color(known.roof);
         } else if (b.roof_color && b.roof_color !== 'black' && b.roof_color !== '#000000') {
           roofCol = this.parseColor(b.roof_color, PALETTE.roofTinRed);
         } else {
@@ -1640,8 +1686,7 @@ export class RealBuildingsSystem {
       this.wallMesh = new THREE.Mesh(standardWallGeo, this.wallMat);
       this.wallMesh.castShadow = true;
       this.wallMesh.receiveShadow = true;
-      this.wallMesh.frustumCulled = false;
-      this.group.add(this.wallMesh);
+      this.group.add(splitIntoTiles(this.wallMesh)); // city-wide mesh -> culled ground tiles
 
       // 2. Landmark Meshes with Real Photo Textures
       for (const [lmKey, buf] of Object.entries(landmarkBuffers)) {
@@ -1656,10 +1701,9 @@ export class RealBuildingsSystem {
         const mesh = new THREE.Mesh(lmGeo, mat);
         mesh.castShadow = true;
         mesh.receiveShadow = true;
-        mesh.frustumCulled = false;
         mesh.name = `landmark-${lmKey}`;
         this.landmarkMeshes.set(lmKey, mesh);
-        this.group.add(mesh);
+        this.group.add(mesh); // compact per-landmark mesh: default culling works
       }
 
       // 3. Triangulated Roofs Mesh
@@ -1682,8 +1726,7 @@ export class RealBuildingsSystem {
       this.roofMesh = new THREE.Mesh(roofGeo, this.roofMat);
       this.roofMesh.castShadow = true;
       this.roofMesh.receiveShadow = true;
-      this.roofMesh.frustumCulled = false;
-      this.group.add(this.roofMesh);
+      this.group.add(splitIntoTiles(this.roofMesh)); // city-wide mesh -> culled ground tiles
 
       // 4. Roof Parapets Mesh (raised borders around roofs)
       const parapetGeo = new THREE.BufferGeometry();
@@ -1698,8 +1741,7 @@ export class RealBuildingsSystem {
       this.parapetMesh = new THREE.Mesh(parapetGeo, parapetMat);
       this.parapetMesh.castShadow = true;
       this.parapetMesh.receiveShadow = true;
-      this.parapetMesh.frustumCulled = false;
-      this.group.add(this.parapetMesh);
+      this.group.add(splitIntoTiles(this.parapetMesh)); // city-wide mesh -> culled ground tiles
 
       // 5. 3D Rooftop Details Mesh (chimneys, elevator penthouses, vents)
       const detailGeo = new THREE.BufferGeometry();
@@ -1714,8 +1756,7 @@ export class RealBuildingsSystem {
       this.rooftopDetailsMesh = new THREE.Mesh(detailGeo, detailMat);
       this.rooftopDetailsMesh.castShadow = true;
       this.rooftopDetailsMesh.receiveShadow = true;
-      this.rooftopDetailsMesh.frustumCulled = false;
-      this.group.add(this.rooftopDetailsMesh);
+      this.group.add(splitIntoTiles(this.rooftopDetailsMesh)); // city-wide mesh -> culled ground tiles
 
       // 6. Roofline Edges
       const edgeGeo = new THREE.BufferGeometry();
@@ -1727,8 +1768,7 @@ export class RealBuildingsSystem {
         opacity: 0.35
       });
       this.edgesMesh = new THREE.LineSegments(edgeGeo, edgeMat);
-      this.edgesMesh.frustumCulled = false;
-      this.group.add(this.edgesMesh);
+      this.group.add(splitIntoTiles(this.edgesMesh)); // city-wide mesh -> culled ground tiles
 
       // Initialize Warsaw-izo style voxel chimney smoke
       this.initChimneySmokeSystem();

@@ -127,7 +127,8 @@ class SaintPIzoApp {
     this.bridges.update(deltaTime, curHour, sunState.nightFactor);
 
     // 5. Update Public Transit (Cars, Trams, Meteor, Boats, Streetlamps)
-    this.transit.update(deltaTime, this.bridges.areOpen, sunState.nightFactor);
+    // A bridge is impassable from the moment it starts opening until fully lowered
+    this.transit.update(deltaTime, this.bridges.areOpen || this.bridges.openProgress > 0.001, sunState.nightFactor);
 
     // 6. Update Flight Simulator Physics
     this.flight.update(deltaTime);

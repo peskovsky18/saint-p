@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { splitIntoTiles } from './merge';
 import { latLonToMeters } from './geo';
 
 export interface OSMTrack {
@@ -475,8 +476,7 @@ export class RailwaySystem {
       this.ballastMesh = new THREE.Mesh(ballastGeo, ballastMat);
       this.ballastMesh.renderOrder = 4;
       this.ballastMesh.receiveShadow = true;
-      this.ballastMesh.frustumCulled = false;
-      this.group.add(this.ballastMesh);
+      this.group.add(splitIntoTiles(this.ballastMesh));
 
       // Create Rails Mesh
       const railsGeo = new THREE.BufferGeometry();
@@ -493,8 +493,7 @@ export class RailwaySystem {
       this.railsMesh.renderOrder = 6;
       this.railsMesh.receiveShadow = true;
       this.railsMesh.castShadow = true;
-      this.railsMesh.frustumCulled = false;
-      this.group.add(this.railsMesh);
+      this.group.add(splitIntoTiles(this.railsMesh));
 
       // Create Platforms Mesh
       const platGeo = new THREE.BufferGeometry();
@@ -511,8 +510,7 @@ export class RailwaySystem {
       this.platformsMesh.renderOrder = 5;
       this.platformsMesh.receiveShadow = true;
       this.platformsMesh.castShadow = true;
-      this.platformsMesh.frustumCulled = false;
-      this.group.add(this.platformsMesh);
+      this.group.add(splitIntoTiles(this.platformsMesh));
 
       // Create Details Mesh (buffer stops & catenary)
       const detailGeo = new THREE.BufferGeometry();
@@ -528,8 +526,7 @@ export class RailwaySystem {
       this.detailsMesh.renderOrder = 7;
       this.detailsMesh.castShadow = true;
       this.detailsMesh.receiveShadow = true;
-      this.detailsMesh.frustumCulled = false;
-      this.group.add(this.detailsMesh);
+      this.group.add(splitIntoTiles(this.detailsMesh));
 
       // 5. Spawn Detailed Iconic Trains at Moscow Station
       this.spawnStationTrains();

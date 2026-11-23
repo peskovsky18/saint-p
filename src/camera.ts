@@ -30,16 +30,16 @@ export const CINEMATIC_TOUR: CinematicWaypoint[] = [
   {
     name: 'Стрелка Васильевского острова',
     sub: 'Ростральные колонны, Здание Биржи и Нева',
-    x: -450,
-    z: -300,
+    x: -470,
+    z: -440,
     zoom: 180,
     duration: 14
   },
   {
     name: 'Дворцовый мост и Зимний дворец',
     sub: 'Панорама Невы и скоростные «Метеоры»',
-    x: -160,
-    z: -120,
+    x: -300,
+    z: -140,
     zoom: 170,
     duration: 13
   },
@@ -70,8 +70,8 @@ export const CINEMATIC_TOUR: CinematicWaypoint[] = [
   {
     name: 'Площадь Восстания',
     sub: 'Московский вокзал и Лиговский проспект',
-    x: 2320,
-    z: 880,
+    x: 2580,
+    z: 980,
     zoom: 190,
     duration: 13
   }

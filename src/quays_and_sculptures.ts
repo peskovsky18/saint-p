@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeStaticMeshes } from './merge';
 import { PALETTE } from './palette';
 
 /**
@@ -32,6 +33,8 @@ export class QuaysAndSculpturesSystem {
     this.createAdmiraltySenatePier();
     this.createSpitGraniteRamp();
     this.createAnichkovHorses();
+
+    for (const part of [...this.group.children]) mergeStaticMeshes(part);
   }
 
   /**

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { splitInstancesIntoTiles } from './merge';
 import { latLonToMeters } from './geo';
 
 export interface OSMTree {
@@ -101,7 +102,6 @@ export class TreeSystem {
       this.trunkMesh = new THREE.InstancedMesh(trunkGeo, trunkMat, totalCount);
       this.trunkMesh.castShadow = true;
       this.trunkMesh.receiveShadow = true;
-      this.trunkMesh.frustumCulled = false;
 
       // Stepped Voxel Canopy Geometry (Warsaw-Izo Style)
       // Tier 1 (Base):   3.6m x 1.8m x 3.6m (y: 2.7 to 4.5m)
@@ -127,7 +127,6 @@ export class TreeSystem {
       this.canopyMesh = new THREE.InstancedMesh(mergedCanopy, canopyMat, totalCount);
       this.canopyMesh.castShadow = true;
       this.canopyMesh.receiveShadow = true;
-      this.canopyMesh.frustumCulled = false;
 
       const dummy = new THREE.Object3D();
       const colors = [
@@ -160,8 +159,8 @@ export class TreeSystem {
       this.canopyMesh.instanceMatrix.needsUpdate = true;
       if (this.canopyMesh.instanceColor) this.canopyMesh.instanceColor.needsUpdate = true;
 
-      this.group.add(this.trunkMesh);
-      this.group.add(this.canopyMesh);
+      this.group.add(splitInstancesIntoTiles(this.trunkMesh));
+      this.group.add(splitInstancesIntoTiles(this.canopyMesh));
 
       console.log(`Rendered ${totalCount} perfectly straight, aligned 3D pixel trees.`);
     } catch (e) {

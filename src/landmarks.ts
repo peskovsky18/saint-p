@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { PALETTE } from './palette';
+import { mergeStaticMeshes } from './merge';
 
 function createPedimentGeometry(width: number, height: number, depth: number): THREE.BufferGeometry {
   const shape = new THREE.Shape();
@@ -167,6 +168,13 @@ export class LandmarksSystem {
     // High-fidelity procedural pixel-art voxel landmarks are active natively across the entire city.
     // Blender CAD models disabled to maintain authentic Warsaw-Izo retro pixel-art aesthetic.
     // this.loadVoxelLandmarkModels();
+
+    // Bake every hand-modelled landmark into a few meshes (one per material).
+    // The noon-cannon effects move and fade, so they stay separate.
+    const animated = new Set<THREE.Object3D>([this.cannonFlashMesh, this.cannonSmokeGroup, this.cannonShockwave]);
+    for (const lm of [...this.group.children]) {
+      if (lm !== this.voxelLandmarksGroup) mergeStaticMeshes(lm, animated);
+    }
   }
 
   /**
@@ -219,7 +227,7 @@ export class LandmarksSystem {
       },
       {
         file: 'models/smolny_cathedral.glb',
-        pos: new THREE.Vector3(4475.0, 0.0, -1007.0),
+        pos: new THREE.Vector3(4510.2, 0.0, -1007.1),
         rotY: 0,
         scale: 1.0,
         name: 'blender-smolny-cathedral',
@@ -597,7 +605,7 @@ export class LandmarksSystem {
     const spireGroup = new THREE.Group();
     spireGroup.name = 'admiralty-spire';
     spireGroup.position.set(-330.32, 0.5, 264.66);
-    spireGroup.rotation.y = 0; // Squarely aligned with the Admiralty facade and Gorokhovaya Street axis
+    spireGroup.rotation.y = 0.663; // OSM footprint axis: the arch faces Gorokhovaya St (local +z)
 
     const trimMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldSpire, flatShading: true });
@@ -720,8 +728,9 @@ export class LandmarksSystem {
 
     // 5. East and West River Pavilions with Doric Porticoes & Slender Gilded Spires
     const riverPavilions = [
-      { x: -198.4, z: 144.1, rot: -0.616, name: 'east-admiralty-pavilion' },  // Facing Palace Square / Palace Bridge
-      { x: -551.7, z: 273.2, rot: -0.616, name: 'west-admiralty-pavilion' }   // Facing Senate Square / Bronze Horseman
+      // At the Neva ends of the two side wings (OSM footprint), porticoes facing outwards
+      { x: -283.2, z: 43.7, rot: 0.663 + Math.PI / 2, name: 'east-admiralty-pavilion' },  // Facing Palace Square
+      { x: -551.7, z: 273.2, rot: 0.663 - Math.PI / 2, name: 'west-admiralty-pavilion' }  // Facing Senate Square
     ];
 
     for (const rp of riverPavilions) {
@@ -757,7 +766,7 @@ export class LandmarksSystem {
 
   /**
    * Купол Исаакиевского собора (St. Isaac's Cathedral Authentic 3D Architectural Reconstruction)
-   * Exact GPS: 59.934083 N, 30.306122 E -> World: x=-472.3, z=641.1
+   * Placed on its OSM footprint centre (x=-469.3, z=640.2).
    * 4 Grand Octastyle Porticoes with 48 monolithic Rapakivi granite columns (17m tall),
    * Rotunda colonnade with 24 columns, tourist balustrade viewing platform (смотровая площадка),
    * 24 bronze angel statues on drum attic, 101.5m ribbed golden dome, and 4 corner campaniles.
@@ -765,52 +774,65 @@ export class LandmarksSystem {
   private buildStIsaacsDome() {
     const isaacGroup = new THREE.Group();
     isaacGroup.name = 'st-isaacs-dome';
-    isaacGroup.position.set(-472.3, 28.0, 641.1);
+    // The OSM footprint is turned 36 degrees from the world axes (parallel to the
+    // Admiralty): local +z faces St. Isaac's Square and the Mariinsky Palace,
+    // local -z faces Senate Square. The group origin sits on the roof (y = 34).
+    const ROOF = 34;
+    isaacGroup.position.set(-469.3, ROOF, 640.2);
+    isaacGroup.rotation.y = 0.628;
 
-    const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
+    const stoneMat = new THREE.MeshLambertMaterial({ color: 0xb2afa6, flatShading: true }); // grey marble cladding
     const graniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.isaacGranite, flatShading: true });
     const bronzeMat = new THREE.MeshLambertMaterial({ color: 0x38352f, flatShading: true });
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
+    const roofMat = new THREE.MeshLambertMaterial({ color: 0x5f6b6a, flatShading: true });
 
-    // 1. Four Grand Porticoes with Monolithic Rapakivi Granite Columns (17m tall)
-    // South Portico (facing St. Isaac's Square, z = +34)
-    // North Portico (facing Senate Square and Bronze Horseman, z = -34)
-    // East Portico (facing Nevsky Prospekt, x = +34)
-    // West Portico (facing Decembrists Square, x = -34)
+    // 0. Main body (64 x 66 m in the OSM footprint), 30 m walls and a stepped attic
+    const body = new THREE.Mesh(new THREE.BoxGeometry(64, 30, 66), stoneMat);
+    body.position.y = -ROOF + 15;
+    body.castShadow = true;
+    body.receiveShadow = true;
+    isaacGroup.add(body);
+    const attic = new THREE.Mesh(new THREE.BoxGeometry(60, ROOF - 30, 62), stoneMat);
+    attic.position.y = -(ROOF - 30) / 2;
+    attic.castShadow = true;
+    isaacGroup.add(attic);
+    const roofSlab = new THREE.Mesh(new THREE.BoxGeometry(58, 0.6, 60), roofMat);
+    roofSlab.position.y = 0.3;
+    isaacGroup.add(roofSlab);
+
+    // 1. Four porticoes of red Rapakivi granite columns (17 m shafts) with
+    // bronze capitals; sizes follow the OSM footprint (east/west ones are deeper).
     const porticoConfigs = [
-      { x: 0, z: 34, rot: 0, isOctastyle: true },           // South
-      { x: 0, z: -34, rot: Math.PI, isOctastyle: true },     // North
-      { x: 34, z: 0, rot: Math.PI / 2, isOctastyle: false }, // East
-      { x: -34, z: 0, rot: -Math.PI / 2, isOctastyle: false } // West
+      { x: 0, z: 37, rot: 0, width: 39, depth: 8, rows: 1 },             // South, St. Isaac's Square
+      { x: 0, z: -37, rot: Math.PI, width: 39, depth: 8, rows: 1 },       // North, Senate Square
+      { x: 40, z: 0, rot: Math.PI / 2, width: 51, depth: 16, rows: 2 },   // East, Admiralty side
+      { x: -39, z: 0, rot: -Math.PI / 2, width: 51, depth: 14, rows: 2 }  // West
     ];
 
     for (const p of porticoConfigs) {
       const portGroup = new THREE.Group();
-      portGroup.position.set(p.x, -28.0, p.z);
+      portGroup.position.set(p.x, -ROOF, p.z);
       portGroup.rotation.y = p.rot;
 
       // Granite stylobate steps
-      const stylobate = new THREE.Mesh(new THREE.BoxGeometry(p.isOctastyle ? 42 : 28, 2.5, 14), graniteMat);
+      const stylobate = new THREE.Mesh(new THREE.BoxGeometry(p.width, 2.5, p.depth), graniteMat);
       stylobate.position.set(0, 1.25, 0);
       stylobate.receiveShadow = true;
       portGroup.add(stylobate);
 
-      // 16 or 8 monolithic columns (front rank + inner rank)
-      const numFrontCols = p.isOctastyle ? 8 : 6;
-      const colSpacing = (p.isOctastyle ? 36 : 22) / (numFrontCols - 1);
-
-      for (let row = 0; row < 2; row++) {
-        const rowZ = 4.5 - row * 4.2;
+      const numFrontCols = 8;
+      const colSpacing = (p.width - 5) / (numFrontCols - 1);
+      for (let row = 0; row < p.rows; row++) {
+        const rowZ = p.depth / 2 - 2 - row * 4.5;
         for (let c = 0; c < numFrontCols; c++) {
           const cx = -((numFrontCols - 1) * colSpacing) / 2 + c * colSpacing;
 
-          // Column shaft: 17m height, Rapakivi red-brown granite
           const colShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.05, 17.0, 12), graniteMat);
           colShaft.position.set(cx, 11.0, rowZ);
           colShaft.castShadow = true;
           portGroup.add(colShaft);
 
-          // Bronze Corinthian Capital & Base
           const cap = new THREE.Mesh(new THREE.BoxGeometry(2.3, 1.4, 2.3), bronzeMat);
           cap.position.set(cx, 19.8, rowZ);
           portGroup.add(cap);
@@ -821,26 +843,26 @@ export class LandmarksSystem {
         }
       }
 
-      // Monumental Triangular Pediment with Bronze High-Relief
-      const entablature = new THREE.Mesh(new THREE.BoxGeometry(p.isOctastyle ? 44 : 30, 2.8, 14), stoneMat);
+      // Entablature and pediment roofing the whole portico
+      const entablature = new THREE.Mesh(new THREE.BoxGeometry(p.width + 1, 2.8, p.depth), stoneMat);
       entablature.position.set(0, 21.9, 0);
+      entablature.castShadow = true;
       portGroup.add(entablature);
 
-      const pedGeo = createPedimentGeometry(p.isOctastyle ? 42 : 28, 7.5, 3.2);
-      const pediment = new THREE.Mesh(pedGeo, stoneMat);
-      pediment.position.set(0, 23.3 + 3.75, 4.5);
+      const pediment = new THREE.Mesh(createPedimentGeometry(p.width + 1, 7.5, p.depth), stoneMat);
+      pediment.position.set(0, 23.3 + 3.75, 0);
       pediment.castShadow = true;
       portGroup.add(pediment);
 
-      // Bronze High-Relief in Tympanum
-      const tympanumRelief = new THREE.Mesh(new THREE.BoxGeometry(p.isOctastyle ? 18 : 12, 3.5, 0.5), bronzeMat);
-      tympanumRelief.position.set(0, 25.5, 6.2);
+      // Bronze high relief in the tympanum
+      const tympanumRelief = new THREE.Mesh(new THREE.BoxGeometry(p.width * 0.45, 3.5, 0.5), bronzeMat);
+      tympanumRelief.position.set(0, 25.5, p.depth / 2 + 0.1);
       portGroup.add(tympanumRelief);
 
-      // Statues of the Holy Apostles at the pediment corners
-      for (const ax of [-18, 0, 18]) {
+      // Statues of the apostles on the pediment corners and apex
+      for (const ax of [-0.46, 0, 0.46]) {
         const apostle = new THREE.Mesh(new THREE.BoxGeometry(1.2, 3.2, 1.2), bronzeMat);
-        apostle.position.set(ax * (p.isOctastyle ? 1.0 : 0.65), 30.5, 5.0);
+        apostle.position.set(ax * p.width, ax === 0 ? 32.5 : 25.0, p.depth / 2 - 0.8);
         apostle.castShadow = true;
         portGroup.add(apostle);
       }
@@ -988,7 +1010,7 @@ export class LandmarksSystem {
 
   /**
    * Шпиль Петропавловского собора (Peter & Paul Cathedral Petrine Baroque Ensemble)
-   * Exact GPS: 59.950200 N, 30.316670 E -> World: x=108.5, z=-1155.0
+   * Bell tower at the west end of the OSM footprint (world x=84.6, z=-1144.4)
    * 122.5m Golden Needle Spire by Domenico Trezzini, flying Angel with cross (Парящий ангел),
    * 3-tier Petrine Baroque bell tower with carillon clock, hall church with cupolas,
    * and Grand Ducal Burial Vault (Великокняжеская усыпальница). Grounded firmly at y=0.
@@ -996,7 +1018,9 @@ export class LandmarksSystem {
   private buildPeterAndPaulSpire() {
     const ppGroup = new THREE.Group();
     ppGroup.name = 'peter-and-paul-spire';
-    ppGroup.position.set(108.5, 0.0, -1155.0);
+    // Bell tower at the west end of the OSM footprint, nave towards the east-north-east
+    ppGroup.position.set(84.6, 0.0, -1144.4);
+    ppGroup.rotation.y = 0.454;
 
     const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
     const ochreMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbOchre, flatShading: true });
@@ -1204,7 +1228,7 @@ export class LandmarksSystem {
       { name: 'naryshkin', x: 180, z: -940, rot: 0, radius: 42 },          // S: Нарышкин (Флагшток, пушки)
       { name: 'gosudarev', x: 385, z: -1125, rot: Math.PI / 4, radius: 40 }, // SE: Государев (к Троицкому мосту)
       { name: 'trubetskoy', x: -105, z: -920, rot: -Math.PI / 6, radius: 40 },// SW: Трубецкой (к Стрелке В.О.)
-      { name: 'zotov', x: -140, z: -1180, rot: -Math.PI / 2, radius: 38 },     // NW: Зотов (к Кронверкскому проливу)
+      { name: 'zotov', x: -170, z: -1150, rot: -Math.PI / 2, radius: 38 },     // NW: Зотов (к Кронверкскому проливу)
       { name: 'golovkin', x: 60, z: -1355, rot: Math.PI, radius: 42 },         // N: Головкин (к Артиллерийскому музею)
       { name: 'menshikov', x: 330, z: -1350, rot: Math.PI * 0.75, radius: 38 } // NE: Меншиков (к Кронверку)
     ];
@@ -1440,57 +1464,11 @@ export class LandmarksSystem {
 
     ppFortress.add(petrovGate);
 
-    // 7. Исторические здания внутри крепости (Courtyard Ensemble)
-    // Монетный двор (Saint Petersburg Mint)
-    const mintGroup = new THREE.Group();
-    mintGroup.position.set(45, 0, -1075);
-    const mintBody = new THREE.Mesh(new THREE.BoxGeometry(52, 13, 24), ochreMat);
-    mintBody.position.y = 6.5;
-    mintBody.castShadow = true;
-    mintGroup.add(mintBody);
-
-    const mintPortico = new THREE.Mesh(new THREE.BoxGeometry(16, 15, 3.5), stoneMat);
-    mintPortico.position.set(0, 7.5, 12);
-    mintGroup.add(mintPortico);
-
-    const mintPed = new THREE.Mesh(createPedimentGeometry(16, 4.0, 3.5), stoneMat);
-    mintPed.position.set(0, 17.0, 12);
-    mintGroup.add(mintPed);
-
-    const mintRoof = new THREE.Mesh(new THREE.BoxGeometry(53, 5, 25), roofDarkMat);
-    mintRoof.position.y = 15.5;
-    mintGroup.add(mintRoof);
-    ppFortress.add(mintGroup);
-
-    // Комендантский дом (Commandant's House)
-    const cmdGroup = new THREE.Group();
-    cmdGroup.position.set(130, 0, -1075);
-    const cmdBody = new THREE.Mesh(new THREE.BoxGeometry(34, 12, 20), terracottaMat);
-    cmdBody.position.y = 6.0;
-    cmdBody.castShadow = true;
-    cmdGroup.add(cmdBody);
-
-    const cmdRoof = new THREE.Mesh(new THREE.BoxGeometry(35, 4.5, 21), roofDarkMat);
-    cmdRoof.position.y = 14.25;
-    cmdGroup.add(cmdRoof);
-    ppFortress.add(cmdGroup);
-
-    // Инженерный дом (Engineers' House)
-    const engGroup = new THREE.Group();
-    engGroup.position.set(235, 0, -1140);
-    const engBody = new THREE.Mesh(new THREE.BoxGeometry(42, 12, 19), ochreMat);
-    engBody.position.y = 6.0;
-    engBody.castShadow = true;
-    engGroup.add(engBody);
-
-    const engRoof = new THREE.Mesh(new THREE.BoxGeometry(43, 4.5, 20), roofDarkMat);
-    engRoof.position.y = 14.25;
-    engGroup.add(engRoof);
-    ppFortress.add(engGroup);
-
+    // 7. Buildings inside the walls (Mint, Commandant's and Engineers' houses...)
+    // come from OSM in RealBuildingsSystem; only the Boat House is modelled here.
     // Ботный домик («Дедушка русского флота»)
     const boatGroup = new THREE.Group();
-    boatGroup.position.set(105, 0, -1110);
+    boatGroup.position.set(43, 0, -1169); // OSM footprint of the Boat House
     const boatBody = new THREE.Mesh(new THREE.BoxGeometry(16, 8, 11), stoneMat);
     boatBody.position.y = 4.0;
     boatGroup.add(boatBody);
@@ -2067,7 +2045,8 @@ export class LandmarksSystem {
   private buildSpasNaKroviDomes() {
     const spasGroup = new THREE.Group();
     spasGroup.name = 'spas-na-krovi-ensemble';
-    spasGroup.position.set(800.2, 0.0, -24.7);
+    spasGroup.position.set(794.9, 0.0, -25.7);
+    spasGroup.rotation.y = -0.209; // OSM footprint: belfry (local -x) over the Griboedov canal to the west
 
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
     const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
@@ -2422,190 +2401,169 @@ export class LandmarksSystem {
   }
 
   /**
-   * Казанский собор (Kazan Cathedral Colonnade, Dome & Kutuzov Monument)
-   * Exact GPS: 59.9344 N, 30.3245 E -> World: x=567.8, z=600.8
-   * Andrey Voronikhin masterpiece: sweeping semicircular colonnade of 96 Corinthian columns
-   * embracing Kazan Square facing Nevsky Prospekt, monumental hexastyle portico, portal pavilions,
-   * 71.6m ribbed malachite green dome, and bronze monuments to Kutuzov and Barclay de Tolly. Grounded at y=0.
+   * Казанский собор (Kazan Cathedral, A. Voronikhin, 1801-1811)
+   * Laid out on its OSM footprint: local +x runs along Nevsky
+   * to the east, local -z points north to Nevsky Prospekt.
+   * - Latin-cross body ~21 m high, dome 17.7 m across, cross at 71.6 m.
+   * - The 4-row colonnade (96 columns) is an arc centred on Kazan Square:
+   *   its middle touches the north portico, its ends reach towards Nevsky
+   *   and finish in two pavilions next to Kazanskaya St and the Griboedov canal.
+   * - Walls of grey-ochre Pudost stone, a grey tin dome.
    */
   private buildKazanCathedralColonnade() {
     const kazanGroup = new THREE.Group();
     kazanGroup.name = 'kazan-cathedral-ensemble';
     kazanGroup.position.set(567.8, 0.0, 600.8);
-    kazanGroup.rotation.y = -0.24; // Sweeping colonnade opening squarely towards Nevsky Prospekt and Kazan Square
+    kazanGroup.rotation.y = -0.24; // local +x parallel to Nevsky Prospekt
 
-    const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.empireStone, flatShading: true }); // Pudozh limestone
-    const greenMat = new THREE.MeshLambertMaterial({ color: 0x38664b, flatShading: true }); // Malachite patina
+    const stoneMat = new THREE.MeshLambertMaterial({ color: 0xbfb193, flatShading: true }); // Pudost stone
+    const roofMat = new THREE.MeshLambertMaterial({ color: 0x6f7a78, flatShading: true });
+    const domeMat = new THREE.MeshLambertMaterial({ color: 0x7d8a87, flatShading: true }); // painted tin
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
     const bronzeMat = new THREE.MeshLambertMaterial({ color: 0x303530, flatShading: true });
     const graniteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbGranitePink, flatShading: true });
-    const cobbleMat = new THREE.MeshLambertMaterial({ color: 0x8a847b, flatShading: true });
+    const windowMat = new THREE.MeshLambertMaterial({ color: 0x2a2f33, flatShading: true });
 
-    // 0. Казанская площадь (Kazan Square Plaza Paving)
-    const plaza = new THREE.Mesh(new THREE.BoxGeometry(130, 0.25, 110), cobbleMat);
-    plaza.position.set(0, 0.12, -45);
-    plaza.receiveShadow = true;
-    kazanGroup.add(plaza);
+    const H = 21; // cornice height of the body
+    const addBox = (x0: number, x1: number, z0: number, z1: number, h: number, mat: THREE.Material, y0 = 0) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, h, z1 - z0), mat);
+      m.position.set((x0 + x1) / 2, y0 + h / 2, (z0 + z1) / 2);
+      m.castShadow = true;
+      m.receiveShadow = true;
+      kazanGroup.add(m);
+      return m;
+    };
 
-    // 1. Основной объём собора (Cathedral Latin Cross Basilica, 22m high)
-    const naveBody = new THREE.Mesh(new THREE.BoxGeometry(78, 22.0, 26), stoneMat);
-    naveBody.position.set(0, 11.0, 10);
-    naveBody.castShadow = true;
-    naveBody.receiveShadow = true;
-    kazanGroup.add(naveBody);
+    // 1. Body: west arm, the long north-south arm and the eastern altar arm
+    addBox(-57, -17, 8, 44, H, stoneMat);
+    addBox(-17, 12, -6, 53, H, stoneMat);
+    addBox(12, 26, 12, 40, H - 2, stoneMat);
+    const apse = new THREE.Mesh(new THREE.CylinderGeometry(14, 14, H - 4, 16, 1, false, 0, Math.PI), stoneMat);
+    apse.position.set(26, (H - 4) / 2, 26);
+    apse.castShadow = true;
+    kazanGroup.add(apse);
+    // low hipped roofs
+    addBox(-56, -18, 9, 43, 1.6, roofMat, H);
+    addBox(-16, 11, -5, 52, 1.6, roofMat, H);
 
-    const transeptBody = new THREE.Mesh(new THREE.BoxGeometry(26, 22.0, 54), stoneMat);
-    transeptBody.position.set(0, 11.0, 10);
-    transeptBody.castShadow = true;
-    transeptBody.receiveShadow = true;
-    kazanGroup.add(transeptBody);
+    // 2. Porticos with Corinthian columns: north (to Nevsky), south and west
+    const portico = (cx: number, cz: number, width: number, facing: 1 | -1, cols: number, alongX = true) => {
+      const depth = 8;
+      for (let i = 0; i < cols; i++) {
+        const t = -width / 2 + 1.2 + (i * (width - 2.4)) / (cols - 1);
+        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.0, H - 4, 10), stoneMat);
+        if (alongX) col.position.set(cx + t, (H - 4) / 2, cz + facing * (depth - 1.5));
+        else col.position.set(cx + facing * (depth - 1.5), (H - 4) / 2, cz + t);
+        col.castShadow = true;
+        kazanGroup.add(col);
+      }
+      const ent = alongX
+        ? new THREE.Mesh(new THREE.BoxGeometry(width, 3, depth), stoneMat)
+        : new THREE.Mesh(new THREE.BoxGeometry(depth, 3, width), stoneMat);
+      ent.position.set(cx + (alongX ? 0 : facing * depth / 2), H - 2.5, cz + (alongX ? facing * depth / 2 : 0));
+      ent.castShadow = true;
+      kazanGroup.add(ent);
+      const ped = new THREE.Mesh(createPedimentGeometry(width, 5.5, depth), stoneMat);
+      if (!alongX) ped.rotation.y = Math.PI / 2;
+      ped.position.set(cx + (alongX ? 0 : facing * depth / 2), H + 1.75, cz + (alongX ? facing * depth / 2 : 0));
+      ped.castShadow = true;
+      kazanGroup.add(ped);
+    };
+    portico(-1, -6, 28, -1, 6);
+    portico(-6, 53, 24, 1, 6);
+    portico(-57, 26, 26, -1, 6, false);
 
-    // 2. Central Monumental Drum with 16 Corinthian Arched Windows (22m to 36m)
-    const drum = new THREE.Mesh(new THREE.CylinderGeometry(15.5, 16.5, 14, 32), stoneMat);
-    drum.position.y = 29.0;
+    // 3. Drum with arched windows, grey dome, lantern and gilded cross
+    const DOME_X = -2, DOME_Z = 26;
+    const drum = new THREE.Mesh(new THREE.CylinderGeometry(9.8, 10.2, 19, 24), stoneMat);
+    drum.position.set(DOME_X, H + 9.5, DOME_Z);
     drum.castShadow = true;
     kazanGroup.add(drum);
-
     for (let i = 0; i < 16; i++) {
       const ang = (i / 16) * Math.PI * 2;
-      const win = new THREE.Mesh(new THREE.BoxGeometry(1.6, 6.5, 0.4), bronzeMat);
-      win.position.set(Math.cos(ang) * 16.0, 30.0, 10 + Math.sin(ang) * 16.0);
+      const win = new THREE.Mesh(new THREE.BoxGeometry(1.4, 5.5, 0.4), windowMat);
+      win.position.set(DOME_X + Math.cos(ang) * 10.0, H + 11, DOME_Z + Math.sin(ang) * 10.0);
       win.rotation.y = -ang + Math.PI / 2;
       kazanGroup.add(win);
     }
-
-    // 3. Grand Ribbed Malachite Green Central Dome (71.6m high)
-    const dome = new THREE.Mesh(new THREE.SphereGeometry(15.8, 32, 20, 0, Math.PI * 2, 0, Math.PI / 2), greenMat);
-    dome.position.set(0, 36.0, 10);
-    dome.scale.set(1.0, 1.38, 1.0);
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(8.85, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), domeMat);
+    dome.position.set(DOME_X, H + 19, DOME_Z);
+    dome.scale.set(1, 1.45, 1);
     dome.castShadow = true;
     kazanGroup.add(dome);
-
-    // 16 Gilded Ribs of Kazan Dome
-    for (let i = 0; i < 16; i++) {
-      const ang = (i / 16) * Math.PI * 2;
-      const rib = new THREE.Mesh(new THREE.BoxGeometry(0.5, 16.5, 0.5), goldMat);
-      rib.position.set(Math.cos(ang) * 11.0, 44.5, 10 + Math.sin(ang) * 11.0);
-      rib.rotation.z = Math.cos(ang) * 0.42;
-      rib.rotation.x = -Math.sin(ang) * 0.42;
-      kazanGroup.add(rib);
-    }
-
-    // Gilded Light Lantern & Orthodox Cross
-    const lantern = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, 9, 12), stoneMat);
-    lantern.position.set(0, 57.0, 10);
+    const lantern = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.6, 6.5, 12), stoneMat);
+    lantern.position.set(DOME_X, H + 34.5, DOME_Z);
     kazanGroup.add(lantern);
+    const cupola = new THREE.Mesh(new THREE.SphereGeometry(2.6, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), domeMat);
+    cupola.position.set(DOME_X, H + 37.75, DOME_Z);
+    kazanGroup.add(cupola);
+    const crossV = new THREE.Mesh(new THREE.BoxGeometry(0.5, 8, 0.5), goldMat);
+    crossV.position.set(DOME_X, H + 44.5, DOME_Z);
+    kazanGroup.add(crossV);
+    const crossH = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.5, 0.5), goldMat);
+    crossH.position.set(DOME_X, H + 46, DOME_Z);
+    kazanGroup.add(crossH);
 
-    const lanternDome = new THREE.Mesh(new THREE.SphereGeometry(3.4, 12, 10), goldMat);
-    lanternDome.position.set(0, 62.5, 10);
-    lanternDome.castShadow = true;
-    kazanGroup.add(lanternDome);
-
-    const cross = new THREE.Mesh(new THREE.BoxGeometry(0.65, 6.5, 3.2), goldMat);
-    cross.position.set(0, 68.5, 10);
-    cross.castShadow = true;
-    kazanGroup.add(cross);
-
-    // 4. Central Monumental Hexastyle Corinthian Portico facing Nevsky
-    const portBase = new THREE.Mesh(new THREE.BoxGeometry(28, 2.5, 12), stoneMat);
-    portBase.position.set(0, 1.25, -17.0);
-    kazanGroup.add(portBase);
-
-    for (let cx = -11; cx <= 11; cx += 4.4) {
-      const col = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.15, 18.5, 12), stoneMat);
-      col.position.set(cx, 11.75, -12.5);
-      col.castShadow = true;
-      kazanGroup.add(col);
-    }
-
-    const portPediment = new THREE.Mesh(createPedimentGeometry(28, 6.5, 3.2), stoneMat);
-    portPediment.position.set(0, 24.25, -12.5);
-    portPediment.castShadow = true;
-    kazanGroup.add(portPediment);
-
-    // Bronze All-Seeing Eye in Glory in Tympanum
-    const eyeRelief = new THREE.Mesh(new THREE.BoxGeometry(5.0, 2.5, 0.4), goldMat);
-    eyeRelief.position.set(0, 24.0, -10.8);
-    kazanGroup.add(eyeRelief);
-
-    // 5. Грандиозная полукруглая колоннада из 96 коринфских колонн (96 Corinthian Columns)
-    // 4 концентрических ряда колонн, охватывающих площадь в направлении Невского проспекта
-    const colRadiusMin = 44.0;
-    const colRadiusStep = 3.6;
-    const numRows = 4;
-    const numColsPerRow = 24;
-
-    for (let row = 0; row < numRows; row++) {
-      const r = colRadiusMin + row * colRadiusStep;
-      for (let c = 0; c < numColsPerRow; c++) {
-        // Угол дуги полукруга: от -160° до -20° (обращен на север к Невскому)
-        const t = c / (numColsPerRow - 1);
-        const ang = Math.PI + 0.35 + t * (Math.PI - 0.7);
+    // 4. Colonnade: 4 rows x 24 columns on an arc centred in Kazan Square
+    const ARC_Z = -52;
+    const radii = [46, 49, 52, 55];
+    const a0 = 0.2, a1 = Math.PI - 0.2;
+    const colH = 13.5;
+    for (const r of radii) {
+      for (let c = 0; c < 24; c++) {
+        const ang = a0 + (c / 23) * (a1 - a0);
         const cx = Math.cos(ang) * r;
-        const cz = Math.sin(ang) * r;
-
-        // Пропуск центрального проезда
-        if (Math.abs(cx) < 14) continue;
-
-        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.95, 14.5, 10), stoneMat);
-        col.position.set(cx, 8.25, cz);
+        const cz = ARC_Z + Math.sin(ang) * r;
+        if (Math.abs(cx) < 15 && cz > -18) continue; // the north portico stands here
+        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.85, colH, 8), stoneMat);
+        col.position.set(cx, colH / 2, cz);
         col.castShadow = true;
         kazanGroup.add(col);
       }
     }
-
-    // Антаблемент и аттик над полукруглой колоннадой
-    const entablature = new THREE.Mesh(new THREE.RingGeometry(colRadiusMin - 1.5, colRadiusMin + numRows * colRadiusStep + 1.5, 36, 1, 0.35, Math.PI - 0.7), stoneMat);
-    entablature.rotation.x = -Math.PI / 2;
-    entablature.position.y = 16.0;
-    entablature.castShadow = true;
-    kazanGroup.add(entablature);
-
-    // Восточный и Западный портальные павильоны колоннады
-    for (const [px, pz, rot] of [[-48, -12, 0.35], [48, -12, -0.35]] as const) {
-      const pavGroup = new THREE.Group();
-      pavGroup.position.set(px, 0, pz);
-      pavGroup.rotation.y = rot;
-
-      const pBody = new THREE.Mesh(new THREE.BoxGeometry(14, 16.5, 10), stoneMat);
-      pBody.position.y = 8.25;
-      pBody.castShadow = true;
-      pavGroup.add(pBody);
-
-      const pPed = new THREE.Mesh(createPedimentGeometry(14, 4.0, 2.5), stoneMat);
-      pPed.position.set(0, 18.5, 5);
-      pPed.castShadow = true;
-      pavGroup.add(pPed);
-
-      kazanGroup.add(pavGroup);
+    // Entablature and attic, built from short straight segments along the arc
+    const segs = 28;
+    const rMid = (radii[0] + radii[radii.length - 1]) / 2;
+    for (let i = 0; i < segs; i++) {
+      const ang = a0 + ((i + 0.5) / segs) * (a1 - a0);
+      const cx = Math.cos(ang) * rMid;
+      const cz = ARC_Z + Math.sin(ang) * rMid;
+      if (Math.abs(cx) < 12 && cz > -18) continue;
+      const len = (rMid * (a1 - a0)) / segs + 0.4;
+      const seg = new THREE.Mesh(new THREE.BoxGeometry(len, 2.6, radii[3] - radii[0] + 2.4), stoneMat);
+      seg.position.set(cx, colH + 1.3, cz);
+      seg.rotation.y = -ang + Math.PI / 2;
+      seg.castShadow = true;
+      kazanGroup.add(seg);
     }
 
-    // 6. Фонтан в центре Казанской площади
-    const fountainBase = new THREE.Mesh(new THREE.CylinderGeometry(6.5, 7.0, 1.2, 16), graniteMat);
-    fountainBase.position.set(0, 0.6, -45);
-    kazanGroup.add(fountainBase);
+    // End pavilions with pediments facing Nevsky
+    for (const px of [-51, 51]) {
+      addBox(px - 7.5, px + 7.5, -54, -24, 16, stoneMat);
+      const ped = new THREE.Mesh(createPedimentGeometry(15, 4.0, 2.0), stoneMat);
+      ped.position.set(px, 18, -53);
+      ped.castShadow = true;
+      kazanGroup.add(ped);
+    }
 
-    const fountainBowl = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 1.5, 2.0, 16), graniteMat);
-    fountainBowl.position.set(0, 1.8, -45);
+    // 5. Thomon's granite fountain in the middle of the Kazan Square garden
+    const fountainBase = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 5.0, 0.8, 16), graniteMat);
+    fountainBase.position.set(0, 0.4, -55);
+    kazanGroup.add(fountainBase);
+    const fountainBowl = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 1.2, 1.8, 16), graniteMat);
+    fountainBowl.position.set(0, 1.7, -55);
     kazanGroup.add(fountainBowl);
 
-    // 7. Бронзовые памятники полководцам 1812 года на Казанской площади
-    // Памятник М.И. Кутузову (слева) и М.Б. Барклаю-де-Толли (справа)
-    const commanders = [
-      { x: -28.0, z: -58.0, name: 'kutuzov' },
-      { x: 28.0, z: -58.0, name: 'barclay' }
-    ];
-
-    for (const cmd of commanders) {
-      const cmdPedestal = new THREE.Mesh(new THREE.BoxGeometry(2.6, 4.8, 2.6), graniteMat);
-      cmdPedestal.position.set(cmd.x, 2.4, cmd.z);
-      cmdPedestal.castShadow = true;
-      kazanGroup.add(cmdPedestal);
-
-      const cmdStatue = new THREE.Mesh(new THREE.BoxGeometry(1.2, 3.8, 1.2), bronzeMat);
-      cmdStatue.position.set(cmd.x, 6.7, cmd.z);
-      cmdStatue.castShadow = true;
-      kazanGroup.add(cmdStatue);
+    // 6. Monuments to Kutuzov and Barclay de Tolly on their round lawns at the colonnade ends
+    for (const [mx, mz] of [[-47, -81], [52, -75]]) {
+      const ped = new THREE.Mesh(new THREE.BoxGeometry(2.6, 4.8, 2.6), graniteMat);
+      ped.position.set(mx, 2.4, mz);
+      ped.castShadow = true;
+      kazanGroup.add(ped);
+      const statue = new THREE.Mesh(new THREE.BoxGeometry(1.2, 3.8, 1.2), bronzeMat);
+      statue.position.set(mx, 6.7, mz);
+      statue.castShadow = true;
+      kazanGroup.add(statue);
     }
 
     this.group.add(kazanGroup);
@@ -2613,12 +2571,12 @@ export class LandmarksSystem {
 
   /**
    * Кунсткамера (Kunstkamera Petrine Baroque Clock Tower)
-   * Exact GPS: 59.9414 N, 30.3045 E -> World: x=-563.2, z=-178.1
+   * Tower over the central block of the OSM footprint (59.9414 N, 30.3042 E)
    */
   private buildKunstkameraTower() {
     const kunstGroup = new THREE.Group();
     kunstGroup.name = 'kunstkamera-astronomical-tower';
-    kunstGroup.position.set(-563.2, 16.0, -178.1);
+    kunstGroup.position.set(-576.0, 16.0, -176.0);
 
     const stoneMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbPastelBlue, flatShading: true });
     const whiteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
@@ -2739,7 +2697,7 @@ export class LandmarksSystem {
 
     // 1. Peter & Paul Cathedral Spire Tip (122.5m)
     const ppBeacon = new THREE.Mesh(beaconGeo, this.beaconMat);
-    ppBeacon.position.set(115.4, 123.0, -1157.7);
+    ppBeacon.position.set(84.6, 123.0, -1144.4);
     beaconGroup.add(ppBeacon);
 
     // 2. Admiralty Spire Needle (72.5m)
@@ -2752,14 +2710,14 @@ export class LandmarksSystem {
 
   /**
    * Смольный Воскресенский собор (Smolny Cathedral by F.B. Rastrelli)
-   * Position: x = 4475, z = -1007. Height: 93.7m.
+   * Position: centre between the four OSM corner belfries (ways 751397803-806). Height: 93.7m.
    */
   private buildSmolnyCathedral() {
     const smolny = new THREE.Group();
     smolny.name = 'smolny-cathedral';
-    smolny.position.set(4475, 0, -1007);
+    smolny.position.set(4510.2, 0, -1007.1);
 
-    const blueMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbPastelBlue, flatShading: true });
+    const blueMat = new THREE.MeshLambertMaterial({ color: 0x86b4d8, flatShading: true }); // Rastrelli sky blue
     const whiteMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
 
@@ -2840,33 +2798,33 @@ export class LandmarksSystem {
 
   /**
    * Таврический дворец (Tauride Palace by Ivan Starov)
-   * Position: x = 3430, z = -877.
+   * The building itself comes from OSM (way 3801092000, H-shaped). Only the
+   * central portico and dome are modelled here, on the axis of the central
+   * block (x 3391-3453); the portico faces Shpalernaya street (north, -Z).
    */
   private buildTauridePalace() {
     const palace = new THREE.Group();
     palace.name = 'tauride-palace';
-    palace.position.set(3430, 0, -877);
+    palace.position.set(3422, 0, -896);
+    palace.rotation.y = Math.PI; // local +Z (portico) -> world north
 
-    const ochreMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbOchre, flatShading: true });
     const whiteMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
-    const roofMat = new THREE.MeshLambertMaterial({ color: PALETTE.roofCopperGreen, flatShading: true });
+    const roofMat = new THREE.MeshLambertMaterial({ color: 0x879a8b, flatShading: true });
 
-    // Central Neoclassical Corps
-    const corps = new THREE.Mesh(new THREE.BoxGeometry(52, 14, 26), ochreMat);
-    corps.position.y = 7;
-    corps.castShadow = true;
-    corps.receiveShadow = true;
-    palace.add(corps);
-
-    // 6-Column Doric Portico (facing South / Garden)
+    // 6-column Doric portico on the Shpalernaya facade
     const portico = new THREE.Mesh(new THREE.BoxGeometry(28, 14, 6), whiteMat);
-    portico.position.set(0, 7, 14);
+    portico.position.set(0, 7, 16);
     portico.castShadow = true;
     palace.add(portico);
+    for (let i = 0; i < 6; i++) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.9, 12, 8), whiteMat);
+      col.position.set(-11.5 + i * 4.6, 6, 19.3);
+      col.castShadow = true;
+      palace.add(col);
+    }
 
-    const pediment = new THREE.Mesh(new THREE.ConeGeometry(16, 5, 4), whiteMat);
-    pediment.rotation.y = Math.PI / 4;
-    pediment.position.set(0, 16.5, 14);
+    const pediment = new THREE.Mesh(createPedimentGeometry(30, 5, 6), whiteMat);
+    pediment.position.set(0, 16.5, 16);
     palace.add(pediment);
 
     // Central Low Classical Ribbed Dome
@@ -2879,42 +2837,25 @@ export class LandmarksSystem {
     dome.castShadow = true;
     palace.add(dome);
 
-    // Side Galleries & Wings
-    for (const s of [-1, 1]) {
-      const gallery = new THREE.Mesh(new THREE.BoxGeometry(45, 9, 14), ochreMat);
-      gallery.position.set(s * 48.5, 4.5, 0);
-      gallery.castShadow = true;
-      palace.add(gallery);
-
-      const wing = new THREE.Mesh(new THREE.BoxGeometry(22, 12, 45), ochreMat);
-      wing.position.set(s * 75, 6, 12);
-      wing.castShadow = true;
-      palace.add(wing);
-    }
-
     this.group.add(palace);
   }
 
   /**
    * Московский вокзал (Moscow Railway Station by Konstantin Thon)
-   * Position: x = 2613, z = 1078.
+   * The building comes from OSM (way 2404499000). Only the clock tower is
+   * modelled, at the centre of the Ploshchad Vosstaniya facade, which runs at
+   * ~170° (local X along the facade, local +Z into the building).
    */
   private buildMoscowStation() {
     const station = new THREE.Group();
     station.name = 'moscow-railway-station';
-    station.position.set(2613, 0, 1078);
+    station.position.set(2651, 0, 1073);
+    station.rotation.y = 0.175;
 
-    const facadeMat = new THREE.MeshLambertMaterial({ color: 0xdecbb5, flatShading: true }); // Warm Renaissance Limestone
+    const facadeMat = new THREE.MeshLambertMaterial({ color: 0xe4d29c, flatShading: true }); // Pale yellow, as the station facade
     const whiteMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
     const clockMat = new THREE.MeshBasicMaterial({ color: 0xfffae0 });
     const roofMat = new THREE.MeshLambertMaterial({ color: PALETTE.roofTinRed, flatShading: true });
-
-    // Main 2-story Renaissance facade block
-    const mainBody = new THREE.Mesh(new THREE.BoxGeometry(68, 16, 28), facadeMat);
-    mainBody.position.y = 8;
-    mainBody.castShadow = true;
-    mainBody.receiveShadow = true;
-    station.add(mainBody);
 
     // Italianate Double-tier Clock Tower
     const towerLower = new THREE.Mesh(new THREE.BoxGeometry(14, 14, 14), facadeMat);
@@ -2954,7 +2895,8 @@ export class LandmarksSystem {
   private buildLavra() {
     const lavra = new THREE.Group();
     lavra.name = 'alexander-nevsky-lavra';
-    lavra.position.set(4135, 0, 2083);
+    lavra.position.set(4131, 0, 2084);
+    lavra.rotation.y = 0.384; // OSM footprint: twin west towers, apse to the east-north-east
 
     const wallMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbOchre, flatShading: true });
     const whiteMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });

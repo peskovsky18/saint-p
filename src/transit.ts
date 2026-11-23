@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeStaticMeshes } from './merge';
 import { PALETTE } from './palette';
 
 export interface Vehicle {
@@ -71,6 +72,32 @@ function offsetPath(centerline: THREE.Vector3[], offsetRightMeters: number): THR
   return result;
 }
 
+/**
+ * Two-lane loop along a street or river centreline: out on the right-hand side, back on
+ * the other, with small U-turns at both ends. Points are [x, z] world metres.
+ */
+function laneLoop(centre: [number, number][], y: number, laneOffset: number): THREE.Vector3[] {
+  const line = centre.map(([x, z]) => new THREE.Vector3(x, y, z));
+  const out = offsetPath(line, laneOffset);
+  const back = offsetPath([...line].reverse(), laneOffset);
+  const loop = [...out, line[line.length - 1].clone(), ...back, line[0].clone()];
+  // Even spacing: the path parameter advances per point, so equal steps keep the speed constant
+  const step = 12;
+  const even: THREE.Vector3[] = [loop[0].clone()];
+  let carry = 0;
+  for (let i = 1; i < loop.length; i++) {
+    const a = loop[i - 1], b = loop[i];
+    const len = a.distanceTo(b);
+    let d = step - carry;
+    while (d <= len) {
+      even.push(a.clone().lerp(b, d / len));
+      d += step;
+    }
+    carry = len - (d - step);
+  }
+  return even;
+}
+
 export class TransitSystem {
   public group: THREE.Group;
   public trams: Tram[] = [];
@@ -117,6 +144,13 @@ export class TransitSystem {
     this.spawnMovingCars();
     this.spawnPedestrians();
     this.spawnStreetlamps();
+
+    // Vehicles only move as a whole: bake each one into a few meshes. Walking
+    // legs and pulsing boat wakes stay separate because they animate on their own.
+    const keep = new Set<THREE.Object3D>();
+    for (const p of this.pedestrians) keep.add(p.legL).add(p.legR);
+    for (const b of this.boats) if (b.wake) keep.add(b.wake);
+    for (const child of [...this.group.children]) mergeStaticMeshes(child, keep);
   }
 
   /**
@@ -543,13 +577,13 @@ export class TransitSystem {
     const palaceBridgeAndProyezdLoop: THREE.Vector3[] = [
       // Southbound from Spit of Vasilyevsky Island across Palace Bridge to Dvortsovy Proyezd
       new THREE.Vector3(-485, 0.24, -295),
-      new THREE.Vector3(-465, 0.24, -280),
-      new THREE.Vector3(-441, 4.4, -267),
-      new THREE.Vector3(-431, 4.6, -254),
-      new THREE.Vector3(-350, 4.8, -137),
-      new THREE.Vector3(-280, 4.6, -50),
-      new THREE.Vector3(-265, 2.0, -30),
-      new THREE.Vector3(-254, 0.24, -18),
+      new THREE.Vector3(-462, 0.24, -287),
+      new THREE.Vector3(-446, 3.6, -266),
+      new THREE.Vector3(-431, 7.15, -254),
+      new THREE.Vector3(-350, 7.15, -137),
+      new THREE.Vector3(-280, 7.15, -50),
+      new THREE.Vector3(-271, 3.6, -38),
+      new THREE.Vector3(-258, 0.24, -21),
       new THREE.Vector3(-207, 0.24, 42),
       new THREE.Vector3(-167, 0.24, 94),
       new THREE.Vector3(-134, 0.24, 137),
@@ -562,93 +596,30 @@ export class TransitSystem {
       new THREE.Vector3(-138, 0.24, 133),
       new THREE.Vector3(-171, 0.24, 90),
       new THREE.Vector3(-211, 0.24, 38),
-      new THREE.Vector3(-258, 0.24, -23),
-      new THREE.Vector3(-267, 2.0, -35),
+      new THREE.Vector3(-256, 0.24, -24),
+      new THREE.Vector3(-268, 3.6, -40),
       // Northbound across Palace Bridge towards Vasilyevsky Island
-      new THREE.Vector3(-282, 4.6, -55),
-      new THREE.Vector3(-352, 4.8, -142),
-      new THREE.Vector3(-433, 4.6, -259),
-      new THREE.Vector3(-443, 4.4, -272),
+      new THREE.Vector3(-282, 7.15, -55),
+      new THREE.Vector3(-352, 7.15, -142),
+      new THREE.Vector3(-433, 7.15, -259),
+      new THREE.Vector3(-444, 3.6, -268),
       // Turnaround loop on Birzhevaya Square (Spit of Vasilyevsky Island)
       new THREE.Vector3(-470, 0.24, -310),
       new THREE.Vector3(-490, 0.24, -315)
     ];
     addVariedVehiclesOnPath(palaceBridgeAndProyezdLoop, 14, 0.028);
 
-    // 5. Sadovaya Street Loop (Field of Mars <-> Gostiny Dvor <-> Sennaya Square)
-    const sadovayaCenterline: THREE.Vector3[] = [
-      new THREE.Vector3(420, 0.24, 40),
-      new THREE.Vector3(450, 0.24, 180),
-      new THREE.Vector3(490, 0.24, 340),
-      new THREE.Vector3(520, 0.24, 460),
-      new THREE.Vector3(460, 0.24, 700),
-      new THREE.Vector3(310, 0.24, 960)
-    ];
-    const sadovayaSouth = offsetPath(sadovayaCenterline, 2.4);
-    const sadovayaNorth = offsetPath([...sadovayaCenterline].reverse(), 2.4);
-    const sadovayaLoop: THREE.Vector3[] = [
-      ...sadovayaSouth,
-      new THREE.Vector3(290, 0.24, 980),
-      new THREE.Vector3(300, 0.24, 990),
-      new THREE.Vector3(320, 0.24, 975),
-      ...sadovayaNorth,
-      new THREE.Vector3(435, 0.24, 30),
-      new THREE.Vector3(420, 0.24, 20),
-      new THREE.Vector3(405, 0.24, 35)
-    ];
-    addVariedVehiclesOnPath(sadovayaLoop, 10, 0.026);
+    // 5. Sadovaya Street (OSM): Mikhailovsky Castle -> Gostiny Dvor -> Sennaya Square
+    const sadovayaLoop = laneLoop([[1163, -124], [1188, -51], [1223, 47], [1233, 117], [1216, 243], [1205, 319], [1191, 412], [1171, 495], [1147, 596], [1130, 648], [1108, 670], [1002, 758], [888, 854], [817, 914], [707, 1005], [596, 1098], [534, 1163], [411, 1253], [293, 1353], [239, 1393], [158, 1461]], 0.24, 4.2);
+    addVariedVehiclesOnPath(sadovayaLoop, 10, 0.0116);
 
-    // 6. Liteyny Prospekt Loop (Liteyny Bridge <-> Nevsky <-> Five Corners)
-    const liteynyCenterline: THREE.Vector3[] = [
-      new THREE.Vector3(1250, 0.24, -500),
-      new THREE.Vector3(1150, 0.24, -200),
-      new THREE.Vector3(1100, 0.24, 150),
-      new THREE.Vector3(1050, 0.24, 588),
-      new THREE.Vector3(1000, 0.24, 900),
-      new THREE.Vector3(950, 0.24, 1250)
-    ];
-    const liteynySouth = offsetPath(liteynyCenterline, 2.8);
-    const liteynyNorth = offsetPath([...liteynyCenterline].reverse(), 2.8);
-    const liteynyLoop: THREE.Vector3[] = [
-      ...liteynySouth,
-      new THREE.Vector3(935, 0.24, 1265),
-      new THREE.Vector3(945, 0.24, 1275),
-      new THREE.Vector3(965, 0.24, 1260),
-      ...liteynyNorth,
-      new THREE.Vector3(1265, 0.24, -515),
-      new THREE.Vector3(1255, 0.24, -525),
-      new THREE.Vector3(1235, 0.24, -510)
-    ];
-    addVariedVehiclesOnPath(liteynyLoop, 10, 0.028);
+    // 6. Liteyny Prospekt (OSM): from the Liteyny Bridge approach to Nevsky Prospekt
+    const liteynyLoop = laneLoop([[1918, -1032], [1913, -907], [1908, -813], [1904, -677], [1898, -495], [1894, -332], [1887, -197], [1884, -36], [1881, 82], [1876, 171], [1872, 279], [1874, 405], [1868, 497], [1864, 585], [1858, 691], [1861, 793]], 0.24, 4.5);
+    addVariedVehiclesOnPath(liteynyLoop, 10, 0.0131);
 
-    // 7. Fontanka Embankment Loop (Naberezhnaya Reki Fontanki)
-    const fontankaRoadCenterline: THREE.Vector3[] = [
-      new THREE.Vector3(1210, 0.24, -840),
-      new THREE.Vector3(1270, 0.24, -540),
-      new THREE.Vector3(1315, 0.24, -240),
-      new THREE.Vector3(1440, 0.24, -20),
-      new THREE.Vector3(1580, 0.24, 200),
-      new THREE.Vector3(1645, 0.24, 470),
-      new THREE.Vector3(1595, 0.24, 740),
-      new THREE.Vector3(1465, 0.24, 1010),
-      new THREE.Vector3(1150, 0.24, 1260),
-      new THREE.Vector3(945, 0.24, 1445),
-      new THREE.Vector3(570, 0.24, 1760),
-      new THREE.Vector3(170, 0.24, 2035)
-    ];
-    const fontankaWestBank = offsetPath(fontankaRoadCenterline, 3.5);
-    const fontankaEastBank = offsetPath([...fontankaRoadCenterline].reverse(), 3.5);
-    const fontankaRoadLoop: THREE.Vector3[] = [
-      ...fontankaWestBank,
-      new THREE.Vector3(150, 0.24, 2045),
-      new THREE.Vector3(160, 0.24, 2055),
-      new THREE.Vector3(180, 0.24, 2045),
-      ...fontankaEastBank,
-      new THREE.Vector3(1220, 0.24, -855),
-      new THREE.Vector3(1210, 0.24, -860),
-      new THREE.Vector3(1200, 0.24, -850)
-    ];
-    addVariedVehiclesOnPath(fontankaRoadLoop, 12, 0.026);
+    // 7. Fontanka embankment: the left-bank road, traced 7 m beyond the OSM water edge
+    const fontankaRoadLoop = laneLoop([[1258, -860], [1296, -733], [1316, -635], [1359, -259], [1374, -225], [1592, 110], [1616, 152], [1633, 202], [1680, 435], [1686, 488], [1684, 517], [1647, 717], [1625, 786], [1568, 932], [1542, 973], [1513, 1006], [1414, 1120], [1361, 1170], [218, 2041], [154, 2079], [-354, 2313]], 0.24, 3.0);
+    addVariedVehiclesOnPath(fontankaRoadLoop, 12, 0.0056);
   }
 
   /**
@@ -906,136 +877,49 @@ export class TransitSystem {
   }
 
   private spawnTrams() {
-    // 1. Historic Route 3 Tram (Trinity Bridge <-> Sadovaya <-> Sennaya)
-    const tram3Centerline: THREE.Vector3[] = [
-      new THREE.Vector3(340, 5.0, -750),
-      new THREE.Vector3(360, 5.0, -560),
-      new THREE.Vector3(410, 5.0, -80),
-      new THREE.Vector3(425, 0.24, 40),
-      new THREE.Vector3(440, 0.24, 180),
-      new THREE.Vector3(485, 0.24, 340),
-      new THREE.Vector3(510, 0.24, 460),
-      new THREE.Vector3(460, 0.24, 700),
-      new THREE.Vector3(310, 0.24, 960)
-    ];
-
-    const route3Forward = offsetPath(tram3Centerline, 1.4);
-    const route3Backward = offsetPath([...tram3Centerline].reverse(), 1.4);
-
-    const route3Loop: THREE.Vector3[] = [
-      ...route3Forward,
-      new THREE.Vector3(290, 0.24, 975),
-      new THREE.Vector3(310, 0.24, 990),
-      new THREE.Vector3(330, 0.24, 975),
-      ...route3Backward,
-      new THREE.Vector3(325, 5.0, -765),
-      new THREE.Vector3(345, 5.0, -775),
-      new THREE.Vector3(365, 5.0, -760)
-    ];
+    // Route 3 tram, as on the OSM streets: Suvorov Square -> along the Field of
+    // Mars -> Moyka embankment -> Sadovaya Street past Gostiny Dvor -> Sennaya.
+    const route3Loop = laneLoop([[825, -674], [790, -620], [760, -540], [827, -358], [859, -275], [878, -222], [892, -220], [1100, -172], [1151, -170], [1156, -145], [1188, -51], [1223, 47], [1233, 117], [1216, 243], [1205, 319], [1191, 412], [1171, 495], [1147, 596], [1130, 648], [1108, 670], [1002, 758], [888, 854], [817, 914], [707, 1005], [596, 1098], [534, 1163], [411, 1253], [293, 1353], [239, 1393], [158, 1461]], 0.24, 1.4);
+    const TRAM_SPEED = 0.0093; // ~8 m/s on this loop
 
     const tram1 = this.createTramModel();
     this.group.add(tram1);
-    this.trams.push({ mesh: tram1, path: route3Loop, t: 0.15, speed: 0.022, isStopped: false });
+    this.trams.push({ mesh: tram1, path: route3Loop, t: 0.15, speed: TRAM_SPEED, isStopped: false });
 
     const tram2 = this.createTramModel();
     this.group.add(tram2);
-    this.trams.push({ mesh: tram2, path: route3Loop, t: 0.65, speed: 0.022, isStopped: false });
-
-    // 2. Route 16 Tram (Liteyny Bridge <-> Liteyny Prospekt <-> Five Corners)
-    const route16Centerline: THREE.Vector3[] = [
-      new THREE.Vector3(1250, 4.8, -500),
-      new THREE.Vector3(1150, 0.24, -200),
-      new THREE.Vector3(1100, 0.24, 150),
-      new THREE.Vector3(1050, 0.24, 588),
-      new THREE.Vector3(1000, 0.24, 900),
-      new THREE.Vector3(950, 0.24, 1250)
-    ];
-
-    const route16South = offsetPath(route16Centerline, 1.4);
-    const route16North = offsetPath([...route16Centerline].reverse(), 1.4);
-    const route16Loop: THREE.Vector3[] = [
-      ...route16South,
-      new THREE.Vector3(935, 0.24, 1265),
-      new THREE.Vector3(950, 0.24, 1275),
-      new THREE.Vector3(965, 0.24, 1260),
-      ...route16North,
-      new THREE.Vector3(1265, 4.8, -515),
-      new THREE.Vector3(1255, 4.8, -525),
-      new THREE.Vector3(1235, 4.8, -510)
-    ];
+    this.trams.push({ mesh: tram2, path: route3Loop, t: 0.65, speed: TRAM_SPEED, isStopped: false });
 
     const tram3 = this.createTramModel();
     this.group.add(tram3);
-    this.trams.push({ mesh: tram3, path: route16Loop, t: 0.2, speed: 0.022, isStopped: false });
+    this.trams.push({ mesh: tram3, path: route3Loop, t: 0.4, speed: TRAM_SPEED, isStopped: false });
 
     const tram4 = this.createTramModel();
     this.group.add(tram4);
-    this.trams.push({ mesh: tram4, path: route16Loop, t: 0.7, speed: 0.022, isStopped: false });
+    this.trams.push({ mesh: tram4, path: route3Loop, t: 0.9, speed: TRAM_SPEED, isStopped: false });
   }
 
   private spawnBoats() {
     // 1. High-Speed Meteors on Neva
-    const nevaFastPath: THREE.Vector3[] = [
-      new THREE.Vector3(600, 0.4, -200),
-      new THREE.Vector3(200, 0.4, -220),
-      new THREE.Vector3(-100, 0.4, -240),
-      new THREE.Vector3(-220, 0.4, -210),
-      new THREE.Vector3(-500, 0.4, -120),
-      new THREE.Vector3(-900, 0.4, 0),
-      new THREE.Vector3(-1400, 0.4, 100),
-      new THREE.Vector3(-1400, 0.4, 40),
-      new THREE.Vector3(-900, 0.4, -60),
-      new THREE.Vector3(-500, 0.4, -180),
-      new THREE.Vector3(-100, 0.4, -300),
-      new THREE.Vector3(200, 0.4, -280),
-      new THREE.Vector3(600, 0.4, -260)
-    ];
+    // Neva fairway: medial line of the OSM water polygon from the Hermitage reach past the Palace and Blagoveshchensky bridges towards the gulf
+    const nevaFastPath = laneLoop([[300, -700], [100, -640], [-60, -580], [-200, -470], [-270, -330], [-310, -200], [-387, -132], [-474, -45], [-733, 152], [-1111, 395], [-1363, 545], [-1604, 636], [-1796, 731], [-1955, 797], [-2178, 995], [-2327, 1196], [-2418, 1391]], 0.4, 40);
 
     const meteor1 = this.createMeteorModel();
     this.group.add(meteor1.group);
-    this.boats.push({ mesh: meteor1.group, path: nevaFastPath, t: 0.1, speed: 0.05, isMeteor: true, wake: meteor1.wake });
+    this.boats.push({ mesh: meteor1.group, path: nevaFastPath, t: 0.1, speed: 0.028, isMeteor: true, wake: meteor1.wake });
 
     const meteor2 = this.createMeteorModel();
     this.group.add(meteor2.group);
-    this.boats.push({ mesh: meteor2.group, path: nevaFastPath, t: 0.6, speed: 0.05, isMeteor: true, wake: meteor2.wake });
+    this.boats.push({ mesh: meteor2.group, path: nevaFastPath, t: 0.6, speed: 0.028, isMeteor: true, wake: meteor2.wake });
 
     // 2. Excursion Ship "Moskva" on Neva
     const cruiser = this.createNevaCruiserModel();
     this.group.add(cruiser.group);
-    this.boats.push({ mesh: cruiser.group, path: nevaFastPath, t: 0.35, speed: 0.022, isMeteor: false, wake: cruiser.wake });
+    this.boats.push({ mesh: cruiser.group, path: nevaFastPath, t: 0.35, speed: 0.009, isMeteor: false, wake: cruiser.wake });
 
     // 3. Fontanka River Excursion Boats (4 boats on Fontanka fairway)
-    const fontankaFairway: THREE.Vector3[] = [
-      new THREE.Vector3(1225, 0.35, -850),
-      new THREE.Vector3(1280, 0.35, -550),
-      new THREE.Vector3(1325, 0.35, -250),
-      new THREE.Vector3(1450, 0.35, -30),
-      new THREE.Vector3(1590, 0.35, 190),
-      new THREE.Vector3(1655, 0.35, 460),
-      new THREE.Vector3(1605, 0.35, 730),
-      new THREE.Vector3(1475, 0.35, 1000),
-      new THREE.Vector3(1160, 0.35, 1250),
-      new THREE.Vector3(955, 0.35, 1435),
-      new THREE.Vector3(580, 0.35, 1750),
-      new THREE.Vector3(180, 0.35, 2025),
-      new THREE.Vector3(-100, 0.35, 2180),
-      new THREE.Vector3(-370, 0.35, 2280),
-      // Turnaround return loop
-      new THREE.Vector3(-370, 0.35, 2285),
-      new THREE.Vector3(-100, 0.35, 2185),
-      new THREE.Vector3(180, 0.35, 2030),
-      new THREE.Vector3(580, 0.35, 1755),
-      new THREE.Vector3(955, 0.35, 1440),
-      new THREE.Vector3(1160, 0.35, 1255),
-      new THREE.Vector3(1475, 0.35, 1005),
-      new THREE.Vector3(1605, 0.35, 735),
-      new THREE.Vector3(1655, 0.35, 465),
-      new THREE.Vector3(1590, 0.35, 195),
-      new THREE.Vector3(1450, 0.35, -25),
-      new THREE.Vector3(1325, 0.35, -245),
-      new THREE.Vector3(1280, 0.35, -545),
-      new THREE.Vector3(1225, 0.35, -845)
-    ];
+    // Fontanka fairway: medial line of the OSM water polygon, Summer Garden to the Izmailovsky reach
+    const fontankaFairway = laneLoop([[1229, -851], [1273, -704], [1287, -629], [1321, -275], [1332, -225], [1583, 164], [1598, 213], [1649, 462], [1652, 488], [1649, 515], [1605, 730], [1558, 859], [1526, 934], [1390, 1095], [1354, 1130], [201, 2010], [155, 2035], [-371, 2277]], 0.35, 5);
 
     for (let i = 0; i < 4; i++) {
       const fBoat = this.createFontankaBoatModel();
@@ -1051,33 +935,8 @@ export class TransitSystem {
     }
 
     // 4. Moyka Canal Boats (3 boats on Moyka fairway)
-    const moykaFairway: THREE.Vector3[] = [
-      new THREE.Vector3(1150, 0.35, -140),
-      new THREE.Vector3(840, 0.35, -210),
-      new THREE.Vector3(585, 0.35, -275),
-      new THREE.Vector3(280, 0.35, -80),
-      new THREE.Vector3(270, 0.35, 100),
-      new THREE.Vector3(290, 0.35, 310),
-      new THREE.Vector3(240, 0.35, 520),
-      new THREE.Vector3(35, 0.35, 765),
-      new THREE.Vector3(-270, 0.35, 885),
-      new THREE.Vector3(-565, 0.35, 1015),
-      new THREE.Vector3(-770, 0.35, 1040),
-      new THREE.Vector3(-1075, 0.35, 1288),
-      // Turnaround return loop
-      new THREE.Vector3(-1075, 0.35, 1285),
-      new THREE.Vector3(-770, 0.35, 1038),
-      new THREE.Vector3(-565, 0.35, 1012),
-      new THREE.Vector3(-270, 0.35, 882),
-      new THREE.Vector3(35, 0.35, 762),
-      new THREE.Vector3(240, 0.35, 518),
-      new THREE.Vector3(290, 0.35, 308),
-      new THREE.Vector3(270, 0.35, 98),
-      new THREE.Vector3(280, 0.35, -78),
-      new THREE.Vector3(585, 0.35, -272),
-      new THREE.Vector3(840, 0.35, -208),
-      new THREE.Vector3(1150, 0.35, -138)
-    ];
+    // Moyka fairway: medial line of the OSM water polygon, Field of Mars to New Holland
+    const moykaFairway = laneLoop([[1149, -134], [1086, -143], [878, -185], [781, -223], [687, -267], [648, -278], [584, -280], [562, -276], [481, -251], [425, -227], [390, -207], [341, -170], [312, -141], [288, -104], [273, -62], [261, 80], [289, 268], [288, 354], [280, 419], [241, 520], [189, 616], [106, 713], [73, 742], [35, 763], [-288, 895], [-504, 1002], [-544, 1014], [-605, 1025], [-750, 1036], [-793, 1044], [-813, 1052], [-866, 1086], [-899, 1111], [-1077, 1286]], 0.35, 3);
 
     for (let i = 0; i < 3; i++) {
       const mBoat = this.createMoykaBoatModel();
@@ -1371,6 +1230,41 @@ export class TransitSystem {
     return 3 * (2 * p1 - 2 * p2 + v0 + v1) * t2 + 2 * (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t + v0;
   }
 
+  private pathLengths = new Map<THREE.Vector3[], number>();
+
+  /** Length of a looped path in metres (cached). */
+  private pathLength(path: THREE.Vector3[]): number {
+    let len = this.pathLengths.get(path);
+    if (len === undefined) {
+      len = 0;
+      for (let i = 1; i < path.length; i++) len += path[i].distanceTo(path[i - 1]);
+      len += path[0].distanceTo(path[path.length - 1]);
+      this.pathLengths.set(path, len);
+    }
+    return len;
+  }
+
+  /**
+   * Palace Bridge (the only drawbridge on a car route): a car heading along the
+   * bridge may not enter the ramps from the street, nor the deck from a ramp,
+   * while the leaves are up. Embankment traffic crossing in front is unaffected.
+   */
+  private blockedByDrawbridge(x0: number, z0: number, x1: number, z1: number): boolean {
+    const ax = -276, az = -45, bx = -437, bz = -254;
+    const vx = bx - ax, vz = bz - az;
+    const L = Math.hypot(vx, vz);
+    const mx = x1 - x0, mz = z1 - z0;
+    const m = Math.hypot(mx, mz);
+    if (m < 1e-6 || Math.abs((mx * vx + mz * vz) / (m * L)) < 0.7) return false;
+    const along = (x: number, z: number) => ((x - ax) * vx + (z - az) * vz) / L;
+    const off = (x: number, z: number) => Math.abs((x - ax) * vz - (z - az) * vx) / L;
+    const inside = (x: number, z: number, ext: number) => {
+      const a = along(x, z);
+      return a > -ext && a < L + ext && off(x, z) < 16;
+    };
+    return (!inside(x0, z0, 16) && inside(x1, z1, 16)) || (!inside(x0, z0, 0) && inside(x1, z1, 0));
+  }
+
   private interpolateCatmullRom(path: THREE.Vector3[], t: number): { pos: THREE.Vector3; tangent: THREE.Vector3 } {
     const n = path.length;
     const totalT = (t % 1.0) * (n - 1);
@@ -1424,9 +1318,36 @@ export class TransitSystem {
       }
     }
 
-    // 2. Update Moving Cars, Taxis, Vans & Buses strictly inside road lanes
+    // 2. Update Moving Cars, Taxis, Vans & Buses strictly inside road lanes.
+    // Cars keep a gap to the car ahead in their lane, and while a bridge is
+    // raised they wait at its approach instead of driving onto the open leaves.
+    const byPath = new Map<THREE.Vector3[], Vehicle[]>();
     for (const car of this.movingCars) {
-      car.t = (car.t + deltaTime * car.speed * 0.25) % 1.0;
+      let lane = byPath.get(car.path);
+      if (!lane) byPath.set(car.path, (lane = []));
+      lane.push(car);
+    }
+    for (const [path, lane] of byPath) {
+      const len = this.pathLength(path);
+      lane.sort((a, b) => a.t - b.t);
+      for (let i = 0; i < lane.length; i++) {
+        const car = lane[i];
+        const step = deltaTime * car.speed * 0.25;
+        if (lane.length > 1) {
+          const ahead = lane[(i + 1) % lane.length];
+          const gap = (((ahead.t - car.t) % 1) + 1) % 1;
+          if (gap * len < 9 + step * len) continue; // ~4.5 m car + 4.5 m spacing
+        }
+        const nextT = (car.t + step) % 1.0;
+        if (bridgesOpen) {
+          const now = car.mesh.position;
+          const next = this.interpolateCatmullRom(path, nextT).pos;
+          if (this.blockedByDrawbridge(now.x, now.z, next.x, next.z)) continue;
+        }
+        car.t = nextT;
+      }
+    }
+    for (const car of this.movingCars) {
       const { pos, tangent } = this.interpolateCatmullRom(car.path, car.t);
       car.mesh.position.copy(pos);
       if (tangent.lengthSq() > 0.001) {

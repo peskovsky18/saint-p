@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { splitIntoTiles } from './merge';
 import earcut from 'earcut';
 import { latLonToMeters } from './geo';
 import { PALETTE } from './palette';
@@ -145,8 +146,10 @@ export class WaterSystem {
           }
 
           // Twilight / White Nights smooth illumination transition
-          vec3 nightWater = mix(uNightColor, vec3(0.08, 0.18, 0.30), clamp(wave * 0.5 + 0.5, 0.0, 1.0));
-          water = mix(water, nightWater, uNight * 0.90);
+          // Night: keep the same stepped wave bands, just much darker and bluer
+          // (colours here are linear: the scene is lit, the water is not).
+          vec3 nightWater = uNightColor + water * vec3(0.22, 0.28, 0.40);
+          water = mix(water, nightWater, uNight);
 
           gl_FragColor = vec4(water, 0.98);
         }
@@ -317,8 +320,7 @@ export class WaterSystem {
     this.riverMesh = new THREE.Mesh(riverGeo, this.material);
     this.riverMesh.renderOrder = 1;
     this.riverMesh.receiveShadow = true;
-    this.riverMesh.frustumCulled = false;
-    this.group.add(this.riverMesh);
+    this.group.add(splitIntoTiles(this.riverMesh));
 
     // 2. Granite Embankments Mesh
     const quayGeo = new THREE.BufferGeometry();
@@ -333,8 +335,7 @@ export class WaterSystem {
     this.quayMesh = new THREE.Mesh(quayGeo, quayMat);
     this.quayMesh.renderOrder = 8;
     this.quayMesh.receiveShadow = true;
-    this.quayMesh.frustumCulled = false;
-    this.group.add(this.quayMesh);
+    this.group.add(splitIntoTiles(this.quayMesh));
   }
 
   public setWaterLevel(levelCm: number) {
