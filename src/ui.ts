@@ -36,7 +36,7 @@ export const LANDMARK_DATA: LandmarkInfo[] = [
     style: 'Русский ампир (Классицизм)',
     architect: 'Карло Росси',
     years: '1819—1829',
-    coords: { x: 67.9, y: 32, z: 87.7 },
+    coords: { x: 153.2, y: 40, z: 200.5 },
     zoom: 160,
     description: 'Грандиозный дугообразный охристый фасад протяженностью 580 метров, охватывающий Дворцовую площадь. Триумфальная арка увенчана бронзовой Колесницей Славы с крылатой богиней Победы.'
   },
@@ -827,6 +827,10 @@ export class UIManager {
           <div>Освещение, погода и Нева</div>
           <div><kbd>B</kbd></div>
           <div>Разводка Дворцового моста</div>
+          <div><kbd>X</kbd></div>
+          <div>Размер пикселя: 1× / 2× / 3×</div>
+          <div><kbd>O</kbd></div>
+          <div>Контуры зданий вкл/выкл</div>
           <div><kbd>Пробел</kbd> / <kbd>0</kbd></div>
           <div>Возврат к Дворцовой площади</div>
         </div>
@@ -911,7 +915,8 @@ export class UIManager {
     const photoW = postCanvas.width - margin * 2;
     const photoH = postCanvas.height - margin * 2 - bottomBand;
 
-    // Draw 3D scene
+    // Draw 3D scene (nearest-neighbour upscale keeps the pixel art crisp)
+    ctx.imageSmoothingEnabled = false;
     ctx.drawImage(glCanvas, 0, 0, glCanvas.width, glCanvas.height, margin, margin, photoW, photoH);
 
     // Dual imperial frames (Brass/Gold and Charcoal)
@@ -1056,6 +1061,18 @@ export class UIManager {
         this.toggleMinimalHud();
       } else if (key === 'p') {
         this.createPostcard();
+      } else if (key === 'x') {
+        const app = (window as any).spbApp;
+        if (app?.cyclePixelSize) {
+          const size = app.cyclePixelSize();
+          this.showToast(size === 1 ? 'Пиксели: мелкие (1×)' : `Пиксели: крупные (${size}×)`);
+        }
+      } else if (key === 'o') {
+        const app = (window as any).spbApp;
+        if (app?.pixelArt) {
+          app.pixelArt.outlines = !app.pixelArt.outlines;
+          this.showToast(app.pixelArt.outlines ? 'Контуры зданий включены' : 'Контуры зданий выключены');
+        }
       } else if (key === 'f') {
         this.toggleFlightMode();
       } else if (key === 't') {

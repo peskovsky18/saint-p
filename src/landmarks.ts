@@ -151,6 +151,7 @@ export class LandmarksSystem {
     this.buildNewHollandIsland();
     this.buildRostralColumns();
     this.buildGeneralStaffChariot();
+    this.buildGeneralStaffGlassRoofs();
     this.buildBronzeHorseman();
     this.buildSpasNaKroviDomes();
     this.buildStockExchangeColonnade();
@@ -339,197 +340,180 @@ export class LandmarksSystem {
   }
 
   /**
-   * Зимний дворец (Winter Palace) Authentic Monumental Baroque Ensemble
-   * Bartolomeo Francesco Rastrelli masterpiece (210m x 160m, 3 tiers, 23.5m height)
-   * 4 monumental wings (South, North, West, East) surrounding the Grand Courtyard of Honor,
-   * Grand Church of the Winter Palace with 5 gilded onion cupolas,
-   * 176 roofline balustrade statues and Rococo urns, Jordan entrance colonnade,
-   * and South Palace Square 3-arch triumphal gateway with gilded wrought-iron gates.
+   * Зимний дворец (Winter Palace), built on the real OSM footprint (way 69424000).
+   *
+   * Local frame of the group: +X runs along the Neva and Palace Square facades
+   * towards the Hermitage, +Z points at Palace Square, origin is the footprint
+   * centroid. The palace stands ~36° off the world axes, like the real one.
    */
   private buildWinterPalaceDetails() {
     const wpGroup = new THREE.Group();
     wpGroup.name = 'winter-palace-details';
+    wpGroup.position.set(-37.99, 0, -70.05);
+    wpGroup.rotation.y = 0.6288;
 
-    const turquoiseMat = new THREE.MeshLambertMaterial({ color: PALETTE.hermitageGreen, flatShading: true });
+    const H = 23.5; // cornice height
+    const BAY = 7.0; // one Rastrelli column bay, metres
+
+    // Outer footprint in local metres (u along facade, v towards Palace Square)
+    const outline: [number, number][] = [
+      [111.4, -71.1], [111.4, -42.3], [104.3, -42.2], [104.3, -34.9], [67.2, -34.8], [67.3, -14.2],
+      [110.5, -14.3], [110.5, 10.7], [68.8, 10.8], [68.8, 31.3], [105.7, 31.2], [105.7, 38.4],
+      [111.1, 38.4], [111.1, 75.0], [104.2, 75.0], [104.2, 81.4], [83.7, 81.4], [83.7, 85.4],
+      [67.8, 85.4], [67.9, 92.0], [61.2, 92.1], [61.1, 85.5], [44.3, 85.5], [44.3, 81.5],
+      [32.4, 81.5], [32.4, 89.8], [-44.1, 89.9], [-44.1, 82.0], [-57.4, 82.0], [-57.4, 86.6],
+      [-73.4, 86.7], [-73.4, 93.3], [-80.9, 93.4], [-80.9, 86.7], [-96.6, 86.7], [-96.6, 81.9],
+      [-111.7, 82.0], [-111.8, 50.0], [-89.4, 50.0], [-89.5, 40.7], [-92.8, 40.7], [-92.8, 23.1],
+      [-89.5, 23.1], [-89.5, 3.2], [-96.0, 3.4], [-96.2, -5.1], [-89.5, -5.2], [-89.6, -25.0],
+      [-92.9, -25.0], [-92.9, -41.9], [-89.6, -41.9], [-89.6, -50.4], [-112.7, -50.1], [-113.8, -89.1],
+      [-58.8, -89.2], [-58.8, -82.6], [-18.4, -82.7], [-18.3, -87.7], [4.2, -87.6], [4.1, -82.7],
+      [44.6, -82.8], [44.6, -88.8], [104.0, -88.9], [104.0, -79.5], [111.4, -79.5]
+    ];
+    const rect = (u: number, v: number, w: number, d: number): [number, number][] => [
+      [u - w / 2, v - d / 2], [u + w / 2, v - d / 2], [u + w / 2, v + d / 2], [u - w / 2, v + d / 2]
+    ];
+    const courtyards: [number, number][][] = [
+      rect(-6, 0, 88, 76),                                          // Большой (Парадный) двор
+      rect(-75, -60, 11, 9), rect(-25, -60, 11, 9), rect(20, -60, 11, 9), rect(75, -60, 11, 9), // Neva wing light wells
+      rect(-75, 60, 11, 9), rect(-35, 60, 11, 9), rect(25, 60, 11, 9),                         // Palace Square wing
+      rect(-70, -15, 9, 11), rect(-70, 18, 9, 11)                                               // Admiralty wing
+    ];
+
+    // Shape space is (u, -v); after rotateX(-90°) it maps to (u, height, v).
+    const toShape = (pts: [number, number][]) => pts.map(([u, v]) => new THREE.Vector2(u, -v));
+    const shape = new THREE.Shape(toShape(outline));
+    for (const c of courtyards) shape.holes.push(new THREE.Path(toShape(c)));
+
+    // Walls are axis-aligned in the local frame: map U along the wall in bays, V up the height.
+    const uvGen = {
+      generateTopUV: (_g: THREE.ExtrudeGeometry, v: number[], a: number, b: number, c: number) => [
+        new THREE.Vector2(v[a * 3] / BAY, v[a * 3 + 1] / BAY),
+        new THREE.Vector2(v[b * 3] / BAY, v[b * 3 + 1] / BAY),
+        new THREE.Vector2(v[c * 3] / BAY, v[c * 3 + 1] / BAY)
+      ],
+      generateSideWallUV: (_g: THREE.ExtrudeGeometry, v: number[], a: number, b: number, c: number, d: number) => {
+        const alongU = Math.abs(v[a * 3] - v[b * 3]) >= Math.abs(v[a * 3 + 1] - v[b * 3 + 1]);
+        const uv = (i: number) => new THREE.Vector2((alongU ? v[i * 3] : v[i * 3 + 1]) / BAY, v[i * 3 + 2] / H);
+        return [uv(a), uv(b), uv(c), uv(d)];
+      }
+    };
+
+    const bodyGeo = new THREE.ExtrudeGeometry(shape, { depth: H, bevelEnabled: false, UVGenerator: uvGen });
+    bodyGeo.rotateX(-Math.PI / 2);
+
+    const facadeTex = this.createWinterPalaceFacadeTexture();
+    const facadeMat = new THREE.MeshLambertMaterial({ map: facadeTex });
+    const roofMat = new THREE.MeshLambertMaterial({ color: 0x8fb89c, flatShading: true }); // painted green roof (orthophoto)
+    const body = new THREE.Mesh(bodyGeo, [roofMat, facadeMat]);
+    body.name = 'winter-palace-body';
+    body.castShadow = true;
+    body.receiveShadow = true;
+    wpGroup.add(body);
+
     const whiteMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
     const goldMat = new THREE.MeshLambertMaterial({ color: PALETTE.goldDome, flatShading: true });
     const statueMat = new THREE.MeshLambertMaterial({ color: 0x4a4f48, flatShading: true });
-    const roofCopperMat = new THREE.MeshLambertMaterial({ color: PALETTE.roofCopperGreen, flatShading: true });
-    const cobbleMat = new THREE.MeshLambertMaterial({ color: 0x8a847b, flatShading: true });
-    const windowMat = new THREE.MeshBasicMaterial({ color: 0x223644 });
+    const archMat = new THREE.MeshBasicMaterial({ color: 0x14181c });
 
-    // 1. Парадный двор (Grand Courtyard of Honor, 160m x 160m)
-    const courtyard = new THREE.Mesh(new THREE.BoxGeometry(220, 0.25, 210), cobbleMat);
-    courtyard.position.set(-45, 0.12, -65);
-    courtyard.receiveShadow = true;
-    wpGroup.add(courtyard);
-
-    // 2. Четыре монументальных корпуса Зимнего дворца (4 Wings)
-    const wings = [
-      // Южный фасад на Дворцовую площадь (South facade)
-      { x: -45, z: 42, w: 260, d: 24, h: 23.5, name: 'south-wing' },
-      // Северный фасад на Неву (North / Palace Embankment facade)
-      { x: -45, z: -188, w: 260, d: 24, h: 23.5, name: 'north-wing' },
-      // Западный корпус к Адмиралтейству (West wing)
-      { x: -165, z: -73, w: 24, d: 206, h: 23.5, name: 'west-wing' },
-      // Восточный корпус к Малому Эрмитажу (East wing)
-      { x: 75, z: -73, w: 24, d: 206, h: 23.5, name: 'east-wing' }
-    ];
-
-    for (const w of wings) {
-      // Основной объём этажей (бирюзовый фасад)
-      const body = new THREE.Mesh(new THREE.BoxGeometry(w.w, w.h, w.d), turquoiseMat);
-      body.position.set(w.x, w.h / 2, w.z);
-      body.castShadow = true;
-      body.receiveShadow = true;
-      wpGroup.add(body);
-
-      // Медная кровля с карнизом
-      const roof = new THREE.Mesh(new THREE.BoxGeometry(w.w + 2, 2.5, w.d + 2), roofCopperMat);
-      roof.position.set(w.x, w.h + 1.25, w.z);
-      roof.castShadow = true;
-      wpGroup.add(roof);
-
-      // Белокаменный парапет по гребню крыши
-      const parapet = new THREE.Mesh(new THREE.BoxGeometry(w.w, 1.2, w.d), whiteMat);
-      parapet.position.set(w.x, w.h + 2.8, w.z);
-      wpGroup.add(parapet);
+    // Roof balustrade along the real outer perimeter, crowned by statues and urns (176 on the real palace)
+    const edges: { mx: number; mz: number; len: number; yaw: number; du: number; dv: number }[] = [];
+    for (let i = 0; i < outline.length; i++) {
+      const [u0, v0] = outline[i];
+      const [u1, v1] = outline[(i + 1) % outline.length];
+      const len = Math.hypot(u1 - u0, v1 - v0);
+      if (len < 0.5) continue;
+      edges.push({ mx: (u0 + u1) / 2, mz: (v0 + v1) / 2, len, yaw: -Math.atan2(v1 - v0, u1 - u0), du: (u1 - u0) / len, dv: (v1 - v0) / len });
     }
+    const unitBox = new THREE.BoxGeometry(1, 1, 1);
+    const parapets = new THREE.InstancedMesh(unitBox, whiteMat, edges.length);
+    const statueSlots: THREE.Vector3[] = [];
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const yAxis = new THREE.Vector3(0, 1, 0);
+    edges.forEach((e, i) => {
+      q.setFromAxisAngle(yAxis, e.yaw);
+      m.compose(new THREE.Vector3(e.mx, H + 0.6, e.mz), q, new THREE.Vector3(e.len + 0.7, 1.2, 0.7));
+      parapets.setMatrixAt(i, m);
+      const n = Math.floor(e.len / 5.5);
+      for (let k = 0; k < n; k++) {
+        const t = (k + 0.5) / n - 0.5;
+        statueSlots.push(new THREE.Vector3(e.mx + e.du * e.len * t, H + 1.2, e.mz + e.dv * e.len * t));
+      }
+    });
+    parapets.castShadow = true;
+    wpGroup.add(parapets);
 
-    // 3. Белокаменные коринфские колонны и ризалиты фасадов (Rastrelli Columns)
-    // Южный фасад: ритмичные сдвоенные колонны и пилястры
-    for (let cx = -160; cx <= 70; cx += 14) {
-      // Пропуск проезда центральных ворот
-      if (Math.abs(cx - (-45)) < 16) continue;
-      for (const cz of [54.5, -175.5]) {
-        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.75, 21.0, 10), whiteMat);
-        col.position.set(cx, 10.5, cz);
-        col.castShadow = true;
-        wpGroup.add(col);
+    const statueCount = Math.ceil(statueSlots.length / 2);
+    const urnCount = Math.floor(statueSlots.length / 2);
+    const statues = new THREE.InstancedMesh(new THREE.BoxGeometry(0.7, 2.4, 0.7), statueMat, statueCount);
+    const urns = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.5, 0.35, 1.4, 6), statueMat, urnCount);
+    let si = 0, ui = 0;
+    statueSlots.forEach((p, i) => {
+      if (i % 2 === 0) {
+        m.makeTranslation(p.x, p.y + 1.2, p.z);
+        statues.setMatrixAt(si++, m);
+      } else {
+        m.makeTranslation(p.x, p.y + 0.7, p.z);
+        urns.setMatrixAt(ui++, m);
+      }
+    });
+    statues.castShadow = true;
+    wpGroup.add(statues, urns);
 
-        // Позолоченная капитель
-        const cap = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.2, 1.6), goldMat);
-        cap.position.set(cx, 21.5, cz);
-        wpGroup.add(cap);
+    // Triple gateway arch to the Great Courtyard, centre of the Palace Square facade
+    const gateU = -6;
+    // Street side faces +Z, courtyard side (z = 38) faces -Z into the Great Courtyard
+    for (const [side, out] of [[89.9, 1], [38, -1]]) {
+      for (const du of [-7, 0, 7]) {
+        const frame = new THREE.Mesh(new THREE.BoxGeometry(6.6, 10.2, 0.4), whiteMat);
+        frame.position.set(gateU + du, 5.1, side + 0.2 * out);
+        wpGroup.add(frame);
+        const arch = new THREE.Mesh(new THREE.BoxGeometry(5.0, 8.8, 0.6), archMat);
+        arch.position.set(gateU + du, 4.4, side + 0.3 * out);
+        wpGroup.add(arch);
       }
     }
-
-    // Ритмичные окна в стиле барокко
-    for (let cx = -160; cx <= 70; cx += 7) {
-      if (Math.abs(cx - (-45)) < 14) continue;
-      for (const tierY of [6.0, 13.0, 19.0]) {
-        const win = new THREE.Mesh(new THREE.BoxGeometry(1.6, 3.2, 0.4), windowMat);
-        win.position.set(cx, tierY, 54.2);
-        wpGroup.add(win);
-
-        const winNeva = new THREE.Mesh(new THREE.BoxGeometry(1.6, 3.2, 0.4), windowMat);
-        winNeva.position.set(cx, tierY, -200.2);
-        wpGroup.add(winNeva);
-      }
-    }
-
-    // 4. Тройная триумфальная арка въезда в Парадный двор (South Central Gateway)
-    const gateArch = new THREE.Group();
-    gateArch.position.set(-45, 0, 42);
-
-    const archPassage = new THREE.Mesh(new THREE.BoxGeometry(26, 14, 25), new THREE.MeshBasicMaterial({ color: 0x14181c }));
-    archPassage.position.y = 7.0;
-    gateArch.add(archPassage);
-
-    // Парадный фронтон над въездными воротами
     const gatePed = new THREE.Mesh(createPedimentGeometry(32, 6.5, 5), whiteMat);
-    gatePed.position.set(0, 26.5, 12);
+    gatePed.position.set(gateU, H + 3.25, 87.6);
     gatePed.castShadow = true;
-    gateArch.add(gatePed);
-
+    wpGroup.add(gatePed);
     const imperialCrest = new THREE.Mesh(new THREE.BoxGeometry(6.5, 5.0, 0.8), goldMat);
-    imperialCrest.position.set(0, 26.5, 14.6);
-    gateArch.add(imperialCrest);
+    imperialCrest.position.set(gateU, H + 3.0, 90.4);
+    wpGroup.add(imperialCrest);
 
-    wpGroup.add(gateArch);
-
-    // 5. Большая церковь Зимнего дворца (Grand Church, 5 Gilded Cupolas at NE Corner)
+    // Большая церковь Зимнего дворца: five gilded cupolas over the south-east block
     const churchGroup = new THREE.Group();
-    churchGroup.position.set(65, 23.5, -175);
-
-    // Центральный барабан с куполом
+    churchGroup.position.set(88, H, 55);
     const mainDrum = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 4.5, 8.0, 16), whiteMat);
     mainDrum.position.y = 4.0;
     mainDrum.castShadow = true;
     churchGroup.add(mainDrum);
-
     const mainCupola = new THREE.Mesh(new THREE.SphereGeometry(4.6, 16, 12), goldMat);
     mainCupola.scale.set(1.0, 1.4, 1.0);
     mainCupola.position.y = 10.5;
     mainCupola.castShadow = true;
     churchGroup.add(mainCupola);
-
     const mainCross = new THREE.Mesh(new THREE.BoxGeometry(0.3, 4.2, 1.8), goldMat);
     mainCross.position.y = 17.5;
     churchGroup.add(mainCross);
-
-    // 4 угловых барабана с золотыми куполами
     for (const [dx, dz] of [[-6, -6], [6, -6], [-6, 6], [6, 6]]) {
       const cDrum = new THREE.Mesh(new THREE.CylinderGeometry(2.0, 2.0, 6.0, 12), whiteMat);
       cDrum.position.set(dx, 3.0, dz);
       churchGroup.add(cDrum);
-
       const cCupola = new THREE.Mesh(new THREE.SphereGeometry(2.1, 12, 10), goldMat);
       cCupola.scale.set(1.0, 1.35, 1.0);
       cCupola.position.set(dx, 7.5, dz);
       cCupola.castShadow = true;
       churchGroup.add(cCupola);
-
       const cCross = new THREE.Mesh(new THREE.BoxGeometry(0.2, 2.4, 1.0), goldMat);
       cCross.position.set(dx, 11.0, dz);
       churchGroup.add(cCross);
     }
     wpGroup.add(churchGroup);
 
-    // 6. 176 Authentic Roofline Balustrade Statues & Classical Decorative Urns
-    // Placed along all four outer parapets of the Winter Palace
-    const balustradeLines: { start: [number, number]; end: [number, number]; count: number }[] = [
-      { start: [-170, 54], end: [80, 54], count: 42 },     // South / Palace Square facade
-      { start: [-170, -200], end: [80, -200], count: 42 }, // North / Palace Embankment (Neva)
-      { start: [-175, -195], end: [-175, 50], count: 38 }, // West / Admiralty flank
-      { start: [85, -195], end: [85, 50], count: 38 }      // East / Small Hermitage flank
-    ];
-
-    for (const line of balustradeLines) {
-      const [x1, z1] = line.start;
-      const [x2, z2] = line.end;
-      for (let i = 0; i <= line.count; i++) {
-        const t = i / line.count;
-        const x = x1 + (x2 - x1) * t;
-        const z = z1 + (z2 - z1) * t;
-
-        const isStatue = i % 2 === 0;
-        if (isStatue) {
-          // Classical allegorical warrior / goddess statue on stone plinth
-          const plinth = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.6, 0.9), whiteMat);
-          plinth.position.set(x, 27.5, z);
-          wpGroup.add(plinth);
-
-          const figure = new THREE.Mesh(new THREE.BoxGeometry(0.65, 2.4, 0.65), statueMat);
-          figure.position.set(x, 29.0, z);
-          figure.castShadow = true;
-          wpGroup.add(figure);
-        } else {
-          // Classical Rococo urn / vase with finial
-          const urnBase = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.35, 1.4, 8), whiteMat);
-          urnBase.position.set(x, 27.8, z);
-          wpGroup.add(urnBase);
-
-          const urnFinial = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.8, 6), goldMat);
-          urnFinial.position.set(x, 28.9, z);
-          wpGroup.add(urnFinial);
-        }
-      }
-    }
-
-    // 7. Jordan Entrance Colonnade (Иорданский подъезд со стороны Невы)
+    // Иорданский подъезд: colonnaded porch on the Neva facade near the Hermitage end
     const jordanGroup = new THREE.Group();
-    jordanGroup.position.set(45, 0, -202.0);
+    jordanGroup.position.set(76, 0, -91.5);
     for (let cx = -9; cx <= 9; cx += 3) {
       const col = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.65, 8.5, 10), whiteMat);
       col.position.set(cx, 4.25, 0);
@@ -537,11 +521,70 @@ export class LandmarksSystem {
       jordanGroup.add(col);
     }
     const jordanBalcony = new THREE.Mesh(new THREE.BoxGeometry(22, 1.0, 4.5), whiteMat);
-    jordanBalcony.position.set(0, 9.0, 0);
+    jordanBalcony.position.set(0, 9.0, 1.0);
     jordanGroup.add(jordanBalcony);
     wpGroup.add(jordanGroup);
 
     this.group.add(wpGroup);
+  }
+
+  /**
+   * One 7 m × 23.5 m Rastrelli bay at 4 px per metre: rusticated ground floor,
+   * paired white columns with gilded capitals, three tiers of white-framed
+   * windows and the white crowning entablature.
+   */
+  private createWinterPalaceFacadeTexture(): THREE.CanvasTexture {
+    const W = 28, Hpx = 94;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = Hpx;
+    const ctx = canvas.getContext('2d')!;
+    const px = (c: string, x: number, y: number, w: number, h: number) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
+
+    const wall = '#63b19b', wallShade = '#4f9884', white = '#f2efe6', whiteShade = '#c9d6cf';
+    const glass = '#1d2f3b', glassHi = '#3d5b6a', gold = '#d9a92e';
+
+    px(wall, 0, 0, W, Hpx);
+    // Rusticated ground floor
+    px(wallShade, 0, 64, W, 30);
+    for (let y = 68; y < Hpx; y += 5) px('#467f70', 0, y, W, 1);
+    // Entablature and belt courses
+    px(white, 0, 0, W, 6);
+    px(whiteShade, 0, 6, W, 1);
+    px(white, 0, 30, W, 2);
+    px(white, 0, 62, W, 2);
+    px(whiteShade, 0, 64, W, 1);
+    // Paired columns at both bay edges (upper two floors) and pilasters below
+    for (const cx of [0, 3, 23, 26]) {
+      px(white, cx, 7, 2, 55);
+      px(whiteShade, cx + 1, 7, 1, 55);
+      px(gold, cx, 7, 2, 2);
+      px(white, cx, 65, 2, 29);
+    }
+    // Windows: top mezzanine, tall piano nobile, ground floor
+    const win = (y: number, h: number, crown: boolean) => {
+      px(white, 9, y - 1, 10, h + 2);
+      px(glass, 10, y, 8, h);
+      px(glassHi, 10, y, 1, h);
+      px(white, 13, y, 2, h); // glazing bar
+      if (crown) {
+        px(white, 8, y - 4, 12, 2);
+        px(gold, 13, y - 5, 2, 2);
+      }
+    };
+    win(11, 14, false);
+    win(39, 19, true);
+    win(71, 16, false);
+    px(white, 9, 87, 10, 2); // ground-floor sill
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.anisotropy = 8;
+    return tex;
   }
 
   /**
@@ -1736,15 +1779,67 @@ export class LandmarksSystem {
 
   /**
    * Арка Главного штаба и Колесница Славы (Carlo Rossi Triumphal Arch & Chariot of Glory)
-   * Exact GPS: 59.937748 N, 30.316498 E -> World: x=108.06, z=231.99
+   * Placed on OSM way 100016301 (Арка Главного штаба), between the west and east wings.
    * Double Triumphal Arch spanning Bolshaya Morskaya Street onto Palace Square,
    * coffered vault, paired Corinthian columns, statues in wall niches, military trophy friezes,
    * and the colossal 6-horse Chariot of Glory with Winged Victory (Ника) and Roman warriors.
    */
+  /**
+   * Glazed courtyards of the General Staff east wing (Hermitage museum since
+   * 2014): a spine of glass roofs along the wing between Palace Square and the
+   * Moika, as seen on the orthophoto. Polygon = wing outline inset by 17 m.
+   */
+  private buildGeneralStaffGlassRoofs() {
+    const spine: [number, number][] = [
+      [199.4, 66], [199.3, 76], [199.1, 86], [198.9, 96], [198.8, 106], [198.7, 116],
+      [198.7, 126], [198.6, 136], [197.3, 146], [194.1, 156], [189.6, 166], [182.8, 176],
+      [180.0, 186], [180.7, 196], [188.4, 206], [192.9, 216], [200.2, 226], [205.2, 236],
+      [205.0, 246], [246.7, 246], [245.2, 236], [243.6, 226], [242.1, 216], [240.5, 206],
+      [238.8, 196], [237.2, 186], [235.5, 176], [233.9, 166], [232.2, 156], [230.6, 146],
+      [228.9, 136], [227.2, 126], [225.4, 116], [223.7, 106], [221.9, 96], [220.2, 86],
+      [221.1, 76], [222.0, 66]
+    ];
+    const shape = new THREE.Shape(spine.map(([x, z]) => new THREE.Vector2(x, -z)));
+    const geo = new THREE.ShapeGeometry(shape);
+    geo.rotateX(-Math.PI / 2);
+
+    // 4 m glazing grid, pixel-art style
+    const canvas = document.createElement('canvas');
+    canvas.width = 8;
+    canvas.height = 8;
+    const ctx = canvas.getContext('2d')!;
+    ctx.fillStyle = '#a9bfcb';
+    ctx.fillRect(0, 0, 8, 8);
+    ctx.fillStyle = '#c9dbe3';
+    ctx.fillRect(1, 1, 3, 3);
+    ctx.fillStyle = '#6d808b';
+    ctx.fillRect(0, 7, 8, 1);
+    ctx.fillRect(7, 0, 1, 8);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(1 / 4, 1 / 4);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+
+    const glass = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex }));
+    glass.name = 'general-staff-glass-roofs';
+    glass.position.y = 24.0 + 1.8 + 0.06; // landmark cornice + roof pitch plateau
+    glass.receiveShadow = true;
+    this.group.add(glass);
+  }
+
   private buildGeneralStaffChariot() {
     const archGroup = new THREE.Group();
     archGroup.name = 'general-staff-arch';
-    archGroup.position.set(108.06, 0.0, 231.99);
+    // The arch spans the passage between the two wings in the middle of the
+    // Palace Square arc (OSM way 100016301). Its face lies on the line between
+    // the wing corners (138.6/198.7 and 156.2/186.2), ~35° off the X axis, so its
+    // axis points straight at the Alexander Column. Front (local +Z) faces the
+    // square, hence the extra 180°; the centre sits half the depth behind the face.
+    archGroup.position.set(153.2, 0.0, 200.5);
+    archGroup.rotation.y = Math.PI + 0.618;
 
     const ochreMat = new THREE.MeshLambertMaterial({ color: PALETTE.empireYellow, flatShading: true });
     const trimMat = new THREE.MeshLambertMaterial({ color: PALETTE.spbWhiteStone, flatShading: true });
@@ -1787,15 +1882,21 @@ export class LandmarksSystem {
     archTop.castShadow = true;
     archGroup.add(archTop);
 
-    // Coffered semi-circular arch ceiling underside
-    const vaultCeiling = new THREE.Mesh(
-      new THREE.CylinderGeometry(10.5, 10.5, 20, 24, 1, true, 0, Math.PI),
-      trimMat
-    );
-    vaultCeiling.rotation.z = Math.PI / 2;
-    vaultCeiling.rotation.x = Math.PI / 2;
-    vaultCeiling.position.set(0, 16.5, 0);
-    archGroup.add(vaultCeiling);
+    // Semicircular arch opening: a dark passage with a rounded crown cutting into
+    // the attic band, framed by a white archivolt. The end caps stand slightly
+    // proud of the facade so the opening reads clearly at pixel-art scale.
+    const passageMat = new THREE.MeshBasicMaterial({ color: 0x15181c });
+    const passage = new THREE.Mesh(new THREE.BoxGeometry(21, 12.5, 20.3), passageMat);
+    passage.position.set(0, 6.25, 0);
+    archGroup.add(passage);
+    const archivolt = new THREE.Mesh(new THREE.CylinderGeometry(11.4, 11.4, 20.1, 24), trimMat);
+    archivolt.rotation.x = Math.PI / 2;
+    archivolt.position.set(0, 12.5, 0);
+    archGroup.add(archivolt);
+    const crown = new THREE.Mesh(new THREE.CylinderGeometry(10.5, 10.5, 20.3, 24), passageMat);
+    crown.rotation.x = Math.PI / 2;
+    crown.position.set(0, 12.5, 0);
+    archGroup.add(crown);
 
     // High Classical Attic with Military Trophy Frieze (crossing standards, armor, Roman eagles)
     const atticFrieze = new THREE.Mesh(new THREE.BoxGeometry(36, 4.5, 20.4), trimMat);

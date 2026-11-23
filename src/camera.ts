@@ -106,6 +106,11 @@ export class CameraController {
   private lastMousePos = { x: 0, y: 0 };
   private aspect: number = 1;
 
+  /** Height of the low-res pixel-art buffer; used to snap the camera to whole art pixels. */
+  public pixelGridHeight: number = 0;
+  private snapRight = new THREE.Vector3();
+  private snapUp = new THREE.Vector3();
+
   // Cinematic drone mode
   public isCinematic: boolean = false;
   private cinematicIndex: number = 0;
@@ -353,6 +358,26 @@ export class CameraController {
 
     this.camera.position.set(cx, cy, cz);
     this.camera.lookAt(this.currentTarget);
+    this.snapToPixelGrid();
+  }
+
+  /**
+   * Shift the orthographic camera so the world lands on whole art pixels.
+   * Without this, panning makes every edge crawl ("shimmer") between pixels.
+   */
+  private snapToPixelGrid() {
+    if (this.pixelGridHeight <= 0) return;
+    if (Math.abs(this.currentYaw - this.targetYaw) > 0.001) return; // rotating: snapping is meaningless
+    const px = (this.camera.top - this.camera.bottom) / this.pixelGridHeight;
+    this.camera.updateMatrixWorld();
+    this.snapRight.setFromMatrixColumn(this.camera.matrixWorld, 0);
+    this.snapUp.setFromMatrixColumn(this.camera.matrixWorld, 1);
+    const pr = this.camera.position.dot(this.snapRight);
+    const pu = this.camera.position.dot(this.snapUp);
+    this.camera.position
+      .addScaledVector(this.snapRight, Math.round(pr / px) * px - pr)
+      .addScaledVector(this.snapUp, Math.round(pu / px) * px - pu);
+    this.camera.updateMatrixWorld();
   }
 
   public update(deltaTime: number, flightSim?: FlightSimulator) {

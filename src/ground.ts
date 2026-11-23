@@ -130,7 +130,8 @@ export class GroundSystem {
     this.sidewalkTex.wrapT = THREE.RepeatWrapping;
     this.sidewalkTex.repeat.set(18000 / 4.0, 18000 / 4.0);
     this.sidewalkTex.magFilter = THREE.NearestFilter;
-    this.sidewalkTex.minFilter = THREE.NearestFilter;
+    this.sidewalkTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.sidewalkTex.anisotropy = 8;
 
     // 2. Pixel Grass Texture (128x128 mini-pixel flecks - vibrant sunny park lawn)
     const gCanvas = document.createElement('canvas');
@@ -161,7 +162,8 @@ export class GroundSystem {
     this.grassTex.wrapS = THREE.RepeatWrapping;
     this.grassTex.wrapT = THREE.RepeatWrapping;
     this.grassTex.magFilter = THREE.NearestFilter;
-    this.grassTex.minFilter = THREE.NearestFilter;
+    this.grassTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.grassTex.anisotropy = 8;
 
     // 3. Pixel Gravel / Park Promenade Texture (128x128 sandy beige crushed granite)
     const grCanvas = document.createElement('canvas');
@@ -184,7 +186,8 @@ export class GroundSystem {
     this.gravelTex.wrapS = THREE.RepeatWrapping;
     this.gravelTex.wrapT = THREE.RepeatWrapping;
     this.gravelTex.magFilter = THREE.NearestFilter;
-    this.gravelTex.minFilter = THREE.NearestFilter;
+    this.gravelTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.gravelTex.anisotropy = 8;
 
     // 4. Pixel Asphalt Texture (128x128 fine grain dark grey with aggregate flecks)
     const aCanvas = document.createElement('canvas');
@@ -214,7 +217,8 @@ export class GroundSystem {
     this.asphaltTex.wrapS = THREE.RepeatWrapping;
     this.asphaltTex.wrapT = THREE.RepeatWrapping;
     this.asphaltTex.magFilter = THREE.NearestFilter;
-    this.asphaltTex.minFilter = THREE.NearestFilter;
+    this.asphaltTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.asphaltTex.anisotropy = 8;
 
     // 5. Red Bicycle Asphalt Texture (128x128 red asphalt matching European bike paths)
     const bCanvas = document.createElement('canvas');
@@ -236,7 +240,8 @@ export class GroundSystem {
     this.bikeLaneTex.wrapS = THREE.RepeatWrapping;
     this.bikeLaneTex.wrapT = THREE.RepeatWrapping;
     this.bikeLaneTex.magFilter = THREE.NearestFilter;
-    this.bikeLaneTex.minFilter = THREE.NearestFilter;
+    this.bikeLaneTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.bikeLaneTex.anisotropy = 8;
 
     // 6. Palace Square Cobblestone Granite Fan Texture (512x512 High-Res Rapakivi Fan Arcs)
     const cCanvas = document.createElement('canvas');
@@ -283,7 +288,8 @@ export class GroundSystem {
     this.cobblestoneTex.wrapS = THREE.RepeatWrapping;
     this.cobblestoneTex.wrapT = THREE.RepeatWrapping;
     this.cobblestoneTex.magFilter = THREE.NearestFilter;
-    this.cobblestoneTex.minFilter = THREE.NearestFilter;
+    this.cobblestoneTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.cobblestoneTex.anisotropy = 8;
   }
 
   private buildBaseGround() {

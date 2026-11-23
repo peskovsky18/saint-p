@@ -98,7 +98,8 @@ export class RailwaySystem {
     this.ballastTex.wrapS = THREE.RepeatWrapping;
     this.ballastTex.wrapT = THREE.RepeatWrapping;
     this.ballastTex.magFilter = THREE.NearestFilter;
-    this.ballastTex.minFilter = THREE.NearestFilter;
+    this.ballastTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.ballastTex.anisotropy = 8;
   }
 
   private async loadRailways() {

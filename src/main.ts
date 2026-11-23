@@ -13,6 +13,7 @@ import { RealBuildingsSystem } from './real_buildings';
 import { RailwaySystem } from './railways';
 import { QuaysAndSculpturesSystem } from './quays_and_sculptures';
 import { UIManager } from './ui';
+import { PixelArtPipeline } from './pixelart';
 
 class SaintPIzoApp {
   public scene: THREE.Scene;
@@ -31,8 +32,8 @@ class SaintPIzoApp {
   public realBuildings: RealBuildingsSystem;
   public railways: RailwaySystem;
   public ui: UIManager;
+  public pixelArt: PixelArtPipeline;
   private lastTime: number = 0;
-  private pixelScale: number = 1; // Fine mini-pixel density for crisp isometric pixel art
 
   constructor() {
     const container = document.getElementById('canvas-container')!;
@@ -51,6 +52,7 @@ class SaintPIzoApp {
     });
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
+    this.pixelArt = new PixelArtPipeline(this.renderer);
     this.updateRendererSize();
     container.appendChild(this.renderer.domElement);
 
@@ -87,9 +89,15 @@ class SaintPIzoApp {
   }
 
   private updateRendererSize() {
-    const w = Math.floor(window.innerWidth / this.pixelScale);
-    const h = Math.floor(window.innerHeight / this.pixelScale);
-    this.renderer.setSize(w, h, false);
+    this.pixelArt.setSize(window.innerWidth, window.innerHeight);
+    this.cameraCtrl.pixelGridHeight = this.pixelArt.height;
+  }
+
+  /** Cycle art-pixel size 1 → 2 → 3 → 1 (CSS pixels per art pixel). */
+  public cyclePixelSize(): number {
+    this.pixelArt.pixelSize = this.pixelArt.pixelSize >= 3 ? 1 : this.pixelArt.pixelSize + 1;
+    this.updateRendererSize();
+    return this.pixelArt.pixelSize;
   }
 
   private onResize() {
@@ -135,7 +143,7 @@ class SaintPIzoApp {
     this.ui.update();
 
     // 9. Render Frame
-    this.renderer.render(this.scene, this.cameraCtrl.camera);
+    this.pixelArt.render(this.scene, this.cameraCtrl.camera);
   };
 }
 

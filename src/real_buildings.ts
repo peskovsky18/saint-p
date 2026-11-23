@@ -488,8 +488,8 @@ export class RealBuildingsSystem {
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
     tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.anisotropy = 8;
     tex.needsUpdate = true;
     return tex;
   }
@@ -691,7 +691,8 @@ export class RealBuildingsSystem {
     this.facadeTex.wrapS = THREE.RepeatWrapping;
     this.facadeTex.wrapT = THREE.RepeatWrapping;
     this.facadeTex.magFilter = THREE.NearestFilter;
-    this.facadeTex.minFilter = THREE.NearestFilter;
+    this.facadeTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.facadeTex.anisotropy = 8;
 
     // 2. High-Resolution Folded Tin / Zinc Roof Texture (фальцевая кровля Петербурга, 256x256)
     const rw = 256;
@@ -743,7 +744,8 @@ export class RealBuildingsSystem {
     this.roofTex.wrapS = THREE.RepeatWrapping;
     this.roofTex.wrapT = THREE.RepeatWrapping;
     this.roofTex.magFilter = THREE.NearestFilter;
-    this.roofTex.minFilter = THREE.NearestFilter;
+    this.roofTex.minFilter = THREE.LinearMipmapLinearFilter;
+    this.roofTex.anisotropy = 8;
 
     // 3. Night Window Emissive Glow Map (512x512)
     const emisCanvas = document.createElement('canvas');
@@ -912,7 +914,10 @@ export class RealBuildingsSystem {
     if (id === 69424000 || id === 270634000 || id === 1067948000 || id === 1202918000 || n === 'зимний дворец') {
       return 'hermitage';
     }
-    if (id === 1453436000 || n === 'главный штаб') {
+    // Главный штаб: west wing around the arch, its western continuation along the
+    // Palace Square arc, the east wing (Hermitage museum) up to the Moika and the
+    // second arch over Bolshaya Morskaya inside the passage.
+    if (id === 1453436000 || id === 1453435000 || id === 309796655 || id === 102048766 || n === 'главный штаб' || n.includes('главного штаба')) {
       return 'general_staff';
     }
     if (id === 2612859000 || n === 'адмиралтейство') {
@@ -1006,7 +1011,6 @@ export class RealBuildingsSystem {
           Math.hypot(cx - (-626.8), cz - 264.4) < 25 ||     // Bronze Horseman
           b.id === 3229958000 ||                            // Главная арка адмиралтейства (modeled in 3D in landmarks)
           (b.name && b.name.toLowerCase().includes('ростраль')) || // Any Rostral column marker
-          Math.hypot(cx - 108.06, cz - 231.99) < 24 ||      // General Staff Archway (clears opening through building)
           Math.hypot(cx - (-474.05), cz - 644.49) < 65 ||   // St. Isaac Cathedral (removes crooked OSM block)
           (b.name && b.name.toLowerCase().includes('спас на крови')) || // Spas na Krovi
           Math.hypot(cx - 800.2, cz - (-24.7)) < 55 ||      // Spas na Krovi full footprint
@@ -1093,6 +1097,13 @@ export class RealBuildingsSystem {
           roofCol = this.parseColor(b.roof_color, PALETTE.roofTinRed);
         } else {
           roofCol = this.getRandomRoofColor(b.id);
+        }
+
+        // Per-building weathering: small deterministic value/saturation jitter so
+        // neighbouring roofs read as separate sheets instead of one flat slab.
+        if (!lmType) {
+          const j = (Math.abs(b.id * 7919) % 1000) / 1000 - 0.5;
+          roofCol.offsetHSL(0, -0.06, j * 0.09);
         }
 
         // SPbU Twelve Colleges (Здание Двенадцати коллегий) - Domenico Trezzini Petrine Baroque

@@ -35,11 +35,11 @@ export class WaterSystem {
         uLevel: this.levelUniform,
         uNight: this.nightUniform,
         // Warsaw-Izo Baltic / Vistula pixel-art river palette
-        uDeepColor: { value: new THREE.Color(0x184a75) },   // Deep shipping channel
-        uDayColor: { value: new THREE.Color(0x236599) },    // Main flowing river body
-        uLightColor: { value: new THREE.Color(0x357eb7) },  // Sunlit wave facets
-        uFoamColor: { value: new THREE.Color(0x6eb7e8) },   // Soft glistening wave crests
-        uSparkleColor: { value: new THREE.Color(0xbde8ff) },// Rare specular sun glints
+        uDeepColor: { value: new THREE.Color(0x1d3a52) },   // Deep shipping channel
+        uDayColor: { value: new THREE.Color(0x27485f) },    // Main flowing river body
+        uLightColor: { value: new THREE.Color(0x325a74) },  // Sunlit wave facets
+        uFoamColor: { value: new THREE.Color(0x56809a) },   // Soft glistening wave crests
+        uSparkleColor: { value: new THREE.Color(0x9ec4d6) },// Rare specular sun glints
         uNightColor: { value: new THREE.Color(0x0a1626) }   // Deep midnight Baltic blue
       },
       vertexShader: `
@@ -103,10 +103,10 @@ export class WaterSystem {
         }
 
         void main() {
-          // Discrete pixel grid coordinates (1.5m per pixel for crisp isometric pixel art)
-          const float pixelSize = 1.5;
-          vec2 p = floor(vWorldPos.xz / pixelSize) * pixelSize;
-          vec2 pixelCoord = floor(vWorldPos.xz / pixelSize);
+          // Pixelation comes from the screen-space pixel-art pass; sample the
+          // wave field continuously so it does not alias against that grid.
+          vec2 p = vWorldPos.xz;
+          vec2 pixelCoord = gl_FragCoord.xy;
 
           // Discrete 8 FPS frame stepping for retro pixel art water flow
           float t = floor(uTime * 7.5) / 7.5;
@@ -132,13 +132,13 @@ export class WaterSystem {
 
           // Authentic 5-step pixel-art palette
           vec3 water;
-          if (ditheredWave < -0.22) {
+          if (ditheredWave < -0.30) {
             water = uDeepColor;   // Deep navigation channel
-          } else if (ditheredWave < 0.28) {
+          } else if (ditheredWave < 0.50) {
             water = uDayColor;    // Flowing Neva river
-          } else if (ditheredWave < 0.68) {
+          } else if (ditheredWave < 0.86) {
             water = uLightColor;  // Sunlit wave facets
-          } else if (ditheredWave < 0.88) {
+          } else if (ditheredWave < 0.97) {
             water = uFoamColor;   // Crisp white-cyan wave crests
           } else {
             water = uSparkleColor;// Specular sun glints

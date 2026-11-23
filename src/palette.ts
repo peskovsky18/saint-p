@@ -38,10 +38,10 @@ export const PALETTE = {
   spbWhiteStone: 0xf4f1ea,   // Neoclassical Plaster (Stock Exchange)
 
   // Roofs (Iconic St. Petersburg folded tin / zinc / copper roofs - ZERO PITCH BLACK!)
-  roofTinRed: 0xb85444,      // Iron Minium Red (Сурик)
+  roofTinRed: 0x9a4e40,      // Iron Minium Red (Сурик)
   roofZincGrey: 0x8e9dae,    // Folded Zinc Steel (Светлая оцинковка)
   roofLightZinc: 0xa4b4c4,   // Clean New Galvanized Steel
-  roofCopperGreen: 0x5a8a72, // Oxidized Malachite Copper Patina
+  roofCopperGreen: 0x5b7f6c, // Oxidized Malachite Copper Patina
   roofSlateGrey: 0x606c78,   // Nordic Slate / Dark Zinc (Графит)
   roofDarkZinc: 0x545d68,    // Historic Dark Folded Tin
   roofWarmSand: 0x9e8870,    // Weathered Ochre Sand Tin (Охристая жесть)
