@@ -1,0 +1,5019 @@
+{
+ "_meta": {
+  "district": "Центральный район",
+  "count": 498,
+  "id_scheme": "keys are spb_buildings.json ids (OSM way id, or relation id*1000 + outer ring index)",
+  "fields": {
+   "wall": "dominant current facade colour (sRGB hex, as seen in daylight, not shaded)",
+   "trim": "colour of columns/pilasters/window surrounds/cornices where clearly different",
+   "roof": "roof / dome colour, only where verified",
+   "height": "main body (cornice) height in metres, only where known",
+   "max_height": "top of dome/spire/sculpture in metres (do NOT extrude the whole footprint to this)",
+   "built": "construction year used for style",
+   "confidence": "high = landmark verified on several photos/sources; medium = one clear recent photo; low = photo ambiguous or old"
+  },
+  "sources": [
+   "OpenStreetMap (addresses, names, wikidata links) via the project Overpass dump",
+   "Wikidata (labels, inception, architectural style, P18 images); items matched by OSM wikidata tag or by P625 point inside the footprint",
+   "Wikimedia Commons photographs (P18 images and category photos, e.g. Category:Anichkov Palace, Category:Saint Catherine Armenian church Saint Petersburg, Category:Hermitage Theater), colours read visually from contact sheets",
+   "ru.wikipedia / encspb.ru / citywalls.ru for heights and dates of landmarks"
+  ]
+ },
+ "23002927": {
+  "name": "Выставочный зал «Цветы»",
+  "address": "Потёмкинская улица 2 литГ",
+  "wall": "#e2c45e",
+  "trim": "#f4f1ea",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q4503560",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4503560 P18); style: from construction year 1901",
+  "confidence": "medium"
+ },
+ "23002941": {
+  "name": "Медиацентр правительства Санкт-Петербурга",
+  "address": "Потёмкинская улица 2",
+  "wall": "#e7c25c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120574983",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120574983 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "23239550": {
+  "name": "Кикины палаты",
+  "address": "Ставропольская улица 9",
+  "wall": "#d9705a",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1720,
+  "wikidata": "Q794711",
+  "note": "Kikin Palace 1714-20 (rebuilt 1950s); salmon-red with white; colour read from Wikimedia Commons photo (Wikidata Q794711 P18)",
+  "confidence": "high"
+ },
+ "23239613": {
+  "name": "Ленинград Центр",
+  "address": "Потёмкинская улица 4",
+  "wall": "#efeee8",
+  "style": "neoclassical_1910s",
+  "built": 1914,
+  "wikidata": "Q24591486",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q24591486 P18); style: from construction year 1914",
+  "confidence": "medium"
+ },
+ "28683396": {
+  "name": "Солдатский корпус Донского дивизиона",
+  "address": "набережная Обводного канала 23 литБ",
+  "wall": "#a85a44",
+  "style": "eclectic",
+  "wikidata": "Q136745072",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745072 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "28684153": {
+  "name": "Офицерский корпус Донского дивизиона",
+  "address": "набережная Обводного канала 27",
+  "wall": "#a8604a",
+  "trim": "#e8dcc4",
+  "style": "eclectic",
+  "built": 1853,
+  "wikidata": "Q136745073",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745073 P18); style: from construction year 1853",
+  "confidence": "medium"
+ },
+ "28687183": {
+  "name": "Солдатский корпус Атаманского дивизиона",
+  "address": "набережная Обводного канала 29",
+  "wall": "#a3573f",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q136745074",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745074 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "28687212": {
+  "name": "Конюшня Атаманского дивизиона",
+  "address": "набережная Обводного канала 29 литБ",
+  "wall": "#a85a44",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q136745075",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745075 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "28691665": {
+  "name": "Западный павильон Михайловского замка",
+  "address": "Инженерная улица 8",
+  "wall": "#e09660",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1797,
+  "note": "Brenna pavilions at Mikhailovsky Castle; orange like the castle, white columns; Commons photo",
+  "confidence": "medium"
+ },
+ "28691666": {
+  "name": "Восточный павильон Михайловского замка",
+  "address": "Инженерная улица 10",
+  "wall": "#e09660",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1797,
+  "note": "Brenna pavilions at Mikhailovsky Castle; orange like the castle, white columns; Commons photo",
+  "confidence": "medium"
+ },
+ "28691685": {
+  "name": "Большой Санкт-Петербургский государственный цирк",
+  "address": "набережная реки Фонтанки 3",
+  "wall": "#d29a82",
+  "trim": "#ece6dc",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q268839",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q268839 P18); style: from construction year 1877",
+  "confidence": "high"
+ },
+ "28691706": {
+  "name": "Тяговая подстанция №11 \"Центральная\"",
+  "address": "набережная реки Фонтанки 3А",
+  "wall": "#ccc6b5",
+  "style": "eclectic",
+  "wikidata": "Q4467841",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4467841 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "28776991": {
+  "name": "Здание библиотеки духовной академии",
+  "address": "набережная Обводного канала 11",
+  "wall": "#d6bf86",
+  "style": "eclectic",
+  "wikidata": "Q104381336",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q104381336 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "28808793": {
+  "name": "Братский корпус",
+  "address": "набережная реки Монастырки 1 литД",
+  "wall": "#b77c68",
+  "style": "baroque",
+  "built": 1717,
+  "wikidata": "Q17540189",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q17540189 P18); style: from construction year 1717",
+  "confidence": "low"
+ },
+ "28808825": {
+  "name": "Федоровский корпус",
+  "address": "набережная реки Монастырки 1 литВ",
+  "wall": "#d68668",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1891,
+  "wikidata": "Q56045747",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q56045747 P18); style: from construction year 1891",
+  "confidence": "medium"
+ },
+ "28808840": {
+  "name": "Троицкий собор",
+  "address": "набережная реки Монастырки 1",
+  "wall": "#ddb06a",
+  "roof": "#9aa59c",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1790,
+  "wikidata": "Q4463568",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4463568 P18); style: religious building",
+  "confidence": "high"
+ },
+ "28816295": {
+  "name": "СПБ ГКУЗ \"Городская психиатрическая больница №6\", стационар",
+  "address": "набережная Обводного канала 9 литИ",
+  "wall": "#e3c45c",
+  "style": "eclectic",
+  "wikidata": "Q138822153",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138822153 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "28893849": {
+  "name": "Александринский театр",
+  "address": "площадь Островского 6",
+  "wall": "#e2b765",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1756,
+  "wikidata": "Q1186567",
+  "note": "Rossi 1828-32; yellow-ochre with white colonnade, Apollo quadriga; colour read from Wikimedia Commons photo (Wikidata Q1186567 P18)",
+  "confidence": "high"
+ },
+ "28962563": {
+  "name": "СДЮCШОР № 1",
+  "address": "набережная реки Фонтанки 33",
+  "wall": "#e2e2dc",
+  "style": "empire",
+  "built": 1809,
+  "wikidata": "Q118129170",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129170 P18); style: from construction year 1809",
+  "confidence": "medium"
+ },
+ "28966446": {
+  "name": "Собор Воскресения Христова на Крови",
+  "address": "набережная канала Грибоедова 2б литА",
+  "wall": "#a8644a",
+  "roof": "#c9a24a",
+  "trim": "#f2efe8",
+  "max_height": 81.0,
+  "style": "church",
+  "built": 1883,
+  "wikidata": "Q215208",
+  "note": "Parland 1883-1907; red-brown brick with light stone trim, enamel/mosaic onion domes, gilded central tent; total height 81 m; colour read from Wikimedia Commons photo (Wikidata Q215208 P18)",
+  "confidence": "high"
+ },
+ "28966479": {
+  "name": "Чебоксарский переулок 2",
+  "address": "Малая Конюшенная улица 4/2",
+  "wall": "#e08f63",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q55405728",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q55405728 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "29174953": {
+  "name": "Офицерский корпус Атаманского полка",
+  "address": "набережная Обводного канала 35",
+  "wall": "#d6b77c",
+  "style": "eclectic",
+  "built": 1891,
+  "wikidata": "Q136745078",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745078 P18); style: from construction year 1891",
+  "confidence": "medium"
+ },
+ "29175074": {
+  "name": "Офицерский корпус Черноморского дивизиона («Церковный»)",
+  "address": "набережная Обводного канала 37",
+  "wall": "#c46a48",
+  "trim": "#e8dcc4",
+  "style": "eclectic",
+  "built": 1849,
+  "wikidata": "Q136745079",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745079 P18); style: from construction year 1849",
+  "confidence": "medium"
+ },
+ "29179522": {
+  "name": "Офицерский корпус Крымско-татарского эскадрона",
+  "address": "набережная Обводного канала 33",
+  "wall": "#a8503c",
+  "style": "eclectic",
+  "built": 1840,
+  "wikidata": "Q136745077",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745077 P18); style: from construction year 1840",
+  "confidence": "medium"
+ },
+ "30121247": {
+  "name": "Пропилеи Смольного",
+  "address": "аллея Смольного 1",
+  "wall": "#ece9df",
+  "roof": "#5f8f74",
+  "style": "eclectic",
+  "wikidata": "Q121833448",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121833448 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "30198412": {
+  "name": "Международный центр делового сотрудничества",
+  "address": "Лафонская улица 6",
+  "wall": "#d5d0c3",
+  "style": "eclectic",
+  "wikidata": "Q131839896",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131839896 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "30198549": {
+  "name": "Государственный мемориальный музей А. В. Суворова",
+  "address": "Кирочная улица 43",
+  "wall": "#e3e1da",
+  "roof": "#4e7d5a",
+  "style": "eclectic",
+  "built": 1901,
+  "wikidata": "Q1058988",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1058988 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "30324279": {
+  "name": "Большой концертный зал «Октябрьский»",
+  "address": "Лиговский проспект 6",
+  "wall": "#d6cdb8",
+  "style": "soviet_modernism",
+  "built": 1967,
+  "wikidata": "Q4333107",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4333107 P18)",
+  "confidence": "high"
+ },
+ "30324351": {
+  "name": "Мальцевский рынок",
+  "address": "улица Некрасова 52",
+  "wall": "#c2bcae",
+  "style": "eclectic",
+  "wikidata": "Q4279535",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4279535 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "30324674": {
+  "name": "Комплекс зданий Клинического института Великой княгини Елены Павловны",
+  "address": "Кирочная улица 41 литВ",
+  "wall": "#d8c4bc",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q130739576",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q130739576 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "30350798": {
+  "name": "Здание Академии легкой промышленности",
+  "address": "Суворовский проспект 50-52",
+  "wall": "#b9ae9a",
+  "style": "stalinist",
+  "wikidata": "Q89750654",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q89750654 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "30353982": {
+  "name": "Павильон Росси",
+  "wall": "#ece3b0",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1825,
+  "wikidata": "Q66088256",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q66088256 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "32750507": {
+  "name": "Автобаза обкома КПСС",
+  "address": "Херсонский проезд 2",
+  "wall": "#c9c2b3",
+  "style": "soviet_modernism",
+  "wikidata": "Q124635350",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124635350 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "33195195": {
+  "name": "Большой драматический театр имени Г. А. Товстоногова",
+  "address": "набережная реки Фонтанки 65",
+  "wall": "#a9d4c4",
+  "trim": "#f4f1ea",
+  "style": "constructivism",
+  "built": 1919,
+  "wikidata": "Q1981162",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1981162 P18); style: from construction year 1919",
+  "confidence": "high"
+ },
+ "35368565": {
+  "name": "Лютеранская церковь Святой Анны",
+  "address": "Кирочная улица 8 литВ",
+  "wall": "#e9e2cc",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1775,
+  "wikidata": "Q279122",
+  "note": "Felten 1775-79; pale cream/yellow with white Tuscan rotunda; colour read from Wikimedia Commons photo (Wikidata Q279122 P18)",
+  "confidence": "medium"
+ },
+ "38611013": {
+  "name": "Колокольня Владимирского собора",
+  "address": "Владимирский проспект 20 литБ",
+  "wall": "#e3cd94",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1783,
+  "wikidata": "Q124250658",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124250658 P18); style: religious building",
+  "confidence": "high"
+ },
+ "38611014": {
+  "name": "Собор Владимирской иконы Божией Матери",
+  "address": "Владимирский проспект 20",
+  "wall": "#ecd9a0",
+  "roof": "#2a2d33",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1783,
+  "wikidata": "Q2415106",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2415106 P18); style: religious building",
+  "confidence": "high"
+ },
+ "40894060": {
+  "name": "Администрация Центрального района",
+  "address": "Невский проспект 176",
+  "wall": "#b56a52",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "built": 1885,
+  "wikidata": "Q118129285",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129285 P18); style: from construction year 1885",
+  "confidence": "high"
+ },
+ "41230751": {
+  "name": "Летний дворец Петра I",
+  "address": "Дворцовая набережная 2А",
+  "wall": "#e8d29a",
+  "roof": "#6b6a66",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1703,
+  "wikidata": "Q637314",
+  "note": "Trezzini 1710-14; pale yellow with terracotta reliefs, high dark hipped roof; colour read from Wikimedia Commons photo (Wikidata Q637314 P18)",
+  "confidence": "high"
+ },
+ "41289421": {
+  "name": "Штаб гвардейского корпуса",
+  "address": "Дворцовая площадь 4",
+  "wall": "#e3c46b",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q17341654",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q17341654 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "47218023": {
+  "name": "Часовня Всех скорбящих Радость (Валаам)",
+  "address": "Синопская набережная 36 литБ",
+  "wall": "#eceae4",
+  "roof": "#5f8f74",
+  "style": "church",
+  "wikidata": "Q4507600",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4507600 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "47514616": {
+  "name": "Кузнечный рынок",
+  "address": "Кузнечный переулок 3",
+  "wall": "#d8d6d0",
+  "style": "neoclassical_1910s",
+  "built": 1927,
+  "wikidata": "Q120674706",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120674706 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "47636020": {
+  "name": "Дом-коммуна инженеров и писателей",
+  "address": "улица Рубинштейна 7 литБ",
+  "wall": "#d8c3a0",
+  "style": "eclectic",
+  "wikidata": "Q4165178",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165178 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "48437535": {
+  "name": "Дом Каншиных",
+  "address": "Кузнечный переулок 2-4",
+  "wall": "#e5ddbd",
+  "style": "eclectic",
+  "wikidata": "Q121119953",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121119953 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "49480534": {
+  "name": "Детский сад",
+  "address": "переулок Джамбула 8",
+  "wall": "#e8e4de",
+  "style": "soviet_modernism",
+  "built": 1984,
+  "wikidata": "Q131418447",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131418447 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "51133428": {
+  "name": "Доходный дом Г.И. Гансена",
+  "address": "Малая Конюшенная улица 16/26",
+  "wall": "#e2d9c6",
+  "style": "eclectic",
+  "built": 1873,
+  "wikidata": "Q118129218",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129218 P18); style: from construction year 1873",
+  "confidence": "medium"
+ },
+ "51256876": {
+  "name": "Доходный дом Александро-Невской Лавры",
+  "address": "Невский проспект 153",
+  "wall": "#b48d62",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q118129282",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129282 P18); style: from construction year 1901",
+  "confidence": "medium"
+ },
+ "51260076": {
+  "name": "Жилой дом",
+  "address": "Невский проспект 141",
+  "wall": "#c58a52",
+  "style": "constructivism",
+  "built": 1934,
+  "wikidata": "Q118129277",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129277 P18); style: from construction year 1934",
+  "confidence": "medium"
+ },
+ "51264188": {
+  "name": "Корпус по Тележной улице",
+  "address": "Невский проспект 119",
+  "wall": "#d6c29e",
+  "style": "art_nouveau",
+  "built": 1900,
+  "wikidata": "Q118129270",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129270 P18); style: from construction year 1900",
+  "confidence": "medium"
+ },
+ "51333743": {
+  "name": "Съезжий дом Каретной части (с дворовым корпусом)",
+  "address": "Невский проспект 91",
+  "wall": "#d5d0c4",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q118129252",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129252 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "51333772": {
+  "name": "Съезжий дом Каретной части (с дворовым корпусом)",
+  "address": "Невский проспект 91 литД",
+  "wall": "#d5d0c4",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q118129252",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129252 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "51729688": {
+  "name": "Доходный дом А.Г. Чадаева",
+  "address": "Невский проспект 53 литА",
+  "wall": "#c9ad80",
+  "style": "eclectic",
+  "wikidata": "Q118129233",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129233 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "52016434": {
+  "name": "Дом И.Л. Логинова",
+  "address": "Невский проспект 61 литА",
+  "wall": "#c3beb2",
+  "style": "eclectic",
+  "built": 1849,
+  "wikidata": "Q118129235",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129235 P18); style: from construction year 1849",
+  "confidence": "medium"
+ },
+ "53610230": {
+  "name": "Перинные ряды",
+  "address": "Думская улица 4",
+  "wall": "#a7b08a",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q4170632",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4170632 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "53610231": {
+  "name": "Портик Перинной линии",
+  "address": "Думская улица 2",
+  "wall": "#e6c96e",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1802,
+  "wikidata": "Q118129119",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129119 P18); style: from construction year 1802",
+  "confidence": "high"
+ },
+ "53647977": {
+  "name": "Собор Воздвижения Креста Господня",
+  "address": "Лиговский проспект 128",
+  "wall": "#e4dccb",
+  "roof": "#c9a24a",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q2627600",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2627600 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "53647978": {
+  "name": "Церковь Тихвинской Иконы Божьей Матери",
+  "address": "Лиговский проспект 128 литД",
+  "wall": "#e8c4b8",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "note": "Commons photo 2024 (Ligovsky 128D); style: religious building",
+  "confidence": "low"
+ },
+ "54633945": {
+  "name": "Воронежская улица 12",
+  "address": "Воронежская улица 12",
+  "wall": "#d18a6a",
+  "style": "eclectic",
+  "wikidata": "Q124649278",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649278 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "54633950": {
+  "name": "Воронежская улица 20",
+  "address": "Лиговский проспект 141 литЛ",
+  "wall": "#ddd2b8",
+  "style": "eclectic",
+  "wikidata": "Q124722325",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124722325 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "54633957": {
+  "name": "Лиговский проспект 125",
+  "address": "Лиговский проспект 125",
+  "wall": "#a9a8a3",
+  "style": "eclectic",
+  "wikidata": "Q124291173",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124291173 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "54633962": {
+  "name": "Лиговский проспект 141",
+  "address": "Лиговский проспект 141",
+  "wall": "#d79a8a",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "wikidata": "Q124873840",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124873840 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "54633963": {
+  "name": "Лиговский проспект 139",
+  "address": "Лиговский проспект 139",
+  "wall": "#c8c8c3",
+  "style": "art_nouveau",
+  "built": 1908,
+  "wikidata": "Q124291104",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124291104 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "54633966": {
+  "name": "Лиговский проспект 131",
+  "address": "Лиговский проспект 131",
+  "wall": "#a6a6a2",
+  "style": "art_nouveau",
+  "wikidata": "Q124722978",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124722978 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "54633970": {
+  "name": "Лиговский проспект 135",
+  "address": "Лиговский проспект 135",
+  "wall": "#cbb68c",
+  "style": "art_nouveau",
+  "built": 1904,
+  "wikidata": "Q124291126",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124291126 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "55117331": {
+  "name": "Лиговский проспект 117",
+  "address": "Лиговский проспект 117",
+  "wall": "#a9b2ae",
+  "style": "eclectic",
+  "wikidata": "Q124649263",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649263 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "55828429": {
+  "name": "Боровая улица 18",
+  "address": "Боровая улица 18/1",
+  "wall": "#cfc9bd",
+  "style": "eclectic",
+  "wikidata": "Q124649287",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649287 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "56020036": {
+  "name": "Лиговский проспект 91",
+  "address": "Свечной переулок 27",
+  "wall": "#d6d5d0",
+  "style": "eclectic",
+  "wikidata": "Q106031100",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q106031100 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "56020044": {
+  "name": "Лиговский проспект 105",
+  "address": "Лиговский проспект 105",
+  "wall": "#e6dfd0",
+  "trim": "#b0533d",
+  "style": "art_nouveau",
+  "wikidata": "Q124724821",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124724821 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "56144989": {
+  "name": "Лиговский проспект 58",
+  "address": "Лиговский проспект 58",
+  "wall": "#dcc48e",
+  "style": "eclectic",
+  "built": 1875,
+  "wikidata": "Q133818270",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133818270 P18); style: from construction year 1875",
+  "confidence": "medium"
+ },
+ "56761156": {
+  "name": "Особняк графини Карловой",
+  "address": "набережная реки Фонтанки 46 литБ",
+  "wall": "#ecdcb7",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1790,
+  "wikidata": "Q16675824",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q16675824 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "60146987": {
+  "name": "Жилой дом",
+  "address": "Большая Конюшенная улица 12",
+  "wall": "#cdbd86",
+  "style": "eclectic",
+  "wikidata": "Q118129292",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129292 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "60147557": {
+  "name": "Корпус по каналу Грибоедова",
+  "address": "набережная канала Грибоедова 18-20",
+  "wall": "#e8cf84",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1869,
+  "wikidata": "Q131671332",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131671332 P18); style: from construction year 1869",
+  "confidence": "medium"
+ },
+ "60195635": {
+  "name": "Нева",
+  "address": "Невский проспект 108",
+  "wall": "#d2b0a0",
+  "style": "eclectic",
+  "wikidata": "Q138504545",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138504545 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "60195636": {
+  "name": "Доходный дом М.И. Лопатина",
+  "address": "Невский проспект 100",
+  "wall": "#ddd8cc",
+  "style": "eclectic",
+  "built": 1866,
+  "wikidata": "Q118684695",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118684695 P18); style: from construction year 1866",
+  "confidence": "medium"
+ },
+ "60195756": {
+  "name": "Дом, где в меблированных комнатах «Сан-Ремо» в 1905 г. жил В.И. Ленин",
+  "address": "Невский проспект 90–92 литера А",
+  "wall": "#e6d3c4",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1866,
+  "wikidata": "Q118129244",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129244 P18); style: from construction year 1866",
+  "confidence": "medium"
+ },
+ "60196034": {
+  "name": "Дом Юсуповой",
+  "address": "Невский проспект 84-86",
+  "wall": "#e3c56a",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "wikidata": "Q20982738",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q20982738 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "60196036": {
+  "name": "Доходный дом Н. И. Дернова",
+  "address": "Невский проспект 80",
+  "wall": "#d3cdc0",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "wikidata": "Q4315861",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4315861 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "60196038": {
+  "name": "Доходный дом А.М. Тупикова. Дом, в котором в 1870-х годах жил А.Ф. Можайский",
+  "address": "Литейный проспект 64/78",
+  "wall": "#dba08c",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "wikidata": "Q118129238",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129238 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "60198678": {
+  "name": "Дом по Невскому проспекту (с флигелями, с операционным залом)",
+  "address": "Невский проспект 58",
+  "wall": "#e5e4e0",
+  "style": "eclectic",
+  "built": 1896,
+  "wikidata": "Q118129110",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129110 P18); style: from construction year 1896",
+  "confidence": "medium"
+ },
+ "60198689": {
+  "name": "Литературный дом",
+  "address": "Невский проспект 68А",
+  "wall": "#c05a45",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4263832",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4263832 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "60203061": {
+  "name": "Пассаж",
+  "address": "Невский проспект 48",
+  "wall": "#dcd6c6",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q2495087",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2495087 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "60203065": {
+  "name": "Здание Волжско-Камского (Коммунального) банка",
+  "address": "Невский проспект 38/4",
+  "wall": "#e5d8ac",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q118129092",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129092 P18); style: from construction year 1834",
+  "confidence": "medium"
+ },
+ "60203073": {
+  "name": "Армянская церковь Святой Екатерины",
+  "address": "Невский проспект 40-42 литБ",
+  "wall": "#6fb3b0",
+  "roof": "#4c6b5f",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1771,
+  "wikidata": "Q2013364",
+  "note": "Felten 1771-76; white with turquoise wall panels, dark green dome (Commons category photos 2025-2026); colour read from Wikimedia Commons photo (Wikidata Q2013364 P18)",
+  "confidence": "high"
+ },
+ "60203074": {
+  "name": "Жилой дом. Здесь жили: в 1823-1832 гг. — государственный деятель М.М. Сперанский, в 1823-1825 гг. — декабрист Г.С. Батеньков, в 1854-1873 гг. — поэт Ф.И. Тютчев",
+  "address": "Невский проспект 40-42",
+  "wall": "#e9e2cb",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1771,
+  "wikidata": "Q118129190",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129190 P18); style: from construction year 1771",
+  "confidence": "medium"
+ },
+ "60203081": {
+  "name": "Жилой дом",
+  "address": "Невский проспект 40-42",
+  "wall": "#ebe3c6",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1794,
+  "wikidata": "Q118129187",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129187 P18); style: from construction year 1794",
+  "confidence": "medium"
+ },
+ "60352455": {
+  "name": "Дом Змеевых. Дом, где в помещении конторы и редакции легального журнала «Вестник жизни» в 1906-1907 гг. бывал В.И. Ленин (кв. 16 и 38)",
+  "address": "Невский проспект 102 литМ",
+  "wall": "#e6d59c",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q118129207",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129207 P18); style: from construction year 1877",
+  "confidence": "medium"
+ },
+ "60353337": {
+  "name": "Главное здание Мариинской больницы",
+  "address": "Литейный проспект 56 литА",
+  "wall": "#e3cf87",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "wikidata": "Q121484496",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121484496 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "60913173": {
+  "name": "Лиговский проспект 89",
+  "address": "Лиговский проспект 89/20",
+  "wall": "#a99a98",
+  "style": "eclectic",
+  "wikidata": "Q133825422",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133825422 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "60913177": {
+  "name": "Лиговский проспект 81",
+  "address": "Лиговский проспект 81",
+  "wall": "#b8afa5",
+  "style": "eclectic",
+  "wikidata": "Q133825397",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133825397 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "60913192": {
+  "name": "Лиговский проспект 83",
+  "address": "Лиговский проспект 83",
+  "wall": "#b3b8a8",
+  "style": "eclectic",
+  "wikidata": "Q133825410",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133825410 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "60913204": {
+  "name": "Бизнес-центр «Лиговка»",
+  "address": "Лиговский проспект 73",
+  "wall": "#b9bcc0",
+  "style": "contemporary",
+  "built": 2004,
+  "wikidata": "Q6447581",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q6447581 P18); style: from construction year 2004",
+  "confidence": "medium"
+ },
+ "60913213": {
+  "name": "Лиговский проспект 79",
+  "address": "Лиговский проспект 79",
+  "wall": "#c9a7a7",
+  "style": "eclectic",
+  "wikidata": "Q133825390",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133825390 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "60913870": {
+  "name": "Здание училища ордена св. Екатерины",
+  "address": "Литейный проспект 55",
+  "wall": "#d8c48e",
+  "style": "eclectic",
+  "wikidata": "Q135112596",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112596 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "61490767": {
+  "name": "Никольская единоверческая церковь",
+  "address": "улица Марата 24А литА",
+  "wall": "#e5cf86",
+  "roof": "#5f8f74",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q4320838",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4320838 P18); style: religious building",
+  "confidence": "high"
+ },
+ "61588500": {
+  "name": "Коломенская улица 33, Доходный дом Э.П. Дубровича",
+  "address": "Коломенская улица 33/40",
+  "wall": "#8d7480",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "built": 1860,
+  "wikidata": "Q124648162",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124648162 P18); style: from construction year 1860",
+  "confidence": "low"
+ },
+ "61588512": {
+  "name": "Коломенская улица 27",
+  "address": "Коломенская улица 27",
+  "wall": "#b88a5e",
+  "style": "art_nouveau",
+  "wikidata": "Q124649298",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649298 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "61588517": {
+  "name": "Коломенская улица 25",
+  "address": "Коломенская улица 25",
+  "wall": "#a35f48",
+  "style": "eclectic",
+  "wikidata": "Q124649310",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649310 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "61649302": {
+  "name": "Церковь иконы Божией Матери «Всех скорбящих Радость»",
+  "address": "проспект Чернышевского 3",
+  "wall": "#d59388",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q4422221",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4422221 P18); style: religious building",
+  "confidence": "high"
+ },
+ "61675770": {
+  "name": "Стремянная улица 13",
+  "address": "Стремянная улица 13",
+  "wall": "#b08a7e",
+  "style": "eclectic",
+  "built": 1895,
+  "wikidata": "Q124128999",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124128999 P18); style: from construction year 1895",
+  "confidence": "medium"
+ },
+ "61675783": {
+  "name": "Стремянная улица 11",
+  "address": "Стремянная улица 11",
+  "wall": "#9a6a5c",
+  "style": "art_nouveau",
+  "built": 1907,
+  "wikidata": "Q124128980",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124128980 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "61731676": {
+  "name": "Собственный дом архитектора Н.Н. Никонова",
+  "address": "Колокольная улица 11",
+  "wall": "#c9a77b",
+  "style": "art_nouveau",
+  "built": 1899,
+  "wikidata": "Q124252112",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124252112 P18); style: from construction year 1899",
+  "confidence": "medium"
+ },
+ "61738330": {
+  "name": "Улица Марата 45",
+  "address": "улица Марата 45/12",
+  "wall": "#a9b0b6",
+  "style": "eclectic",
+  "wikidata": "Q124288298",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124288298 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "61738333": {
+  "name": "Высшие женские естественные курсы и гимназия М.А. Лохвицкой-Скалон. Здесь проходила VII (Апрельская) конференция РСДРП(б)",
+  "address": "Кузнечный переулок 9/27",
+  "wall": "#b7ae9a",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "wikidata": "Q124287107",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124287107 P18); style: from construction year 1912",
+  "confidence": "medium"
+ },
+ "61892985": {
+  "name": "Дом быта",
+  "address": "Большая Московская улица 18",
+  "wall": "#d6dad8",
+  "style": "eclectic",
+  "wikidata": "Q131927744",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131927744 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "61909164": {
+  "name": "Pravda 10, St. Petersburg",
+  "address": "улица Правды 12/12",
+  "wall": "#e4d39a",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1840,
+  "wikidata": "Q15268490",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q15268490 P18); style: from construction year 1840",
+  "confidence": "medium"
+ },
+ "61909172": {
+  "name": "Эрмитаж",
+  "address": "улица Правды 10",
+  "wall": "#e8dcb0",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q111407087",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q111407087 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "61973393": {
+  "name": "Музей-квартира Н. А. Римского-Корсакова",
+  "address": "Загородный проспект 28 литБ",
+  "wall": "#b8975e",
+  "style": "soviet_modernism",
+  "built": 1971,
+  "wikidata": "Q4306051",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4306051 P18); style: from construction year 1971",
+  "confidence": "medium"
+ },
+ "61974446": {
+  "name": "Доходный дом М.А. Стенбок-Фермор",
+  "address": "Звенигородская улица 2/44",
+  "wall": "#e8c12e",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q123925967",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123925967 P18); style: from construction year 1902",
+  "confidence": "high"
+ },
+ "61974458": {
+  "name": "Дом Г.К. Штемберга (Реальное училище и гимназия)",
+  "address": "Звенигородская улица 8-10 литА",
+  "wall": "#bccda2",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "wikidata": "Q123926211",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123926211 P18); style: from construction year 1912",
+  "confidence": "low"
+ },
+ "62295243": {
+  "name": "Академическая филармония имени Д. Д. Шостаковича",
+  "address": "Михайловская улица 2/9",
+  "wall": "#e2b45e",
+  "trim": "#f4f1ea",
+  "style": "constructivism",
+  "built": 1921,
+  "wikidata": "Q1852398",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1852398 P18); style: from construction year 1921",
+  "confidence": "high"
+ },
+ "66055186": {
+  "name": "Михайловский манеж",
+  "address": "Манежная площадь 2",
+  "wall": "#e2c770",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1800,
+  "wikidata": "Q8072178",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q8072178 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "66110360": {
+  "name": "Здание Коммерческого училища (Санкт-Петербург)",
+  "address": "улица Ломоносова 9",
+  "wall": "#d8b768",
+  "style": "church",
+  "wikidata": "Q121614635",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121614635 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "66148930": {
+  "name": "Доходный дом А. И. Нежинской",
+  "address": "Захарьевская улица 23",
+  "wall": "#b9aea8",
+  "style": "eclectic",
+  "built": 1911,
+  "wikidata": "Q112259420",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q112259420 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "66233044": {
+  "name": "Дом Вавельберга",
+  "address": "Невский проспект 7-9",
+  "wall": "#77736e",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "wikidata": "Q7975611",
+  "note": "Peretiatkovich 1911-12; dark grey granite (Venetian palazzo); colour read from Wikimedia Commons photo (Wikidata Q7975611 P18)",
+  "confidence": "high"
+ },
+ "66286146": {
+  "name": "Аврора",
+  "address": "Невский проспект 60 литИ",
+  "wall": "#d69b84",
+  "trim": "#efe6d6",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "wikidata": "Q43114359",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q43114359 P18); style: from construction year 1913",
+  "confidence": "medium"
+ },
+ "66286149": {
+  "name": "Дом по Малой Садовой улице (с флигелями)",
+  "address": "Малая Садовая улица 6",
+  "wall": "#bba27c",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "wikidata": "Q118129111",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129111 P18); style: from construction year 1912",
+  "confidence": "low"
+ },
+ "66309862": {
+  "name": "Школа № 211 (Санкт-Петербург)",
+  "address": "Гороховая улица 20",
+  "wall": "#e2c472",
+  "style": "eclectic",
+  "built": 1870,
+  "wikidata": "Q4525161",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4525161 P18); style: from construction year 1870",
+  "confidence": "medium"
+ },
+ "66309894": {
+  "name": "Здание Санкт-Петербургского училища глухонемых",
+  "address": "набережная реки Мойки 48-50-52 литАВ",
+  "wall": "#e0d3b4",
+  "style": "eclectic",
+  "wikidata": "Q121521532",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121521532 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66309907": {
+  "name": "Здание Опекунского совета Императорского Воспитательного дома",
+  "address": "Казанская улица 7А",
+  "wall": "#c6ae8c",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "wikidata": "Q121501939",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121501939 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "66319031": {
+  "name": "Дом Второго Общества взаимного кредита",
+  "address": "Садовая улица 34",
+  "wall": "#9d9c98",
+  "style": "eclectic",
+  "wikidata": "Q130612996",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q130612996 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66462811": {
+  "name": "Дом прессы",
+  "address": "набережная реки Фонтанки 59",
+  "wall": "#d2c7b3",
+  "style": "eclectic",
+  "wikidata": "Q131400633",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131400633 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66462824": {
+  "name": "Школа № 550",
+  "address": "Торговый переулок 2А",
+  "wall": "#e5c873",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4461051",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4461051 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66501009": {
+  "name": "Центральная электростанция городского трамвая с водокачальней",
+  "address": "Атаманская улица 3/6 литЗ",
+  "wall": "#b05e44",
+  "style": "eclectic",
+  "wikidata": "Q123157830",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123157830 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66519259": {
+  "name": "Собственный дом архитектора Н.П. Басина",
+  "address": "переулок Крылова 7/5",
+  "wall": "#cf98a0",
+  "style": "eclectic",
+  "built": 1878,
+  "wikidata": "Q118129115",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129115 P18); style: from construction year 1878",
+  "confidence": "medium"
+ },
+ "66519297": {
+  "name": "Здание Санкт-Петербургского городского кредитного общества",
+  "address": "площадь Островского 7",
+  "wall": "#d8b98c",
+  "style": "eclectic",
+  "built": 1876,
+  "wikidata": "Q50135339",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q50135339 P18); style: from construction year 1876",
+  "confidence": "medium"
+ },
+ "66583112": {
+  "name": "Дом общества Московско-Виндаво-Рыбинской железной дороги",
+  "address": "площадь Островского 2",
+  "wall": "#a3a39f",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "wikidata": "Q118129112",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129112 P18); style: from construction year 1911",
+  "confidence": "medium"
+ },
+ "66583114": {
+  "name": "Дом Евсевьева (дом Серебряниковых, дом Кабинета)",
+  "address": "Невский проспект 39 литЗ",
+  "wall": "#ebe3c3",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1808,
+  "wikidata": "Q118129171",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129171 P18); style: from construction year 1808",
+  "confidence": "medium"
+ },
+ "66867024": {
+  "name": "набережная канала Грибоедова 30-32 литБ",
+  "address": "набережная канала Грибоедова 30-32 литБ",
+  "wall": "#d3b06c",
+  "style": "eclectic",
+  "wikidata": "Q4077399",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4077399 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "66875027": {
+  "name": "Театр музыкальной комедии",
+  "address": "Итальянская улица 13",
+  "wall": "#eedd9c",
+  "trim": "#f4f1ea",
+  "style": "constructivism",
+  "built": 1929,
+  "wikidata": "Q4407739",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4407739 P18); style: from construction year 1929",
+  "confidence": "medium"
+ },
+ "66925437": {
+  "name": "Жилой дом с дворовым флигелем",
+  "address": "Невский проспект 32-34",
+  "wall": "#ddc98f",
+  "style": "empire",
+  "built": 1835,
+  "wikidata": "Q118129161",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129161 P18); style: from construction year 1835",
+  "confidence": "medium"
+ },
+ "66925461": {
+  "name": "Серебряные ряды",
+  "address": "Невский проспект 29-31",
+  "wall": "#e5c96e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1783,
+  "wikidata": "Q118129159",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129159 P18)",
+  "confidence": "high"
+ },
+ "67548585": {
+  "name": "Российский государственный архив Военно-Морского Флота",
+  "address": "Миллионная улица 36",
+  "wall": "#9a6a52",
+  "style": "eclectic",
+  "built": 1887,
+  "wikidata": "Q4398057",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4398057 P18); style: from construction year 1887",
+  "confidence": "medium"
+ },
+ "67548590": {
+  "name": "Дом Аракчеева",
+  "address": "набережная реки Мойки 35",
+  "wall": "#8fae8e",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q119247825",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119247825 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "69424000": {
+  "name": "Зимний дворец",
+  "address": "Дворцовая набережная 38 литА",
+  "wall": "#84bfa8",
+  "roof": "#6f9a86",
+  "trim": "#f2f0e6",
+  "height": 22.0,
+  "style": "baroque",
+  "built": 1754,
+  "wikidata": "Q182147",
+  "note": "Rastrelli 1754-62; mint-green walls with white columns and ochre-gilded details (2020s colour); roof painted green-grey like the rest of the Hermitage complex; colour read from Wikimedia Commons photo (Wikidata Q182147 P18)",
+  "confidence": "high"
+ },
+ "70216607": {
+  "name": "Владимирский Пассаж",
+  "address": "Владимирский проспект 19",
+  "wall": "#d3b394",
+  "trim": "#efe6d6",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q126962701",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126962701 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "71527082": {
+  "name": "Здание Санкт-Петербургского общества взаимного кредита",
+  "address": "набережная канала Грибоедова 13",
+  "wall": "#e6dfcc",
+  "style": "eclectic",
+  "built": 1888,
+  "wikidata": "Q4189925",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4189925 P18); style: from construction year 1888",
+  "confidence": "medium"
+ },
+ "73269646": {
+  "name": "Дом голландской реформатской церкви",
+  "address": "Невский проспект 20",
+  "wall": "#e5dbbb",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1831,
+  "wikidata": "Q1978478",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1978478 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "74174917": {
+  "name": "Грифон",
+  "address": "Апраксин переулок 13",
+  "wall": "#e6c9bb",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q4068195",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4068195 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "75374317": {
+  "name": "Конюшенное ведомство",
+  "address": "Конюшенная площадь 2 литГ",
+  "wall": "#dcb072",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1817,
+  "wikidata": "Q4232081",
+  "note": "Stasov 1817-23; ochre-yellow with white (night and Moika photos, restoration ongoing)",
+  "confidence": "low"
+ },
+ "75374318": {
+  "name": "Лютеранская церковь Святых Петра и Павла",
+  "address": "Невский проспект 22-24 литБ",
+  "wall": "#ecebe6",
+  "style": "church",
+  "built": 1833,
+  "wikidata": "Q2097254",
+  "note": "Brullov 1833-38; white-grey neo-Romanesque with two towers; colour read from Wikimedia Commons photo (Wikidata Q2097254 P18)",
+  "confidence": "high"
+ },
+ "80260926": {
+  "name": "Улица Жуковского 43",
+  "address": "улица Жуковского 43",
+  "wall": "#e1ddd4",
+  "style": "art_nouveau",
+  "wikidata": "Q124630988",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124630988 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "80372385": {
+  "name": "Доходный дом Шландера. Дом, где в 1863-1870 гг. жил физиолог И.М. Сеченов",
+  "address": "улица Жуковского 10",
+  "wall": "#d6b56a",
+  "style": "eclectic",
+  "built": 1852,
+  "wikidata": "Q124608207",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124608207 P18); style: from construction year 1852",
+  "confidence": "medium"
+ },
+ "80373609": {
+  "name": "Здание академии гражданской авиации",
+  "address": "Литейный проспект 48",
+  "wall": "#a9d6be",
+  "trim": "#f4f1ea",
+  "style": "stalinist",
+  "built": 1953,
+  "wikidata": "Q135112636",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112636 P18); style: from construction year 1953",
+  "confidence": "medium"
+ },
+ "80373945": {
+  "name": "Доходный дом А.Х. Пеля",
+  "address": "Литейный проспект 34 литБ",
+  "wall": "#c9a58e",
+  "style": "eclectic",
+  "built": 1840,
+  "wikidata": "Q135112640",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112640 P18); style: from construction year 1840",
+  "confidence": "medium"
+ },
+ "80373974": {
+  "name": "Дом каретного мастера Г.К. Юргенса. Квартира, в которой жил с августа 1861 г. и умер 17 ноября 1861 г. революционный демократ, литературный критик и публицист Н.А. Добролюбов",
+  "address": "Литейный проспект 32",
+  "wall": "#dbd2b0",
+  "style": "eclectic",
+  "built": 1847,
+  "wikidata": "Q135112623",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112623 P18); style: from construction year 1847",
+  "confidence": "medium"
+ },
+ "83187591": {
+  "name": "Дом офицеров Западного военного округа",
+  "address": "Литейный проспект 20",
+  "wall": "#b9824f",
+  "trim": "#e8dcc4",
+  "style": "eclectic",
+  "built": 1895,
+  "wikidata": "Q18755204",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q18755204 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "84734083": {
+  "name": "Невский проспект 22, Жилой дом с двумя служебными флигелями",
+  "address": "Невский проспект 22",
+  "wall": "#e2c97c",
+  "style": "empire",
+  "built": 1830,
+  "wikidata": "Q118129152",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129152 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "84734084": {
+  "name": "Церковь Святой Марии",
+  "address": "Большая Конюшенная улица 8а литД",
+  "wall": "#e9dcb0",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1805,
+  "wikidata": "Q2654217",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2654217 P18); style: religious building",
+  "confidence": "high"
+ },
+ "84734085": {
+  "name": "Финская церковь Святой Марии",
+  "address": "Большая Конюшенная улица 8",
+  "wall": "#e9dcb0",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1734,
+  "wikidata": "Q2654217",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2654217 P18); style: religious building",
+  "confidence": "high"
+ },
+ "84832528": {
+  "name": "Доходный дом Мельцеров",
+  "address": "Большая Конюшенная улица 19/8",
+  "wall": "#c69c6a",
+  "style": "eclectic",
+  "wikidata": "Q117312966",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117312966 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "87294718": {
+  "name": "Перекупной переулок 9",
+  "address": "Перекупной переулок 9",
+  "wall": "#cfb48e",
+  "style": "art_nouveau",
+  "wikidata": "Q124630964",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124630964 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "87868325": {
+  "name": "Доходный дом Коммерческого училища",
+  "address": "Загородный проспект 13",
+  "wall": "#cfcfcc",
+  "style": "eclectic",
+  "wikidata": "Q121617387",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121617387 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "88391187": {
+  "name": "Дом Булатова",
+  "address": "улица Рылеева 1/9",
+  "wall": "#dcbc76",
+  "style": "eclectic",
+  "wikidata": "Q120135442",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135442 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "89430613": {
+  "name": "улица Рылеева 5",
+  "address": "улица Рылеева 5",
+  "wall": "#d7ab98",
+  "style": "eclectic",
+  "wikidata": "Q133854068",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133854068 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "89430623": {
+  "name": "Доходный дом лютеранской церкви Святой Анны",
+  "address": "Кирочная улица 8",
+  "wall": "#d8b073",
+  "trim": "#b5593f",
+  "style": "eclectic",
+  "wikidata": "Q130408532",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q130408532 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "89707413": {
+  "name": "Церковь Шестаковской иконы Божией Матери Грузинского прихода",
+  "address": "Старорусская улица 10",
+  "wall": "#d8dcb8",
+  "style": "church",
+  "wikidata": "Q18326040",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q18326040 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "90941562": {
+  "name": "Здание Главного казначейства",
+  "address": "набережная реки Фонтанки 70-72-74",
+  "wall": "#c4b9a0",
+  "style": "eclectic",
+  "wikidata": "Q120637633",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120637633 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "93445471": {
+  "name": "Казарма гвардейской конной артиллерии",
+  "address": "Шпалерная улица 22",
+  "wall": "#d99a76",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1851,
+  "wikidata": "Q135088741",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135088741 P18); style: from construction year 1851",
+  "confidence": "medium"
+ },
+ "93452391": {
+  "name": "Здание офицерских казарм лейб-гвардии 1-й Артиллерийской бригады (с кирпичной оградой)",
+  "address": "Литейный проспект 1/20",
+  "wall": "#b05a40",
+  "style": "eclectic",
+  "built": 1851,
+  "wikidata": "Q135088759",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135088759 P18); style: from construction year 1851",
+  "confidence": "medium"
+ },
+ "95991859": {
+  "name": "Доходный дом И.А. Алферова",
+  "address": "Литейный проспект 43",
+  "wall": "#dfd29e",
+  "style": "eclectic",
+  "built": 1888,
+  "wikidata": "Q135112608",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112608 P18); style: from construction year 1888",
+  "confidence": "medium"
+ },
+ "96123542": {
+  "name": "Новый пассаж",
+  "address": "Литейный проспект 57",
+  "wall": "#d9bf93",
+  "style": "soviet_modernism",
+  "built": 1912,
+  "wikidata": "Q120356869",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120356869 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "96123572": {
+  "name": "Улица Белинского 11",
+  "address": "улица Белинского 11",
+  "wall": "#a8a5a0",
+  "style": "art_nouveau",
+  "built": 1913,
+  "wikidata": "Q124344882",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124344882 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "96148838": {
+  "name": "Церковь Симеона Богоприимца и Анны Пророчицы",
+  "address": "Моховая улица 48",
+  "wall": "#e8c86a",
+  "roof": "#5b6a6e",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q2439961",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2439961 P18); style: religious building",
+  "confidence": "high"
+ },
+ "96148856": {
+  "name": "Санкт-Петербургское музыкальное училище имени М. П. Мусоргского",
+  "address": "Моховая улица 36",
+  "wall": "#b7908b",
+  "style": "constructivism",
+  "built": 1926,
+  "wikidata": "Q4407730",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4407730 P18); style: from construction year 1926",
+  "confidence": "low"
+ },
+ "96700953": {
+  "name": "Дом Мижуева",
+  "address": "набережная реки Фонтанки 26 литВ",
+  "wall": "#e6d39e",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q119819279",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119819279 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "96702283": {
+  "name": "Учебный театр «На Моховой»",
+  "address": "Моховая улица 35",
+  "wall": "#e3e1dc",
+  "style": "eclectic",
+  "wikidata": "Q126088494",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126088494 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "96702284": {
+  "name": "Дом Пашковых",
+  "address": "набережная реки Фонтанки 18",
+  "wall": "#d07f6c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120135431",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135431 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "96827444": {
+  "name": "Пантелеимоновская церковь",
+  "address": "улица Пестеля 2А",
+  "wall": "#c85b4f",
+  "roof": "#6f9a86",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q2442719",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2442719 P18); style: religious building",
+  "confidence": "high"
+ },
+ "97117943": {
+  "name": "Особняк А. П. Шувалова",
+  "address": "Моховая улица 10 с1",
+  "wall": "#ead8c8",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q125122569",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q125122569 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "97348149": {
+  "name": "Доходный дом Я.В. Ратькова-Рожнова",
+  "address": "улица Пестеля 13-15",
+  "wall": "#c2c3ad",
+  "style": "art_nouveau",
+  "built": 1900,
+  "wikidata": "Q135112656",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112656 P18); style: from construction year 1900",
+  "confidence": "medium"
+ },
+ "97548365": {
+  "name": "Особняк Трубецких—Нарышкиных",
+  "address": "улица Чайковского 29",
+  "wall": "#d0a56c",
+  "style": "empire",
+  "built": 1832,
+  "wikidata": "Q66446656",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q66446656 P18); style: from construction year 1832",
+  "confidence": "medium"
+ },
+ "97552149": {
+  "name": "Доходный дом А.М. Александрова",
+  "address": "Литейный проспект 16",
+  "wall": "#e0d8c0",
+  "style": "empire",
+  "built": 1830,
+  "wikidata": "Q135099502",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135099502 P18); style: from construction year 1830",
+  "confidence": "medium"
+ },
+ "97557673": {
+  "name": "Кирочная улица 18",
+  "address": "Кирочная улица 18",
+  "wall": "#d0957a",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "built": 1864,
+  "wikidata": "Q133854072",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133854072 P18); style: from construction year 1864",
+  "confidence": "medium"
+ },
+ "97700498": {
+  "name": "Особняк Варгунина",
+  "address": "Фурштатская улица 52",
+  "wall": "#e3e0d3",
+  "style": "eclectic",
+  "built": 1899,
+  "wikidata": "Q21026955",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q21026955 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "97700509": {
+  "name": "Особняк Спиридонова",
+  "address": "Фурштатская улица 58",
+  "wall": "#e7c39c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1896,
+  "wikidata": "Q4155873",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4155873 P18); style: from construction year 1896",
+  "confidence": "medium"
+ },
+ "98233501": {
+  "name": "Гимназия княгини А. А. Оболенской",
+  "address": "Басков переулок 8",
+  "wall": "#a6604a",
+  "style": "eclectic",
+  "built": 1870,
+  "wikidata": "Q4138516",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4138516 P18); style: from construction year 1870",
+  "confidence": "medium"
+ },
+ "98238005": {
+  "name": "Казармы Преображенского полка",
+  "address": "Кирочная улица 35а литА",
+  "wall": "#e9e3cf",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120735025",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120735025 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "98333874": {
+  "name": "улица Восстания 45, Особняк И. К. Мясникова",
+  "address": "улица Восстания 45",
+  "wall": "#cf6e4c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q105757678",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q105757678 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "98346317": {
+  "name": "улица Восстания 41, Доходный дом Б.О. Фукса",
+  "address": "улица Восстания 41",
+  "wall": "#8f8a86",
+  "style": "neoclassical_1910s",
+  "built": 1914,
+  "wikidata": "Q124540763",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124540763 P18); style: from construction year 1914",
+  "confidence": "medium"
+ },
+ "98372754": {
+  "name": "Ковенский переулок 23, Доходный дом С.А. Визлер, А.Ф. Бубыря",
+  "address": "Ковенский переулок 23",
+  "wall": "#e5d3c9",
+  "trim": "#f2efe8",
+  "style": "art_nouveau",
+  "built": 1911,
+  "wikidata": "Q124607737",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124607737 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "98391371": {
+  "name": "Доходный дом С.В. Муяки",
+  "address": "улица Восстания 18",
+  "wall": "#cdb98f",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q124396074",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124396074 P18); style: from construction year 1902",
+  "confidence": "medium"
+ },
+ "98634594": {
+  "name": "Кирочная улица 13",
+  "address": "Кирочная улица 13",
+  "wall": "#c27a62",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "built": 1882,
+  "wikidata": "Q124881995",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124881995 P18); style: from construction year 1882",
+  "confidence": "medium"
+ },
+ "98932259": {
+  "name": "Особняк Громова",
+  "address": "Дворцовая набережная 8",
+  "wall": "#c8b2a8",
+  "style": "baroque",
+  "built": 1720,
+  "wikidata": "Q21026956",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q21026956 P18); style: from construction year 1720",
+  "confidence": "medium"
+ },
+ "100016301": {
+  "name": "Арка Главного штаба",
+  "wall": "#e8c462",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "wikidata": "Q2622043",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2622043 P18)",
+  "confidence": "high"
+ },
+ "100616697": {
+  "name": "Государственная академическая капелла Санкт-Петербурга",
+  "address": "набережная реки Мойки 20",
+  "wall": "#dcc283",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q586283",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q586283 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "101648216": {
+  "name": "Домовладение инженера А.А. Экарева",
+  "address": "Суворовский проспект 41",
+  "wall": "#c8574c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1891,
+  "wikidata": "Q139720899",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q139720899 P18); style: from construction year 1891",
+  "confidence": "medium"
+ },
+ "101648222": {
+  "name": "Центр услуг «Суворовский»",
+  "address": "Суворовский проспект 35",
+  "wall": "#4d6a8a",
+  "style": "eclectic",
+  "wikidata": "Q131825217",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131825217 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "101852874": {
+  "name": "Демутов трактир",
+  "wall": "#ddd2b9",
+  "style": "empire",
+  "built": 1801,
+  "wikidata": "Q123007913",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123007913 P18); style: from construction year 1801",
+  "confidence": "medium"
+ },
+ "102157005": {
+  "name": "Дом Котомина",
+  "address": "Невский проспект 18",
+  "wall": "#e6dbb0",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1738,
+  "wikidata": "Q6434176",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q6434176 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "102277643": {
+  "name": "Жилой дом",
+  "address": "Малая Конюшенная улица 5",
+  "wall": "#e5c4bf",
+  "style": "classicism",
+  "built": 1792,
+  "wikidata": "Q137816725",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q137816725 P18); style: from construction year 1792",
+  "confidence": "medium"
+ },
+ "102305449": {
+  "name": "Дом Зингера (Дом книги)",
+  "address": "Невский проспект 28",
+  "wall": "#8f938c",
+  "roof": "#6e9a86",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q737377",
+  "note": "Suzor 1902-04; grey granite and grey-green stucco, glass tower with green copper dome and globe; colour read from Wikimedia Commons photo (Wikidata Q737377 P18)",
+  "confidence": "high"
+ },
+ "103591279": {
+  "name": "Дворовый флигель дома Меняевых",
+  "address": "Невский проспект 90-92 лит Г",
+  "wall": "#e3b0aa",
+  "trim": "#f4f1ea",
+  "style": "art_nouveau",
+  "built": 1898,
+  "wikidata": "Q118129243",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129243 P18); style: from construction year 1898",
+  "confidence": "medium"
+ },
+ "104961953": {
+  "name": "Дом кино (Санкт-Петербург)",
+  "address": "Караванная улица 12",
+  "wall": "#a9a69c",
+  "style": "eclectic",
+  "wikidata": "Q102304787",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q102304787 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "105218767": {
+  "name": "Спортивный комплекс ЦСКА «Инженерная»",
+  "address": "Инженерная улица 13",
+  "wall": "#e9d56f",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120965178",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120965178 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "105365019": {
+  "name": "Дом Кочневой",
+  "address": "набережная реки Фонтанки 43",
+  "wall": "#e5dbb8",
+  "style": "eclectic",
+  "wikidata": "Q120442600",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120442600 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "113482759": {
+  "name": "Екатерининская церковь при Екатерининском институте (Санкт-Петербург)",
+  "address": "Литейный проспект 55А",
+  "wall": "#ecdca8",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q4174355",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4174355 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "113591143": {
+  "name": "Невский проспект 43",
+  "address": "улица Рубинштейна 1/43",
+  "wall": "#d9a99c",
+  "style": "eclectic",
+  "wikidata": "Q124257430",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124257430 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "114569392": {
+  "name": "Доходный дом А.К. Савина",
+  "address": "Невский проспект 140",
+  "wall": "#ccc8be",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q134434577",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134434577 P18); style: from construction year 1901",
+  "confidence": "medium"
+ },
+ "114569423": {
+  "name": "2-я Советская улица 12",
+  "address": "2-я Советская улица 12",
+  "wall": "#d8b48e",
+  "trim": "#efe6d6",
+  "style": "art_nouveau",
+  "built": 1903,
+  "wikidata": "Q124630966",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124630966 P18); style: from construction year 1903",
+  "confidence": "medium"
+ },
+ "114569457": {
+  "name": "Суворовский проспект 4",
+  "address": "Суворовский проспект 4",
+  "wall": "#a35a48",
+  "style": "eclectic",
+  "built": 1884,
+  "wikidata": "Q124331644",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124331644 P18); style: from construction year 1884",
+  "confidence": "medium"
+ },
+ "115428590": {
+  "name": "Дом Комитета управления Гостиным двором",
+  "address": "Невский проспект 35 литБ",
+  "wall": "#e7cf8a",
+  "roof": "#3e5f8a",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1869,
+  "wikidata": "Q118129222",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129222 P18); style: from construction year 1869",
+  "confidence": "medium"
+ },
+ "123502262": {
+  "name": "Доходный дом А. В. Барсовой",
+  "address": "Заячий переулок 6/18",
+  "wall": "#ddcfb2",
+  "style": "eclectic",
+  "wikidata": "Q128112247",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q128112247 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "129211273": {
+  "name": "Санкт-Петербургский Государственный академический театр балета имени Леонида Якобсона",
+  "address": "улица Маяковского 15",
+  "wall": "#d4a283",
+  "style": "soviet_modernism",
+  "built": 1966,
+  "wikidata": "Q27962300",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q27962300 P18); style: from construction year 1966",
+  "confidence": "low"
+ },
+ "129211285": {
+  "name": "Церковь Лурдской Божией Матери",
+  "address": "Ковенский переулок 7",
+  "wall": "#8e4a3c",
+  "style": "church",
+  "built": 1909,
+  "wikidata": "Q3580220",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q3580220 P18); style: religious building",
+  "confidence": "high"
+ },
+ "129440987": {
+  "name": "Басков переулок 12, Домовладение Л.К. фон Таубе",
+  "address": "Басков переулок 12",
+  "wall": "#a8553f",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "built": 1859,
+  "wikidata": "Q124616207",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124616207 P18); style: from construction year 1859",
+  "confidence": "medium"
+ },
+ "130662460": {
+  "name": "доходный дом Мельникова",
+  "address": "Сапёрный переулок 10 литВ",
+  "wall": "#e0b08e",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1838,
+  "wikidata": "Q124636127",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124636127 P18); style: from construction year 1838",
+  "confidence": "medium"
+ },
+ "130662461": {
+  "name": "доходный дом Мельникова",
+  "address": "Сапёрный переулок 10",
+  "wall": "#e0b08e",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1838,
+  "wikidata": "Q124636127",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124636127 P18); style: from construction year 1838",
+  "confidence": "medium"
+ },
+ "132212486": {
+  "name": "Доходный дом И. Шавлыкина (Шаблыкина)",
+  "address": "Манежный переулок 7",
+  "wall": "#d48172",
+  "style": "empire",
+  "built": 1837,
+  "wikidata": "Q133854071",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133854071 P18); style: from construction year 1837",
+  "confidence": "medium"
+ },
+ "133054731": {
+  "name": "Церковь Cвятой Екатерины",
+  "address": "Малая Конюшенная улица 1-3 литБ",
+  "wall": "#c9a45e",
+  "style": "church",
+  "built": 1767,
+  "wikidata": "Q2651583",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2651583 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "134618086": {
+  "name": "Дом Кукановой",
+  "address": "Гороховая улица 50",
+  "wall": "#9fb894",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q119522104",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119522104 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "156796819": {
+  "name": "Особняк В.П. Кочубея (комплекс зданий Министерства внутренних дел)",
+  "address": "улица Пестеля 9А литО",
+  "wall": "#e6d9a4",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q117229917",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117229917 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "159079287": {
+  "name": "Кофейный домик",
+  "wall": "#e7d690",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1714,
+  "wikidata": "Q120450716",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120450716 P18); style: from construction year 1714",
+  "confidence": "high"
+ },
+ "159079293": {
+  "name": "Чайный домик",
+  "wall": "#e2cc86",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1827,
+  "wikidata": "Q120450530",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120450530 P18); style: from construction year 1827",
+  "confidence": "high"
+ },
+ "159249897": {
+  "name": "Церковь иконы Божией Матери «Знамение»",
+  "address": "Тверская улица 8",
+  "wall": "#ebe6da",
+  "roof": "#c9a24a",
+  "style": "church",
+  "built": 1906,
+  "wikidata": "Q11867902",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q11867902 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "160230876": {
+  "name": "Кирочная улица 19, Доходный дом А.М. Александрова",
+  "address": "Кирочная улица 19",
+  "wall": "#c4ad92",
+  "style": "neoclassical_1910s",
+  "built": 1914,
+  "wikidata": "Q124607584",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124607584 P18); style: from construction year 1914",
+  "confidence": "medium"
+ },
+ "172609204": {
+  "name": "Здание гимназии принцессы Е.М. Ольденбургской и Первого Мариинского женского училища",
+  "address": "Лафонская улица 1",
+  "wall": "#cdb58c",
+  "trim": "#f2efe8",
+  "style": "art_nouveau",
+  "built": 1899,
+  "wikidata": "Q141447298",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q141447298 P18); style: from construction year 1899",
+  "confidence": "medium"
+ },
+ "222749021": {
+  "name": "Храм Лурдской Божией Матери",
+  "address": "Ковенский переулок 5 литБ",
+  "wall": "#8e4a3c",
+  "style": "church",
+  "built": 1909,
+  "wikidata": "Q3580220",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q3580220 P18); style: religious building",
+  "confidence": "high"
+ },
+ "222751438": {
+  "name": "Новая сцена Александринского театра",
+  "address": "набережная реки Фонтанки 49А",
+  "wall": "#c9c7c2",
+  "style": "contemporary",
+  "built": 2013,
+  "wikidata": "Q4321920",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4321920 P18)",
+  "confidence": "medium"
+ },
+ "232457517": {
+  "name": "Лавки И. А. Алферова и контора завода Э. Э. Новицкого",
+  "address": "Садовая улица 21А",
+  "wall": "#c3bcb0",
+  "style": "art_nouveau",
+  "wikidata": "Q123906577",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123906577 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "235984453": {
+  "name": "Российский этнографический музей",
+  "address": "Инженерная улица 4/1 литЕ",
+  "wall": "#e8dcae",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1902,
+  "wikidata": "Q1058832",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1058832 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "238571000": {
+  "name": "Михайловский (Инженерный) замок",
+  "address": "Садовая улица 2",
+  "wall": "#cf7a52",
+  "trim": "#f2efe8",
+  "style": "classicism",
+  "built": 1797,
+  "wikidata": "Q2000542",
+  "note": "Brenna/Bazhenov 1797-1801; orange-red (\"Mikhailovsky\") stucco with white/grey stone details, gilded spire; colour read from Wikimedia Commons photo (Wikidata Q2000542 P18)",
+  "confidence": "high"
+ },
+ "245953204": {
+  "name": "Невский проспект 55",
+  "address": "Невский проспект 55",
+  "wall": "#dcd8bd",
+  "style": "eclectic",
+  "wikidata": "Q124257629",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124257629 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "259899296": {
+  "name": "Факультет географии РГПУ им. А. И. Герцена",
+  "address": "набережная реки Мойки 48-50-52 литГ",
+  "wall": "#e9dcad",
+  "style": "constructivism",
+  "built": 1932,
+  "wikidata": "Q4480731",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4480731 P18); style: from construction year 1932",
+  "confidence": "low"
+ },
+ "270634000": {
+  "name": "Большой Эрмитаж",
+  "address": "Дворцовая набережная 34",
+  "wall": "#dccb94",
+  "roof": "#4f8a5e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1784,
+  "wikidata": "Q4092958",
+  "note": "Old (Great) Hermitage, Felten 1771-87; pale yellow with white; colour read from Wikimedia Commons photo (Wikidata Q4092958 P18)",
+  "confidence": "medium"
+ },
+ "274115000": {
+  "name": "Доходный дом",
+  "address": "Невский проспект 130",
+  "wall": "#bdb4a5",
+  "style": "eclectic",
+  "built": 1874,
+  "wikidata": "Q134434575",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134434575 P18); style: from construction year 1874",
+  "confidence": "medium"
+ },
+ "274116000": {
+  "name": "Доходный дом",
+  "address": "Невский проспект 132 литБ",
+  "wall": "#d0cdc6",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q134434576",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134434576 P18); style: from construction year 1877",
+  "confidence": "medium"
+ },
+ "274117000": {
+  "name": "Дом по Невскому проспекту",
+  "address": "Невский проспект 134 литБ",
+  "wall": "#c1b9a5",
+  "style": "art_nouveau",
+  "built": 1898,
+  "wikidata": "Q118129265",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129265 P18); style: from construction year 1898",
+  "confidence": "low"
+ },
+ "276359000": {
+  "name": "Дом по 2-й Рождественской улице",
+  "address": "Невский проспект 134",
+  "wall": "#b9a790",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q118129266",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129266 P18); style: from construction year 1901",
+  "confidence": "low"
+ },
+ "309796655": {
+  "name": "Восточное крыло Главного штаба",
+  "address": "Дворцовая площадь 6-8",
+  "wall": "#e8c462",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1829,
+  "wikidata": "Q2622043",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2622043 P18)",
+  "confidence": "high"
+ },
+ "327389088": {
+  "name": "Конюшни Донского дивизиона",
+  "address": "набережная Обводного канала 21",
+  "wall": "#b0503e",
+  "trim": "#ece6dc",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q136745071",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745071 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "349265000": {
+  "name": "Здание бывшего Ассигнационного банка",
+  "address": "набережная канала Грибоедова 30-32",
+  "wall": "#e2c66e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1783,
+  "wikidata": "Q121519806",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121519806 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "368260000": {
+  "name": "Доходный дом Г.Г. Елисеева",
+  "address": "улица Ломоносова 14",
+  "wall": "#d9b48e",
+  "style": "eclectic",
+  "wikidata": "Q127690203",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q127690203 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "368262000": {
+  "name": "Доходный дом Г.Г. Елисеева",
+  "address": "набережная реки Фонтанки 64",
+  "wall": "#d9a75e",
+  "style": "eclectic",
+  "built": 1889,
+  "wikidata": "Q117229918",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117229918 P18); style: from construction year 1889",
+  "confidence": "medium"
+ },
+ "368263000": {
+  "name": "Доходный дом и зал собраний М. Ф. Руадзе",
+  "address": "улица Рубинштейна 13",
+  "wall": "#d69c8c",
+  "style": "eclectic",
+  "built": 1864,
+  "wikidata": "Q125973332",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q125973332 P18); style: from construction year 1864",
+  "confidence": "medium"
+ },
+ "417933000": {
+  "name": "Доходный дом А.А. Николаева",
+  "address": "Невский проспект 168",
+  "wall": "#bbb2a5",
+  "style": "eclectic",
+  "built": 1880,
+  "wikidata": "Q118129280",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129280 P18); style: from construction year 1880",
+  "confidence": "medium"
+ },
+ "419489000": {
+  "name": "Российская национальная библиотека (комплекс зданий на Невском проспекте)",
+  "address": "площадь Островского 1-3",
+  "wall": "#d5d8dc",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1796,
+  "wikidata": "Q4397987",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4397987 P18); style: from construction year 1796",
+  "confidence": "medium"
+ },
+ "419768000": {
+  "name": "Дом Чаплиных",
+  "address": "Невский проспект 13/9",
+  "wall": "#e5dcb4",
+  "style": "empire",
+  "built": 1804,
+  "wikidata": "Q4165436",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165436 P18); style: from construction year 1804",
+  "confidence": "medium"
+ },
+ "420392075": {
+  "name": "Корпус по Невскому проспекту",
+  "address": "набережная канала Грибоедова 18-20",
+  "wall": "#a9bd9b",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1736,
+  "wikidata": "Q131671328",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131671328 P18); style: from construction year 1736",
+  "confidence": "medium"
+ },
+ "422634761": {
+  "name": "Лиговский проспект 149, Доходный дом И.П. Павлова",
+  "address": "Лиговский проспект 149",
+  "wall": "#cfc5b0",
+  "style": "art_nouveau",
+  "built": 1905,
+  "wikidata": "Q124718920",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124718920 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "442684000": {
+  "name": "Невский Палас",
+  "address": "Невский проспект 57",
+  "wall": "#cfc4ad",
+  "style": "contemporary",
+  "built": 1993,
+  "wikidata": "Q2894276",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2894276 P18); style: from construction year 1993",
+  "confidence": "medium"
+ },
+ "446140000": {
+  "name": "Дом Рюль (Г.Г. Блокка)",
+  "address": "Невский проспект 65",
+  "wall": "#b8a88f",
+  "style": "empire",
+  "built": 1833,
+  "wikidata": "Q118129236",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129236 P18); style: from construction year 1833",
+  "confidence": "medium"
+ },
+ "446141000": {
+  "name": "Доходный дом И.Ф. Александровского (дом Санкт-Петербургского Тульского поземельного банка)",
+  "address": "Невский проспект 63",
+  "wall": "#9c5a48",
+  "style": "eclectic",
+  "wikidata": "Q118129237",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129237 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "448437000": {
+  "name": "Здание Русского торгово-промышленного банка",
+  "address": "Большая Морская улица 15",
+  "wall": "#8b8985",
+  "style": "eclectic",
+  "wikidata": "Q4189922",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4189922 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "448441000": {
+  "name": "Здание ювелирной фирмы Фаберже",
+  "address": "Большая Морская улица 24",
+  "wall": "#9a948f",
+  "style": "eclectic",
+  "wikidata": "Q128801002",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q128801002 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "453040626": {
+  "name": "Невский проспект 77",
+  "address": "Пушкинская улица 1/77",
+  "wall": "#a06a50",
+  "style": "eclectic",
+  "built": 1874,
+  "wikidata": "Q124258820",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124258820 P18); style: from construction year 1874",
+  "confidence": "medium"
+ },
+ "497324213": {
+  "name": "Волонтерский центр Санкт-Петербургского государственного экономического университета",
+  "address": "Большая Морская улица 8",
+  "wall": "#e3c15f",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1868,
+  "wikidata": "Q2165080",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2165080 P18); style: from construction year 1868",
+  "confidence": "medium"
+ },
+ "567780996": {
+  "name": "Эрмитажный гараж",
+  "address": "Дворцовая набережная 38 литБ",
+  "wall": "#a83c2c",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q4532548",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4532548 P18); style: from construction year 1910",
+  "confidence": "high"
+ },
+ "577333898": {
+  "name": "Здание театра А. С. Суворина",
+  "address": "набережная реки Фонтанки 67-69",
+  "wall": "#a9d4c4",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q118463615",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118463615 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "595531432": {
+  "name": "Круглое паровозное депо Николаевской железной дороги",
+  "address": "Невский проспект 85 БО",
+  "wall": "#e0a49a",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1896,
+  "wikidata": "Q118129287",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129287 P18); style: from construction year 1896",
+  "confidence": "high"
+ },
+ "610344807": {
+  "name": "Механический завод «К. Зигель»",
+  "address": "улица Достоевского 44",
+  "wall": "#d7a998",
+  "style": "eclectic",
+  "wikidata": "Q123359045",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123359045 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "632572959": {
+  "name": "Дом Штегельмана",
+  "address": "набережная реки Мойки 48-50-52 литА",
+  "wall": "#b5d0b0",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120551027",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120551027 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "662697923": {
+  "name": "Московский вокзал",
+  "wall": "#dcc898",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1851,
+  "wikidata": "Q139318",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q139318 P18); style: from construction year 1851",
+  "confidence": "medium"
+ },
+ "751385885": {
+  "name": "Церковь Рождества Христова на Песках",
+  "wall": "#e2cc7a",
+  "roof": "#3f4a55",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1753,
+  "wikidata": "Q129267",
+  "note": "Commons photo (north facade); yellow with white, dark domes",
+  "confidence": "medium"
+ },
+ "751397806": {
+  "name": "Звонница Смольного собора",
+  "wall": "#a9c8e6",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "note": "part of the Smolny ensemble, same blue/white scheme",
+  "confidence": "medium"
+ },
+ "936094000": {
+  "name": "Доходное владение Крюгеров",
+  "address": "улица Маяковского 2/94",
+  "wall": "#c9c2ad",
+  "style": "eclectic",
+  "built": 1870,
+  "wikidata": "Q131481378",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131481378 P18); style: from construction year 1870",
+  "confidence": "medium"
+ },
+ "936116000": {
+  "name": "Дом журналиста",
+  "address": "Невский проспект 70",
+  "wall": "#d6b597",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q4165413",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165413 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "946836000": {
+  "name": "Коломенская улица 10, Доходный дом Ф.Ф. Лумберга",
+  "address": "Коломенская улица 10",
+  "wall": "#db8f8a",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "wikidata": "Q124648931",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124648931 P18); style: from construction year 1911",
+  "confidence": "medium"
+ },
+ "946930000": {
+  "name": "Дом Мурузи",
+  "address": "Литейный проспект 24",
+  "wall": "#d2c9b5",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q4165347",
+  "note": "Muruzi house, Serebryakov 1874-77, Moorish-revival; light grey-beige; colour read from Wikimedia Commons photo (Wikidata Q4165347 P18)",
+  "confidence": "medium"
+ },
+ "953406000": {
+  "name": "Лиговский проспект 65",
+  "address": "Лиговский проспект 65",
+  "wall": "#dcdad5",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "wikidata": "Q134548027",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134548027 P18); style: from construction year 1913",
+  "confidence": "medium"
+ },
+ "957566000": {
+  "name": "Отель Гельвеция",
+  "address": "улица Марата 11",
+  "wall": "#a2b48e",
+  "style": "eclectic",
+  "wikidata": "Q111407079",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q111407079 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "957856000": {
+  "name": "Дом Корсакова",
+  "address": "Владимирский проспект 12",
+  "wall": "#e6c675",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q121553479",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121553479 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "959074000": {
+  "name": "Дом А. Я. Барышникова",
+  "address": "улица Марата 31",
+  "wall": "#a8604c",
+  "style": "eclectic",
+  "wikidata": "Q81929625",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q81929625 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "961141000": {
+  "name": "Доходный дом Г. В. Барановского",
+  "address": "улица Достоевского 36",
+  "wall": "#a49a8c",
+  "style": "art_nouveau",
+  "built": 1897,
+  "wikidata": "Q116838180",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116838180 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "961150000": {
+  "name": "Овентал Хистори",
+  "address": "Социалистическая улица 14",
+  "wall": "#b8a27a",
+  "style": "eclectic",
+  "wikidata": "Q127417414",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q127417414 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "962221000": {
+  "name": "Школа № 321 (Санкт-Петербург)",
+  "address": "Социалистическая улица 7",
+  "wall": "#d4b26c",
+  "style": "empire",
+  "built": 1820,
+  "wikidata": "Q108747731",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q108747731 P18); style: from construction year 1820",
+  "confidence": "medium"
+ },
+ "969622000": {
+  "name": "Мраморный дворец",
+  "address": "Миллионная улица 5/1",
+  "wall": "#b8aaa0",
+  "trim": "#d9cfc0",
+  "style": "classicism",
+  "built": 1768,
+  "wikidata": "Q283120",
+  "note": "Rinaldi 1768-85; pinkish-grey granite and marble facing, no paint; colour read from Wikimedia Commons photo (Wikidata Q283120 P18)",
+  "confidence": "high"
+ },
+ "1022787000": {
+  "name": "Северо-Западный институт печати",
+  "address": "переулок Джамбула 13",
+  "wall": "#c3d4bf",
+  "trim": "#f4f1ea",
+  "style": "stalinist",
+  "built": 1946,
+  "wikidata": "Q4412477",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4412477 P18); style: from construction year 1946",
+  "confidence": "medium"
+ },
+ "1026608000": {
+  "name": "Доходный дом Коммерческого училища",
+  "address": "улица Ломоносова 11",
+  "wall": "#b3aa98",
+  "style": "eclectic",
+  "wikidata": "Q121621346",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121621346 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1027334000": {
+  "name": "Дом Г.Э. Боссе – Общества страхования от огня",
+  "address": "Невский проспект 5",
+  "wall": "#d8d6d0",
+  "style": "empire",
+  "built": 1833,
+  "wikidata": "Q124256272",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124256272 P18); style: from construction year 1833",
+  "confidence": "medium"
+ },
+ "1027335000": {
+  "name": "Дом страхового общества",
+  "address": "Гороховая улица 4",
+  "wall": "#9a6a5a",
+  "style": "eclectic",
+  "wikidata": "Q120135424",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135424 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1027336000": {
+  "name": "Дом Союза городов (Дом И.З. Шпаковского, А.Ф. Шишмарева)",
+  "address": "Невский проспект 3",
+  "wall": "#c9c4b8",
+  "style": "empire",
+  "built": 1839,
+  "wikidata": "Q118129086",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129086 P18); style: from construction year 1839",
+  "confidence": "medium"
+ },
+ "1027338000": {
+  "name": "Гороховая улица 6, Дом страхового общества «Саламандра»",
+  "address": "Гороховая улица 6",
+  "wall": "#c9c9c6",
+  "style": "eclectic",
+  "wikidata": "Q124707926",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124707926 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1027340000": {
+  "name": "Бизнес-центр «Невский 1»",
+  "address": "Невский проспект 1/4",
+  "wall": "#bcb5a8",
+  "style": "eclectic",
+  "wikidata": "Q55434413",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q55434413 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1027343000": {
+  "name": "Дом Фитингофа",
+  "address": "Гороховая улица 2/6",
+  "wall": "#e2e4e2",
+  "style": "eclectic",
+  "wikidata": "Q4165423",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165423 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1027900000": {
+  "name": "Дом Голенищева-Кутузова",
+  "address": "площадь Искусств 3",
+  "wall": "#e3cf7c",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1822,
+  "wikidata": "Q4165289",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165289 P18); style: from construction year 1822",
+  "confidence": "medium"
+ },
+ "1027902000": {
+  "name": "Дом Меншиковых (Русско-Азиатского банка)",
+  "address": "Караванная улица 11/64",
+  "wall": "#cfc9b8",
+  "style": "classicism",
+  "built": 1780,
+  "wikidata": "Q118129229",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129229 P18); style: from construction year 1780",
+  "confidence": "medium"
+ },
+ "1027903000": {
+  "name": "Ордонансгауз",
+  "address": "Инженерная улица 5",
+  "wall": "#dcac7c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4336101",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4336101 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1028082000": {
+  "name": "Дом Толченова",
+  "address": "Казанская улица 18",
+  "wall": "#e5d398",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q119572110",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119572110 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1028087000": {
+  "name": "Строгановский дворец",
+  "address": "Невский проспект 17",
+  "wall": "#e5b9a4",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1753,
+  "wikidata": "Q1461235",
+  "note": "Rastrelli 1753-54; light pink with white details; colour read from Wikimedia Commons photo (Wikidata Q1461235 P18)",
+  "confidence": "high"
+ },
+ "1051888000": {
+  "name": "Гранд Отель Европа",
+  "address": "Михайловская улица 1/7",
+  "wall": "#d4a679",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "built": 1875,
+  "wikidata": "Q1542609",
+  "note": "Belmond Grand Hotel Europe (Fontana 1873-75, Lidval 1905-10); sand-ochre; Commons photos",
+  "confidence": "medium"
+ },
+ "1057493000": {
+  "name": "Дом ордена иезуитов",
+  "address": "набережная канала Грибоедова 8/1",
+  "wall": "#e9da9e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "wikidata": "Q4165544",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165544 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1067948000": {
+  "name": "Малый Эрмитаж",
+  "address": "Дворцовая набережная 36",
+  "wall": "#bcd3b5",
+  "roof": "#4f8a5e",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1767,
+  "wikidata": "Q4279216",
+  "note": "Small Hermitage, Vallin de la Mothe 1764-75; same green/white scheme as the Winter Palace; colour read from Wikimedia Commons photo (Wikidata Q4279216 P18)",
+  "confidence": "high"
+ },
+ "1084724000": {
+  "name": "Эрмитажный театр",
+  "address": "Дворцовая набережная 32",
+  "wall": "#c6d7cd",
+  "roof": "#4f8a5e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1783,
+  "wikidata": "Q2349693",
+  "note": "Quarenghi 1783-87; pale grey-green with white details, green roof (Commons Category:Hermitage Theater); colour read from Wikimedia Commons photo (Wikidata Q2349693 P18)",
+  "confidence": "high"
+ },
+ "1102591281": {
+  "name": "Рождественская трансформаторная подстанция",
+  "address": "Дегтярный переулок 5 литА",
+  "wall": "#c9c48a",
+  "style": "art_nouveau",
+  "built": 1906,
+  "wikidata": "Q132772817",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q132772817 P18); style: from construction year 1906",
+  "confidence": "low"
+ },
+ "1135248147": {
+  "name": "Книжная лавка писателей",
+  "wall": "#d5c69a",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q4224705",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4224705 P18); style: from construction year 1877",
+  "confidence": "low"
+ },
+ "1147588000": {
+  "name": "Большой Гостиный двор",
+  "address": "Невский проспект 35",
+  "wall": "#e9d9a3",
+  "roof": "#5a8c6a",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1761,
+  "wikidata": "Q3052597",
+  "note": "Vallin de la Mothe 1761-85; pale yellow arcades with white columns, green-painted roofs; colour read from Wikimedia Commons photo (Wikidata Q3052597 P18)",
+  "confidence": "high"
+ },
+ "1168571285": {
+  "name": "Конюшня Атаманского дивизиона",
+  "address": "Атаманская улица 4",
+  "wall": "#a85a44",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q136745076",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745076 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "1202918000": {
+  "name": "Новый Эрмитаж",
+  "address": "Дворцовая набережная 34",
+  "wall": "#d9d3c3",
+  "style": "eclectic",
+  "built": 1842,
+  "wikidata": "Q3345111",
+  "note": "New Hermitage, Klenze 1842-51 (neo-Greek); grey-ochre stucco, atlantes of grey granite; colour read from Wikimedia Commons photo (Wikidata Q3345111 P18)",
+  "confidence": "medium"
+ },
+ "1214651508": {
+  "name": "Обелиск «Городу-Герою Ленинграду»",
+  "wall": "#9a948c",
+  "height": 36.0,
+  "style": "soviet_modernism",
+  "built": 1985,
+  "wikidata": "Q4329128",
+  "note": "Obelisk \"To the Hero City Leningrad\" 1985, grey granite, 36 m; colour read from Wikimedia Commons photo (Wikidata Q4329128 P18)",
+  "confidence": "medium"
+ },
+ "1240158000": {
+  "name": "Дом № 92",
+  "address": "Невский проспект 90–92 литера Б",
+  "wall": "#ddc9b0",
+  "style": "eclectic",
+  "wikidata": "Q118129246",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129246 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1260440832": {
+  "name": "Дом Яковлевой",
+  "address": "Итальянская улица 10/5",
+  "wall": "#e6d494",
+  "style": "eclectic",
+  "wikidata": "Q119521824",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119521824 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1268113000": {
+  "name": "Невский проспект 23",
+  "address": "Невский проспект 23",
+  "wall": "#e8a26c",
+  "trim": "#f2efe8",
+  "style": "empire",
+  "built": 1838,
+  "wikidata": "Q124257293",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124257293 P18); style: from construction year 1838",
+  "confidence": "high"
+ },
+ "1268114000": {
+  "name": "Дом Мертенса",
+  "address": "Невский проспект 21",
+  "wall": "#8c8378",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "wikidata": "Q4165338",
+  "note": "Lialevich 1911-12; grey-brown granite giant arches; colour read from Wikimedia Commons photo (Wikidata Q4165338 P18)",
+  "confidence": "high"
+ },
+ "1268115000": {
+  "name": "Невский проспект 19",
+  "address": "Невский проспект 19",
+  "wall": "#c2d0b8",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1740,
+  "wikidata": "Q124257225",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124257225 P18); style: from construction year 1740",
+  "confidence": "medium"
+ },
+ "1303159000": {
+  "name": "Дом Перцова",
+  "address": "Лиговский проспект 44",
+  "wall": "#a9a8a2",
+  "style": "art_nouveau",
+  "built": 1910,
+  "wikidata": "Q4165367",
+  "note": "Pertsov House 1910-11 (Galenzowski/Pretro); grey stucco and stone; Commons photo 2016",
+  "confidence": "medium"
+ },
+ "1309917000": {
+  "name": "Доходный дом М. Н. Полежаева",
+  "address": "Старорусская улица 5/3",
+  "wall": "#b89a92",
+  "style": "art_nouveau",
+  "built": 1915,
+  "wikidata": "Q100708769",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q100708769 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "1312390000": {
+  "name": "Центральная ТЭЦ",
+  "address": "Новгородская улица 11 литГ12",
+  "wall": "#b0b8c2",
+  "style": "eclectic",
+  "wikidata": "Q4504094",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4504094 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1319950000": {
+  "name": "Мещанское (Александровское) училище",
+  "address": "улица Смольного 3 литА",
+  "wall": "#e1c671",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1765,
+  "wikidata": "Q4292528",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4292528 P18); style: from construction year 1765",
+  "confidence": "medium"
+ },
+ "1361783000": {
+  "name": "Дом Салтыкова",
+  "address": "Дворцовая набережная 4",
+  "wall": "#bccfc0",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q3360856",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q3360856 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1361784000": {
+  "name": "Дом Бецкого",
+  "address": "Миллионная улица 1",
+  "wall": "#e9dccb",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4165265",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165265 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1375633000": {
+  "name": "Доходный дом страхового общества «Россия»",
+  "address": "Литейный проспект 9",
+  "wall": "#93a876",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "wikidata": "Q135106311",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135106311 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1385597000": {
+  "name": "Здание Русского для внешней торговли банка (Текстильного института)",
+  "address": "Большая Морская улица 18",
+  "wall": "#8f8d88",
+  "style": "eclectic",
+  "wikidata": "Q137381906",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q137381906 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1386330000": {
+  "name": "Доходный дом Н. А. и С. А. Латониных",
+  "address": "улица Белинского 5",
+  "wall": "#cdb88a",
+  "style": "art_nouveau",
+  "built": 1911,
+  "wikidata": "Q130564843",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q130564843 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "1386333000": {
+  "name": "Литейный проспект 61, Доходный дом И.И. Антонова",
+  "address": "Литейный проспект 61",
+  "wall": "#b0855e",
+  "style": "eclectic",
+  "built": 1871,
+  "wikidata": "Q124628687",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124628687 P18); style: from construction year 1871",
+  "confidence": "medium"
+ },
+ "1386559000": {
+  "name": "Дом М.С. Мальцева (Общества для заклада движимых имуществ)",
+  "address": "Литейный проспект 29",
+  "wall": "#8d98a6",
+  "style": "eclectic",
+  "wikidata": "Q135112627",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112627 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1386564000": {
+  "name": "Доходный дом Императорского человеколюбивого общества",
+  "address": "Литейный проспект 31",
+  "wall": "#ddd6c6",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q135112644",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112644 P18); style: from construction year 1877",
+  "confidence": "medium"
+ },
+ "1390643000": {
+  "name": "Комплекс домов А.Г. Каплуна и А.А. Каплуна",
+  "address": "Лиговский проспект 33-35",
+  "wall": "#d99a86",
+  "style": "eclectic",
+  "wikidata": "Q134961392",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134961392 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1390871000": {
+  "name": "Малый Гостиный двор",
+  "address": "набережная канала Грибоедова 26",
+  "wall": "#e5c56e",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1790,
+  "wikidata": "Q4278844",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4278844 P18)",
+  "confidence": "high"
+ },
+ "1394028000": {
+  "name": "Музей прикладного искусства СПБГХПА им. А. Л. Штиглица",
+  "address": "Соляной переулок 15",
+  "wall": "#c9b79a",
+  "style": "eclectic",
+  "built": 1878,
+  "wikidata": "Q3867648",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q3867648 P18); style: from construction year 1878",
+  "confidence": "medium"
+ },
+ "1394323000": {
+  "name": "улица Восстания 19, Доходный дом П.Т. Бадаева",
+  "address": "улица Восстания 19",
+  "wall": "#d9a8a3",
+  "style": "art_nouveau",
+  "built": 1904,
+  "wikidata": "Q124606449",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124606449 P18); style: from construction year 1904",
+  "confidence": "medium"
+ },
+ "1394710000": {
+  "name": "Ленинградский областной суд",
+  "address": "набережная реки Фонтанки 6",
+  "wall": "#e3d6a6",
+  "roof": "#6c9a7c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4258155",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4258155 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1395562000": {
+  "name": "Особняк Л. Н. Симонова - Особняк Столыпиных",
+  "address": "Гагаринская улица 5",
+  "wall": "#8f8577",
+  "style": "classicism",
+  "note": "Commons photo \"Гагаринская улица, 5\"; grey-brown stone neo-Renaissance; style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1395569000": {
+  "name": "Малый Мраморный дворец",
+  "address": "Гагаринская улица 3",
+  "wall": "#b8918a",
+  "trim": "#d9cfc4",
+  "style": "eclectic",
+  "wikidata": "Q26302430",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q26302430 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1397381000": {
+  "name": "Доходный дом купцов Черепенниковых",
+  "address": "Литейный проспект 11",
+  "wall": "#a7b0a6",
+  "style": "eclectic",
+  "built": 1873,
+  "wikidata": "Q135112031",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112031 P18); style: from construction year 1873",
+  "confidence": "medium"
+ },
+ "1397387000": {
+  "name": "Дом Е.К. Эренберга",
+  "address": "Моховая улица 4",
+  "wall": "#e3ddcc",
+  "style": "eclectic",
+  "note": "Commons photo \"Моховая 4\"; style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1397989000": {
+  "name": "Дом Бутурлиной",
+  "address": "улица Чайковского 10 литА",
+  "wall": "#e7e3d5",
+  "style": "eclectic",
+  "built": 1860,
+  "wikidata": "Q119225025",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119225025 P18); style: from construction year 1860",
+  "confidence": "medium"
+ },
+ "1397992000": {
+  "name": "Институт прикладной астрономии",
+  "address": "набережная Кутузова 10",
+  "wall": "#dcd8c8",
+  "style": "eclectic",
+  "wikidata": "Q4201663",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4201663 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1398411000": {
+  "name": "Особняк П.А. Урусова (Мусиных-Пушкиных)",
+  "address": "Литейный проспект 17-19",
+  "wall": "#cdb898",
+  "style": "eclectic",
+  "wikidata": "Q135112555",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112555 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1401389000": {
+  "name": "Особняк В.С. Кочубея",
+  "address": "Фурштатская улица 24",
+  "wall": "#ead9d0",
+  "trim": "#b5593f",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q119517926",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119517926 P18); style: from construction year 1910",
+  "confidence": "medium"
+ },
+ "1401476000": {
+  "name": "Кирочная улица 24, Дом Бака",
+  "address": "Кирочная улица 24",
+  "wall": "#9c8a7a",
+  "style": "art_nouveau",
+  "built": 1905,
+  "wikidata": "Q72291350",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q72291350 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1401477000": {
+  "name": "Кирочная улица 22, Доходный дом А.П. Мещерского (М.М. Верховского)",
+  "address": "Кирочная улица 22",
+  "wall": "#b0a99d",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q124605725",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124605725 P18); style: from construction year 1910",
+  "confidence": "medium"
+ },
+ "1401878000": {
+  "name": "Дом предварительного заключения",
+  "address": "Литейный проспект 4 литБ",
+  "wall": "#ddd7cc",
+  "style": "eclectic",
+  "built": 1875,
+  "wikidata": "Q4165564",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165564 P18); style: from construction year 1875",
+  "confidence": "medium"
+ },
+ "1402166000": {
+  "name": "Управление экономической безопасности МВД по г. Санкт-Петербургу",
+  "address": "улица Чайковского 30",
+  "wall": "#a8634a",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q77418525",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q77418525 P18); style: from construction year 1846",
+  "confidence": "medium"
+ },
+ "1402601000": {
+  "name": "Дом Вагница",
+  "address": "Литейный проспект 40",
+  "wall": "#e1d5b0",
+  "style": "eclectic",
+  "built": 1841,
+  "wikidata": "Q135112610",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112610 P18); style: from construction year 1841",
+  "confidence": "medium"
+ },
+ "1402602000": {
+  "name": "Литейный дом княгини Юсуповой",
+  "address": "Литейный проспект 42",
+  "wall": "#9c958e",
+  "style": "eclectic",
+  "wikidata": "Q4263733",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4263733 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1407435000": {
+  "name": "Доходный дом С.Д. Гордона (Дурдиных). Дом, в котором в 1895 г. на квартире Н.К. Крупской под руководством В.И. Ленина проходили собрания петербургских социал-демократов",
+  "address": "Сапёрный переулок 16/36",
+  "wall": "#ded3b7",
+  "style": "eclectic",
+  "built": 1880,
+  "wikidata": "Q131936309",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131936309 P18); style: from construction year 1880",
+  "confidence": "medium"
+ },
+ "1407916000": {
+  "name": "Доходный дом купца А.М. Назарова",
+  "address": "улица Маяковского 23/6",
+  "wall": "#d1884c",
+  "style": "art_nouveau",
+  "built": 1904,
+  "wikidata": "Q131916829",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131916829 P18); style: from construction year 1904",
+  "confidence": "medium"
+ },
+ "1410928000": {
+  "name": "улица Восстания 35, доходный дом купца Е. С. Егорова",
+  "address": "улица Некрасова 40",
+  "wall": "#e9e0c3",
+  "style": "eclectic",
+  "wikidata": "Q4167356",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4167356 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1411158000": {
+  "name": "Дом Г.Я. Клейшмана. Дом, где в 1904-1905 гг. жил писатель А.М. Горький и в ноябре-декабре 1905 г. состоялись совещания ЦК РСДРП(б) о вооруженном восстании в Москве",
+  "address": "улица Восстания 20/16",
+  "wall": "#c7bfad",
+  "style": "empire",
+  "built": 1829,
+  "wikidata": "Q124636003",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124636003 P18); style: from construction year 1829",
+  "confidence": "medium"
+ },
+ "1411163000": {
+  "name": "Дом, в котором в 1892-1913 гг. жил ученый-баллист Н.А. Забудский",
+  "address": "улица Восстания 22",
+  "wall": "#e1d4b4",
+  "style": "eclectic",
+  "built": 1861,
+  "wikidata": "Q124636045",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124636045 P18); style: from construction year 1861",
+  "confidence": "medium"
+ },
+ "1413513000": {
+  "name": "Бизнес-центр «Сенатор»",
+  "address": "Миллионная улица 5",
+  "wall": "#b3c6ac",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q107297556",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q107297556 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1413903000": {
+  "name": "Доходный дом А.М. Стрелина",
+  "address": "9-я Советская улица 9/30",
+  "wall": "#cdb2a4",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "wikidata": "Q138661357",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138661357 P18); style: from construction year 1913",
+  "confidence": "medium"
+ },
+ "1417763000": {
+  "name": "Доходный дом Жеребцовой",
+  "address": "Дворцовая набережная 10",
+  "wall": "#d0cfcc",
+  "style": "eclectic",
+  "wikidata": "Q4167345",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4167345 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1422277000": {
+  "name": "Дом Штакеншнейдеров",
+  "address": "Миллионная улица 10",
+  "wall": "#e6e1d6",
+  "style": "eclectic",
+  "wikidata": "Q133852227",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133852227 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1424124000": {
+  "name": "Здание Штаба корпуса военных поселений (Главного Казначейства)",
+  "address": "Литейный проспект 18/2",
+  "wall": "#e3cd86",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1822,
+  "wikidata": "Q135112631",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112631 P18); style: from construction year 1822",
+  "confidence": "medium"
+ },
+ "1424125000": {
+  "name": "Дом А.П. Клейнмихеля (Н.В. Оболенской)",
+  "address": "улица Пестеля 25",
+  "wall": "#d28d47",
+  "style": "empire",
+  "built": 1831,
+  "wikidata": "Q135112661",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112661 P18); style: from construction year 1831",
+  "confidence": "low"
+ },
+ "1435420000": {
+  "name": "Дворец великого князя Владимира Александровича",
+  "address": "Дворцовая набережная 26",
+  "wall": "#bf9060",
+  "style": "eclectic",
+  "built": 1872,
+  "wikidata": "Q1788123",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1788123 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "1435535000": {
+  "name": "Запасной дом Зимнего дворца",
+  "address": "Дворцовая набережная 30",
+  "wall": "#e2c9a0",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1720,
+  "wikidata": "Q4186635",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4186635 P18); style: from construction year 1720",
+  "confidence": "medium"
+ },
+ "1440164000": {
+  "name": "Здание училища при реформатских церквях",
+  "address": "набережная реки Мойки 38",
+  "wall": "#e0b64e",
+  "style": "eclectic",
+  "wikidata": "Q129016039",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q129016039 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1443454000": {
+  "name": "6-я Советская улица 4, Доходный дом С.Я. Смурова",
+  "address": "6-я Советская улица 4",
+  "wall": "#e2dcc6",
+  "style": "art_nouveau",
+  "built": 1908,
+  "wikidata": "Q124882214",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124882214 P18); style: from construction year 1908",
+  "confidence": "medium"
+ },
+ "1448946000": {
+  "name": "Французская реформатская церковь (Петербург)",
+  "address": "Большая Конюшенная улица 25",
+  "wall": "#a5563f",
+  "style": "church",
+  "wikidata": "Q4492456",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4492456 P18); style: religious building",
+  "confidence": "high"
+ },
+ "1448947000": {
+  "name": "Дом Ленинградской Торговли",
+  "address": "Большая Конюшенная улица 21-23",
+  "wall": "#c9c3b4",
+  "style": "art_nouveau",
+  "built": 1913,
+  "wikidata": "Q4165522",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165522 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1448963000": {
+  "name": "Демутов трактир",
+  "address": "Большая Конюшенная улица 27",
+  "wall": "#ddd6c6",
+  "style": "empire",
+  "built": 1801,
+  "wikidata": "Q123007913",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123007913 P18); style: from construction year 1801",
+  "confidence": "medium"
+ },
+ "1453434000": {
+  "name": "Дом Таля",
+  "address": "Невский проспект 6",
+  "wall": "#ebda8e",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q118129213",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129213 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1453436000": {
+  "name": "Главный штаб",
+  "address": "Дворцовая площадь 10",
+  "wall": "#e8c462",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1819,
+  "note": "Rossi 1819-29; Empire yellow with white columns, same as the east wing and the arch",
+  "confidence": "high"
+ },
+ "1483661000": {
+  "name": "Санкт-Петербургско-Азовский коммерческий банк с дворовыми флигелями",
+  "address": "Невский проспект 62",
+  "wall": "#b9ae98",
+  "style": "eclectic",
+  "built": 1898,
+  "wikidata": "Q118129194",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129194 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1484228000": {
+  "name": "Шуваловский Дворец",
+  "address": "набережная реки Фонтанки 21",
+  "wall": "#d9dcdc",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1790,
+  "wikidata": "Q4155887",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4155887 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "1502547000": {
+  "name": "Михайловский дворец",
+  "address": "Инженерная улица 2-4 литД",
+  "wall": "#e2bf6a",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1819,
+  "wikidata": "Q1930409",
+  "note": "Rossi 1819-25; yellow with white Corinthian portico; colour read from Wikimedia Commons photo (Wikidata Q1930409 P18)",
+  "confidence": "high"
+ },
+ "1502548000": {
+  "name": "Михайловский театр",
+  "address": "площадь Искусств 1",
+  "wall": "#e3be62",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1833,
+  "wikidata": "Q2334387",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q2334387 P18); style: from construction year 1833",
+  "confidence": "high"
+ },
+ "1502552000": {
+  "name": "Дом Жако",
+  "address": "Итальянская улица 4",
+  "wall": "#d9cfb3",
+  "trim": "#f2efe8",
+  "style": "classicism",
+  "wikidata": "Q4165299",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165299 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1502558000": {
+  "name": "Дом с четырьмя колоннадами",
+  "address": "Садовая улица 12",
+  "wall": "#c45c4c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q21638992",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q21638992 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "1502675000": {
+  "name": "Дом Виельгорского",
+  "address": "Итальянская улица 6/4",
+  "wall": "#e2bf63",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "wikidata": "Q120135438",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135438 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "1517636000": {
+  "name": "набережная реки Фонтанки 55",
+  "address": "набережная реки Фонтанки 55",
+  "wall": "#e8b88e",
+  "style": "eclectic",
+  "built": 1863,
+  "wikidata": "Q124540146",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124540146 P18); style: from construction year 1863",
+  "confidence": "medium"
+ },
+ "1517637000": {
+  "name": "Концертный зал «Карнавал»",
+  "address": "набережная реки Фонтанки 39 литВ",
+  "wall": "#d6d4cf",
+  "style": "eclectic",
+  "wikidata": "Q132319953",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q132319953 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1519151000": {
+  "name": "Дом Граббе",
+  "address": "Гороховая улица 26",
+  "wall": "#dfac80",
+  "style": "eclectic",
+  "wikidata": "Q120135423",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135423 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1524838000": {
+  "name": "Дом купца Л.Г. Таирова",
+  "address": "Мучной переулок 9/27",
+  "wall": "#c9b0aa",
+  "style": "empire",
+  "built": 1800,
+  "wikidata": "Q138645733",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138645733 P18); style: from construction year 1800",
+  "confidence": "low"
+ },
+ "1587814000": {
+  "name": "Дом С.С. Нарышкина",
+  "address": "Литейный проспект 62",
+  "wall": "#d7c48e",
+  "style": "eclectic",
+  "wikidata": "Q135112579",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112579 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1587820000": {
+  "name": "Доходный дом М.С. Скребицкой (Красовской). Дом, где в 1876-1889 гг. жил писатель М.Е. Салтыков-Щедрин",
+  "address": "Литейный проспект 60",
+  "wall": "#c5b77c",
+  "style": "empire",
+  "built": 1807,
+  "wikidata": "Q135112583",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112583 P18); style: from construction year 1807",
+  "confidence": "medium"
+ },
+ "1587821000": {
+  "name": "Доходный дом Е. А. Брюна",
+  "address": "Невский проспект 82",
+  "wall": "#b7c8a8",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q118129239",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129239 P18); style: from construction year 1834",
+  "confidence": "high"
+ },
+ "1588044000": {
+  "name": "Невский проспект 47 литера Б",
+  "address": "Владимирский проспект 1/47 литБ",
+  "wall": "#a5604c",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "wikidata": "Q118129085",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129085 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1588047000": {
+  "name": "Дом И.И. Ростовцева",
+  "address": "улица Рубинштейна 2/45",
+  "wall": "#c8b597",
+  "style": "eclectic",
+  "wikidata": "Q118129232",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129232 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1588158000": {
+  "name": "Здание Малого драматического театра",
+  "address": "улица Рубинштейна 18/5",
+  "wall": "#e9d38a",
+  "style": "eclectic",
+  "wikidata": "Q118582947",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118582947 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1588242000": {
+  "name": "Дом купца Ш. З. Иофа",
+  "address": "улица Рубинштейна 40/11",
+  "wall": "#b1aea8",
+  "style": "eclectic",
+  "wikidata": "Q129522630",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q129522630 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1588276000": {
+  "name": "Невский проспект 81",
+  "address": "Невский проспект 81",
+  "wall": "#c8a592",
+  "style": "eclectic",
+  "built": 1852,
+  "wikidata": "Q124258902",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124258902 P18); style: from construction year 1852",
+  "confidence": "medium"
+ },
+ "1588827000": {
+  "name": "Толстовский дом",
+  "address": "улица Рубинштейна 15-17",
+  "wall": "#d8c39d",
+  "trim": "#9a7c5c",
+  "style": "art_nouveau",
+  "built": 1912,
+  "wikidata": "Q2047908",
+  "note": "Lidval 1910-12 (northern modern); light beige-grey with brown stone details; colour read from Wikimedia Commons photo (Wikidata Q2047908 P18)",
+  "confidence": "high"
+ },
+ "1588865000": {
+  "name": "Дворец Белосельских-Белозерских",
+  "address": "Невский проспект 41",
+  "wall": "#d68a7c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1846,
+  "wikidata": "Q2477653",
+  "note": "Stakenschneider 1846-48 (neo-baroque); coral-pink/red stucco with white detail (current colour, Commons photo), not dark red-brown; colour read from Wikimedia Commons photo (Wikidata Q2477653 P18)",
+  "confidence": "high"
+ },
+ "1594322000": {
+  "name": "Дом Е. Шумилова",
+  "address": "Литейный проспект 50",
+  "wall": "#9ea8d6",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1822,
+  "wikidata": "Q135112634",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112634 P18); style: from construction year 1822",
+  "confidence": "medium"
+ },
+ "1598159000": {
+  "name": "2-я Советская улица 14",
+  "address": "2-я Советская улица 14/4",
+  "wall": "#b4866a",
+  "style": "eclectic",
+  "wikidata": "Q124630981",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124630981 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1598162000": {
+  "name": "Доходный дом Г. А. Бернштейна",
+  "address": "3-я Советская улица 9",
+  "wall": "#a8988c",
+  "style": "eclectic",
+  "wikidata": "Q126940426",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126940426 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "1598165000": {
+  "name": "Доходный дом Синягиных",
+  "address": "Невский проспект 103",
+  "wall": "#aab0a4",
+  "style": "eclectic",
+  "built": 1870,
+  "wikidata": "Q134998350",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134998350 P18); style: from construction year 1870",
+  "confidence": "low"
+ },
+ "1598166000": {
+  "name": "Доходный дом Г.Г. Гесселя",
+  "address": "Невский проспект 95",
+  "wall": "#b9ac9b",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "wikidata": "Q118129260",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129260 P18); style: from construction year 1912",
+  "confidence": "low"
+ },
+ "1598168000": {
+  "name": "Дом И.И. Пирогова",
+  "address": "Невский проспект 154",
+  "wall": "#cf9a76",
+  "style": "art_nouveau",
+  "built": 1898,
+  "wikidata": "Q118129271",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129271 P18); style: from construction year 1898",
+  "confidence": "low"
+ },
+ "1598172000": {
+  "name": "Доходный дом И.В. Галунова",
+  "address": "2-я Советская улица 27/2",
+  "wall": "#e2b294",
+  "trim": "#efe6d6",
+  "style": "eclectic",
+  "built": 1877,
+  "wikidata": "Q124608258",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124608258 P18); style: from construction year 1877",
+  "confidence": "medium"
+ },
+ "1598176000": {
+  "name": "Доходный дом И.С. Гостева",
+  "address": "Невский проспект 105",
+  "wall": "#c8bca8",
+  "style": "eclectic",
+  "built": 1882,
+  "wikidata": "Q134998351",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134998351 P18); style: from construction year 1882",
+  "confidence": "low"
+ },
+ "1598177000": {
+  "name": "Октябрьская",
+  "address": "Лиговский проспект 10/118",
+  "wall": "#ece1c0",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4333012",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4333012 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1598566000": {
+  "name": "Лиговский проспект 63, Доходный дом В.В. Маркозова",
+  "address": "Лиговский проспект 63",
+  "wall": "#d6d4cd",
+  "style": "neoclassical_1910s",
+  "built": 1909,
+  "wikidata": "Q124853022",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124853022 P18); style: from construction year 1909",
+  "confidence": "medium"
+ },
+ "1676451000": {
+  "name": "Ямской",
+  "address": "улица Марата 53",
+  "wall": "#e7d8a4",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "wikidata": "Q19915223",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q19915223 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1744564000": {
+  "name": "Доходный дом",
+  "address": "Басков переулок 26",
+  "wall": "#d4bf9a",
+  "style": "art_nouveau",
+  "built": 1903,
+  "wikidata": "Q131930238",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131930238 P18); style: from construction year 1903",
+  "confidence": "medium"
+ },
+ "1744565000": {
+  "name": "Дом Дурдина (дом, в котором жила Н.К. Крупская). Здесь бывал В.И. Ленин",
+  "address": "улица Жуковского 28",
+  "wall": "#e3d0c9",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q124607857",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124607857 P18); style: from construction year 1834",
+  "confidence": "medium"
+ },
+ "1749550000": {
+  "name": "Невский проспект 79",
+  "address": "Пушкинская улица 2/79",
+  "wall": "#bfb29e",
+  "style": "eclectic",
+  "built": 1874,
+  "wikidata": "Q124258844",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124258844 P18); style: from construction year 1874",
+  "confidence": "medium"
+ },
+ "1758965000": {
+  "name": "Доходный дом В.И. Денисова",
+  "address": "улица Рылеева 21",
+  "wall": "#c98d73",
+  "style": "art_nouveau",
+  "built": 1909,
+  "wikidata": "Q124636086",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124636086 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1798292000": {
+  "name": "Лиговский проспект 64-66",
+  "address": "Лиговский проспект 64-66",
+  "wall": "#ddd6dc",
+  "style": "eclectic",
+  "wikidata": "Q133818282",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133818282 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1808429000": {
+  "name": "Доходный дом купца В.И. Черепенникова с интерьерами",
+  "address": "Фурштатская улица 2/12",
+  "wall": "#9fb48a",
+  "trim": "#f4f1ea",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q131929960",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131929960 P18); style: from construction year 1902",
+  "confidence": "high"
+ },
+ "1808453000": {
+  "name": "Большой дом",
+  "address": "Литейный проспект 4 литА",
+  "wall": "#c4b494",
+  "style": "constructivism",
+  "built": 1931,
+  "wikidata": "Q4092985",
+  "note": "Trotsky/Gegello/Oll 1931-32; grey-beige stucco tower over grey granite base; colour read from Wikimedia Commons photo (Wikidata Q4092985 P18)",
+  "confidence": "medium"
+ },
+ "1809185000": {
+  "name": "Дом Васильевых (Гороховая улица)",
+  "address": "Гороховая улица 40",
+  "wall": "#dfe0e4",
+  "style": "eclectic",
+  "wikidata": "Q120136914",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120136914 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1809856000": {
+  "name": "Воронцовский дворец",
+  "address": "Садовая улица 26 литД",
+  "wall": "#d9c7a8",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q1963797",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q1963797 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1811344000": {
+  "name": "Казармы Кавалергардского полка",
+  "address": "Захарьевская улица 22",
+  "wall": "#e8d9a2",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120758511",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120758511 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "1821442000": {
+  "name": "Конная улица 8, Доходный дом Т.П. Павловой (Л.З. Райбштейна)",
+  "address": "Конная улица 8",
+  "wall": "#d9bc8c",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "wikidata": "Q124623796",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124623796 P18); style: from construction year 1911",
+  "confidence": "medium"
+ },
+ "1930011000": {
+  "name": "Дом Казанского собора",
+  "address": "Казанская улица 1/25",
+  "wall": "#dfcb94",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1813,
+  "wikidata": "Q21638978",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q21638978 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "1982639000": {
+  "name": "Доходный дом Н.Ф. Хреновой",
+  "address": "Таврическая улица 7",
+  "wall": "#c8c0b2",
+  "style": "art_nouveau",
+  "wikidata": "Q126750072",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126750072 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "1982640000": {
+  "name": "Доходный дом А. С. Хренова (Таврическая улица, 3)",
+  "address": "Таврическая улица 3",
+  "wall": "#d1a874",
+  "style": "art_nouveau",
+  "wikidata": "Q126746308",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126746308 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "1982641000": {
+  "name": "Доходный дом М. Ф. Щегловитовой",
+  "address": "Таврическая улица 11",
+  "wall": "#c9bca0",
+  "style": "art_nouveau",
+  "wikidata": "Q126752109",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q126752109 P18); style: OSM/Wikidata style tag",
+  "confidence": "low"
+ },
+ "2000648000": {
+  "name": "Александровская колонна",
+  "wall": "#a86e5e",
+  "height": 47.5,
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q907366",
+  "note": "Montferrand 1834; red-pink Pyterlahti granite shaft, bronze angel; total height 47.5 m; colour read from Wikimedia Commons photo (Wikidata Q907366 P18)",
+  "confidence": "high"
+ },
+ "2050420000": {
+  "name": "Дома Олсуфьевых",
+  "address": "набережная реки Фонтанки 14",
+  "wall": "#e3cf93",
+  "style": "eclectic",
+  "wikidata": "Q120135373",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135373 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "2133719000": {
+  "name": "Смольный институт / корпуса Смольного монастыря",
+  "address": "Смольный проезд 1 литБ",
+  "wall": "#ecdcac",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1806,
+  "wikidata": "Q728971",
+  "note": "OSM polygon merges the Smolny convent cells around the cathedral (blue #a9c8e6 with white, Rastrelli) and the Smolny Institute (Quarenghi 1806-08, pale yellow #ecdcac with white colonnade); wall given for the Institute; colour read from Wikimedia Commons photo (Wikidata Q728971 P18)",
+  "confidence": "high",
+  "split_hint": {
+   "north_of_z": -870,
+   "wall_north": "#a9c8e6",
+   "trim_north": "#f4f1ea",
+   "wall_south": "#ecdcac"
+  }
+ },
+ "2145792000": {
+  "name": "Доходный дом",
+  "address": "Херсонская улица 3",
+  "wall": "#c9ae86",
+  "style": "eclectic",
+  "wikidata": "Q124630977",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124630977 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "2145793000": {
+  "name": "Херсонская улица 1",
+  "address": "Херсонская улица 1",
+  "wall": "#d29c84",
+  "style": "art_nouveau",
+  "built": 1905,
+  "wikidata": "Q124607612",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124607612 P18); style: from construction year 1905",
+  "confidence": "medium"
+ },
+ "2404499000": {
+  "name": "Московский вокзал",
+  "address": "Невский проспект 85 литА",
+  "wall": "#dcc898",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1844,
+  "wikidata": "Q139318",
+  "note": "Thon 1844-51; sand-yellow with white details, central clock tower; colour read from Wikimedia Commons photo (Wikidata Q139318 P18)",
+  "confidence": "medium"
+ },
+ "2404500000": {
+  "name": "Конторский корпус Николаевского вокзала",
+  "address": "Невский проспект 85 литЗ",
+  "wall": "#a85a42",
+  "style": "eclectic",
+  "built": 1895,
+  "wikidata": "Q118129210",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129210 P18); style: from construction year 1895",
+  "confidence": "medium"
+ },
+ "2425804000": {
+  "name": "Доходный дом И.И. Кокина",
+  "address": "Невский проспект 158",
+  "wall": "#c9997c",
+  "style": "eclectic",
+  "built": 1874,
+  "wikidata": "Q134434574",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134434574 P18); style: from construction year 1874",
+  "confidence": "medium"
+ },
+ "2425805000": {
+  "name": "Корпус по Конной улице",
+  "address": "Невский проспект 156 литБ",
+  "wall": "#e3dcc6",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q118129273",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129273 P18); style: from construction year 1910",
+  "confidence": "medium"
+ },
+ "2425806000": {
+  "name": "Дом Ф.Л. и Д.Л. Парфеновых",
+  "address": "Невский проспект 156",
+  "wall": "#c18d63",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q118129272",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129272 P18); style: from construction year 1910",
+  "confidence": "medium"
+ },
+ "2614477000": {
+  "name": "Корпус Бенуа",
+  "address": "Инженерная улица 2-4 литА",
+  "wall": "#ecd88f",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4234220",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4234220 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "2857993000": {
+  "name": "Доходный дом И.Е. Дрябина",
+  "address": "Невский проспект 111/3",
+  "wall": "#d58f6f",
+  "style": "eclectic",
+  "built": 1861,
+  "wikidata": "Q134998353",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134998353 P18); style: from construction year 1861",
+  "confidence": "medium"
+ },
+ "2858406000": {
+  "name": "Улица Марата 22-24",
+  "address": "улица Марата 22-24",
+  "wall": "#dfbc6a",
+  "style": "empire",
+  "built": 1826,
+  "wikidata": "Q124252091",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124252091 P18); style: from construction year 1826",
+  "confidence": "medium"
+ },
+ "2858408000": {
+  "name": "Колокольная улица 2",
+  "address": "Колокольная улица 2/18",
+  "wall": "#d6cdbd",
+  "style": "eclectic",
+  "built": 1878,
+  "wikidata": "Q124252021",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124252021 P18); style: from construction year 1878",
+  "confidence": "medium"
+ },
+ "2864743000": {
+  "name": "Смольный собор",
+  "address": "площадь Растрелли 1",
+  "wall": "#a9c8e6",
+  "roof": "#7fa3c8",
+  "trim": "#f4f1ea",
+  "max_height": 93.7,
+  "style": "baroque",
+  "built": 1748,
+  "wikidata": "Q2330130",
+  "note": "Rastrelli 1748-64/1835; sky-blue walls, white columns, blue-grey domes with gilded crosses; 93.7 m; colour read from Wikimedia Commons photo (Wikidata Q2330130 P18)",
+  "confidence": "high"
+ },
+ "2873195000": {
+  "name": "Дом страхового общества «Россия»",
+  "address": "Невский проспект 44",
+  "wall": "#c7bba8",
+  "style": "classicism",
+  "built": 1778,
+  "wikidata": "Q60367850",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q60367850 P18); style: from construction year 1778",
+  "confidence": "medium"
+ },
+ "2873196000": {
+  "name": "Московский купеческий банк",
+  "address": "Невский проспект 46",
+  "wall": "#e6e4de",
+  "style": "art_nouveau",
+  "built": 1901,
+  "wikidata": "Q4304178",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4304178 P18); style: from construction year 1901",
+  "confidence": "medium"
+ },
+ "2899584000": {
+  "name": "Российский государственный институт сценических искусств",
+  "address": "Моховая улица 34",
+  "wall": "#c49a96",
+  "style": "eclectic",
+  "wikidata": "Q118463812",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118463812 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "3132622000": {
+  "name": "Москва (гостиница, Санкт-Петербург)",
+  "address": "площадь Александра Невского 2 литЕ",
+  "wall": "#dad9d4",
+  "style": "eclectic",
+  "wikidata": "Q4303716",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4303716 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "3195434000": {
+  "name": "Базилика святой Екатерины Александрийской",
+  "address": "Невский проспект 32-34",
+  "wall": "#ece2c3",
+  "roof": "#5f8f74",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1783,
+  "wikidata": "Q2618766",
+  "note": "Vallin de la Mothe/Rinaldi 1763-83; pale cream with white portico, green dome; colour read from Wikimedia Commons photo (Wikidata Q2618766 P18)",
+  "confidence": "high"
+ },
+ "3298890000": {
+  "name": "Дом Н.А. Бороздиной (К.И. Шредера)",
+  "address": "Садовая улица 14/52",
+  "wall": "#ccbc9a",
+  "style": "baroque",
+  "built": 1740,
+  "wikidata": "Q133819351",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q133819351 P18); style: from construction year 1740",
+  "confidence": "medium"
+ },
+ "3298897000": {
+  "name": "Шуваловский дворец",
+  "address": "Малая Садовая улица 1/25",
+  "wall": "#a9c6dc",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "wikidata": "Q4155909",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4155909 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "3323274000": {
+  "name": "Кинотеатр Художественный Санкт-Петербург",
+  "address": "Невский проспект 67",
+  "wall": "#cdb68c",
+  "style": "eclectic",
+  "wikidata": "Q4502135",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4502135 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "3323319000": {
+  "name": "Дом Кожевникова",
+  "address": "Невский проспект 51 литА",
+  "wall": "#a5614b",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q4165307",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165307 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "3323327000": {
+  "name": "Невский проспект 49",
+  "address": "Невский проспект 49/2",
+  "wall": "#d7a46e",
+  "style": "empire",
+  "built": 1837,
+  "wikidata": "Q4405171",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4405171 P18); style: from construction year 1837",
+  "confidence": "medium"
+ },
+ "3492131000": {
+  "name": "Каменная ограда Смольного монастыря",
+  "address": "Смольный проезд 1 литЗ",
+  "wall": "#c9dcea",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q122924981",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q122924981 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "3798383000": {
+  "name": "Аничков дворец",
+  "address": "Невский проспект 39",
+  "wall": "#e9dccb",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1741,
+  "wikidata": "Q187333",
+  "note": "Zemtsov/Rastrelli 1741-54, rebuilt in classical style by Starov 1778-79 and later; CURRENT colour is pale pinkish-cream with white (Commons Category:Anichkov Palace, photos 2017-2025) - not red",
+  "confidence": "high"
+ },
+ "3801087000": {
+  "name": "Российская национальная библиотека",
+  "address": "набережная реки Фонтанки 36",
+  "wall": "#cfd3d6",
+  "style": "classicism",
+  "built": 1795,
+  "wikidata": "Q267566",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q267566 P18); style: from construction year 1795",
+  "confidence": "low"
+ },
+ "3801091000": {
+  "name": "Фонтанный дом",
+  "address": "набережная реки Фонтанки 34",
+  "wall": "#e9d9a6",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1730,
+  "wikidata": "Q11903355",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q11903355 P18); style: from construction year 1730",
+  "confidence": "high"
+ },
+ "3801092000": {
+  "name": "Таврический дворец",
+  "address": "Шпалерная улица 47",
+  "wall": "#e7dcae",
+  "roof": "#6a9a7c",
+  "trim": "#f4f1ea",
+  "style": "classicism",
+  "built": 1783,
+  "wikidata": "Q676093",
+  "note": "Starov 1783-89; pale yellow with white portico, green roofs (aerial Commons photo); colour read from Wikimedia Commons photo (Wikidata Q676093 P18)",
+  "confidence": "high"
+ },
+ "4156618000": {
+  "name": "Невский проспект 73",
+  "address": "Невский проспект 73-75/2",
+  "wall": "#c9b48d",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q124258789",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124258789 P18); style: from construction year 1834",
+  "confidence": "medium"
+ },
+ "4575977000": {
+  "name": "Невский проспект 147, Доходный дом И.И. Круглова",
+  "address": "Невский проспект 147",
+  "wall": "#c8b28c",
+  "style": "art_nouveau",
+  "built": 1905,
+  "wikidata": "Q118129279",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129279 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "4575978000": {
+  "name": "Дом Д.И. Тырлова",
+  "address": "Невский проспект 119",
+  "wall": "#9c8f84",
+  "style": "art_nouveau",
+  "built": 1900,
+  "wikidata": "Q118129268",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129268 P18); style: from construction year 1900",
+  "confidence": "low"
+ },
+ "4653639000": {
+  "name": "Дом, в котором в 1917-1918 гг. жил поэт С.А. Есенин, в 1922-1937 гг. — писатель К.А. Федин",
+  "address": "Литейный проспект 33",
+  "wall": "#c9ad6f",
+  "style": "eclectic",
+  "built": 1895,
+  "wikidata": "Q135112611",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112611 P18); style: from construction year 1895",
+  "confidence": "medium"
+ },
+ "5126066000": {
+  "name": "Доходный дом (Дом Шамшева)",
+  "address": "Литейный проспект 52",
+  "wall": "#d5ccbb",
+  "style": "empire",
+  "built": 1831,
+  "wikidata": "Q135112633",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112633 P18); style: from construction year 1831",
+  "confidence": "medium"
+ },
+ "5141821000": {
+  "name": "Дом В. В. Корелина",
+  "address": "Апраксин переулок 4",
+  "wall": "#a9aca0",
+  "style": "eclectic",
+  "wikidata": "Q113854316",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113854316 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "5321311000": {
+  "name": "Улица Правды 22",
+  "address": "улица Правды 22",
+  "wall": "#bcb6a8",
+  "style": "neoclassical_1910s",
+  "built": 1914,
+  "wikidata": "Q123926701",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123926701 P18); style: from construction year 1914",
+  "confidence": "low"
+ },
+ "5336558000": {
+  "name": "Пять углов",
+  "address": "улица Рубинштейна 29/28",
+  "wall": "#cfc6b5",
+  "style": "eclectic",
+  "wikidata": "Q4386102",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4386102 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "5435161000": {
+  "name": "Radisson Sonya",
+  "address": "Литейный проспект 5/19",
+  "wall": "#c25a73",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1882,
+  "wikidata": "Q111407067",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q111407067 P18); style: from construction year 1882",
+  "confidence": "medium"
+ },
+ "5572343000": {
+  "name": "Невская ратуша",
+  "address": "Новгородская улица 20",
+  "wall": "#c9ccd0",
+  "style": "contemporary",
+  "built": 2016,
+  "wikidata": "Q134062417",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134062417 P18); style: from construction year 2016",
+  "confidence": "medium"
+ },
+ "5677834000": {
+  "name": "Надвратная церковь",
+  "address": "площадь Александра Невского 1 литЖ",
+  "wall": "#eadfb4",
+  "roof": "#5f8f74",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "built": 1786,
+  "wikidata": "Q64054068",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q64054068 P18); style: religious building",
+  "confidence": "high"
+ },
+ "5802451000": {
+  "name": "Спасо-Преображенский собор",
+  "address": "Преображенская площадь 1",
+  "wall": "#e3c56d",
+  "roof": "#3c5a8c",
+  "trim": "#f4f1ea",
+  "style": "church",
+  "wikidata": "Q644102",
+  "note": "Stasov 1827-29 (Empire); yellow with white columns, blue domes with gold stars; colour read from Wikimedia Commons photo (Wikidata Q644102 P18)",
+  "confidence": "high"
+ },
+ "5830900000": {
+  "name": "Дом юриста",
+  "address": "улица Чайковского 28",
+  "wall": "#b6a993",
+  "style": "eclectic",
+  "built": 1859,
+  "wikidata": "Q77976955",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q77976955 P18); style: from construction year 1859",
+  "confidence": "medium"
+ },
+ "5835478000": {
+  "name": "Чернорецкий переулок 4-6",
+  "address": "Чернорецкий переулок 4-6",
+  "wall": "#dcdcd6",
+  "style": "eclectic",
+  "wikidata": "Q4514129",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4514129 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "6147392000": {
+  "name": "Митрополичий корпус",
+  "address": "набережная реки Монастырки 1 литГ",
+  "wall": "#e0a28e",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1756,
+  "note": "Metropolitan building of the Alexander Nevsky Lavra (Trezzini/Schwertfeger); salmon-pink with white; Commons photo",
+  "confidence": "medium"
+ },
+ "6319253000": {
+  "name": "Фёдоровский собор",
+  "address": "Миргородская улица 1В",
+  "wall": "#ece9e2",
+  "roof": "#c9a24a",
+  "style": "church",
+  "wikidata": "Q4494159",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4494159 P18); style: religious building",
+  "confidence": "medium"
+ },
+ "6344344000": {
+  "name": "Гараж с административным корпусом",
+  "address": "Херсонская улица 43/12",
+  "wall": "#c9bfae",
+  "style": "contemporary",
+  "built": 2019,
+  "wikidata": "Q124653956",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124653956 P18); style: from construction year 2019",
+  "confidence": "low"
+ },
+ "6573519000": {
+  "name": "Голицын Лофт",
+  "address": "набережная реки Фонтанки 20",
+  "wall": "#e7d59c",
+  "style": "eclectic",
+  "wikidata": "Q119110978",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119110978 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "6749936000": {
+  "name": "Дирекция императорских театров (Академия русского балета имени А.Я. Вагановой)",
+  "address": "улица Зодчего Росси 2",
+  "wall": "#e9d48e",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4633373",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4633373 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "6754928000": {
+  "name": "Павильон Росси",
+  "address": "Невский проспект 39 литЕ",
+  "wall": "#e8e6dc",
+  "style": "empire",
+  "built": 1817,
+  "wikidata": "Q118129182",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129182 P18); style: from construction year 1817",
+  "confidence": "high"
+ },
+ "6754929000": {
+  "name": "Павильон Росси",
+  "address": "Невский проспект 39 литГ",
+  "wall": "#e8e6dc",
+  "style": "empire",
+  "built": 1817,
+  "wikidata": "Q118129180",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129180 P18); style: from construction year 1817",
+  "confidence": "high"
+ },
+ "7033585000": {
+  "name": "Дом Адамини",
+  "address": "набережная реки Мойки 1/8",
+  "wall": "#e9d68e",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1823,
+  "wikidata": "Q104158991",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q104158991 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "7033586000": {
+  "name": "Казармы Павловского лейб-гвардии полка",
+  "address": "Марсово поле 1",
+  "wall": "#e2c86d",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1821,
+  "wikidata": "Q4207996",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4207996 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "7034614000": {
+  "name": "Дом Энгельгардта",
+  "address": "Невский проспект 30",
+  "wall": "#a8cfd3",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1759,
+  "wikidata": "Q4165443",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165443 P18); style: from construction year 1759",
+  "confidence": "high"
+ },
+ "7087429000": {
+  "name": "Дом С.М. Тедески (П.А. Зубова)",
+  "address": "Большая Морская улица 7",
+  "wall": "#dbb59b",
+  "style": "eclectic",
+  "wikidata": "Q118129217",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129217 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "7087430000": {
+  "name": "Доходный дом А.И. Трейберга",
+  "address": "Невский проспект 11/2",
+  "wall": "#dcc684",
+  "style": "empire",
+  "built": 1802,
+  "wikidata": "Q118129214",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129214 P18); style: from construction year 1802",
+  "confidence": "medium"
+ },
+ "8222552000": {
+  "name": "Здание Министерства народного просвещения",
+  "address": "улица Зодчего Росси 1-3",
+  "wall": "#e5cc79",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q120966445",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120966445 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "8522850000": {
+  "name": "ТРЦ Галерея",
+  "address": "Лиговский проспект 30",
+  "wall": "#dcd2bd",
+  "style": "contemporary",
+  "built": 2010,
+  "wikidata": "Q5518434",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q5518434 P18)",
+  "confidence": "medium"
+ },
+ "8605230000": {
+  "name": "Большой Гостиный двор. Внешний периметр",
+  "address": "Садовая улица 17",
+  "wall": "#ece0b4",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1757,
+  "wikidata": "Q118129166",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129166 P18); style: from construction year 1757",
+  "confidence": "high"
+ },
+ "9241917000": {
+  "name": "Перинная линия",
+  "address": "Садовая улица 17",
+  "wall": "#efe6cf",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1757,
+  "wikidata": "Q4351319",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4351319 P18); style: from construction year 1757",
+  "confidence": "medium"
+ },
+ "9280060000": {
+  "name": "Доходный дом купцов Капраловых",
+  "address": "Невский проспект 109",
+  "wall": "#c7a77d",
+  "style": "eclectic",
+  "built": 1878,
+  "wikidata": "Q134998352",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134998352 P18); style: from construction year 1878",
+  "confidence": "low"
+ },
+ "9321429000": {
+  "name": "Администрация Ленинградской области",
+  "address": "Суворовский проспект 67",
+  "wall": "#9fb0c8",
+  "style": "eclectic",
+  "wikidata": "Q131702592",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131702592 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "10708688000": {
+  "name": "Дом Радио (Санкт-Петербург)",
+  "address": "Малая Садовая улица 2/27",
+  "wall": "#d6b98d",
+  "style": "eclectic",
+  "wikidata": "Q67408218",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q67408218 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "11088209000": {
+  "name": "Новый Арсенал (Главное Артиллерийское управление, Гильзовое отделение Санкт‑Петербургского патронного завода и Петербургский орудийный завод)",
+  "address": "Литейный проспект 3 литА",
+  "wall": "#e5e3de",
+  "style": "eclectic",
+  "wikidata": "Q135070153",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135070153 P18); style: default (no date found)",
+  "confidence": "low"
+ },
+ "11763697000": {
+  "name": "Казанский собор",
+  "address": "Казанская площадь 2",
+  "wall": "#b3ab98",
+  "roof": "#5c6b61",
+  "max_height": 71.6,
+  "style": "church",
+  "built": 1801,
+  "wikidata": "Q404571",
+  "note": "Voronikhin 1801-11; grey Pudost limestone colonnade, dome painted grey-green; dome top 71.6 m; colour read from Wikimedia Commons photo (Wikidata Q404571 P18)",
+  "confidence": "high"
+ },
+ "13350426000": {
+  "name": "Лиговский проспект 137",
+  "address": "Лиговский проспект 137",
+  "wall": "#ddd3c3",
+  "style": "eclectic",
+  "wikidata": "Q124649259",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124649259 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "14136608000": {
+  "name": "Сельскохозяйственный музей",
+  "address": "Соляной переулок 13",
+  "wall": "#dcd7bf",
+  "style": "eclectic",
+  "wikidata": "Q16696616",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q16696616 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "14163264000": {
+  "name": "Аничков лицей",
+  "address": "Невский проспект 39 литК",
+  "wall": "#ece4c4",
+  "trim": "#f4f1ea",
+  "style": "soviet_modernism",
+  "built": 1989,
+  "wikidata": "Q4066432",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4066432 P18); style: from construction year 1989",
+  "confidence": "medium"
+ },
+ "14923639000": {
+  "name": "Невский проспект 59",
+  "address": "Невский проспект 59",
+  "wall": "#d0cdc6",
+  "style": "eclectic",
+  "wikidata": "Q124258333",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124258333 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "15081492000": {
+  "name": "Невский проспект 69",
+  "address": "Невский проспект 69",
+  "wall": "#c6bfae",
+  "style": "eclectic",
+  "wikidata": "Q124161145",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124161145 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "15081523000": {
+  "name": "Большой театр кукол",
+  "address": "улица Некрасова 10-12",
+  "wall": "#bdb6a0",
+  "style": "constructivism",
+  "built": 1931,
+  "wikidata": "Q4093012",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4093012 P18); style: from construction year 1931",
+  "confidence": "medium"
+ },
+ "15081526000": {
+  "name": "Басков переулок 5, Доходный дом А. И. Ерошенко",
+  "address": "Басков переулок 5",
+  "wall": "#d4ad78",
+  "trim": "#a8553f",
+  "style": "art_nouveau",
+  "built": 1905,
+  "wikidata": "Q116699286",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116699286 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "15411802000": {
+  "name": "Доходный дом Брейтингамов",
+  "address": "Невский проспект 93",
+  "wall": "#d8c4c9",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "built": 1861,
+  "wikidata": "Q134998349",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134998349 P18); style: from construction year 1861",
+  "confidence": "medium"
+ },
+ "15573272000": {
+  "name": "Доходный дом М. В. Воейковой",
+  "address": "Невский проспект 72",
+  "wall": "#e6e3dc",
+  "style": "art_nouveau",
+  "wikidata": "Q118129215",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129215 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "15746145000": {
+  "name": "Ризница Храма Воскресения Христова",
+  "address": "набережная канала Грибоедова 2а литЛ",
+  "wall": "#9b6a5c",
+  "style": "church",
+  "wikidata": "Q4507579",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4507579 P18); style: religious building",
+  "confidence": "low"
+ },
+ "16079438000": {
+  "name": "Доходный дом С. Д. Шереметева",
+  "address": "Литейный проспект 51",
+  "wall": "#b59a73",
+  "style": "eclectic",
+  "built": 1874,
+  "wikidata": "Q125889403",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q125889403 P18); style: from construction year 1874",
+  "confidence": "medium"
+ },
+ "16079572000": {
+  "name": "Дом Пеля",
+  "address": "Литейный проспект 46",
+  "wall": "#dcb68a",
+  "style": "eclectic",
+  "wikidata": "Q99828484",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q99828484 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "16231344000": {
+  "name": "Доходный дом Яковлевых",
+  "address": "улица Маяковского 1/96",
+  "wall": "#d8b19a",
+  "style": "eclectic",
+  "wikidata": "Q118129247",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129247 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "16655507000": {
+  "name": "Дом торгового товарищества «Братья Елисеевы»",
+  "address": "Невский проспект 56",
+  "wall": "#7b6e60",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q968295",
+  "note": "Baranovsky 1902-03; dark grey-brown granite facade with huge glazed bays and bronze sculpture; colour read from Wikimedia Commons photo (Wikidata Q968295 P18)",
+  "confidence": "high"
+ },
+ "16774540000": {
+  "name": "Городская дума",
+  "address": "Думская улица 1-3",
+  "wall": "#c0624e",
+  "trim": "#f2efe8",
+  "style": "classicism",
+  "built": 1752,
+  "wikidata": "Q382133",
+  "note": "Ferrari 1799-1804 tower; terracotta-red with white details; colour read from Wikimedia Commons photo (Wikidata Q382133 P18)",
+  "confidence": "medium"
+ },
+ "17331204000": {
+  "name": "Здание Министерства внутренних дел",
+  "address": "набережная реки Фонтанки 57",
+  "wall": "#e5c76a",
+  "trim": "#f4f1ea",
+  "style": "empire",
+  "built": 1834,
+  "wikidata": "Q120637879",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120637879 P18); style: from construction year 1834",
+  "confidence": "medium"
+ },
+ "17339774000": {
+  "name": "Здание бывшей Главной аптеки",
+  "address": "Миллионная улица 4/1",
+  "wall": "#c6d3c8",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q4189939",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4189939 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "17343293000": {
+  "name": "Дом Барятинского",
+  "address": "Миллионная улица 21",
+  "wall": "#d2d0ca",
+  "style": "eclectic",
+  "wikidata": "Q120135449",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135449 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "17343294000": {
+  "name": "Ново-Михайловский дворец",
+  "address": "Дворцовая набережная 18",
+  "wall": "#cfcac0",
+  "trim": "#f2efe8",
+  "style": "eclectic",
+  "built": 1861,
+  "wikidata": "Q3361196",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q3361196 P18); style: from construction year 1861",
+  "confidence": "medium"
+ },
+ "17822679000": {
+  "name": "Novotel",
+  "address": "улица Маяковского 3а литА",
+  "wall": "#d9c6ae",
+  "style": "contemporary",
+  "built": 2005,
+  "wikidata": "Q968144",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q968144 P18); style: from construction year 2005",
+  "confidence": "medium"
+ },
+ "17966237000": {
+  "name": "Здание Шереметьевского пассажа",
+  "address": "Литейный проспект 53",
+  "wall": "#b8b5ad",
+  "style": "eclectic",
+  "wikidata": "Q120330416",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120330416 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18035331000": {
+  "name": "Дом Шаховской",
+  "address": "Караванная улица 24-26",
+  "wall": "#e3dcc8",
+  "style": "eclectic",
+  "wikidata": "Q120135434",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135434 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18063500000": {
+  "name": "Дом П. В. Неклюдова",
+  "address": "Литейный проспект 36",
+  "wall": "#bcd6d2",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q135219970",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135219970 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18083348000": {
+  "name": "Доходный дом О.П. Кушелевой (с дворовыми корпусами)",
+  "address": "Невский проспект 88",
+  "wall": "#ddd5a8",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q118129242",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129242 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "18175293000": {
+  "name": "Дом Баура",
+  "address": "улица Чайковского 2/7",
+  "wall": "#e9d59c",
+  "style": "eclectic",
+  "wikidata": "Q120135429",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120135429 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18178309000": {
+  "name": "Особняк Серебряковой",
+  "address": "набережная Кутузова 22",
+  "wall": "#e2c96e",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q102421951",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q102421951 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18227998000": {
+  "name": "Богадельня и приют Сергиевского православного братства",
+  "address": "Фурштатская улица 19",
+  "wall": "#c49a88",
+  "style": "eclectic",
+  "built": 1885,
+  "wikidata": "Q131936507",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q131936507 P18); style: from construction year 1885",
+  "confidence": "low"
+ },
+ "18231854000": {
+  "name": "Дом департамента уделов",
+  "address": "Литейный проспект 37-39 литА",
+  "wall": "#a8584a",
+  "trim": "#e8e1d4",
+  "style": "eclectic",
+  "built": 1841,
+  "wikidata": "Q119293836",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119293836 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "18231936000": {
+  "name": "Государственный мемориальный музей обороны и блокады Ленинграда",
+  "address": "Соляной переулок 9",
+  "wall": "#e7e2bf",
+  "style": "stalinist",
+  "built": 1944,
+  "wikidata": "Q4146863",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4146863 P18); style: from construction year 1944",
+  "confidence": "medium"
+ },
+ "18336023000": {
+  "name": "Дом Косиковского",
+  "address": "улица Пестеля 14",
+  "wall": "#dbb8a6",
+  "style": "eclectic",
+  "wikidata": "Q135112659",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135112659 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "18346212000": {
+  "name": "улица Восстания 23, Доходный дом А.П. Романова",
+  "address": "Солдатский переулок 1/23",
+  "wall": "#b5a39c",
+  "style": "art_nouveau",
+  "built": 1902,
+  "wikidata": "Q124607596",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124607596 P18); style: from construction year 1902",
+  "confidence": "low"
+ },
+ "18872293000": {
+  "name": "Здание военно-походной канцелярии",
+  "address": "Захарьевская улица 17",
+  "wall": "#d4d4cc",
+  "trim": "#f2efe8",
+  "style": "classicism",
+  "wikidata": "Q120598142",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120598142 P18); style: OSM/Wikidata style tag",
+  "confidence": "medium"
+ },
+ "19060460000": {
+  "name": "4 трамвайный парк имени Смирнова",
+  "address": "Дегтярный переулок 1Б с1",
+  "wall": "#c9c48a",
+  "style": "contemporary",
+  "built": 2022,
+  "wikidata": "Q124221160",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124221160 P18); style: from construction year 2022",
+  "confidence": "low"
+ },
+ "19612681000": {
+  "name": "Большой меблированный дом «Пале-Рояль»",
+  "address": "Пушкинская улица 20",
+  "wall": "#c47248",
+  "style": "art_nouveau",
+  "wikidata": "Q102304368",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q102304368 P18); style: OSM/Wikidata style tag",
+  "confidence": "high"
+ },
+ "20041040000": {
+  "name": "Дом Абамелек-Лазарева",
+  "address": "набережная реки Мойки 21-23",
+  "wall": "#d06c5c",
+  "trim": "#f4f1ea",
+  "style": "eclectic",
+  "wikidata": "Q118958744",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118958744 P18); style: default (no date found)",
+  "confidence": "high"
+ },
+ "20041385000": {
+  "name": "Генеральное консульство Японии в Санкт-Петербурге",
+  "address": "Миллионная улица 30",
+  "wall": "#e8d17d",
+  "style": "eclectic",
+  "wikidata": "Q5164554",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q5164554 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "20269372000": {
+  "name": "Невский проспект 14 (школа № 210)",
+  "address": "Невский проспект 14",
+  "wall": "#d8c3a6",
+  "style": "stalinist",
+  "built": 1939,
+  "wikidata": "Q4147474",
+  "note": "School 210 (1939, Nevsky 14) with the WWII shelling-warning inscription; beige-grey stucco seen on the inscription photo; colour read from Wikimedia Commons photo (Wikidata Q4147474 P18)",
+  "confidence": "low"
+ },
+ "20269374000": {
+  "name": "Дом О.Э. Веймара",
+  "address": "Невский проспект 10",
+  "wall": "#e9c779",
+  "trim": "#f4f1ea",
+  "style": "baroque",
+  "built": 1760,
+  "wikidata": "Q118129117",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129117 P18); style: from construction year 1760",
+  "confidence": "high"
+ },
+ "20269375000": {
+  "name": "Дом фирмы «И.В. Юнкер и К°» (с дворовыми флигелями)",
+  "address": "Невский проспект 12",
+  "wall": "#8d5a48",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "wikidata": "Q118129096",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129096 P18); style: from construction year 1910",
+  "confidence": "medium"
+ },
+ "20271182000": {
+  "name": "Здание Азовско-Донского коммерческого банка (Санкт-Петербург)",
+  "address": "Большая Морская улица 3-5",
+  "wall": "#8f8c88",
+  "style": "eclectic",
+  "wikidata": "Q121080466",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q121080466 P18); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "21041557000": {
+  "name": "Доходные дома А. Тимофеева (К.А. Тура)",
+  "address": "Невский проспект 87/2",
+  "wall": "#d6b673",
+  "style": "empire",
+  "built": 1826,
+  "wikidata": "Q118129248",
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118129248 P18); style: from construction year 1826",
+  "confidence": "low"
+ }
+}
