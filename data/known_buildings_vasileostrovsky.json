@@ -1,25 +1,30 @@
 {
  "_meta": {
   "district": "Василеостровский район",
-  "count": 499,
+  "count": 692,
   "id_scheme": "keys are spb_buildings.json ids (OSM way id, or relation id*1000 + outer ring index)",
   "fields": {
    "wall": "dominant current facade colour (sRGB hex, as seen in daylight, not shaded)",
    "trim": "colour of columns/pilasters/window surrounds/cornices where clearly different",
    "roof": "roof / dome colour, only where verified",
    "height": "main body (cornice) height in metres, only where known",
-   "levels": "storeys of the main body, only where OSM is clearly wrong",
+   "levels": "storeys above ground on the street facade (ground floor included, mansard/attic not counted); photo counts first, otherwise the Housing Committee technical passport; overrides OSM building:levels",
    "roof_shape": "OSM-style roof shape override (flat/hipped/...), only where verified",
    "max_height": "top of dome/spire/sculpture in metres (do NOT extrude the whole footprint to this)",
    "built": "construction year used for style",
-   "confidence": "high = landmark verified on several photos/sources; medium = one clear recent photo; low = photo ambiguous or old"
+   "confidence": "high = landmark verified on several photos/sources; medium = one clear recent photo; low = photo ambiguous or old",
+   "levels_conf": "confidence of `levels` alone: high = passport storeys consistent with floor area / footprint (ratio 0.70-1.05; 79% exact against OSM-tagged houses) or clear photo; medium = single source, floor-area ratio 0.45-0.70 or mansard deducted; low = doubtful",
+   "entries without wall": "carry verified storeys (and style/built) only; the renderer keeps its own palette for them"
   },
   "sources": [
    "OpenStreetMap (addresses, names, wikidata links) via the project Overpass dump",
    "Wikidata (labels, inception, architectural style, P18 images); items matched by OSM wikidata tag or by P625 point inside the footprint",
    "Wikimedia Commons photographs (P18 images and category photos, e.g. Category:Building of Twelve Collegiums, Category:Academy of Arts (Saint Petersburg) - main building, Category:Sea Terminal, Saint Petersburg), colours read visually from contact sheets",
    "ru.wikipedia / encspb.ru / citywalls.ru for heights and dates of landmarks",
-   "ids already present in known_buildings_central.json / known_buildings_admiralteysky.json are excluded"
+   "ids already present in known_buildings_central.json / known_buildings_admiralteysky.json are excluded",
+   "ru.wikivoyage \"Культурное наследие России/Санкт-Петербург\" heritage lists (coordinates, addresses, dates, Commons photos) used to match photos to footprints",
+   "storey counts (V.O. lines pass): counted visually on Commons photos (P18 / heritage-list images / Commons search by address); citywalls.ru not used (403 + robots.txt disallows automated agents)",
+   "Housing Committee of St Petersburg, open dataset \"Технико-экономические паспорта многоквартирных домов\" (data.gov.spb.ru, version 13; cached CSV): storeys and construction year of apartment buildings, matched by street + house + korpus + litera within the district"
   ]
  },
  "16092801": {
@@ -28,8 +33,10 @@
   "wall": "#d4d4d0",
   "style": "eclectic",
   "wikidata": "Q124606369",
-  "note": "colour read from Commons photo \"Nalichnaya street 49 2012-09 1348849805.JPG\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Nalichnaya street 49 2012-09 1348849805.JPG\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Наличная ул 49 лит.А): 9 storeys, built 1973",
+  "confidence": "medium",
+  "levels": 9,
+  "levels_conf": "high"
  },
  "16096717": {
   "name": "Доходный дом Г.Л. Шалита (акционерного общества «Новый Петербург»)",
@@ -38,8 +45,10 @@
   "style": "classicism",
   "built": 1899,
   "wikidata": "Q117320053",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320053 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320053 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Каховского пер 10 лит.А): 5 storeys, built 1914",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "16096880": {
   "name": "РГПУ им. А.И. Герцена, Институт музыки, театра и хореографии",
@@ -57,8 +66,10 @@
   "wall": "#dcdcd4",
   "style": "eclectic",
   "wikidata": "Q124606365",
-  "note": "colour read from Commons photo \"Nalichnaya street 51 2012-09 1348849682.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Nalichnaya street 51 2012-09 1348849682.jpg\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Наличная ул 51 лит.А): 16 storeys, built 1975",
+  "confidence": "medium",
+  "levels": 16,
+  "levels_conf": "high"
  },
  "16237324": {
   "name": "Жилой дом акционерного общества «Новый Петербург»",
@@ -67,8 +78,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q134891864",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q134891864 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134891864 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, КИМа пр 7/19 лит.А,Б): 5 storeys, built 1925; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "16238053": {
   "name": "Василеостровец",
@@ -86,8 +99,10 @@
   "wall": "#dcdcd8",
   "style": "eclectic",
   "wikidata": "Q124649225",
-  "note": "colour read from Commons photo \"Nalichnaya street 44 k2 2012-09 1348849310.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Nalichnaya street 44 k2 2012-09 1348849310.jpg\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Наличная ул 44 к2 лит.А): 16 storeys, built 1976",
+  "confidence": "medium",
+  "levels": 16,
+  "levels_conf": "high"
  },
  "16957769": {
   "name": "АТС 351/352",
@@ -114,8 +129,10 @@
   "wall": "#a05a48",
   "style": "eclectic",
   "wikidata": "Q124649238",
-  "note": "colour read from Commons photo \"Korablestroiteley Street 37 k4 2012-09 1348849081.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Korablestroiteley Street 37 k4 2012-09 1348849081.jpg\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кораблестроителей ул 37 к4 лит.А): 16 storeys, built 1977",
+  "confidence": "medium",
+  "levels": 16,
+  "levels_conf": "high"
  },
  "16960127": {
   "name": "Универсам «Гаванский»",
@@ -142,8 +159,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q134891865",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q134891865 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q134891865 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, КИМа пр 7/19 лит.А,Б): 5 storeys, built 1925; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "17062501": {
   "name": "Жилой дом акционерного общества «Новый Петербург»",
@@ -161,8 +180,10 @@
   "wall": "#a8aaa8",
   "style": "eclectic",
   "wikidata": "Q124402034",
-  "note": "colour read from Commons photo \"Korablestroiteley Street 23 k1 2012-09 1348847881.JPG\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Korablestroiteley Street 23 k1 2012-09 1348847881.JPG\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кораблестроителей ул 23 к1 лит.А, кв. 1-318): 9 storeys, built 1972; passport shared by 2 OSM footprints",
+  "confidence": "low",
+  "levels": 9,
+  "levels_conf": "high"
  },
  "17559725": {
   "name": "Морская набережная 9",
@@ -204,8 +225,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q117320043",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320043 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320043 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Гаванская ул 47 лит.А): 5 storeys, built 1904",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "17564532": {
   "name": "Жилой комплекс «Гаванский рабочий городок»",
@@ -214,8 +237,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q117320041",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320041 P18); style: OSM/Wikidata style tag",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320041 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Гаванская ул 47 лит.Б): 5 storeys, built 1904",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "17564539": {
   "name": "Жилой корпус",
@@ -236,8 +261,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q117320048",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320048 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320048 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Гаванская ул 47 лит.Д): 5 storeys, built 1904",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "17564584": {
   "name": "Жилой корпус",
@@ -247,8 +274,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q117320047",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320047 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320047 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Гаванская ул 47 лит.Г): 5 storeys, built 1904",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "17564892": {
   "name": "улица Беринга 22 к1",
@@ -256,8 +285,10 @@
   "wall": "#e8e4d8",
   "style": "eclectic",
   "wikidata": "Q4471430",
-  "note": "colour read from Commons photo \"Beringa st. - panoramio.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Beringa st. - panoramio.jpg\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Беринга ул 22 к1 лит.А): 5 storeys, built 1962",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "18504048": {
   "name": "Бассейн СКА",
@@ -275,8 +306,10 @@
   "style": "industrial",
   "built": 1875,
   "wikidata": "Q124181739",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q124181739 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124181739 P18); style: industrial building (OSM building tag / name); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 68 лит.А): 4 storeys, built 1875",
+  "confidence": "high",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "22663816": {
   "name": "Производственный корпус с водонапорной (часовой) башней",
@@ -285,8 +318,10 @@
   "style": "industrial",
   "built": 1896,
   "wikidata": "Q117320846",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320846 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320846 P18); style: industrial building (OSM building tag / name); levels 3 counted on ru.wikivoyage heritage list photo (Saint Petersburg. One of the buildings of former Kalinin Plant (Uralskaya St., 1 Litera V).jpg)",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "22663823": {
   "name": "Дом А.Д. Балашова (Стенбок-Фермора)",
@@ -315,8 +350,10 @@
   "style": "industrial",
   "built": 1884,
   "wikidata": "Q117320848",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320848 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320848 P18); style: industrial building (OSM building tag / name); levels 3 counted on ru.wikivoyage heritage list photo (Saint Petersburg. One of the buildings of former Kalinin Plant (Uralskaya St., 1 Litera M).jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "28566714": {
   "name": "Здание Академии наук",
@@ -402,8 +439,10 @@
   "style": "eclectic",
   "built": 1867,
   "wikidata": "Q117320657",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320657 P18); style: from construction year 1867",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320657 P18); style: from construction year 1867; levels 2 counted on ru.wikivoyage heritage list photo (СПбГУ. Здание Ботанической аудитории с оранжереей02.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "28567599": {
   "name": "Менделеевский центр",
@@ -474,8 +513,10 @@
   "style": "eclectic",
   "built": 1841,
   "wikidata": "Q117320551",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320551 P18); style: from construction year 1841",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320551 P18); style: from construction year 1841; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 9 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "30351796": {
   "name": "Церковь Смоленской иконы Божией Матери",
@@ -494,8 +535,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q117320057",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320057 P18); style: from construction year 1896",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320057 P18); style: from construction year 1896; levels 2 counted on ru.wikivoyage heritage list photo (Богадельня лютеранской церкви Св. Петра 08.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "32273617": {
   "name": "Большой проспект Васильевского острова 50, Доходный дом Н.П. Демидова",
@@ -504,8 +547,10 @@
   "style": "neoclassical_1910s",
   "built": 1910,
   "wikidata": "Q117319944",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319944 P18); style: from construction year 1910",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319944 P18); style: from construction year 1910; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 50 лит.А): 6 storeys, built 1910",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "32434767": {
   "name": "Доходный дом Б.Б. Глазова",
@@ -514,8 +559,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q117320413",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320413 P18); style: from construction year 1904",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320413 P18); style: from construction year 1904; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 13/46 лит.А): 5 storeys, built 1904",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "32434769": {
   "name": "Особняк С.П. Петрова",
@@ -524,8 +571,10 @@
   "style": "eclectic",
   "built": 1871,
   "wikidata": "Q117320087",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320087 P18); style: from construction year 1871",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320087 P18); style: from construction year 1871; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 44 лит.А): 5 storeys, built 1871",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "32861970": {
   "name": "Здание Гаванского пожарного резерва",
@@ -576,8 +625,10 @@
   "style": "empire",
   "built": 1818,
   "wikidata": "Q117319972",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319972 P18); style: from construction year 1818",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319972 P18); style: from construction year 1818; levels 3 counted on ru.wikivoyage heritage list photo (Большой пр. 65. Госпиталь Финляндского полка. 1817-20гг..JPG)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "45965958": {
   "name": "Дом администрации",
@@ -586,8 +637,10 @@
   "style": "eclectic",
   "built": 1887,
   "wikidata": "Q117320035",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320035 P18); style: from construction year 1887",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320035 P18); style: from construction year 1887; levels 2 counted on ru.wikivoyage heritage list photo (24 линия 17Б.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "45965961": {
   "name": "Приёмное отделение",
@@ -596,8 +649,10 @@
   "style": "eclectic",
   "built": 1887,
   "wikidata": "Q4030321",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q4030321 P18); style: from construction year 1887",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4030321 P18); style: from construction year 1887; levels 3 counted on ru.wikivoyage heritage list photo (24 линия 17В 01.jpg)",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "45965963": {
   "name": "Больница Санкт-петербургского Биржевого купечества в память императора Александра II",
@@ -687,8 +742,10 @@
   "style": "constructivism",
   "built": 1929,
   "wikidata": "Q117320714",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320714 P18); style: from construction year 1929",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320714 P18); style: from construction year 1929; levels 5 counted on ru.wikivoyage heritage list photo (Геологический комитет, конструктивистский корпус.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "45966107": {
   "name": "Дворец культуры им. С. М. Кирова",
@@ -839,8 +896,10 @@
   "style": "classicism",
   "built": 1783,
   "wikidata": "Q117319964",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319964 P18); style: from construction year 1783",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319964 P18); style: from construction year 1783; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 20 лит.В): 2 storeys, built 1808",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "54949806": {
   "name": "Лютеранская церковь Святой Екатерины",
@@ -870,8 +929,10 @@
   "style": "empire",
   "built": 1830,
   "wikidata": "Q117319936",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319936 P18); style: from construction year 1830",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319936 P18); style: from construction year 1830; levels 5 counted on ru.wikivoyage heritage list photo (Дом, в котором жили художники Репин И.Е., Суриков В.И., скульптор Антокольский М.М..JPG)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "61410870": {
   "name": "Дом П. Пушиловой",
@@ -880,8 +941,10 @@
   "style": "empire",
   "built": 1830,
   "wikidata": "Q135576694",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135576694 P18); style: from construction year 1830",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135576694 P18); style: from construction year 1830; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 73/23 лит.А): 5 storeys, built 1833-1906",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "61411145": {
   "name": "Казарма 4-го батальона",
@@ -891,8 +954,10 @@
   "style": "eclectic",
   "built": 1880,
   "wikidata": "Q117320022",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320022 P18); style: from construction year 1880",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320022 P18); style: from construction year 1880; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 2 к2 лит.Б): 3 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "61411170": {
   "name": "Богадельня (дом призрения) Брусницыных с оградой",
@@ -962,8 +1027,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320029",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320029 P18); style: OSM/Wikidata style tag",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320029 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 92 лит.А): 4 storeys, built 1902",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "74284443": {
   "name": "Церковь святой великомученицы Екатерины (Кадетская линия)",
@@ -984,8 +1051,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320264",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320264 P18); style: from construction year 1720",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320264 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 12 лит.А): 2 storeys, built 1862",
+  "confidence": "high",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "79421022": {
   "name": "Дом А.М. Аргамакова (Х. Крюгера)",
@@ -1004,8 +1073,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320375",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320375 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320375 P18); style: from construction year 1730; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 8 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "79421032": {
   "name": "Дом И.М. Барышева",
@@ -1013,8 +1084,10 @@
   "wall": "#ddd4c4",
   "style": "eclectic",
   "wikidata": "Q117320294",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320294 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320294 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 15 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "79421038": {
   "name": "Дом А.А. Грекова (Кенигов)",
@@ -1148,8 +1221,10 @@
   "style": "neoclassical_1910s",
   "built": 1910,
   "wikidata": "Q116864757",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116864757 P18); style: from construction year 1910",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116864757 P18); style: from construction year 1910; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 32 лит.А): 4 storeys, built 1910",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80145951": {
   "name": "Городской Сиротский дом имени цесаревича Николая",
@@ -1168,8 +1243,10 @@
   "style": "empire",
   "built": 1810,
   "wikidata": "Q117320299",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320299 P18); style: from construction year 1810",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320299 P18); style: from construction year 1810; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 27 лит.А): 4 storeys, built 1851",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80145961": {
   "name": "Дом, в котором в 1918-1937 гг. жил и умер художник В.Е. Савинский",
@@ -1198,8 +1275,10 @@
   "style": "empire",
   "built": 1812,
   "wikidata": "Q117320379",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320379 P18); style: from construction year 1812",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320379 P18); style: from construction year 1812; levels 3 counted on Wikimedia Commons photo (File:537. St. Petersburg. 7th Line, 36.jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "80146009": {
   "name": "Дом Р.А. Гедике",
@@ -1208,8 +1287,10 @@
   "style": "art_nouveau",
   "built": 1901,
   "wikidata": "Q117320297",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320297 P18); style: from construction year 1901",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320297 P18); style: from construction year 1901; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 23 лит.А): 4 storeys, built 1901",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80146013": {
   "name": "Особняк В.И. Турчаниновой",
@@ -1228,8 +1309,10 @@
   "style": "eclectic",
   "built": 1880,
   "wikidata": "Q117320469",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320469 P18); style: from construction year 1880",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320469 P18); style: from construction year 1880; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 32 лит.А): 4 storeys, built 1880",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80146017": {
   "name": "Дом В.А. Квасникова",
@@ -1238,8 +1321,10 @@
   "style": "empire",
   "built": 1828,
   "wikidata": "Q117320378",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320378 P18); style: from construction year 1828",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320378 P18); style: from construction year 1828; levels 4 counted on ru.wikivoyage heritage list photo (7-я линия ВО, 28.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80146039": {
   "name": "Дом А.А. Большакова",
@@ -1248,8 +1333,10 @@
   "style": "neoclassical_1910s",
   "built": 1909,
   "wikidata": "Q117320377",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320377 P18); style: from construction year 1909",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320377 P18); style: from construction year 1909; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 26 лит.А): 6 storeys, built 1909",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "80146050": {
   "name": "10—11-я линии Васильевского острова 19, Особняк С. Сиверс",
@@ -1269,8 +1356,10 @@
   "style": "art_nouveau",
   "built": 1907,
   "wikidata": "Q117320467",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320467 P18); style: from construction year 1907",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320467 P18); style: from construction year 1907; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 30 лит.А): 6 storeys, built 1917",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "80146085": {
   "name": "Дом А.И. Кракау",
@@ -1280,8 +1369,10 @@
   "style": "eclectic",
   "built": 1865,
   "wikidata": "Q117320291",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320291 P18); style: from construction year 1865",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320291 P18); style: from construction year 1865; levels 4 counted on ru.wikivoyage heritage list photo (8-я линия, 43.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80146086": {
   "name": "Дом Струйских (приют Общества вспоможения бедным прихода Андреевского собора)",
@@ -1291,8 +1382,10 @@
   "style": "church",
   "built": 1790,
   "wikidata": "Q117320380",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320380 P18); style: religious building",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320380 P18); style: religious building; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 42 лит.А): 3 storeys, built 1892",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "80146090": {
   "name": "Доходный дом М. А. Долгополова",
@@ -1301,8 +1394,10 @@
   "style": "art_nouveau",
   "built": 1911,
   "wikidata": "Q117088762",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117088762 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117088762 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 31 лит.А): 6 storeys, built 1910",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "80146094": {
   "name": "Дом, где жили: в 1855-1858 гг. — композитор П.И. Чайковский, в 1861-1914 гг. — географ П.П. Семенов-Тян-Шанский, в 1851-1881 гг. — экономист А.П. Заблоцкий-Десятовский",
@@ -1321,8 +1416,10 @@
   "style": "eclectic",
   "built": 1881,
   "wikidata": "Q117320081",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320081 P18); style: from construction year 1881",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320081 P18); style: from construction year 1881; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 35 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "80146108": {
   "name": "Доходный дом С. И. Ширвиндта",
@@ -1331,8 +1428,10 @@
   "style": "art_nouveau",
   "built": 1906,
   "wikidata": "Q116767236",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116767236 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116767236 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 18 лит.А): 6 storeys, built 1906",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "80174788": {
   "name": "Доходный дом С.В. Воеводского",
@@ -1342,8 +1441,10 @@
   "style": "eclectic",
   "built": 1859,
   "wikidata": "Q117320499",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320499 P18); style: from construction year 1859",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320499 P18); style: from construction year 1859; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 26 лит.А): 7 storeys, built 1859-1900; passport shared by 2 OSM footprints; OSM building:levels=3 contradicted by floor area (3028 m2 on 805 m2 footprint)",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "82802090": {
   "name": "Доходный дом Т.А. Соловьева. Дом, в котором в 1880-1884 гг. жил художник И.И. Шишкин",
@@ -1352,8 +1453,10 @@
   "style": "eclectic",
   "built": 1861,
   "wikidata": "Q117320184",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320184 P18); style: from construction year 1861",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320184 P18); style: from construction year 1861; levels 4 counted on ru.wikivoyage heritage list photo (044У. 5-я линия. В.О. 10. Доходный дом Т.А.Соловьева.JPG); technical passport (TEP v13) gives 6 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "medium"
  },
  "82802094": {
   "name": "Домовладение купца А.Ф. Юнкера",
@@ -1373,8 +1476,10 @@
   "style": "baroque",
   "built": 1721,
   "wikidata": "Q4165418",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165418 P18); style: from construction year 1721",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4165418 P18); style: from construction year 1721; levels 4 counted on ru.wikivoyage heritage list photo (Санкт-Петербург, Университетская наб., 23.jpg); technical passport (TEP v13) gives 3 storeys - photo count kept",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "82802117": {
   "name": "Общежитие СПб ГАИЖСА им. И.Е. Репина",
@@ -1405,8 +1510,10 @@
   "style": "classicism",
   "built": 1770,
   "wikidata": "Q117320663",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320663 P18); style: from construction year 1770",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320663 P18); style: from construction year 1770; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 2/19 лит.А): 4 storeys, built 1917",
+  "confidence": "high",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "82802132": {
   "name": "Мастерская батальной живописи",
@@ -1435,8 +1542,10 @@
   "trim": "#ece4d4",
   "style": "eclectic",
   "wikidata": "Q117320472",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320472 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320472 P18); style: default (no date found); levels 4 counted on ru.wikivoyage heritage list photo (11 линия ВО, 6, СПб 01.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "medium"
  },
  "82802146": {
   "name": "Садовый корпус с портиком",
@@ -1446,8 +1555,10 @@
   "style": "empire",
   "built": 1819,
   "wikidata": "Q117320630",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320630 P18); style: from construction year 1819",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320630 P18); style: from construction year 1819; levels 2 counted on ru.wikivoyage heritage list photo (Садовый корпус АХ01.jpg); technical passport (TEP v13) gives 3 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "82802151": {
   "name": "Дом А.Д. Воденикова (А.Н. Баландиной)",
@@ -1475,8 +1586,10 @@
   "wall": "#e4e0d4",
   "style": "eclectic",
   "wikidata": "Q117320361",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320361 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320361 P18); style: default (no date found); levels 3 counted on ru.wikivoyage heritage list photo (6-я линия 3.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "82802163": {
   "name": "Дом К. Ротауге (Ратауге)",
@@ -1485,8 +1598,10 @@
   "trim": "#ece4dc",
   "style": "eclectic",
   "wikidata": "Q117320447",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320447 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320447 P18); style: default (no date found); levels 4 counted on ru.wikivoyage heritage list photo (Дом К. Ротауге.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "medium"
  },
  "82802170": {
   "name": "Дом А.Е. Шлякова",
@@ -1495,8 +1610,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320007",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320007 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320007 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Лейтенанта Шмидта наб 13 лит.А): 5 storeys, built до 1919",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "82802189": {
   "name": "Мозаичная мастерская",
@@ -1525,8 +1642,10 @@
   "trim": "#f0ebe0",
   "style": "eclectic",
   "wikidata": "Q117320321",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320321 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320321 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 13/6 лит.А): 3 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045844": {
   "name": "Жилой дом",
@@ -1536,8 +1655,10 @@
   "style": "empire",
   "built": 1807,
   "wikidata": "Q117319962",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319962 P18); style: from construction year 1807",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319962 P18); style: from construction year 1807; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 20 лит.А): 3 storeys, built 1780",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045851": {
   "name": "Служебный флигель",
@@ -1586,8 +1707,10 @@
   "style": "empire",
   "built": 1823,
   "wikidata": "Q117320000",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320000 P18); style: from construction year 1823",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320000 P18); style: from construction year 1823; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Волховский пер 6 лит.А): 3 storeys, built 1909",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045896": {
   "name": "Дом причта",
@@ -1616,8 +1739,10 @@
   "style": "eclectic",
   "built": 1897,
   "wikidata": "Q117320688",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320688 P18); style: from construction year 1897",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320688 P18); style: from construction year 1897; levels 5 counted on ru.wikivoyage heritage list photo (2 линия 39, Средний 16.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "84045925": {
   "name": "Дом, где жили: в 1862-1863 гг. - писатель М.Е. Салтыков-Щедрин, в 1870 г. - художник И.Е. Репин, в 1882-1898 гг. - художник И.И. Шишкин",
@@ -1626,8 +1751,10 @@
   "style": "eclectic",
   "built": 1860,
   "wikidata": "Q117320262",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320262 P18); style: from construction year 1860",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320262 P18); style: from construction year 1860; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 30 лит.А): 4 storeys, built 1860",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84045939": {
   "name": "Дом Леонтьевых",
@@ -1637,8 +1764,10 @@
   "style": "classicism",
   "built": 1722,
   "wikidata": "Q24935324",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q24935324 P18); style: OSM/Wikidata style tag",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q24935324 P18); style: OSM/Wikidata style tag; levels 3 counted on ru.wikivoyage heritage list photo (Fyodor Shubert house.jpg)",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045947": {
   "name": "Дом книгоиздателя А.Ф. Девриена",
@@ -1647,8 +1776,10 @@
   "style": "classicism",
   "built": 1786,
   "wikidata": "Q117320322",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320322 P18); style: from construction year 1786",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320322 P18); style: from construction year 1786; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 1/3 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84045954": {
   "name": "Особняк Е.И. Брусовой (М.Э. Бонштедта)",
@@ -1667,8 +1798,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q135312196",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135312196 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135312196 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 36 лит.А): 5 storeys, built 1904",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "84045963": {
   "name": "Дом В.В. Шувалова",
@@ -1698,8 +1831,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320429",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320429 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320429 P18); style: from construction year 1730; levels 3 counted on ru.wikivoyage heritage list photo (A. Sverchkov's House.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045979": {
   "name": "Доходный дом В.А. Богданова",
@@ -1708,8 +1843,10 @@
   "style": "eclectic",
   "built": 1858,
   "wikidata": "Q117320328",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320328 P18); style: from construction year 1858",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320328 P18); style: from construction year 1858; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 11 лит.А): 4 storeys, built 1858",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84045983": {
   "name": "Дом Г.И. Головкина (А.Н. Чичагова)",
@@ -1719,8 +1856,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320427",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320427 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320427 P18); style: from construction year 1720; levels 3 counted on ru.wikivoyage heritage list photo (House G. I. Golovkin.jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84045986": {
   "name": "Дом Долгоруковых",
@@ -1739,8 +1878,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320236",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320236 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320236 P18); style: from construction year 1720; levels 2 counted on ru.wikivoyage heritage list photo (Дом, где жил Крылов.JPG); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "84046025": {
   "name": "Здание книгоиздательства А. Ф. Девриена",
@@ -1749,8 +1890,10 @@
   "style": "neoclassical_1910s",
   "built": 1914,
   "wikidata": "Q116997185",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116997185 P18); style: from construction year 1914",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116997185 P18); style: from construction year 1914; levels 5 counted on ru.wikivoyage heritage list photo (4 линия, 13.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "84046027": {
   "name": "Флигель (Санкт-Петербург)",
@@ -1759,8 +1902,10 @@
   "style": "eclectic",
   "built": 1876,
   "wikidata": "Q117320198",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320198 P18); style: from construction year 1876",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320198 P18); style: from construction year 1876; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 21 лит.А): 7 storeys, built 1914; passport shared by 2 OSM footprints",
+  "confidence": "low",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "84046034": {
   "name": "Служебный корпус",
@@ -1769,8 +1914,10 @@
   "style": "eclectic",
   "built": 1890,
   "wikidata": "Q117320207",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320207 P18); style: from construction year 1890",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320207 P18); style: from construction year 1890; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 18 лит.А): 5 storeys, built 1917",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "84046036": {
   "name": "Дом И. Стрешнева (Л.К. Ниппа)",
@@ -1780,8 +1927,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320436",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320436 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320436 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 24 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84046051": {
   "name": "Дом Д. Гилмора",
@@ -1790,8 +1939,10 @@
   "style": "classicism",
   "built": 1780,
   "wikidata": "Q117320333",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320333 P18); style: from construction year 1780",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320333 P18); style: from construction year 1780; levels 3 counted on ru.wikivoyage heritage list photo (4 линия, 11 01.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84046069": {
   "name": "Здание фабрики братьев Бух",
@@ -1810,8 +1961,10 @@
   "style": "eclectic",
   "built": 1856,
   "wikidata": "Q135550529",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135550529 P18); style: from construction year 1856",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135550529 P18); style: from construction year 1856; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 23 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84046074": {
   "name": "Андреевский собор",
@@ -1844,8 +1997,10 @@
   "style": "baroque",
   "built": 1723,
   "wikidata": "Q117320263",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320263 P18); style: from construction year 1723",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320263 P18); style: from construction year 1723; levels 2 counted on ru.wikivoyage heritage list photo (Дом А.И.Троекурова.JPG)",
+  "confidence": "high",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "84046088": {
   "name": "Дом А.К. Лихарева (Ю.Ф. Бруни)",
@@ -1865,8 +2020,10 @@
   "trim": "#f2ede0",
   "style": "eclectic",
   "wikidata": "Q117320435",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320435 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320435 P18); style: default (no date found); levels 3 counted on ru.wikivoyage heritage list photo (Wing. 17 Repin street.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84046097": {
   "name": "Здания женской гимназии Э. П. Шаффе",
@@ -1917,8 +2074,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320442",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320442 P18); style: from construction year 1720",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320442 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 38 лит.А): 6 storeys, built 1898",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "84046117": {
   "name": "Дом М.П. Козловской (Ошеметковых). В 1796-1802 гг. здесь жил скульптор М.И. Козловский, в 1817-1830 гг. жил архитектор В.П. Стасов",
@@ -1948,8 +2107,10 @@
   "style": "classicism",
   "built": 1770,
   "wikidata": "Q117320226",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320226 P18); style: from construction year 1770",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320226 P18); style: from construction year 1770; levels 2 counted on ru.wikivoyage heritage list photo (Особняк Е.И. Брусовой (М.Э. Бонштедта) (флигель 2).jpg)",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "84046140": {
   "name": "Дом Фреймана (Р.Н. Геймбюргера)",
@@ -1978,8 +2139,10 @@
   "style": "eclectic",
   "built": 1873,
   "wikidata": "Q117320327",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320327 P18); style: from construction year 1873",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320327 P18); style: from construction year 1873; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 9 лит.А): 4 storeys, built 1917",
+  "confidence": "high",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84046166": {
   "name": "Жилой флигель",
@@ -1988,8 +2151,10 @@
   "style": "classicism",
   "built": 1770,
   "wikidata": "Q117320227",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320227 P18); style: from construction year 1770",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320227 P18); style: from construction year 1770; levels 2 counted on ru.wikivoyage heritage list photo (Residential wing. 5th line of Vasilievsky island, 32 letters B.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "84046171": {
   "name": "Дом В. Сименса и И. Гальске",
@@ -1998,8 +2163,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320441",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320441 P18); style: from construction year 1720",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320441 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 34 лит.А): 3 storeys, built до 1917; passport shared by 2 OSM footprints",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84046173": {
   "name": "Дом И. Ковригина",
@@ -2008,8 +2175,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q117320364",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320364 P18); style: from construction year 1835",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320364 P18); style: from construction year 1835; levels 3 counted on ru.wikivoyage heritage list photo (536. St. Petersburg. 6th Line, 21.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "84046175": {
   "name": "Дом И.В. Голубина (И.И. Зайцевского)",
@@ -2039,8 +2208,10 @@
   "style": "empire",
   "built": 1839,
   "wikidata": "Q117320323",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320323 P18); style: from construction year 1839",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320323 P18); style: from construction year 1839; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 3 лит.А): 4 storeys, built 1893",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "84046196": {
   "name": "Доходный дом К. Штрауха",
@@ -2049,8 +2220,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q117320365",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320365 P18); style: from construction year 1835",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320365 P18); style: from construction year 1835; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 25 лит.А): 5 storeys, built 1917",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "84046200": {
   "name": "Доходный дом П. Я. Прохорова",
@@ -2059,8 +2232,10 @@
   "style": "art_nouveau",
   "built": 1901,
   "wikidata": "Q116927491",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116927491 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116927491 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 26 лит.А): 5 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "84046207": {
   "name": "Доходный дом Д.Н. Иванова",
@@ -2069,8 +2244,10 @@
   "style": "art_nouveau",
   "built": 1901,
   "wikidata": "Q135550528",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135550528 P18); style: from construction year 1901",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135550528 P18); style: from construction year 1901; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 17 лит.А): 5 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "84046211": {
   "name": "Дом Бахов",
@@ -2080,8 +2257,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320440",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320440 P18); style: from construction year 1730",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320440 P18); style: from construction year 1730; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 32 лит.А): 2 storeys, built до 1917",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "84046221": {
   "name": "Доходный дом Л. Гемилиан",
@@ -2090,8 +2269,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q117320335",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320335 P18); style: from construction year 1835",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320335 P18); style: from construction year 1835; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 19 лит.А): 5 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "84159212": {
   "name": "Доходный дом Е.И. Ботмана",
@@ -2119,8 +2300,10 @@
   "style": "empire",
   "built": 1810,
   "wikidata": "Q117320680",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320680 P18); style: from construction year 1810",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320680 P18); style: from construction year 1810; levels 4 counted on ru.wikivoyage heritage list photo (Петербург, Средний проспект ВО, 6.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "medium"
  },
  "88996161": {
   "name": "Церковный дом (дом Смоленско-кладбищенской церкви)",
@@ -2140,8 +2323,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q117320419",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320419 P18); style: from construction year 1896",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320419 P18); style: from construction year 1896; levels 3 counted on ru.wikivoyage heritage list photo (17-я линия ВО, 54.jpg)",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "89411479": {
   "name": "Петербургский музей кукол",
@@ -2161,8 +2346,10 @@
   "style": "industrial",
   "built": 1899,
   "wikidata": "Q117320416",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320416 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320416 P18); style: industrial building (OSM building tag / name); levels 2 counted on ru.wikivoyage heritage list photo (16-я линия ВО, 83 01.jpg)",
+  "confidence": "high",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "89594148": {
   "name": "Церковный дом (дом Смоленско-кладбищенской церкви)",
@@ -2199,8 +2386,10 @@
   "wall": "#b0a898",
   "style": "art_nouveau",
   "wikidata": "Q117320682",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320682 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320682 P18); style: OSM/Wikidata style tag; levels 6 counted on ru.wikivoyage heritage list photo (Средний проспект ВО дом 9 март 2024.jpg); technical passport (TEP v13) gives 8 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "medium"
  },
  "96579812": {
   "name": "Доходный дом А.П. Корниловой",
@@ -2209,8 +2398,10 @@
   "style": "art_nouveau",
   "built": 1909,
   "wikidata": "Q117320708",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320708 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320708 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 56 лит.А): 7 storeys, built 1909",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "high"
  },
  "96579817": {
   "name": "Доходный дом К.К. Циглера фон Шафгаузена",
@@ -2219,8 +2410,10 @@
   "style": "eclectic",
   "built": 1875,
   "wikidata": "Q135645384",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135645384 P18); style: from construction year 1875",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135645384 P18); style: from construction year 1875; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 31-33 лит.О): 4 storeys, built 1911",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "96579819": {
   "name": "Петербургская школа Карла Мая",
@@ -2239,8 +2432,10 @@
   "style": "art_nouveau",
   "built": 1803,
   "wikidata": "Q116723335",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116723335 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116723335 P18); style: OSM/Wikidata style tag; levels 5 counted on ru.wikivoyage heritage list photo (Dom lentza.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "96598239": {
   "name": "12—13-я линии Васильевского острова 30",
@@ -2249,8 +2444,10 @@
   "style": "neoclassical_1910s",
   "built": 1914,
   "wikidata": "Q117320388",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320388 P18); style: from construction year 1914",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320388 P18); style: from construction year 1914; levels 6 counted on Wikimedia Commons photo (File:6150. St. Petersburg. 13th Line, 30 (2).jpg)",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "medium"
  },
  "96598257": {
   "name": "Доходный дом",
@@ -2331,8 +2528,10 @@
   "wall": "#9a5a48",
   "style": "industrial",
   "wikidata": "Q124843486",
-  "note": "colour read from Commons photo \"Baltic Shipyard residential complex 2016-06 1465217783.JPG\"; style: industrial building (OSM building tag / name)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Baltic Shipyard residential complex 2016-06 1465217783.JPG\"; style: industrial building (OSM building tag / name); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 23 к2 лит.А): 8 storeys, built 1990",
+  "confidence": "medium",
+  "levels": 8,
+  "levels_conf": "high"
  },
  "104358761": {
   "name": "22-я и 23-я линии Васильевского острова 2А",
@@ -2363,8 +2562,10 @@
   "style": "art_nouveau",
   "built": 1913,
   "wikidata": "Q116698152",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q116698152 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q116698152 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 19 лит.А): 6 storeys, built 1913",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "106471174": {
   "name": "Особняк А. Паллизен (М.А. Гинсбурга)",
@@ -2374,8 +2575,10 @@
   "style": "eclectic",
   "built": 1871,
   "wikidata": "Q117320474",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320474 P18); style: from construction year 1871",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320474 P18); style: from construction year 1871; levels 2 counted on ru.wikivoyage heritage list photo (11 линия ВО 18 СПб.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "106471177": {
   "name": "10—11-я линии Васильевского острова",
@@ -2383,8 +2586,10 @@
   "wall": "#e0c888",
   "style": "eclectic",
   "wikidata": "Q4028351",
-  "note": "colour read from Commons photo \"10-11-я линии.JPG\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"10-11-я линии.JPG\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 32/44 лит.А): 5 storeys, built 1900; OSM building:levels=2 contradicted by floor area (2961 m2 on 1123 m2 footprint)",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "106471204": {
   "name": "Флигель общественной столовой",
@@ -2403,8 +2608,10 @@
   "style": "eclectic",
   "built": 1890,
   "wikidata": "Q117320302",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320302 P18); style: from construction year 1890",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320302 P18); style: from construction year 1890; levels 2 counted on ru.wikivoyage heritage list photo (12-я линия, 17 05.jpg)",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "107061832": {
   "name": "Дворовый флигель",
@@ -2423,8 +2630,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320010",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320010 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320010 P18); style: from construction year 1730; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Лейтенанта Шмидта наб 23 лит.А): 3 storeys, built 1828; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "107173551": {
   "name": "Бизнес-центр «Елизаветинский»",
@@ -2433,8 +2642,10 @@
   "style": "empire",
   "built": 1806,
   "wikidata": "Q4407681",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q4407681 P18); style: from construction year 1806",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4407681 P18); style: from construction year 1806; levels 3 counted on ru.wikivoyage heritage list photo (Елизаветинский институт, главное здание.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "107173563": {
   "name": "Дом Э. Марша — А.А. Никитина (Казанское подворье)",
@@ -2444,8 +2655,10 @@
   "style": "baroque",
   "built": 1722,
   "wikidata": "Q117320316",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320316 P18); style: from construction year 1722",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320316 P18); style: from construction year 1722; levels 2 counted on ru.wikivoyage heritage list photo (Дом Э. Марша - А.А. Никитина (Казанское подворье); Санкт-Петербург.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "107214821": {
   "name": "Дом причта",
@@ -2484,8 +2697,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320412",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320412 P18); style: from construction year 1905",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320412 P18); style: from construction year 1905; levels 5 counted on ru.wikivoyage heritage list photo (Vasileostrovsky District, St Petersburg, Russia - panoramio (59).jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "107214872": {
   "name": "Комплекс построек типографии Товарищества «М.О. Вольф»",
@@ -2522,8 +2737,10 @@
   "wall": "#e0d4a8",
   "style": "eclectic",
   "wikidata": "Q117320339",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320339 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320339 P18); style: default (no date found); levels 2 counted on ru.wikivoyage heritage list photo (Два жилых флигеля; Санкт-Петербург.jpg); technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "107312670": {
   "name": "Лицевой корпус",
@@ -2550,8 +2767,10 @@
   "wall": "#d8b8a0",
   "style": "eclectic",
   "wikidata": "Q117320228",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320228 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320228 P18); style: default (no date found); levels 3 counted on ru.wikivoyage heritage list photo (Дом, в котором в 1915-1929 гг. жил художник А.А. Рылов; Санкт-Петербург.jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "107312687": {
   "name": "Доходный дом",
@@ -2634,8 +2853,10 @@
   "style": "classicism",
   "built": 1770,
   "wikidata": "Q117319974",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319974 P18); style: from construction year 1770",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319974 P18); style: from construction year 1770; levels 2 counted on ru.wikivoyage heritage list photo (Sankt-Peterburg 2012 4654.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "107454297": {
   "name": "Дом А.А. Стенбок-Фермора",
@@ -2724,8 +2945,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q117320746",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320746 P18); style: from construction year 1835",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320746 P18); style: from construction year 1835; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 53 лит.А): 5 storeys, built 1903",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "107684763": {
   "name": "Особняк Н. Ульянова (Доходный дом П.И. Воробьёва)",
@@ -2733,8 +2956,10 @@
   "wall": "#d8bc88",
   "style": "eclectic",
   "wikidata": "Q135476343",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476343 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476343 P18); style: default (no date found); levels 4 counted on ru.wikivoyage heritage list photo (1698. Санкт-Петербург. Малый проспект В.О., 7.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "107684784": {
   "name": "Дома В. Алексеева (Л.Я. Пенчковской)",
@@ -2743,8 +2968,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q117320735",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320735 P18); style: from construction year 1835",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320735 P18); style: from construction year 1835; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 15 лит.А): 5 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "107684804": {
   "name": "Дом Демидовых",
@@ -2754,8 +2981,10 @@
   "style": "eclectic",
   "built": 1841,
   "wikidata": "Q135476341",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476341 P18); style: from construction year 1841",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476341 P18); style: from construction year 1841; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 3/60 лит.А): 3 storeys, built 1884",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "108091605": {
   "name": "Доходный дом В.М. Трофимова",
@@ -2764,8 +2993,10 @@
   "style": "eclectic",
   "built": 1880,
   "wikidata": "Q117320935",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320935 P18); style: from construction year 1880",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320935 P18); style: from construction year 1880; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 27 лит.А): 5 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "108091607": {
   "name": "Доходный дом П.А. Разживина",
@@ -2774,8 +3005,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320826",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320826 P18); style: from construction year 1905",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320826 P18); style: from construction year 1905; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 23 лит.А): 6 storeys, built 1857",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "108091608": {
   "name": "Доходный дом А.А. Еремеевой",
@@ -2784,8 +3017,10 @@
   "style": "art_nouveau",
   "built": 1903,
   "wikidata": "Q117320390",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320390 P18); style: from construction year 1903",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320390 P18); style: from construction year 1903; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 46 лит.А): 6 storeys, built 1903",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "108091610": {
   "name": "Жилой дом",
@@ -2793,8 +3028,10 @@
   "wall": "#ecece8",
   "style": "eclectic",
   "wikidata": "Q117320689",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320689 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320689 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 31/29 лит.А): 5 storeys, built 1917; passport shared by 2 OSM footprints; OSM building:levels=2 contradicted by floor area (1277 m2 on 463 m2 footprint)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "108092894": {
   "name": "Здание еврейской богадельни им. М.А. Гинсбурга",
@@ -2803,8 +3040,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320459",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320459 P18); style: from construction year 1911",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320459 P18); style: from construction year 1911; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 50 лит.А): 4 storeys, built 1914",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "108092895": {
   "name": "Тяговая подстанция ленинградского трамвая «Василеостровская» (№ 20)",
@@ -2823,8 +3062,10 @@
   "style": "art_nouveau",
   "built": 1906,
   "wikidata": "Q117320501",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320501 P18); style: from construction year 1906",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320501 P18); style: from construction year 1906; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 10-я линия В.О 51/31 лит.А): 8 storeys, built 1909",
+  "confidence": "low",
+  "levels": 8,
+  "levels_conf": "medium"
  },
  "108102849": {
   "name": "Доходный дом Д. Е. Ершова",
@@ -2833,8 +3074,10 @@
   "style": "eclectic",
   "built": 1897,
   "wikidata": "Q117320460",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320460 P18); style: from construction year 1897",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320460 P18); style: from construction year 1897; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 52 лит.А): 4 storeys, built 1860",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "108105496": {
   "name": "Дома А.Ф. Иогансон",
@@ -2843,8 +3086,10 @@
   "style": "eclectic",
   "built": 1866,
   "wikidata": "Q117320747",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320747 P18); style: from construction year 1866",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320747 P18); style: from construction year 1866; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 51/16 лит.А): 4 storeys, built 1870",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "108105502": {
   "name": "Доходный дом А.Л. Сагалова",
@@ -2936,8 +3181,10 @@
   "style": "eclectic",
   "built": 1874,
   "wikidata": "Q117320286",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320286 P18); style: from construction year 1874",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320286 P18); style: from construction year 1874; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 63 лит.А): 2 storeys, built 1909",
+  "confidence": "high",
+  "levels": 2,
+  "levels_conf": "high"
  },
  "108132169": {
   "name": "Институт наук о Земле СПбГУ",
@@ -2966,8 +3213,10 @@
   "style": "art_nouveau",
   "built": 1914,
   "wikidata": "Q117320701",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320701 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320701 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 10-я линия В.О 27/45 лит.А): 7 storeys, built 1911",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "high"
  },
  "108202291": {
   "name": "Доходный дом",
@@ -2976,8 +3225,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320500",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320500 P18); style: from construction year 1905",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320500 P18); style: from construction year 1905; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 54 лит.А): 7 storeys, built 1905",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "high"
  },
  "108204300": {
   "name": "Доходный дом А.А. Смирнова",
@@ -2986,8 +3237,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320703",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320703 P18); style: from construction year 1911",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320703 P18); style: from construction year 1911; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 29/53 лит.А): 6 storeys, built 1912",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "108206392": {
   "name": "Артмуза",
@@ -3056,8 +3309,10 @@
   "style": "art_nouveau",
   "built": 1911,
   "wikidata": "Q117320503",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320503 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320503 P18); style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 44 лит.А): 6 storeys, built 1911; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "111944528": {
   "name": "Церковь Святого Воскресения",
@@ -3090,8 +3345,10 @@
   "style": "art_nouveau",
   "built": 1903,
   "wikidata": "Q117320235",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320235 P18); style: from construction year 1903",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320235 P18); style: from construction year 1903; levels 4 counted on ru.wikivoyage heritage list photo (16 линия ВО 29 СПб 02.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "112014758": {
   "name": "Дом, в котором в 1867-1868 гг. жил художник И.Е. Репин",
@@ -3100,8 +3357,10 @@
   "style": "eclectic",
   "built": 1854,
   "wikidata": "Q117320191",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320191 P18); style: from construction year 1854",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320191 P18); style: from construction year 1854; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 30 лит.Д): 3 storeys, built 1917",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "112014776": {
   "name": "Школа и приют евангелическо-лютеранской церкви Св. Екатерины",
@@ -3242,8 +3501,10 @@
   "style": "industrial",
   "built": 1906,
   "wikidata": "Q117320351",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320351 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320351 P18); style: industrial building (OSM building tag / name); levels 2 counted on ru.wikivoyage heritage list photo (23-я линия В.О., 10 - общий вид (2024-09-29).jpg)",
+  "confidence": "high",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "117952653": {
   "name": "Особняк-контора",
@@ -3252,8 +3513,10 @@
   "style": "empire",
   "built": 1830,
   "wikidata": "Q117320566",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320566 P18); style: from construction year 1830",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320566 P18); style: from construction year 1830; levels 2 counted on ru.wikivoyage heritage list photo (Saint Petersburg, Kozhevennaya Liniya, 1-3.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "133084710": {
   "name": "Судостроительная мастерская",
@@ -3332,8 +3595,10 @@
   "wall": "#c8c0b0",
   "style": "eclectic",
   "wikidata": "Q138392268",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q138392268 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138392268 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Косая линия В.О 24/25 лит.А): 6 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "136904770": {
   "name": "Здание фабричного управления",
@@ -3361,8 +3626,10 @@
   "style": "eclectic",
   "built": 1884,
   "wikidata": "Q117320864",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320864 P18); style: from construction year 1884",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320864 P18); style: from construction year 1884; levels 2 counted on ru.wikivoyage heritage list photo (Zdanye-laboratoryy-sankt-peterburhskoho-trubochnoho-zavoda-na-uralskoj-ulyce-1-lytera-shh.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "136904829": {
   "name": "Заводоуправление",
@@ -3371,8 +3638,10 @@
   "style": "industrial",
   "built": 1915,
   "wikidata": "Q117320838",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320838 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320838 P18); style: industrial building (OSM building tag / name); levels 3 counted on ru.wikivoyage heritage list photo (Saint Petersburg. Buildings of former Kalinin Plant (Uralskaya St., 1) (1).jpg)",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "136916405": {
   "name": "Заводоуправление",
@@ -3411,8 +3680,10 @@
   "style": "eclectic",
   "built": 1888,
   "wikidata": "Q117320817",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320817 P18); style: from construction year 1888",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320817 P18); style: from construction year 1888; levels 2 counted on ru.wikivoyage heritage list photo (Особняк Р. Круга.jpg)",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "160229193": {
   "name": "Доходный дом Х.Г. Борхова",
@@ -3421,8 +3692,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320090",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320090 P18); style: from construction year 1911",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320090 P18); style: from construction year 1911; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 14/54 лит.А): 6 storeys, built 1911",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "165182000": {
   "name": "Академия художеств",
@@ -3453,8 +3726,10 @@
   "wall": "#e8e8e4",
   "style": "art_nouveau",
   "wikidata": "Q25396617",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q25396617 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q25396617 P18); style: OSM/Wikidata style tag; levels 3 counted on Wikidata P18 photo (http://commons.wikimedia.org/wiki/Special:FilePath/ZnGvFi8u0Eg.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "207614111": {
   "name": "Кожевенная линия",
@@ -3472,8 +3747,10 @@
   "style": "eclectic",
   "built": 1887,
   "wikidata": "Q117320034",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320034 P18); style: from construction year 1887",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320034 P18); style: from construction year 1887; levels 1 counted on ru.wikivoyage heritage list photo (Большой пр. 77 08.jpg)",
+  "confidence": "medium",
+  "levels": 1,
+  "levels_conf": "medium"
  },
  "207939781": {
   "name": "Часовня Св. Александра Невского",
@@ -3592,8 +3869,10 @@
   "style": "industrial",
   "built": 1898,
   "wikidata": "Q117320106",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320106 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320106 P18); style: industrial building (OSM building tag / name); levels 3 counted on ru.wikivoyage heritage list photo (Комплекс построек Кожевенного завода Товарищества «И.А. Осипов и К°» (котельная).jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "686157983": {
   "name": "17-я линия Васильевского острова, 20",
@@ -3601,8 +3880,10 @@
   "wall": "#a8584a",
   "style": "eclectic",
   "wikidata": "Q124883193",
-  "note": "colour read from Commons photo \"16 th and 17 th lines 20 2016-06 1465218026.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"16 th and 17 th lines 20 2016-06 1465218026.jpg\"; style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 20 лит.А): 4 storeys, built 1882; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "693594536": {
   "name": "Большой проспект Васильевского острова 11",
@@ -3610,8 +3891,10 @@
   "wall": "#e0d090",
   "style": "art_nouveau",
   "wikidata": "Q124623487",
-  "note": "colour read from Commons photo \"Bolshoi Prospekt of Vasilievsky Island 11 2015-07 1436209400.jpg\"; style: OSM/Wikidata style tag",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Bolshoi Prospekt of Vasilievsky Island 11 2015-07 1436209400.jpg\"; style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 11 лит.А): 6 storeys, built 1917; passport shared by 3 OSM footprints",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "862365657": {
   "name": "Василеостровская фабрика-кухня",
@@ -3629,8 +3912,10 @@
   "wall": "#d8ccb0",
   "style": "eclectic",
   "wikidata": "Q4155770",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q4155770 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q4155770 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 7/2 лит.А): 4 storeys, built 1841; passport shared by 2 OSM footprints",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1040318347": {
   "name": "Меднолитейная мастерская",
@@ -3665,8 +3950,10 @@
   "wall": "#e8e6de",
   "style": "eclectic",
   "wikidata": "Q117320553",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320553 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320553 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 27/5 лит.А): 3 storeys, built 1915",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1174129619": {
   "name": "Флигель",
@@ -3777,8 +4064,10 @@
   "style": "eclectic",
   "built": 1841,
   "wikidata": "Q135576687",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135576687 P18); style: from construction year 1841",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135576687 P18); style: from construction year 1841; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 30 лит.А): 4 storeys, built 1824",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1204534000": {
   "name": "Производственный корпус №2",
@@ -3819,8 +4108,10 @@
   "style": "eclectic",
   "built": 1860,
   "wikidata": "Q117320230",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320230 P18); style: from construction year 1860",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320230 P18); style: from construction year 1860; levels 5 counted on ru.wikivoyage heritage list photo (Доходный дом М.И. Костюриной. Дом, в котором жили композитор Мусоргский и поэт и художник Шевченко; Санкт-Петербург.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "1242813000": {
   "name": "Дом Чиркиных (И.К. Кузьмина)",
@@ -3829,8 +4120,10 @@
   "style": "baroque",
   "built": 1760,
   "wikidata": "Q117320056",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320056 P18); style: from construction year 1760",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320056 P18); style: from construction year 1760; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Академический пер 8 лит.А): 3 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1242814000": {
   "name": "Доходный дом купца А.Ф. Юнкера",
@@ -3839,8 +4132,10 @@
   "style": "eclectic",
   "built": 1840,
   "wikidata": "Q117319935",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319935 P18); style: from construction year 1840",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319935 P18); style: from construction year 1840; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 8/4 лит.А): 5 storeys, built 1840",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "1242815000": {
   "name": "Морской кадетский корпус (Военно-морской институт)",
@@ -3902,8 +4197,10 @@
   "style": "empire",
   "built": 1837,
   "wikidata": "Q117320332",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320332 P18); style: from construction year 1837",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320332 P18); style: from construction year 1837; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 7 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1257258000": {
   "name": "Доходный дом с торговыми помещениями",
@@ -3921,8 +4218,10 @@
   "style": "empire",
   "built": 1820,
   "wikidata": "Q117320494",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320494 P18); style: from construction year 1820",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320494 P18); style: from construction year 1820; levels 5 counted on Wikimedia Commons photo (File:1358. St. Petersburg. 6th line of the V.I., 27.jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "1257260000": {
   "name": "Доходный дом А.Г. фон Нидермиллера",
@@ -3942,8 +4241,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320317",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320317 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320317 P18); style: from construction year 1720; levels 3 counted on ru.wikivoyage heritage list photo (1757. St. Petersburg. 1st line of Vasilievsky Island, 22.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1257262000": {
   "name": "2—3-я линии Васильевского острова 20, Собственный дом архитектора Л.Н. Бенуа",
@@ -3952,8 +4253,10 @@
   "style": "eclectic",
   "built": 1897,
   "wikidata": "Q117320192",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320192 P18); style: from construction year 1897",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320192 P18); style: from construction year 1897; levels 6 counted on ru.wikivoyage heritage list photo (1724. St. Petersburg. 3rd line of the Vasilievsky Island, 20.jpg)",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "medium"
  },
  "1257263000": {
   "name": "Дом А.В. Шувалова",
@@ -4025,8 +4328,10 @@
   "style": "eclectic",
   "built": 1853,
   "wikidata": "Q117320196",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320196 P18); style: from construction year 1853",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320196 P18); style: from construction year 1853; levels 7 counted on ru.wikivoyage heritage list photo (Доходный дом П. С. Прохорова.JPG)",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "1257271000": {
   "name": "Флигель",
@@ -4066,8 +4371,10 @@
   "style": "industrial",
   "built": 1810,
   "wikidata": "Q135312198",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135312198 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135312198 P18); style: industrial building (OSM building tag / name); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 41/13 лит.А): 4 storeys, built 1914",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1401354000": {
   "name": "Доходный дом П.Г. Гулина",
@@ -4107,8 +4414,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q104158396",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q104158396 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q104158396 P18); style: from construction year 1913; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 13 лит.А): 7 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "high"
  },
  "1518274000": {
   "name": "Доходный дом",
@@ -4128,8 +4437,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q117320446",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320446 P18); style: from construction year 1912",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320446 P18); style: from construction year 1912; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 14/39 лит.А): 6 storeys, built 1912",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "1518277000": {
   "name": "12-я линия Васильевского острова 15, Доходный дом",
@@ -4138,8 +4449,10 @@
   "style": "art_nouveau",
   "built": 1908,
   "wikidata": "Q117320303",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320303 P18); style: from construction year 1908",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320303 P18); style: from construction year 1908; levels 6 counted on ru.wikivoyage heritage list photo (12-я линия, 15 01.jpg); technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "medium"
  },
  "1518278000": {
   "name": "Доходный дом И.А. Ильина",
@@ -4148,8 +4461,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q117320476",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320476 P18); style: from construction year 1913",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320476 P18); style: from construction year 1913; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 20 лит.А): 8 storeys, built 1913",
+  "confidence": "low",
+  "levels": 8,
+  "levels_conf": "medium"
  },
  "1525270000": {
   "name": "Набережная Лейтенанта Шмидта 19, Дом М.Х. Усовой",
@@ -4158,8 +4473,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320009",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320009 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320009 P18); style: from construction year 1730; levels 3 counted on ru.wikivoyage heritage list photo (Лейтенанта Шмидта 19 01.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1526975000": {
   "name": "Доходный дом Ю. К. Додоновой",
@@ -4168,8 +4485,10 @@
   "style": "eclectic",
   "built": 1842,
   "wikidata": "Q117320399",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320399 P18); style: from construction year 1842",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320399 P18); style: from construction year 1842; levels 6 counted on ru.wikivoyage heritage list photo (Большой 38, 14 линия 11 03.jpg); technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "low"
  },
  "1527262000": {
   "name": "Дом Э. Паннаша",
@@ -4178,8 +4497,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320013",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320013 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320013 P18); style: from construction year 1730; levels 3 counted on ru.wikivoyage heritage list photo (Лейтенанта Шмидта 33 02.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "1527263000": {
   "name": "Александровская мужская больница",
@@ -4188,8 +4509,10 @@
   "style": "eclectic",
   "built": 1857,
   "wikidata": "Q117320400",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320400 P18); style: from construction year 1857",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320400 P18); style: from construction year 1857; levels 2 counted on ru.wikivoyage heritage list photo (15 линия ВО 4-6 СПб.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "1527264000": {
   "name": "Дом А.А. Риттера",
@@ -4200,8 +4523,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320012",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320012 P18); style: from construction year 1720",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320012 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Лейтенанта Шмидта наб 29 лит.А): 3 storeys, built 1835",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1528330000": {
   "name": "Доходный дом Е.В. Винберг",
@@ -4219,8 +4544,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320594",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320594 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320594 P18); style: from construction year 1720; levels 4 counted on ru.wikivoyage heritage list photo (Домовдадение семьи брюлловых.JPG); technical passport (TEP v13) gives 6 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1528332000": {
   "name": "Филологический факультет РГПУ им. А. И. Герцена",
@@ -4239,8 +4566,10 @@
   "style": "art_nouveau",
   "built": 1898,
   "wikidata": "Q117320001",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320001 P18); style: from construction year 1898",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320001 P18); style: from construction year 1898; levels 4 counted on ru.wikivoyage heritage list photo (Петербург, Волховский переулок, 5.jpg); technical passport (TEP v13) gives 6 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "medium"
  },
  "1530010000": {
   "name": "Доходный дом И.С. Мясникова. Дом, где жили В.И. Ленин, Н.С. Гумилёв",
@@ -4259,8 +4588,10 @@
   "style": "eclectic",
   "built": 1867,
   "wikidata": "Q117320593",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320593 P18); style: from construction year 1867",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320593 P18); style: from construction year 1867; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 31 лит.А): 4 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1530755000": {
   "name": "Военная академия материально-технического обеспечения имени А. В. Хрулёва",
@@ -4289,8 +4620,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320340",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320340 P18); style: from construction year 1905",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320340 P18); style: from construction year 1905; levels 5 counted on ru.wikivoyage heritage list photo (Доходный дом А.Ф. Фельтена; Санкт-Петербург.jpg); technical passport (TEP v13) gives 6 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "1531884000": {
   "name": "Доходный дом И.Р. Чиркина",
@@ -4308,8 +4641,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q117320725",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320725 P18); style: from construction year 1912",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320725 P18); style: from construction year 1912; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 64/13 лит.А): 8 storeys, built 1913",
+  "confidence": "medium",
+  "levels": 8,
+  "levels_conf": "medium"
  },
  "1536514000": {
   "name": "Доходный дом С.Х. Мельцер",
@@ -4358,8 +4693,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q135476333",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476333 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476333 P18); style: from construction year 1913; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 43 лит.А): 6 storeys, built 1913",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "1536610000": {
   "name": "Дома Макаровых (С.Н. Бернштейн)",
@@ -4368,8 +4705,10 @@
   "style": "empire",
   "built": 1826,
   "wikidata": "Q117320780",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320780 P18); style: from construction year 1826",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320780 P18); style: from construction year 1826; levels 3 counted on ru.wikivoyage heritage list photo (^quot,Зеленый дом^quot - panoramio.jpg); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "1536647000": {
   "name": "Доходный дом Н. И. Алексеева",
@@ -4398,8 +4737,10 @@
   "style": "eclectic",
   "built": 1876,
   "wikidata": "Q117320190",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320190 P18); style: from construction year 1876",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320190 P18); style: from construction year 1876; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 10-я линия В.О 39 лит.А): 5 storeys, built 1874",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "1537616000": {
   "name": "Доходный дом Ф.В. Шеффера",
@@ -4408,8 +4749,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320471",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320471 P18); style: from construction year 1911",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320471 P18); style: from construction year 1911; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 58 лит.А): 6 storeys, built 1910",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "1537672000": {
   "name": "Доходный дом А.А. и А.С. Заварзиных",
@@ -4418,16 +4761,20 @@
   "style": "art_nouveau",
   "built": 1857,
   "wikidata": "Q117320702",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320702 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320702 P18); style: OSM/Wikidata style tag; levels 6 counted on ru.wikivoyage heritage list photo (Средний 47, 11 линия 34.jpg)",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "medium"
  },
  "1537773000": {
   "name": "12-я линия В.О. 31",
   "address": "12-я линия В.О. 31",
   "wall": "#b88a64",
   "style": "eclectic",
-  "note": "colour read from Commons photo \"12-я линия, 31-35.jpg\"; style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"12-я линия, 31-35.jpg\"; style: OSM/Wikidata style tag; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 31 лит.А): 6 storeys, built 1904",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "1537774000": {
   "name": "Доходный дом П.А. Бенигсена",
@@ -4466,8 +4813,10 @@
   "style": "neoclassical_1910s",
   "built": 1910,
   "wikidata": "Q117320405",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320405 P18); style: from construction year 1910",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320405 P18); style: from construction year 1910; levels 7 counted on ru.wikivoyage heritage list photo (15-я линия ВО, 70.jpg)",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "1541864000": {
   "name": "Общежитие № 1 Горного университета",
@@ -4496,8 +4845,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q117320404",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320404 P18); style: from construction year 1912",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320404 P18); style: from construction year 1912; levels 7 counted on ru.wikivoyage heritage list photo (15 линия ВО 34 СПб 02.jpg)",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "1575845000": {
   "name": "Доходный дом Н.П. Карабасникова (А.И. Тилинского, акционерного общества «Строитель»)",
@@ -4506,8 +4857,10 @@
   "style": "art_nouveau",
   "built": 1905,
   "wikidata": "Q117320343",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320343 P18); style: from construction year 1905",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320343 P18); style: from construction year 1905; levels 6 counted on ru.wikivoyage heritage list photo (18 линия ВО 9 СПб 02.jpg); technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "1575846000": {
   "name": "Казарма 3-го батальона",
@@ -4516,8 +4869,10 @@
   "style": "empire",
   "built": 1816,
   "wikidata": "Q117320024",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320024 P18); style: from construction year 1816",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320024 P18); style: from construction year 1816; levels 5 counted on ru.wikivoyage heritage list photo (18-я линия 3, 5.jpg)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "1575847000": {
   "name": "Дом И.К. Савина",
@@ -4526,8 +4881,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320014",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320014 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320014 P18); style: from construction year 1730; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 2/35 лит.А): 4 storeys, built 1756-1798",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "1575848000": {
   "name": "Дом А.П. Брюллова (конторы «Губбард Эджертон и К°»)",
@@ -4536,8 +4893,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320015",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320015 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320015 P18); style: from construction year 1720; levels 3 counted on ru.wikivoyage heritage list photo (Лейтенанта Шмидта 37 02.jpg); technical passport (TEP v13) gives 4 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "1597910000": {
   "name": "Доходный дом",
@@ -4546,8 +4905,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q135645391",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135645391 P18); style: from construction year 1912",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135645391 P18); style: from construction year 1912; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 18-я линия В.О 19 лит.А): 7 storeys, built 1912",
+  "confidence": "low",
+  "levels": 7,
+  "levels_conf": "high"
  },
  "1597911000": {
   "name": "Здание соединенных училищ дальнего плавания и судовых механиков торгового флота",
@@ -4566,8 +4927,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320344",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320344 P18); style: from construction year 1911",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320344 P18); style: from construction year 1911; levels 7 counted on ru.wikivoyage heritage list photo (18-я линия ВО, 21 02.jpg)",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "1597914000": {
   "name": "Доходный дом",
@@ -4576,8 +4939,10 @@
   "style": "neoclassical_1910s",
   "built": 1911,
   "wikidata": "Q117320345",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320345 P18); style: from construction year 1911",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320345 P18); style: from construction year 1911; levels 7 counted on ru.wikivoyage heritage list photo (18-я линия ВО, 21 01.jpg); technical passport (TEP v13) gives 8 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 7,
+  "levels_conf": "medium"
  },
  "1597941000": {
   "name": "Комплекс казарм лейб-гвардии Финляндского полка",
@@ -4586,8 +4951,10 @@
   "trim": "#f2ede6",
   "style": "eclectic",
   "wikidata": "Q117320018",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320018 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320018 P18); style: default (no date found); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 2 лит.А): 3 storeys, built 1917",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "1627572000": {
   "name": "Производственный корпус",
@@ -4737,8 +5104,10 @@
   "style": "baroque",
   "built": 1730,
   "wikidata": "Q117320011",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320011 P18); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320011 P18); style: from construction year 1730; levels 2 counted on ru.wikivoyage heritage list photo (Лейтенанта Шмидта 25 03.jpg); technical passport (TEP v13) gives 3 storeys - photo count kept",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "4164970000": {
   "name": "Братский корпус",
@@ -4747,8 +5116,10 @@
   "style": "eclectic",
   "built": 1879,
   "wikidata": "Q117319985",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319985 P18); style: from construction year 1879",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117319985 P18); style: from construction year 1879; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Лейтенанта Шмидта наб 27/2 лит.А): 5 storeys, built 1885",
+  "confidence": "high",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "4167215000": {
   "name": "Дом П.М. Салтыкова (Кёнигов)",
@@ -4789,8 +5160,10 @@
   "style": "eclectic",
   "built": 1890,
   "wikidata": "Q117320021",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320021 P18); style: from construction year 1890",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320021 P18); style: from construction year 1890; levels 3 counted on Wikimedia Commons photo (File:18-я линия 5 02.jpg)",
+  "confidence": "high",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "5738789000": {
   "name": "Ростовское (Ярославское синодальное) подворье",
@@ -4809,8 +5182,10 @@
   "style": "eclectic",
   "built": 1850,
   "wikidata": "Q117320342",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320342 P18); style: from construction year 1850",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320342 P18); style: from construction year 1850; levels 4 counted on ru.wikivoyage heritage list photo (18 линия ВО 7 СПб 02.jpg)",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "5738797000": {
   "name": "Музей-институт семьи Рерихов в Санкт-Петербурге",
@@ -4946,8 +5321,10 @@
   "style": "industrial",
   "built": 1864,
   "wikidata": "Q117320372",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320372 P18); style: industrial building (OSM building tag / name)",
-  "confidence": "high"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320372 P18); style: industrial building (OSM building tag / name); levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 6-я линия В.О 55 лит.А): 5 storeys, built 1897",
+  "confidence": "high",
+  "levels": 5,
+  "levels_conf": "medium"
  },
  "9613198000": {
   "name": "Доходный дом",
@@ -4966,8 +5343,10 @@
   "style": "empire",
   "built": 1837,
   "wikidata": "Q135476325",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476325 P18); style: from construction year 1837",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q135476325 P18); style: from construction year 1837; levels 5 counted on ru.wikivoyage heritage list photo (3 линия 18 01.JPG)",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "high"
  },
  "10655967000": {
   "name": "Дома В.А. и П.А. Фроловых",
@@ -4986,8 +5365,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q117320075",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320075 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320075 P18); style: from construction year 1913; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 57/15 лит.А): 6 storeys, built 1913",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "high"
  },
  "11918263000": {
   "name": "2—3-я линии Васильевского острова 29, Доходный дом И. Ф. Смирнова",
@@ -5025,8 +5406,10 @@
   "style": "baroque",
   "built": 1720,
   "wikidata": "Q117320005",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320005 P18); style: from construction year 1720",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320005 P18); style: from construction year 1720; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 2/11 лит.А): 4 storeys, built 1798",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "16236678000": {
   "name": "Дом владельца (особняк В.С. Пульмана)",
@@ -5035,8 +5418,10 @@
   "style": "eclectic",
   "built": 1887,
   "wikidata": "Q117320313",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320313 P18); style: from construction year 1887",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320313 P18); style: from construction year 1887; levels 2 counted on ru.wikivoyage heritage list photo (24 линия 3-7с 02.jpg)",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "medium"
  },
  "17488566000": {
   "name": "Церковь Успения Пресвятой Богородицы",
@@ -5065,8 +5450,10 @@
   "style": "eclectic",
   "built": 1864,
   "wikidata": "Q117320265",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320265 P18); style: from construction year 1864",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320265 P18); style: from construction year 1864; levels 3 counted on ru.wikivoyage heritage list photo (8-я линия, 17.jpg)",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "high"
  },
  "18535585000": {
   "name": "Дом Г.Е. Маковкиной",
@@ -5075,8 +5462,10 @@
   "style": "classicism",
   "built": 1770,
   "wikidata": "Q117320295",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320295 P18); style: from construction year 1770",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q117320295 P18); style: from construction year 1770; levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 19 лит.А): 4 storeys, built 1882",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "high"
  },
  "19826133000": {
   "name": "Южный пакгауз Биржи (Зоологический музей)",
@@ -5089,5 +5478,1811 @@
   "wikidata": "Q117319961",
   "note": "Luchini 1826-32; yellow with white Doric portico (Commons Category:Old Saint Petersburg Stock Exchange - Southern Warehouse); houses the Zoological Museum",
   "confidence": "high"
+ },
+ "1193125000": {
+  "name": "Дом, в котором жил М.С. Урицкий",
+  "address": "8-я линия В.О. 9/16",
+  "wall": "#d4c47a",
+  "trim": "#f2eee5",
+  "levels": 4,
+  "style": "empire",
+  "built": 1820,
+  "note": "colour read from ru.wikivoyage heritage list photo (8-я линия, 9 02.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: from construction year 1820",
+  "confidence": "high"
+ },
+ "84045991": {
+  "name": "Дом, в котором в 1792-1822 гг. жил художник Д.Г. Левицкий",
+  "address": "Кадетская линия В.О. 25",
+  "wall": "#d4b078",
+  "levels": 5,
+  "style": "baroque",
+  "built": 1720,
+  "wikidata": "Q117320546",
+  "note": "colour read from ru.wikivoyage heritage list photo (Кадетская линия 23.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: from construction year 1720",
+  "confidence": "high"
+ },
+ "3257071000": {
+  "name": "Служебный флигель",
+  "address": "21-я линия В.О. 12 литД",
+  "wall": "#ac563e",
+  "levels": 1,
+  "style": "eclectic",
+  "built": 1882,
+  "wikidata": "Q117320074",
+  "note": "colour read from ru.wikivoyage heritage list photo (Служебный флигель Василеостровской пожарной части 03.jpg); levels 1 counted on the same photo (street facade, ground floor included); style: from construction year 1882",
+  "confidence": "medium"
+ },
+ "1530756000": {
+  "name": "Дом, где жили: композитор П.И. Чайковский — в 1848-1849 гг.; художники: в 1886-1892 гг. — А.К. Беггров, в 1885-1915 гг.- Е.Е. Волков, в 1870-1910 гг. - М.П. Клодт, в 1869-1887 гг. — И.Н. Крамской, в 1897-1910 гг. — А.И. Куинджи, в 1888 г. — Г.Г. Мясоедов",
+  "address": "Биржевой переулок 1/10",
+  "wall": "#e0c890",
+  "levels": 4,
+  "style": "eclectic",
+  "built": 1842,
+  "wikidata": "Q66311710",
+  "note": "colour read from ru.wikivoyage heritage list photo (Волховский пер. 2 05.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: from construction year 1842; technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium"
+ },
+ "96598249": {
+  "name": "13-я линия В.О. 32",
+  "address": "13-я линия В.О. 32",
+  "wall": "#b8684c",
+  "levels": 6,
+  "style": "eclectic",
+  "wikidata": "Q124877387",
+  "note": "colour read from Wikimedia Commons photo (File:6154. St. Petersburg. 13th Line, 32.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "high"
+ },
+ "84046170": {
+  "name": "4-я линия В.О. 5",
+  "address": "4-я линия В.О. 5",
+  "wall": "#c8b498",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Большой пр, 15, 4-я линия 5 02.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "84045934": {
+  "name": "5-я линия В.О. 32 литГ",
+  "address": "5-я линия В.О. 32 литГ",
+  "wall": "#e0c890",
+  "levels": 2,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Residential wing. 5th line of Vasilievsky island 32 letters A.jpg); levels 2 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "846936471": {
+  "name": "9-я линия В.О. 26",
+  "address": "9-я линия В.О. 26",
+  "wall": "#a8c0a8",
+  "levels": 3,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:9я линия ВО 26 СПб.jpg); levels 3 counted on the same photo (street facade, ground floor included); style: default (no date found); technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "medium"
+ },
+ "1537633000": {
+  "name": "Доходный дом Н.В. Смирнова",
+  "address": "12-я линия В.О. 53",
+  "wall": "#e8b898",
+  "trim": "#f2eee5",
+  "levels": 6,
+  "style": "art_nouveau",
+  "built": 1907,
+  "wikidata": "Q141011529",
+  "note": "colour read from Wikimedia Commons photo (File:Санкт‑Петербург, 12-я линия В.О., 29 (Средний проспект В.О., 53). --2025-04-01.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: from construction year 1907; technical passport (TEP v13) gives 7 storeys - photo count kept",
+  "confidence": "high"
+ },
+ "108206433": {
+  "name": "14-я линия Васильевского острова 89",
+  "address": "14-я линия Васильевского острова 89",
+  "wall": "#d8a850",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6111. St. Petersburg. 14th Line, 89.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "108206410": {
+  "name": "14-я линия Васильевского острова 93",
+  "address": "14-я линия Васильевского острова 93",
+  "wall": "#c88850",
+  "levels": 6,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6113.1. St. Petersburg. 14th Line, 93.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: default (no date found); technical passport (TEP v13) gives 5 storeys - photo count kept",
+  "confidence": "medium"
+ },
+ "1527265000": {
+  "name": "Дом, в котором с 1865 г. жил и в 1871 г. умер композитор А.Н. Серов",
+  "address": "15-я линия В.О. 8/40",
+  "wall": "#e0b498",
+  "trim": "#f2eee5",
+  "levels": 4,
+  "style": "empire",
+  "built": 1822,
+  "wikidata": "Q117320234",
+  "note": "colour read from Wikimedia Commons photo (File:15-я линия ВО, 8 02.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: from construction year 1822",
+  "confidence": "high"
+ },
+ "108321764": {
+  "name": "15-я линия Васильевского острова 72",
+  "address": "15-я линия Васильевского острова 72",
+  "wall": "#b87858",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6140. St. Petersburg. 15th Line, 72.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found); technical passport (TEP v13) gives 8 storeys - photo count kept",
+  "confidence": "medium"
+ },
+ "108321754": {
+  "name": "15-я линия Васильевского острова 80",
+  "address": "15-я линия Васильевского острова 80",
+  "wall": "#d0e4e4",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6144. St. Petersburg. 15th Line, 80.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "108321766": {
+  "name": "15-я линия Васильевского острова 82",
+  "address": "15-я линия Васильевского острова 82",
+  "wall": "#c8a050",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6145. St. Petersburg. 15th Line, 82.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "109078589": {
+  "name": "17-я линия В.О. 56",
+  "address": "17-я линия В.О. 56",
+  "wall": "#c8c8a0",
+  "levels": 2,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6116.2. St. Petersburg. 17th Line, 56.jpg); levels 2 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "medium"
+ },
+ "109078577": {
+  "name": "17-я линия В.О. 60",
+  "address": "17-я линия В.О. 60",
+  "wall": "#e8a090",
+  "levels": 3,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6139.1. St. Petersburg. 17th Line, 60.jpg); levels 3 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "high"
+ },
+ "109078560": {
+  "name": "17-я линия В.О. 62",
+  "address": "17-я линия В.О. 62",
+  "wall": "#d06040",
+  "levels": 3,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6139.2. St. Petersburg. 17th Line, 62.jpg); levels 3 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "high"
+ },
+ "89411476": {
+  "name": "Art Nuvo Palace",
+  "address": "17-я линия В.О. 64",
+  "wall": "#d09078",
+  "levels": 5,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:6138. St. Petersburg. 17th Line, 64.jpg); levels 5 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "high"
+ },
+ "280951845": {
+  "name": "5-я линия В.О. 68 к2",
+  "address": "5-я линия В.О. 68 к2",
+  "wall": "#c06840",
+  "levels": 4,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:1697. Санкт-Петербург. 5-я линия В.О. 68.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "low"
+ },
+ "280951844": {
+  "name": "Сахарный завод Ф.Ф. Кешнера",
+  "address": "5-я линия В.О. 68 к2",
+  "wall": "#c06840",
+  "levels": 4,
+  "style": "eclectic",
+  "built": 1875,
+  "wikidata": "Q135476330",
+  "note": "colour read from Wikimedia Commons photo (File:1697. Санкт-Петербург. 5-я линия В.О. 68.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: from construction year 1875",
+  "confidence": "low"
+ },
+ "1575844000": {
+  "name": "Большой проспект В.О. 52/15",
+  "address": "Большой проспект В.О. 52/15",
+  "wall": "#c8a880",
+  "levels": 4,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Большой ПС 52.jpg); levels 4 counted on the same photo (street facade, ground floor included); style: default (no date found); technical passport (TEP v13) gives 6 storeys - photo count kept",
+  "confidence": "medium"
+ },
+ "15867968000": {
+  "name": "Кожевенная линия 24 к2 литА,А1",
+  "address": "Кожевенная линия 24 к2 литА,А1",
+  "wall": "#d8c8b0",
+  "levels": 6,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Saint Petersburg, Kosaya Liniya, 24 (Kozhevennaya Liniya, 25). So-called 'Skobskiy Palace'. 2021.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "high"
+ },
+ "133084717": {
+  "name": "Кожевенная линия 24 к3",
+  "address": "Кожевенная линия 24 к3",
+  "wall": "#d8c8b0",
+  "levels": 6,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Saint Petersburg, Kosaya Liniya, 24 (Kozhevennaya Liniya, 25). So-called 'Skobskiy Palace'. 2021.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "low"
+ },
+ "15867967000": {
+  "name": "Кожевенная линия 24 к4",
+  "address": "Кожевенная линия 24 к4",
+  "wall": "#d8c8b0",
+  "levels": 6,
+  "style": "eclectic",
+  "note": "colour read from Wikimedia Commons photo (File:Saint Petersburg, Kosaya Liniya, 24 (Kozhevennaya Liniya, 25). So-called 'Skobskiy Palace'. 2021.jpg); levels 6 counted on the same photo (street facade, ground floor included); style: default (no date found)",
+  "confidence": "low"
+ },
+ "17049814": {
+  "name": "Морская набережная 33",
+  "address": "Морская набережная 33",
+  "levels": 16,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 1996,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Морская наб 33 лит.А): 16 storeys, built 1996; style: from construction year 1996 (technical passport)",
+  "confidence": "medium"
+ },
+ "17062108": {
+  "name": "улица Кораблестроителей 32 к3",
+  "address": "улица Кораблестроителей 32 к3",
+  "levels": 16,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2004,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кораблестроителей ул 32 к3 лит.А): 16 storeys, built 2004; style: from construction year 2004 (technical passport)",
+  "confidence": "medium"
+ },
+ "28691445": {
+  "name": "Кадетская линия В.О. 7/2 литБ",
+  "address": "Кадетская линия В.О. 7/2 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1841,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 7/2 лит.Б): 5 storeys, built 1841; style: from construction year 1841 (technical passport)",
+  "confidence": "medium"
+ },
+ "31831286": {
+  "name": "17-я линия В.О. 8",
+  "address": "17-я линия В.О. 8",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1902,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 8 лит.А): 4 storeys, built 1902; style: from construction year 1902 (technical passport)",
+  "confidence": "medium"
+ },
+ "32004482": {
+  "name": "17-я линия В.О. 12 литВ",
+  "address": "17-я линия В.О. 12 литВ",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "soviet_modernism",
+  "built": 1975,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 12 лит.В): 6 storeys, built 1975; passport shared by 2 OSM footprints; style: from construction year 1975 (technical passport)",
+  "confidence": "medium"
+ },
+ "32209741": {
+  "name": "17-я линия В.О. 10 литБ",
+  "address": "17-я линия В.О. 10 литБ",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 10 лит.Б): 5 storeys, built 1911; style: from construction year 1911 (technical passport)",
+  "confidence": "high"
+ },
+ "32434770": {
+  "name": "Большой проспект В.О. 42",
+  "address": "Большой проспект В.О. 42",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "stalinist",
+  "built": 1953,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 42 лит.А): 5 storeys, built 1953; style: from construction year 1953 (technical passport)",
+  "confidence": "high"
+ },
+ "226914000": {
+  "name": "Капитанская улица 4",
+  "address": "Капитанская улица 4",
+  "levels": 23,
+  "levels_conf": "low",
+  "style": "contemporary",
+  "built": 2006,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Капитанская ул 4 лит.А): 23 storeys, built 2006; style: from construction year 2006 (technical passport)",
+  "confidence": "low"
+ },
+ "41591409": {
+  "name": "Галерный проезд 5",
+  "address": "Галерный проезд 5",
+  "levels": 17,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2004,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Галерный проезд 5 лит.А): 17 storeys, built 2004; style: from construction year 2004 (technical passport)",
+  "confidence": "medium"
+ },
+ "45965955": {
+  "name": "19-я линия В.О. 18",
+  "address": "19-я линия В.О. 18",
+  "levels": 6,
+  "levels_conf": "high",
+  "style": "stalinist",
+  "built": 1953,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 18 лит.А): 6 storeys, built 1953; style: from construction year 1953 (technical passport)",
+  "confidence": "high"
+ },
+ "45965980": {
+  "name": "19-я линия В.О. 16",
+  "address": "19-я линия В.О. 16",
+  "levels": 3,
+  "levels_conf": "low",
+  "style": "empire",
+  "built": 1820,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 16 лит.А): 3 storeys, built 1820; passport shared by 2 OSM footprints; style: from construction year 1820 (technical passport)",
+  "confidence": "low"
+ },
+ "45965981": {
+  "name": "19-я линия В.О. 16",
+  "address": "19-я линия В.О. 16",
+  "levels": 3,
+  "levels_conf": "low",
+  "style": "empire",
+  "built": 1820,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 16 лит.А): 3 storeys, built 1820; passport shared by 2 OSM footprints; style: from construction year 1820 (technical passport)",
+  "confidence": "low"
+ },
+ "46968281": {
+  "name": "16-я линия В.О. 11",
+  "address": "16-я линия В.О. 11",
+  "levels": 4,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 11 лит.А): 4 storeys, built 1917",
+  "confidence": "high"
+ },
+ "51069888": {
+  "name": "18-я линия В.О. 13",
+  "address": "18-я линия В.О. 13",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1898,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 18-я линия В.О 13 лит.А): 5 storeys, built 1898; style: from construction year 1898 (technical passport)",
+  "confidence": "medium"
+ },
+ "51072219": {
+  "name": "18-я линия В.О. 11 литБ",
+  "address": "18-я линия В.О. 11 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 18-я линия В.О 11 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "51160370": {
+  "name": "18-я линия В.О. 13 литВ",
+  "address": "18-я линия В.О. 13 литВ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1899,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 18-я линия В.О 13 лит.В): 3 storeys, built 1899; style: from construction year 1899 (technical passport)",
+  "confidence": "medium"
+ },
+ "51174239": {
+  "name": "17-я линия В.О. 12",
+  "address": "17-я линия В.О. 12",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "soviet_modernism",
+  "built": 1975,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 12 лит.В): 6 storeys, built 1975; passport shared by 2 OSM footprints; style: from construction year 1975 (technical passport)",
+  "confidence": "medium"
+ },
+ "61410872": {
+  "name": "Малый проспект В.О. 35",
+  "address": "Малый проспект В.О. 35",
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 35 лит.А): 5 storeys, built 1917; passport shared by 2 OSM footprints",
+  "confidence": "low"
+ },
+ "64384713": {
+  "name": "Опочинина улица 13",
+  "address": "Опочинина улица 13",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "constructivism",
+  "built": 1932,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Опочинина ул 13 лит.А): 5 storeys, built 1932; passport shared by 2 OSM footprints; OSM building:levels=1 contradicted by floor area (3962 m2 on 1390 m2 footprint); style: from construction year 1932 (technical passport)",
+  "confidence": "medium"
+ },
+ "79421026": {
+  "name": "7-я линия В.О. 6",
+  "address": "7-я линия В.О. 6",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 6 лит.А): 5 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "79421037": {
+  "name": "8-я линия В.О. 7 литБ",
+  "address": "8-я линия В.О. 7 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1897,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 7 лит.Б): 4 storeys, built 1897; style: from construction year 1897 (technical passport)",
+  "confidence": "medium"
+ },
+ "80145932": {
+  "name": "Большой проспект В.О. 35 литБ",
+  "address": "Большой проспект В.О. 35 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 35 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "80146016": {
+  "name": "7-я линия В.О. 38",
+  "address": "7-я линия В.О. 38",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1875,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 38 лит.А): 6 storeys, built 1875; style: from construction year 1875 (technical passport)",
+  "confidence": "medium"
+ },
+ "80146040": {
+  "name": "10-я линия В.О. 9 литБ",
+  "address": "10-я линия В.О. 9 литБ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1869,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 10-я линия В.О 9 лит.Б): 3 storeys, built 1869; style: from construction year 1869 (technical passport)",
+  "confidence": "medium"
+ },
+ "80146093": {
+  "name": "10-я линия В.О. 9 литВ",
+  "address": "10-я линия В.О. 9 литВ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1869,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 10-я линия В.О 9 лит.В): 4 storeys, built 1869; style: from construction year 1869 (technical passport)",
+  "confidence": "medium"
+ },
+ "1198839000": {
+  "name": "9-я линия В.О. 6",
+  "address": "9-я линия В.О. 6",
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 6 лит.А): 5 storeys, built 1917",
+  "confidence": "low"
+ },
+ "1204538000": {
+  "name": "9-я линия В.О. 20",
+  "address": "9-я линия В.О. 20",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1891,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 20 лит.А): 5 storeys, built 1891; style: from construction year 1891 (technical passport)",
+  "confidence": "medium"
+ },
+ "82802144": {
+  "name": "11-я линия В.О. 4",
+  "address": "11-я линия В.О. 4",
+  "levels": 5,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 4 лит.А): 5 storeys, built 1917",
+  "confidence": "high"
+ },
+ "82802186": {
+  "name": "4-я линия В.О. 1-3 литГ",
+  "address": "4-я линия В.О. 1-3 литГ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "empire",
+  "built": 1805,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 1-3 лит.Г): 3 storeys, built 1805; style: from construction year 1805 (technical passport)",
+  "confidence": "medium"
+ },
+ "84045840": {
+  "name": "1-я линия В.О. 38 литБ",
+  "address": "1-я линия В.О. 38 литБ",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 38 лит.Б): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "84045903": {
+  "name": "Большой проспект В.О. 5 литБ",
+  "address": "Большой проспект В.О. 5 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 5 лит.Б): 4 storeys, built 1917",
+  "confidence": "high"
+ },
+ "84045911": {
+  "name": "3-я линия В.О. 10",
+  "address": "3-я линия В.О. 10",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 10 лит.А): 5 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "84045944": {
+  "name": "5-я линия В.О. 22 литБ",
+  "address": "5-я линия В.О. 22 литБ",
+  "levels": 3,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1868,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 22 лит.Б): 3 storeys, built 1868; style: from construction year 1868 (technical passport)",
+  "confidence": "high"
+ },
+ "84045977": {
+  "name": "1-я линия В.О. 6 литБ",
+  "address": "1-я линия В.О. 6 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 6 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "84045988": {
+  "name": "2-я линия В.О. 31",
+  "address": "2-я линия В.О. 31",
+  "levels": 6,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1858,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 31 лит.А): 6 storeys, built 1858; style: from construction year 1858 (technical passport)",
+  "confidence": "high"
+ },
+ "84046033": {
+  "name": "2-я линия В.О. 29 литБ",
+  "address": "2-я линия В.О. 29 литБ",
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 29 лит.Б): 3 storeys, built 1917",
+  "confidence": "low"
+ },
+ "84046062": {
+  "name": "2-я линия В.О. 19",
+  "address": "2-я линия В.О. 19",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 19 лит.А): 5 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "84046139": {
+  "name": "Travelto Repina",
+  "address": "1-я линия В.О. 34",
+  "levels": 3,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 34 лит.А): 3 storeys, built до 1917; passport shared by 2 OSM footprints",
+  "confidence": "high"
+ },
+ "84046142": {
+  "name": "2-я линия В.О. 33",
+  "address": "2-я линия В.О. 33",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 33 лит.А): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "84046177": {
+  "name": "5-я линия В.О. 30 литБ",
+  "address": "5-я линия В.О. 30 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1860,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 30 лит.Б): 6 storeys, built 1860; 657 m2 mansard counted in TEP, walls taken as 5; style: from construction year 1860 (technical passport)",
+  "confidence": "medium"
+ },
+ "84046205": {
+  "name": "3-я линия В.О. 24",
+  "address": "3-я линия В.О. 24",
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 24 лит.А): 7 storeys, built до 1917",
+  "confidence": "medium"
+ },
+ "84046216": {
+  "name": "1-я линия В.О. 42",
+  "address": "1-я линия В.О. 42",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 1-я линия В.О 42 лит.А): 6 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "84046220": {
+  "name": "2-я линия В.О. 17",
+  "address": "2-я линия В.О. 17",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 17 лит.А): 6 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "86124548": {
+  "name": "Морская набережная 39 к2",
+  "address": "Морская набережная 39 к2",
+  "levels": 16,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2004,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Морская наб 39 к2 лит.А): 16 storeys, built 2004; style: from construction year 2004 (technical passport)",
+  "confidence": "medium"
+ },
+ "1257267000": {
+  "name": "3-я линия В.О. 8",
+  "address": "3-я линия В.О. 8",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 8 лит.А): 3 storeys, built 1913; style: from construction year 1913 (technical passport)",
+  "confidence": "medium"
+ },
+ "88996164": {
+  "name": "17-я линия В.О. 68 литБ",
+  "address": "17-я линия В.О. 68 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1899,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 68 лит.Б): 5 storeys, built 1899; style: from construction year 1899 (technical passport)",
+  "confidence": "medium"
+ },
+ "96579813": {
+  "name": "13-я линия В.О. 36",
+  "address": "13-я линия В.О. 36",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1905,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 36 лит.А): 5 storeys, built 1905; style: from construction year 1905 (technical passport)",
+  "confidence": "medium"
+ },
+ "96579814": {
+  "name": "14-я линия Васильевского острова 35",
+  "address": "14-я линия Васильевского острова 35",
+  "levels": 7,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1893,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 35 лит.А): 7 storeys, built 1893; style: from construction year 1893 (technical passport)",
+  "confidence": "medium"
+ },
+ "96579820": {
+  "name": "14-я линия Васильевского острова 37",
+  "address": "14-я линия Васильевского острова 37",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1903,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 37 лит.А): 6 storeys, built 1903; style: from construction year 1903 (technical passport)",
+  "confidence": "medium"
+ },
+ "96579821": {
+  "name": "Средний проспект В.О. 54 литБ",
+  "address": "Средний проспект В.О. 54 литБ",
+  "levels": 3,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1908,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 54 лит.Б): 3 storeys, built 1908; style: from construction year 1908 (technical passport)",
+  "confidence": "high"
+ },
+ "96598229": {
+  "name": "13-я линия В.О. 24",
+  "address": "13-я линия В.О. 24",
+  "levels": 3,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 24 лит.А): 3 storeys, built 1917",
+  "confidence": "high"
+ },
+ "96598242": {
+  "name": "14-я линия Васильевского острова 31-33 литБ",
+  "address": "14-я линия Васильевского острова 31-33 литБ",
+  "levels": 3,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1893,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 31-33 лит.Б): 3 storeys, built 1893; style: from construction year 1893 (technical passport)",
+  "confidence": "high"
+ },
+ "96598243": {
+  "name": "Средний проспект В.О. 52 литБ",
+  "address": "Средний проспект В.О. 52 литБ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1897,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 52 лит.Б): 3 storeys, built 1897; style: from construction year 1897 (technical passport)",
+  "confidence": "medium"
+ },
+ "96598248": {
+  "name": "14-я линия В.О. 23 литБ",
+  "address": "14-я линия В.О. 23 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1859,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 23 лит.Б): 4 storeys, built 1859; style: from construction year 1859 (technical passport)",
+  "confidence": "high"
+ },
+ "96598253": {
+  "name": "13-я линия В.О. 18 литВ",
+  "address": "13-я линия В.О. 18 литВ",
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 18 лит.В): 7 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "96598261": {
+  "name": "14-я линия В.О. 25-27 литЗ",
+  "address": "14-я линия В.О. 25-27 литЗ",
+  "levels": 2,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1876,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 25-27 лит.З): 2 storeys, built 1876; style: from construction year 1876 (technical passport)",
+  "confidence": "medium"
+ },
+ "96598266": {
+  "name": "13-я линия В.О. 18 литБ",
+  "address": "13-я линия В.О. 18 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1879,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 18 лит.Б): 4 storeys, built 1879; style: from construction year 1879 (technical passport)",
+  "confidence": "high"
+ },
+ "96598273": {
+  "name": "13-я линия В.О. 26",
+  "address": "13-я линия В.О. 26",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1877,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 26 лит.А): 5 storeys, built 1877; style: from construction year 1877 (technical passport)",
+  "confidence": "high"
+ },
+ "96598277": {
+  "name": "13-я линия В.О. 24 литБ",
+  "address": "13-я линия В.О. 24 литБ",
+  "levels": 3,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 24 лит.Б): 3 storeys, built 1917",
+  "confidence": "high"
+ },
+ "96598289": {
+  "name": "14-я линия Васильевского острова 31-33 литВ",
+  "address": "14-я линия Васильевского острова 31-33 литВ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1893,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 31-33 лит.В): 4 storeys, built 1893; style: from construction year 1893 (technical passport)",
+  "confidence": "high"
+ },
+ "1391152000": {
+  "name": "14-я линия В.О. 35 литБ",
+  "address": "14-я линия В.О. 35 литБ",
+  "levels": 7,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 35 лит.Б): 7 storeys, built 1911; style: from construction year 1911 (technical passport)",
+  "confidence": "medium"
+ },
+ "1391154000": {
+  "name": "14-я линия В.О. 25-27",
+  "address": "14-я линия В.О. 25-27",
+  "levels": 3,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 25-27 лит.А): 3 storeys, built 1876-1896",
+  "confidence": "medium"
+ },
+ "1391153000": {
+  "name": "14-я линия В.О. 31-33",
+  "address": "14-я линия В.О. 31-33",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1911,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 31-33 лит.А): 6 storeys, built 1911; style: from construction year 1911 (technical passport)",
+  "confidence": "medium"
+ },
+ "1391155000": {
+  "name": "13-я линия В.О. 20",
+  "address": "13-я линия В.О. 20",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 20 лит.А): 6 storeys, built 1904-1910",
+  "confidence": "medium"
+ },
+ "106471170": {
+  "name": "12-я линия В.О. 23",
+  "address": "12-я линия В.О. 23",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1903,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 23 лит.А): 4 storeys, built 1903; style: from construction year 1903 (technical passport)",
+  "confidence": "high"
+ },
+ "106471172": {
+  "name": "Средний проспект В.О. 46",
+  "address": "Средний проспект В.О. 46",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1882,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 46 лит.А): 5 storeys, built 1882; style: from construction year 1882 (technical passport)",
+  "confidence": "medium"
+ },
+ "106471194": {
+  "name": "11-я линия В.О. 24",
+  "address": "11-я линия В.О. 24",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 24 лит.А): 5 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "106471203": {
+  "name": "12-я линия В.О. 23 литБ",
+  "address": "12-я линия В.О. 23 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1903,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 23 лит.Б): 4 storeys, built 1903; style: from construction year 1903 (technical passport)",
+  "confidence": "high"
+ },
+ "106471211": {
+  "name": "11-я линия В.О. 24 литБ",
+  "address": "11-я линия В.О. 24 литБ",
+  "levels": 3,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 24 лит.Б): 3 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107061828": {
+  "name": "набережная Лейтенанта Шмидта 23",
+  "address": "набережная Лейтенанта Шмидта 23",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "empire",
+  "built": 1828,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Лейтенанта Шмидта наб 23 лит.А): 3 storeys, built 1828; passport shared by 2 OSM footprints; style: from construction year 1828 (technical passport)",
+  "confidence": "medium"
+ },
+ "107061831": {
+  "name": "14-я линия В.О. 1А",
+  "address": "14-я линия В.О. 1А",
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 1А лит.А): 7 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "1518276000": {
+  "name": "11-я линия В.О. 30",
+  "address": "11-я линия В.О. 30",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1880,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 30 лит.А): 5 storeys, built 1880; style: from construction year 1880 (technical passport)",
+  "confidence": "medium"
+ },
+ "107173546": {
+  "name": "14-я линия В.О. 5 литБ",
+  "address": "14-я линия В.О. 5 литБ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 5 лит.Б): 3 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107173548": {
+  "name": "14-я линия В.О. 5",
+  "address": "14-я линия В.О. 5",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 5 лит.А): 6 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107173552": {
+  "name": "13-я линия В.О. 12 литБ",
+  "address": "13-я линия В.О. 12 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 12 лит.Б): 4 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107173558": {
+  "name": "14-я линия В.О. 9",
+  "address": "14-я линия В.О. 9",
+  "levels": 5,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 9 лит.А): 5 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107173559": {
+  "name": "13-я линия В.О. 12",
+  "address": "13-я линия В.О. 12",
+  "levels": 4,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 12 лит.А): 4 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107173560": {
+  "name": "14-я линия В.О. 5 литК",
+  "address": "14-я линия В.О. 5 литК",
+  "levels": 2,
+  "levels_conf": "medium",
+  "style": "stalinist",
+  "built": 1936,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 5 лит.К): 2 storeys, built 1936; style: from construction year 1936 (technical passport)",
+  "confidence": "medium"
+ },
+ "107173565": {
+  "name": "13-я линия В.О. 10 литБ",
+  "address": "13-я линия В.О. 10 литБ",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1857,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 10 лит.Б): 5 storeys, built 1857; style: from construction year 1857 (technical passport)",
+  "confidence": "high"
+ },
+ "107173566": {
+  "name": "14-я линия В.О. 3",
+  "address": "14-я линия В.О. 3",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1898,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 3 лит.А): 5 storeys, built 1898; style: from construction year 1898 (technical passport)",
+  "confidence": "high"
+ },
+ "107214835": {
+  "name": "Большой проспект В.О. 44 литБ",
+  "address": "Большой проспект В.О. 44 литБ",
+  "levels": 2,
+  "levels_conf": "low",
+  "style": "eclectic",
+  "built": 1871,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 44 лит.Б): 2 storeys, built 1871; style: from construction year 1871 (technical passport)",
+  "confidence": "low"
+ },
+ "107214866": {
+  "name": "16-я линия В.О. 11 литБ",
+  "address": "16-я линия В.О. 11 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 11 лит.Б): 5 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107312642": {
+  "name": "3-я линия В.О. 40",
+  "address": "3-я линия В.О. 40",
+  "levels": 6,
+  "levels_conf": "low",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 40 лит.А): 6 storeys, built 1910; passport shared by 3 OSM footprints; style: from construction year 1910 (technical passport)",
+  "confidence": "low"
+ },
+ "107312696": {
+  "name": "3-я линия В.О. 36",
+  "address": "3-я линия В.О. 36",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1883,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 36 лит.А): 4 storeys, built 1883; style: from construction year 1883 (technical passport)",
+  "confidence": "high"
+ },
+ "107312703": {
+  "name": "3-я линия В.О. 48 литБ",
+  "address": "3-я линия В.О. 48 литБ",
+  "levels": 8,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1913,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 48 лит.Б): 8 storeys, built 1913; style: from construction year 1913 (technical passport)",
+  "confidence": "medium"
+ },
+ "107312709": {
+  "name": "4-я линия В.О. 31",
+  "address": "4-я линия В.О. 31",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 31 лит.А): 4 storeys, built 1917; passport shared by 2 OSM footprints; OSM building:levels=1 contradicted by floor area (1835 m2 on 860 m2 footprint)",
+  "confidence": "medium"
+ },
+ "107421627": {
+  "name": "2-я линия В.О. 55 литБ",
+  "address": "2-я линия В.О. 55 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 55 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107421644": {
+  "name": "2-я линия В.О. 45",
+  "address": "2-я линия В.О. 45",
+  "levels": 4,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 2-я линия В.О 45 лит.А): 4 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107421645": {
+  "name": "набережная Макарова 26 литБ",
+  "address": "набережная Макарова 26 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Макарова наб 26 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107454298": {
+  "name": "Средний проспект В.О. 3/15",
+  "address": "Средний проспект В.О. 3/15",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 3/15 лит.А): 6 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107454305": {
+  "name": "Кадетская линия В.О. 27/5 литБ",
+  "address": "Кадетская линия В.О. 27/5 литБ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1886,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кадетская линия В.О 27/5 лит.Б): 3 storeys, built 1886; style: from construction year 1886 (technical passport)",
+  "confidence": "medium"
+ },
+ "107454312": {
+  "name": "набережная Макарова 12 литБ",
+  "address": "набережная Макарова 12 литБ",
+  "levels": 3,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1900,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Макарова наб 12 лит.Б): 3 storeys, built 1900; style: from construction year 1900 (technical passport)",
+  "confidence": "medium"
+ },
+ "107681723": {
+  "name": "Малый проспект В.О. 6",
+  "address": "Малый проспект В.О. 6",
+  "levels": 3,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1894,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 6 лит.А): 3 storeys, built 1894; style: from construction year 1894 (technical passport)",
+  "confidence": "high"
+ },
+ "107681736": {
+  "name": "3-я линия В.О. 58",
+  "address": "3-я линия В.О. 58",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 3-я линия В.О 58 лит.А): 6 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "107681749": {
+  "name": "4-я линия В.О. 45 литБ",
+  "address": "4-я линия В.О. 45 литБ",
+  "levels": 2,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 45 лит.Б): 2 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107684771": {
+  "name": "4-я линия В.О. 61 литБ",
+  "address": "4-я линия В.О. 61 литБ",
+  "levels": 5,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 4-я линия В.О 61 лит.Б): 5 storeys, built 1917",
+  "confidence": "high"
+ },
+ "107684796": {
+  "name": "5-я линия В.О. 68 литБ",
+  "address": "5-я линия В.О. 68 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 5-я линия В.О 68 лит.Б): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "108096698": {
+  "name": "7-я линия В.О. 72",
+  "address": "7-я линия В.О. 72",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1900,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 72 лит.А): 6 storeys, built 1900; style: from construction year 1900 (technical passport)",
+  "confidence": "medium"
+ },
+ "108099310": {
+  "name": "9-я линия В.О. 72 литВ",
+  "address": "9-я линия В.О. 72 литВ",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 72 лит.В): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108099313": {
+  "name": "9-я линия В.О. 66",
+  "address": "9-я линия В.О. 66",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1901,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 66 лит.А): 4 storeys, built 1901; style: from construction year 1901 (technical passport)",
+  "confidence": "high"
+ },
+ "108099323": {
+  "name": "9-я линия В.О. 72 литБ",
+  "address": "9-я линия В.О. 72 литБ",
+  "levels": 5,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 72 лит.Б): 5 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108099325": {
+  "name": "9-я линия В.О. 70",
+  "address": "9-я линия В.О. 70",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1864,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 70 лит.А): 4 storeys, built 1864; style: from construction year 1864 (technical passport)",
+  "confidence": "medium"
+ },
+ "108105505": {
+  "name": "Малый проспект В.О. 14",
+  "address": "Малый проспект В.О. 14",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1903,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 14 лит.А): 5 storeys, built 1903; style: from construction year 1903 (technical passport)",
+  "confidence": "medium"
+ },
+ "108115275": {
+  "name": "7-я линия В.О. 60",
+  "address": "7-я линия В.О. 60",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1904,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 7-я линия В.О 60 лит.А): 4 storeys, built 1904; style: from construction year 1904 (technical passport)",
+  "confidence": "medium"
+ },
+ "108202268": {
+  "name": "9-я линия В.О. 54 литВ",
+  "address": "9-я линия В.О. 54 литВ",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1902,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 9-я линия В.О 54 лит.В): 5 storeys, built 1902; style: from construction year 1902 (technical passport)",
+  "confidence": "high"
+ },
+ "108204303": {
+  "name": "Средний проспект В.О. 51",
+  "address": "Средний проспект В.О. 51",
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 51 лит.А): 4 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "108206382": {
+  "name": "13-я линия В.О. 64/39 литВ",
+  "address": "13-я линия В.О. 64/39 литВ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 64/39 лит.В): 4 storeys, built 1912; style: from construction year 1912 (technical passport)",
+  "confidence": "high"
+ },
+ "108206383": {
+  "name": "14-я линия Васильевского острова 97 литБ",
+  "address": "14-я линия Васильевского острова 97 литБ",
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 97 лит.Б): 7 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "108206387": {
+  "name": "14-я линия Васильевского острова 95",
+  "address": "14-я линия Васильевского острова 95",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 95 лит.А): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108206409": {
+  "name": "13-я линия В.О. 68",
+  "address": "13-я линия В.О. 68",
+  "levels": 3,
+  "levels_conf": "low",
+  "style": "eclectic",
+  "built": 1879,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 68 лит.А): 3 storeys, built 1879; style: from construction year 1879 (technical passport)",
+  "confidence": "low"
+ },
+ "108206435": {
+  "name": "13-я линия В.О. 68 литВ",
+  "address": "13-я линия В.О. 68 литВ",
+  "levels": 6,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1907,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 68 лит.В): 6 storeys, built 1907; style: from construction year 1907 (technical passport)",
+  "confidence": "high"
+ },
+ "108206443": {
+  "name": "14-я линия Васильевского острова 91",
+  "address": "14-я линия Васильевского острова 91",
+  "levels": 7,
+  "levels_conf": "low",
+  "style": "contemporary",
+  "built": 2008,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 91 лит.А): 7 storeys, built 2008; style: from construction year 2008 (technical passport)",
+  "confidence": "low"
+ },
+ "108206460": {
+  "name": "12-я линия В.О. 55/20 литБ",
+  "address": "12-я линия В.О. 55/20 литБ",
+  "levels": 4,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1854,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 55/20 лит.Б): 4 storeys, built 1854; style: from construction year 1854 (technical passport)",
+  "confidence": "medium"
+ },
+ "108206479": {
+  "name": "13-я линия В.О. 80 к2 литБ",
+  "address": "13-я линия В.О. 80 к2 литБ",
+  "levels": 2,
+  "levels_conf": "high",
+  "style": "constructivism",
+  "built": 1934,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 80 к2 лит.Б): 2 storeys, built 1934; style: from construction year 1934 (technical passport)",
+  "confidence": "high"
+ },
+ "108206484": {
+  "name": "13-я линия В.О. 80 к1",
+  "address": "13-я линия В.О. 80 к1",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "constructivism",
+  "built": 1934,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 80 к1 лит.А): 5 storeys, built 1934; style: from construction year 1934 (technical passport)",
+  "confidence": "high"
+ },
+ "108206489": {
+  "name": "14-я линия Васильевского острова 97 литД",
+  "address": "14-я линия Васильевского острова 97 литД",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 97 лит.Д): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108206495": {
+  "name": "14-я линия Васильевского острова 93 литБ",
+  "address": "14-я линия Васильевского острова 93 литБ",
+  "levels": 7,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1905,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 14-я линия В.О 93 лит.Б): 7 storeys, built 1905; style: from construction year 1905 (technical passport)",
+  "confidence": "medium"
+ },
+ "108219437": {
+  "name": "12-я линия В.О. 37 литБ",
+  "address": "12-я линия В.О. 37 литБ",
+  "levels": 2,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 37 лит.Б): 2 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108222650": {
+  "name": "Малый проспект В.О. 30-32 литБ",
+  "address": "Малый проспект В.О. 30-32 литБ",
+  "levels": 6,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 30-32 лит.Б): 6 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108222664": {
+  "name": "Малый проспект В.О. 30-32 литВ",
+  "address": "Малый проспект В.О. 30-32 литВ",
+  "levels": 2,
+  "levels_conf": "high",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Малый пр. В.О 30-32 лит.В): 2 storeys, built 1917",
+  "confidence": "high"
+ },
+ "108321758": {
+  "name": "15-я линия Васильевского острова 74 литБ",
+  "address": "15-я линия Васильевского острова 74 литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1905,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 74 лит.Б): 4 storeys, built 1905; style: from construction year 1905 (technical passport)",
+  "confidence": "high"
+ },
+ "108321763": {
+  "name": "15-я линия Васильевского острова 86 литВ",
+  "address": "15-я линия Васильевского острова 86 литВ",
+  "levels": 3,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1889,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 86 лит.В): 3 storeys, built 1889; style: from construction year 1889 (technical passport)",
+  "confidence": "high"
+ },
+ "108321773": {
+  "name": "15-я линия Васильевского острова 76 литЕ",
+  "address": "15-я линия Васильевского острова 76 литЕ",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "108321775": {
+  "name": "16-я линия В.О. 75 литВ",
+  "address": "16-я линия В.О. 75 литВ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1900,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 75 лит.В): 4 storeys, built 1900; style: from construction year 1900 (technical passport)",
+  "confidence": "high"
+ },
+ "108321779": {
+  "name": "15-я линия Васильевского острова 76 литЕ",
+  "address": "15-я линия Васильевского острова 76 литЕ",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "108321792": {
+  "name": "15-я линия Васильевского острова 78",
+  "address": "15-я линия Васильевского острова 78",
+  "levels": 5,
+  "levels_conf": "low",
+  "style": "art_nouveau",
+  "built": 1901,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 78 лит.А): 5 storeys, built 1901; style: from construction year 1901 (technical passport)",
+  "confidence": "low"
+ },
+ "108321800": {
+  "name": "Камская улица 10 литА",
+  "address": "Камская улица 10 литА",
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Камская ул 10 лит.А): 7 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "108321805": {
+  "name": "16-я линия В.О. 97 литВ",
+  "address": "16-я линия В.О. 97 литВ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 97 лит.В): 4 storeys, built 1910; style: from construction year 1910 (technical passport)",
+  "confidence": "high"
+ },
+ "108321816": {
+  "name": "16-я линия В.О. 77",
+  "address": "16-я линия В.О. 77",
+  "levels": 6,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1912,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 77 лит.А): 6 storeys, built 1912; passport shared by 2 OSM footprints; style: from construction year 1912 (technical passport)",
+  "confidence": "medium"
+ },
+ "108321817": {
+  "name": "16-я линия В.О. 77 литБ",
+  "address": "16-я линия В.О. 77 литБ",
+  "levels": 6,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1908,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 77 лит.Б): 6 storeys, built 1908; style: from construction year 1908 (technical passport)",
+  "confidence": "high"
+ },
+ "108579755": {
+  "name": "13-я линия В.О. 46А литБ",
+  "address": "13-я линия В.О. 46А литБ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1902,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 46а лит.Б): 4 storeys, built 1902; style: from construction year 1902 (technical passport)",
+  "confidence": "high"
+ },
+ "111697506": {
+  "name": "11-я линия В.О. 40 литБ",
+  "address": "11-я линия В.О. 40 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 40 лит.Б): 5 storeys, built 1917; OSM building:levels=3 contradicted by floor area (936 m2 on 236 m2 footprint)",
+  "confidence": "medium"
+ },
+ "111697516": {
+  "name": "11-я линия В.О. 48 литБ",
+  "address": "11-я линия В.О. 48 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1903,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 11-я линия В.О 48 лит.Б): 5 storeys, built 1903; style: from construction year 1903 (technical passport)",
+  "confidence": "medium"
+ },
+ "111832273": {
+  "name": "15-я линия Васильевского острова 50",
+  "address": "15-я линия Васильевского острова 50",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 50 лит.А): 5 storeys, built 1895-1899; passport shared by 2 OSM footprints; OSM building:levels=2 contradicted by floor area (1614 m2 on 524 m2 footprint)",
+  "confidence": "medium"
+ },
+ "112014735": {
+  "name": "16-я линия В.О. 35",
+  "address": "16-я линия В.О. 35",
+  "levels": 7,
+  "levels_conf": "high",
+  "style": "neoclassical_1910s",
+  "built": 1910,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 35 лит.А): 7 storeys, built 1910; style: from construction year 1910 (technical passport)",
+  "confidence": "high"
+ },
+ "112014750": {
+  "name": "16-я линия В.О. 27",
+  "address": "16-я линия В.О. 27",
+  "levels": 5,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 27 лит.А): 5 storeys, built 1859, 1885",
+  "confidence": "medium"
+ },
+ "112014759": {
+  "name": "15-я линия В.О. 12",
+  "address": "15-я линия В.О. 12",
+  "levels": 5,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1879,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 12 лит.А): 5 storeys, built 1879; style: from construction year 1879 (technical passport)",
+  "confidence": "high"
+ },
+ "112014762": {
+  "name": "15-я линия Васильевского острова 32",
+  "address": "15-я линия Васильевского острова 32",
+  "levels": 7,
+  "levels_conf": "high",
+  "style": "soviet_modernism",
+  "built": 1969,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 32 лит.А): 7 storeys, built 1969; style: from construction year 1969 (technical passport)",
+  "confidence": "high"
+ },
+ "112014764": {
+  "name": "16-я линия В.О. 37",
+  "address": "16-я линия В.О. 37",
+  "levels": 7,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 1997,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 16-я линия В.О 37 лит.А): 7 storeys, built 1997; style: from construction year 1997 (technical passport)",
+  "confidence": "medium"
+ },
+ "112014766": {
+  "name": "15-я линия В.О. 16",
+  "address": "15-я линия В.О. 16",
+  "levels": 7,
+  "levels_conf": "medium",
+  "style": "art_nouveau",
+  "built": 1900,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 16 лит.А): 7 storeys, built 1900; style: from construction year 1900 (technical passport)",
+  "confidence": "medium"
+ },
+ "114538184": {
+  "name": "17-я линия В.О. 14",
+  "address": "17-я линия В.О. 14",
+  "levels": 8,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2009,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 14 лит.А): 8 storeys, built 2009; style: from construction year 2009 (technical passport)",
+  "confidence": "medium"
+ },
+ "121907166": {
+  "name": "Морская набережная 37 к2",
+  "address": "Морская набережная 37 к2",
+  "levels": 15,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2004,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Морская наб 37 к2 лит.А): 15 storeys, built 2004; style: from construction year 2004 (technical passport)",
+  "confidence": "medium"
+ },
+ "143992875": {
+  "name": "15-я линия Васильевского острова 76 литЕ",
+  "address": "15-я линия Васильевского острова 76 литЕ",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "143992876": {
+  "name": "15-я линия Васильевского острова 76 литЕ",
+  "address": "15-я линия Васильевского острова 76 литЕ",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "2135818000": {
+  "name": "проспект КИМа 28",
+  "address": "проспект КИМа 28",
+  "levels": 5,
+  "levels_conf": "low",
+  "style": "soviet_modernism",
+  "built": 1960,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, КИМа пр 28 лит.А): 5 storeys, built 1960; style: from construction year 1960 (technical passport)",
+  "confidence": "low"
+ },
+ "2712716000": {
+  "name": "улица Кораблестроителей 32 к1",
+  "address": "улица Кораблестроителей 32 к1",
+  "levels": 27,
+  "levels_conf": "low",
+  "style": "contemporary",
+  "built": 2003,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кораблестроителей ул 32 к1 лит.А): 27 storeys, built 2003; style: from construction year 2003 (technical passport)",
+  "confidence": "low"
+ },
+ "217543936": {
+  "name": "12-я линия В.О. 37",
+  "address": "12-я линия В.О. 37",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 12-я линия В.О 37 лит.А): 6 storeys, built 1917; passport shared by 3 OSM footprints",
+  "confidence": "medium"
+ },
+ "219385020": {
+  "name": "19-я линия В.О. 4 литВ",
+  "address": "19-я линия В.О. 4 литВ",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1883,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 4 лит.В): 4 storeys, built 1883; style: from construction year 1883 (technical passport)",
+  "confidence": "high"
+ },
+ "219385025": {
+  "name": "19-я линия В.О. 12",
+  "address": "19-я линия В.О. 12",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "eclectic",
+  "built": 1881,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 19-я линия В.О 12 лит.А): 5 storeys, built 1881; style: from construction year 1881 (technical passport)",
+  "confidence": "medium"
+ },
+ "219412830": {
+  "name": "20-я линия В.О. 11 литВ",
+  "address": "20-я линия В.О. 11 литВ",
+  "levels": 2,
+  "levels_conf": "high",
+  "style": "art_nouveau",
+  "built": 1904,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 20-я линия В.О 11 лит.В): 2 storeys, built 1904; style: from construction year 1904 (technical passport)",
+  "confidence": "high"
+ },
+ "5830715000": {
+  "name": "проспект КИМа 4",
+  "address": "проспект КИМа 4",
+  "levels": 11,
+  "levels_conf": "high",
+  "style": "soviet_modernism",
+  "built": 1970,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, КИМа пр 4 лит.А,Б,В): 11 storeys, built 1970; style: from construction year 1970 (technical passport)",
+  "confidence": "high"
+ },
+ "6173603000": {
+  "name": "8-я линия В.О. 53 литБ",
+  "address": "8-я линия В.О. 53 литБ",
+  "levels": 5,
+  "levels_conf": "medium",
+  "style": "neoclassical_1910s",
+  "built": 1914,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 8-я линия В.О 53 лит.Б): 5 storeys, built 1914; style: from construction year 1914 (technical passport)",
+  "confidence": "medium"
+ },
+ "7081193000": {
+  "name": "Волховский переулок 4",
+  "address": "Волховский переулок 4",
+  "levels": 9,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2006,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Волховский пер 4 лит.А): 9 storeys, built 2006; style: from construction year 2006 (technical passport)",
+  "confidence": "medium"
+ },
+ "532581942": {
+  "name": "Капитанская улица 5",
+  "address": "Капитанская улица 5",
+  "levels": 17,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 1993,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Капитанская ул 5 лит.А,Б): 17 storeys, built 1993; style: from construction year 1993 (technical passport)",
+  "confidence": "medium"
+ },
+ "536406847": {
+  "name": "Морская набережная 35 к3",
+  "address": "Морская набережная 35 к3",
+  "levels": 15,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2004,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Морская наб 35 к3 лит.А): 15 storeys, built 2004; style: from construction year 2004 (technical passport)",
+  "confidence": "medium"
+ },
+ "536406852": {
+  "name": "Морская набережная 35 к2",
+  "address": "Морская набережная 35 к2",
+  "levels": 16,
+  "levels_conf": "high",
+  "style": "contemporary",
+  "built": 2001,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Морская наб 35 к2 лит.А): 16 storeys, built 2001; style: from construction year 2001 (technical passport)",
+  "confidence": "high"
+ },
+ "607697526": {
+  "name": "15-я линия Васильевского острова 76",
+  "address": "15-я линия Васильевского острова 76",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; OSM building:levels=1 contradicted by floor area (17231 m2 on 2754 m2 footprint); style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "607697770": {
+  "name": "15-я линия Васильевского острова 76",
+  "address": "15-я линия Васильевского острова 76",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2011,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 15-я линия В.О 76 лит.Е): 11 storeys, built 2011; passport shared by 6 OSM footprints; OSM building:levels=1 contradicted by floor area (17231 m2 on 2754 m2 footprint); style: from construction year 2011 (technical passport)",
+  "confidence": "medium"
+ },
+ "683746217": {
+  "name": "Средний проспект В.О. 19",
+  "address": "Средний проспект В.О. 19",
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Средний пр 19 лит.А): 6 storeys, built 1917; passport shared by 4 OSM footprints",
+  "confidence": "low"
+ },
+ "685082366": {
+  "name": "улица Одоевского 21 к1",
+  "address": "улица Одоевского 21 к1",
+  "levels": 11,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2019,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Одоевского ул 21 к1 лит.): 11 storeys, built 2019; style: from construction year 2019 (technical passport)",
+  "confidence": "medium"
+ },
+ "686157998": {
+  "name": "17-я линия В.О. 20",
+  "address": "17-я линия В.О. 20",
+  "levels": 4,
+  "levels_conf": "high",
+  "style": "eclectic",
+  "built": 1882,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 17-я линия В.О 20 лит.А): 4 storeys, built 1882; passport shared by 2 OSM footprints; style: from construction year 1882 (technical passport)",
+  "confidence": "high"
+ },
+ "693594537": {
+  "name": "Большой проспект В.О. 11",
+  "address": "Большой проспект В.О. 11",
+  "levels": 6,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Большой пр. В.О 11 лит.А): 6 storeys, built 1917; passport shared by 3 OSM footprints",
+  "confidence": "medium"
+ },
+ "768390014": {
+  "name": "13-я линия В.О. 10 литГ",
+  "address": "13-я линия В.О. 10 литГ",
+  "levels": 2,
+  "levels_conf": "medium",
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 13-я линия В.О 10 лит.Г): 2 storeys, built 1917",
+  "confidence": "medium"
+ },
+ "859485556": {
+  "name": "улица Беринга 27 к1",
+  "address": "улица Беринга 27 к1",
+  "levels": 16,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2007,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Беринга ул 27 к1 лит.А): 16 storeys, built 2007; style: from construction year 2007 (technical passport)",
+  "confidence": "medium"
+ },
+ "14490179000": {
+  "name": "Новосмоленская набережная 2",
+  "address": "Новосмоленская набережная 2",
+  "levels": 22,
+  "levels_conf": "high",
+  "style": "soviet_modernism",
+  "built": 1987,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Новосмоленская наб 2 лит.А): 22 storeys, built 1987; style: from construction year 1987 (technical passport)",
+  "confidence": "high"
+ },
+ "14490181000": {
+  "name": "Новосмоленская набережная 6",
+  "address": "Новосмоленская набережная 6",
+  "levels": 23,
+  "levels_conf": "high",
+  "style": "contemporary",
+  "built": 1992,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Новосмоленская наб 6 лит.А): 23 storeys, built 1992; style: from construction year 1992 (technical passport)",
+  "confidence": "high"
+ },
+ "18064421000": {
+  "name": "18-я линия В.О. 49",
+  "address": "18-я линия В.О. 49",
+  "levels": 12,
+  "levels_conf": "medium",
+  "style": "contemporary",
+  "built": 2018,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, 18-я линия В.О 49 лит.): 12 storeys, built 2018; style: from construction year 2018 (technical passport)",
+  "confidence": "medium"
+ },
+ "14207731000": {
+  "name": "улица Кораблестроителей 30",
+  "address": "улица Кораблестроителей 30",
+  "levels": 18,
+  "levels_conf": "low",
+  "style": "contemporary",
+  "built": 2006,
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP v13, Кораблестроителей ул 30 лит.А): 18 storeys, built 2006; passport shared by 14 OSM footprints; style: from construction year 2006 (technical passport)",
+  "confidence": "low"
  }
 }
