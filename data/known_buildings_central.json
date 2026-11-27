@@ -2361,12 +2361,18 @@
  "259899296": {
   "name": "Факультет географии РГПУ им. А. И. Герцена",
   "address": "набережная реки Мойки 48-50-52 литГ",
-  "wall": "#e9dcad",
-  "style": "constructivism",
+  "wall": "#e4cf86",
+  "style": "classicism",
   "built": 1932,
   "wikidata": "Q4480731",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q4480731 P18); style: from construction year 1932",
-  "confidence": "low"
+  "note": "Two visible storeys. Eaves height and paint shades visually estimated from the referenced facade photograph.",
+  "confidence": "medium",
+  "trim": "#eee7d8",
+  "roof": "#aa7153",
+  "levels": 2,
+  "height": 11.4,
+  "roof_shape": "hipped",
+  "photo": "https://commons.wikimedia.org/wiki/File:3338._St._Petersburg._Moika_Embankment,_50._corps_12.jpg"
  },
  "270634000": {
   "name": "Большой Эрмитаж",
@@ -2374,10 +2380,11 @@
   "wall": "#dccb94",
   "roof": "#4f8a5e",
   "trim": "#f4f1ea",
+  "height": 17.2,
   "style": "classicism",
   "built": 1784,
   "wikidata": "Q4092958",
-  "note": "Old (Great) Hermitage, Felten 1771-87; pale yellow with white; colour read from Wikimedia Commons photo (Wikidata Q4092958 P18)",
+  "note": "Old (Great) Hermitage, Felten 1771-87; pale yellow with white; colour read from Wikimedia Commons photo (Wikidata Q4092958 P18). Approximate 17.2 m cornice inferred from the 18.4 m overall height in the MChS technical assessment, allowing about 1.2 m for the roof.",
   "confidence": "medium"
  },
  "274115000": {
@@ -2657,14 +2664,31 @@
   "note": "colour read from Wikimedia Commons photo (Wikidata Q123359045 P18); style: default (no date found)",
   "confidence": "low"
  },
+ "6325729593": {
+  "name": "Флигель на Мойке у Дамского корпуса",
+  "address": "набережная реки Мойки, 48–50",
+  "wall": "#e1c78d",
+  "trim": "#eee7d8",
+  "roof": "#a75c48",
+  "levels": 2,
+  "height": 11.1,
+  "style": "classicism",
+  "roof_shape": "hipped",
+  "photo": "https://commons.wikimedia.org/wiki/File:3335._St._Petersburg._Pedagogical_University.jpg",
+  "confidence": "medium",
+  "note": "Two visible storeys. Eaves height and paint shades visually estimated from the referenced facade photograph."
+ },
  "632572959": {
-  "name": "Дом Штегельмана",
+  "name": "Дворец Разумовского — корпус 5 РГПУ им. Герцена",
   "address": "набережная реки Мойки 48-50-52 литА",
-  "wall": "#b5d0b0",
-  "trim": "#f4f1ea",
-  "style": "eclectic",
+  "wall": "#e8c76d",
+  "roof": "#8e9dae",
+  "trim": "#f3efe5",
+  "levels": 3,
+  "height": 19.8,
+  "style": "classicism",
   "wikidata": "Q120551027",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q120551027 P18); style: default (no date found)",
+  "note": "The OSM way joins several Herzen University buildings. Runtime split keeps this ID only for the Razumovsky Palace. Three storeys: Encyclopaedia of Saint Petersburg. The 19.8 m cornice is a visual estimate fitted to the existing palace facade model, not a measured height; later wings retain their former palette.",
   "confidence": "medium"
  },
  "662697923": {
@@ -2979,10 +3003,11 @@
   "wall": "#bcd3b5",
   "roof": "#4f8a5e",
   "trim": "#f4f1ea",
+  "height": 20.5,
   "style": "baroque",
   "built": 1767,
   "wikidata": "Q4279216",
-  "note": "Small Hermitage, Vallin de la Mothe 1764-75; same green/white scheme as the Winter Palace; colour read from Wikimedia Commons photo (Wikidata Q4279216 P18)",
+  "note": "Small Hermitage, Vallin de la Mothe 1764-75; same green/white scheme as the Winter Palace; colour read from Wikimedia Commons photo (Wikidata Q4279216 P18). Approximate 20.5 m cornice inferred from the 21.7 m overall height in the MChS technical assessment, allowing about 1.2 m for the roof. The one-piece OSM footprint still needs separate two-storey galleries.",
   "confidence": "high"
  },
  "1084724000": {
@@ -2991,10 +3016,11 @@
   "wall": "#c6d7cd",
   "roof": "#4f8a5e",
   "trim": "#f4f1ea",
+  "height": 16.8,
   "style": "classicism",
   "built": 1783,
   "wikidata": "Q2349693",
-  "note": "Quarenghi 1783-87; pale grey-green with white details, green roof (Commons Category:Hermitage Theater); colour read from Wikimedia Commons photo (Wikidata Q2349693 P18); levels 3 counted on ru.wikivoyage heritage list photo (Spb 06-2012 Palace Embankment various 12.jpg)",
+  "note": "Quarenghi 1783-87; pale grey-green with white details, green roof (Commons Category:Hermitage Theater); colour read from Wikimedia Commons photo (Wikidata Q2349693 P18). The Ministry of Culture protection order documents the three-storey Neva facade and its eight-column central order. Approximate 16.8 m cornice inferred from the 17.98 m overall height in the MChS technical assessment, allowing about 1.2 m for the roof.",
   "confidence": "high",
   "levels": 3
  },
@@ -11389,20 +11415,32 @@
  "1484008022": {
   "name": "Аптекарский флигель",
   "address": "набережная реки Мойки 48-50-52 литАК",
-  "wall": "#e0d8a0",
-  "style": "baroque",
+  "wall": "#e3d4ad",
+  "style": "classicism",
   "built": 1730,
-  "note": "colour read from ru.wikivoyage heritage list photo (Мойка 48. аптекарский флигель.jpg); style: from construction year 1730",
-  "confidence": "medium"
+  "note": "Two visible storeys. Eaves height and paint shades visually estimated from the referenced facade photograph.",
+  "confidence": "medium",
+  "trim": "#eee7d8",
+  "roof": "#9d574a",
+  "levels": 2,
+  "height": 10.6,
+  "roof_shape": "hipped",
+  "photo": "https://commons.wikimedia.org/wiki/File:РГПУ,_бывший_аптекарский_флигель_03.jpg"
  },
  "66309897": {
   "name": "Родовспомогательный корпус Воспитательного дома",
   "address": "набережная реки Мойки 48-50-52 литД",
-  "wall": "#e0d8a8",
-  "style": "eclectic",
+  "wall": "#dfc58e",
+  "style": "classicism",
   "built": 1840,
-  "note": "colour read from ru.wikivoyage heritage list photo (3339. St. Petersburg. Embankment Moika, 52.jpg); style: from construction year 1840",
-  "confidence": "medium"
+  "note": "Two visible storeys. Eaves height and paint shades visually estimated from the referenced facade photograph.",
+  "confidence": "medium",
+  "trim": "#eee7d8",
+  "roof": "#934e42",
+  "levels": 2,
+  "height": 10.7,
+  "roof_shape": "hipped",
+  "photo": "https://commons.wikimedia.org/wiki/File:3339._St._Petersburg._Embankment_Moika,_52.jpg"
  },
  "66309888": {
   "name": "Служебный флигель Сиротского института («Казанский»)",
