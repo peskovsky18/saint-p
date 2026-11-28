@@ -208,8 +208,10 @@
   "wall": "#8e4c3e",
   "trim": "#b07c68",
   "style": "eclectic",
-  "note": "Red Triangle, building VE: bare red-brown brick, 4-5 storeys (Commons: Plant \"Red Triangle\" 01/05.jpg, Red Triangle building 417.jpg); style: default (no date found)",
-  "confidence": "medium"
+  "note": "Red Triangle, building VE: bare red-brown brick, 4-5 storeys (Commons: Plant \"Red Triangle\" 01/05.jpg, Red Triangle building 417.jpg); style: default (no date found); levels inferred from building type (small utility/garage/industrial), no photo",
+  "confidence": "medium",
+  "levels": 1,
+  "levels_conf": "low"
  },
  "50582016": {
   "name": "набережная Обводного канала 134-136-138 литБП",
@@ -217,8 +219,10 @@
   "wall": "#8e4c3e",
   "trim": "#b07c68",
   "style": "eclectic",
-  "note": "Red Triangle, litBP: bare red-brown brick works building; style: default (no date found)",
-  "confidence": "low"
+  "note": "Red Triangle, litBP: bare red-brown brick works building; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 7,
+  "levels_conf": "low"
  },
  "50582037": {
   "name": "Улица Розенштейна 8-12 литера В,В1",
@@ -226,8 +230,10 @@
   "wall": "#7a4038",
   "style": "eclectic",
   "wikidata": "Q124968662",
-  "note": "colour read from Commons photo \"Улица Розенштейна 8-12|улица Розенште 8-12 литВ,В1\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Улица Розенштейна 8-12|улица Розенште 8-12 литВ,В1\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "50583018": {
   "name": "улица Шкапина 10",
@@ -252,8 +258,10 @@
   "wall": "#8c6450",
   "style": "eclectic",
   "wikidata": "Q124841657",
-  "note": "colour read from Commons photo \"Улица Шкапина 42|улица Шкапина 42\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Улица Шкапина 42|улица Шкапина 42\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 8,
+  "levels_conf": "low"
  },
  "50584696": {
   "name": "Здание товарной станции Балтийского вокзала",
@@ -272,8 +280,10 @@
   "style": "art_nouveau",
   "built": 1899,
   "wikidata": "Q136745057",
-  "note": "colour read from Commons photo \"Здание инструментально|набережная Обв 118А литН\"; style: from construction year 1899",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Здание инструментально|набережная Обв 118А литН\"; style: from construction year 1899; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "50584894": {
   "name": "Паровозное депо",
@@ -281,8 +291,10 @@
   "wall": "#b0584a",
   "style": "eclectic",
   "wikidata": "Q136745055",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745055 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745055 P18); style: default (no date found); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "50584895": {
   "name": "Здание электростанции Санкт-Петербургской станции Санкт-Петербургско-Варшавской железной дороги",
@@ -328,8 +340,10 @@
   "wall": "#8e4c3e",
   "trim": "#b07c68",
   "style": "eclectic",
-  "note": "Red Triangle, 134 k12: bare red-brown brick works building; style: default (no date found)",
-  "confidence": "low"
+  "note": "Red Triangle, 134 k12: bare red-brown brick works building; style: default (no date found); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "50585317": {
   "name": "набережная Обводного канала 134-136-138 литБЯ",
@@ -337,8 +351,10 @@
   "wall": "#8e4c3e",
   "trim": "#b07c68",
   "style": "eclectic",
-  "note": "Red Triangle, litBYa: bare red-brown brick works building; style: default (no date found)",
-  "confidence": "low"
+  "note": "Red Triangle, litBYa: bare red-brown brick works building; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "50585319": {
   "name": "Комплекс построек Гальванопластического заведения герцога Лейхтенбергского",
@@ -365,8 +381,10 @@
   "style": "art_nouveau",
   "built": 1906,
   "wikidata": "Q113560598",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560598 P18); style: from construction year 1906",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560598 P18); style: from construction year 1906; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "50597500": {
   "name": "Театр поколений",
@@ -507,8 +525,10 @@
   "style": "baroque",
   "built": 1704,
   "wikidata": "Q2292711",
-  "note": "colour read from Commons photo \"Адмиралтейские верфи|набережная рек 203 литАС\"; style: from construction year 1704",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Адмиралтейские верфи|набережная рек 203 литАС\"; style: from construction year 1704; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "53577211": {
   "name": "Скотопригонный двор",
@@ -535,8 +555,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q113560587",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560587 P18); style: from construction year 1912",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560587 P18); style: from construction year 1912; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "56223656": {
   "name": "Корпус 75",
@@ -545,8 +567,10 @@
   "style": "eclectic",
   "built": 1878,
   "wikidata": "Q113560604",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560604 P18); style: from construction year 1878",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560604 P18); style: from construction year 1878; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "56223657": {
   "name": "Корпус 80",
@@ -555,8 +579,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q113560607",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560607 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560607 P18); style: from construction year 1913; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "56223658": {
   "name": "Корпус 86",
@@ -565,8 +591,10 @@
   "style": "neoclassical_1910s",
   "built": 1914,
   "wikidata": "Q113560617",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560617 P18); style: from construction year 1914",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560617 P18); style: from construction year 1914; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "56223660": {
   "name": "Галерея-арка",
@@ -575,8 +603,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q113560608",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560608 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560608 P18); style: from construction year 1913; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "56223661": {
   "name": "Поликлиника №24",
@@ -595,8 +625,10 @@
   "style": "constructivism",
   "built": 1925,
   "wikidata": "Q113560616",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560616 P18); style: from construction year 1925",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560616 P18); style: from construction year 1925; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "56223664": {
   "name": "Корпус 56",
@@ -1519,8 +1551,10 @@
   "wall": "#9a4a3a",
   "style": "eclectic",
   "wikidata": "Q136745054",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745054 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745054 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "67027940": {
   "name": "Спасский переулок 1/46",
@@ -1546,8 +1580,10 @@
   "wall": "#e0cc98",
   "style": "eclectic",
   "wikidata": "Q120598072",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q120598072 P18); style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q120598072 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "67143264": {
   "name": "Дом Лебедева",
@@ -1944,8 +1980,10 @@
   "style": "baroque",
   "built": 1757,
   "wikidata": "Q124613895",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q124613895 P18); style: from construction year 1757",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q124613895 P18); style: from construction year 1757; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "69907682": {
   "name": "Почтамтская улица 17",
@@ -2494,8 +2532,10 @@
   "wall": "#d4a084",
   "trim": "#f2efe8",
   "style": "eclectic",
-  "note": "colour read from Commons photo \"Садовая ул 50|Садовая 50Б 02.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Садовая ул 50|Садовая 50Б 02.jpg\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "77749816": {
   "name": "Садовая улица 68",
@@ -2606,8 +2646,10 @@
   "address": "набережная реки Фонтанки 163",
   "wall": "#e0a8a8",
   "style": "eclectic",
-  "note": "colour read from Commons photo \"наб реки Фонтанки 163|951. St. Petersburg. Fontanka emban\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"наб реки Фонтанки 163|951. St. Petersburg. Fontanka emban\"; style: default (no date found); photo count (storeys) from Commons: File:Fontanka Embankment 163.jpg",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "medium"
  },
  "77759097": {
   "name": "Люблинский переулок 7",
@@ -2705,8 +2747,10 @@
   "levels_conf": "high",
   "style": "empire",
   "built": 1839,
-  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP, Садовая ул 115 лит.А): 4 storeys, built 1839; style: from construction year 1839",
-  "confidence": "high"
+  "note": "levels: Housing Committee technical passport (data.gov.spb.ru TEP, Садовая ул 115 лит.А): 4 storeys, built 1839; style: from construction year 1839; photo count (storeys, axes) from Commons: File:Sadovaya 115.JPG",
+  "confidence": "high",
+  "axes": 9,
+  "axes_conf": "medium"
  },
  "79095362": {
   "name": "Садовая улица 71",
@@ -3116,8 +3160,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q113560580",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560580 P18); style: from construction year 1896",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560580 P18); style: from construction year 1896; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "89582406": {
   "name": "Витебская улица 25 литБ",
@@ -3240,8 +3286,10 @@
   "wall": "#b8afa0",
   "style": "eclectic",
   "wikidata": "Q124842163",
-  "note": "colour read from Commons photo \"Улица Шкапина 22|улица Шкапина 22\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Улица Шкапина 22|улица Шкапина 22\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "96110066": {
   "name": "улица Шкапина 24",
@@ -3249,8 +3297,10 @@
   "wall": "#9a5a44",
   "style": "eclectic",
   "wikidata": "Q4474601",
-  "note": "colour read from Commons photo \"Улица Шкапина|улица Шкапина 24\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Улица Шкапина|улица Шкапина 24\"; style: default (no date found); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96113467": {
   "name": "Улица Шкапина 28",
@@ -3258,8 +3308,10 @@
   "wall": "#8a4a40",
   "style": "eclectic",
   "wikidata": "Q124968775",
-  "note": "colour read from Commons photo \"Улица Шкапина 28|улица Шкапина 28\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Улица Шкапина 28|улица Шкапина 28\"; style: default (no date found); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96492044": {
   "name": "Старо-Петергофский проспект 21 литБ",
@@ -3366,8 +3418,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q113560572",
-  "note": "colour read from Commons photo \"Корпус 12|набережная Обв 134-136-138 литВ\"; style: from construction year 1904",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Корпус 12|набережная Обв 134-136-138 литВ\"; style: from construction year 1904; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809215": {
   "name": "Корпус 237",
@@ -3396,8 +3450,10 @@
   "style": "eclectic",
   "built": 1890,
   "wikidata": "Q113560575",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560575 P18); style: from construction year 1890",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560575 P18); style: from construction year 1890; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "low"
  },
  "96809255": {
   "name": "Корпус 28",
@@ -3406,8 +3462,10 @@
   "style": "eclectic",
   "built": 1894,
   "wikidata": "Q113560592",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560592 P18); style: from construction year 1894",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560592 P18); style: from construction year 1894; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809265": {
   "name": "Красный Треугольник",
@@ -3416,8 +3474,10 @@
   "style": "eclectic",
   "built": 1860,
   "wikidata": "Q112033468",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q112033468 P18); style: from construction year 1860",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q112033468 P18); style: from construction year 1860; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809267": {
   "name": "Корпус 42",
@@ -3426,8 +3486,10 @@
   "style": "eclectic",
   "built": 1885,
   "wikidata": "Q113560588",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560588 P18); style: from construction year 1885",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560588 P18); style: from construction year 1885; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809268": {
   "name": "Галерея-арка",
@@ -3445,8 +3507,10 @@
   "style": "neoclassical_1910s",
   "built": 1912,
   "wikidata": "Q113560574",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560574 P18); style: from construction year 1912",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560574 P18); style: from construction year 1912; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 6,
+  "levels_conf": "low"
  },
  "96809306": {
   "name": "Корпус 5",
@@ -3455,8 +3519,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q113560573",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560573 P18); style: from construction year 1913",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560573 P18); style: from construction year 1913; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809309": {
   "name": "Корпус 208",
@@ -3465,8 +3531,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q113560578",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560578 P18); style: from construction year 1896",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560578 P18); style: from construction year 1896; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "96809313": {
   "name": "Корпус 218",
@@ -3475,8 +3543,10 @@
   "style": "eclectic",
   "built": 1860,
   "wikidata": "Q113560581",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560581 P18); style: from construction year 1860",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560581 P18); style: from construction year 1860; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "96809318": {
   "name": "Галерея-арка",
@@ -3621,8 +3691,10 @@
   "wall": "#8e4c3e",
   "style": "eclectic",
   "wikidata": "Q113560615",
-  "note": "colour read from Commons photo \"Склад|набережная Обв 138 к3\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Склад|набережная Обв 138 к3\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "98285124": {
   "name": "Дерптский переулок 9 литЖ",
@@ -3755,8 +3827,10 @@
   "trim": "#f4f1ea",
   "style": "eclectic",
   "wikidata": "Q97178977",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q97178977 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q97178977 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "99698253": {
   "name": "Домовладение Г. Г. фан Гильзе фан дер Пальса",
@@ -3827,18 +3901,20 @@
   "wall": "#d9be86",
   "style": "eclectic",
   "wikidata": "Q123560565",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q123560565 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123560565 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "99698297": {
   "name": "Дворец великого князя Алексея Александровича",
   "address": "набережная реки Мойки 122",
-  "wall": "#b05a3c",
-  "trim": "#e0d6c4",
+  "wall": "#e4cf92",
+  "trim": "#f0e6c8",
   "style": "eclectic",
   "built": 1882,
   "wikidata": "Q1620227",
-  "note": "Messmacher 1882-85, Moika 122; unrendered red-orange brick with light stone details (Commons category photo)",
+  "note": "Messmacher 1882-85, Moika 122; plastered cream-yellow walls, white-cream stucco trim, grey granite rusticated base, slate-blue spire (Commons photos 'Front yard' and 'Turret', 28 Nov 2026; replaces an earlier brick-red reading)",
   "confidence": "medium"
  },
  "99698305": {
@@ -4052,8 +4128,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q136745033",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745033 P18); style: from construction year 1835",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745033 P18); style: from construction year 1835; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "100760873": {
   "name": "улица Степана Разина 8А литБ",
@@ -4062,8 +4140,10 @@
   "trim": "#c8a088",
   "style": "eclectic",
   "wikidata": "Q4474103",
-  "note": "Kalinkin brewery, Stepana Razina 8A litB: bare red-brick works with water tower (Commons: Курляндская 48-50, Степана Разина 8а.jpg); style: default (no date found)",
-  "confidence": "low"
+  "note": "Kalinkin brewery, Stepana Razina 8A litB: bare red-brick works with water tower (Commons: Курляндская 48-50, Степана Разина 8а.jpg); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "100760881": {
   "name": "улица Степана Разина 9 литЖ",
@@ -4071,8 +4151,10 @@
   "wall": "#9a4c3a",
   "trim": "#c8a088",
   "style": "eclectic",
-  "note": "Kalinkin brewery, Stepana Razina 9 litZh: red-brick works buildings behind a yellow street wall (Commons: Степана Разина 9 литера Г 01.jpg); style: default (no date found)",
-  "confidence": "low"
+  "note": "Kalinkin brewery, Stepana Razina 9 litZh: red-brick works buildings behind a yellow street wall (Commons: Степана Разина 9 литера Г 01.jpg); style: default (no date found); levels inferred from building type (small utility/garage/industrial), no photo",
+  "confidence": "low",
+  "levels": 1,
+  "levels_conf": "low"
  },
  "100760934": {
   "name": "улица Степана Разина 9 литЕ",
@@ -4080,8 +4162,10 @@
   "wall": "#9a4c3a",
   "trim": "#c8a088",
   "style": "eclectic",
-  "note": "Kalinkin brewery, Stepana Razina 9 litE: red-brick works buildings (Commons: Неохраняемые корпуса Калининского завода 01.jpg); style: default (no date found)",
-  "confidence": "low"
+  "note": "Kalinkin brewery, Stepana Razina 9 litE: red-brick works buildings (Commons: Неохраняемые корпуса Калининского завода 01.jpg); style: default (no date found); levels inferred from building type (small utility/garage/industrial), no photo",
+  "confidence": "low",
+  "levels": 1,
+  "levels_conf": "low"
  },
  "100787204": {
   "name": "Витебская улица 31 литБ",
@@ -4120,8 +4204,10 @@
   "style": "empire",
   "built": 1837,
   "wikidata": "Q136745037",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745037 P18); style: from construction year 1837",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745037 P18); style: from construction year 1837; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "101370393": {
   "name": "набережная Обводного канала 223-225 литА",
@@ -4251,8 +4337,10 @@
   "style": "constructivism",
   "built": 1865,
   "wikidata": "Q13668650",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q13668650 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q13668650 P18); style: OSM/Wikidata style tag; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "116410416": {
   "name": "набережная канала Грибоедова 119-121",
@@ -4634,8 +4722,10 @@
   "trim": "#a03a34",
   "style": "eclectic",
   "wikidata": "Q118463251",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q118463251 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q118463251 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 1,
+  "levels_conf": "low"
  },
  "201575936": {
   "name": "набережная реки Фонтанки 135 литБ",
@@ -4707,8 +4797,10 @@
   "style": "constructivism",
   "built": 1920,
   "wikidata": "Q113560584",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560584 P18); style: from construction year 1920",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560584 P18); style: from construction year 1920; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "222938462": {
   "name": "Корпус производства шин",
@@ -4716,8 +4808,10 @@
   "wall": "#8e4c3e",
   "style": "eclectic",
   "wikidata": "Q113560627",
-  "note": "colour read from Commons photo \"Корпус производства ши|Старо-Петергоф 24 к3\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Корпус производства ши|Старо-Петергоф 24 к3\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "222938528": {
   "name": "Корпус 231",
@@ -4734,8 +4828,10 @@
   "wall": "#b0644a",
   "style": "eclectic",
   "wikidata": "Q123149657",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q123149657 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123149657 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "227181586": {
   "name": "Садовая улица 50Б литА",
@@ -4754,8 +4850,10 @@
   "wall": "#ece8e0",
   "style": "eclectic",
   "wikidata": "Q138299145",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q138299145 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q138299145 P18); style: default (no date found); levels inferred from building type (small utility/garage/industrial), no photo",
+  "confidence": "medium",
+  "levels": 1,
+  "levels_conf": "low"
  },
  "232349540": {
   "name": "набережная реки Мойки 75",
@@ -4868,8 +4966,10 @@
   "style": "eclectic",
   "built": 1859,
   "wikidata": "Q136745051",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745051 P18); style: from construction year 1859",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745051 P18); style: from construction year 1859; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "357514903": {
   "name": "Галерная улица 46",
@@ -4921,8 +5021,10 @@
   "trim": "#ece4d8",
   "style": "eclectic",
   "wikidata": "Q132529544",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q132529544 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q132529544 P18); style: default (no date found); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "357750766": {
   "name": "Галерная улица 44",
@@ -4961,8 +5063,10 @@
   "wall": "#e0d4bc",
   "trim": "#f2eee6",
   "style": "eclectic",
-  "note": "light cream-beige facade on the Kryukov canal; Commons photos: \"Крюков канал, дом 12.jpg\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "light cream-beige facade on the Kryukov canal; Commons photos: \"Крюков канал, дом 12.jpg\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "461175547": {
   "name": "Корпус 110",
@@ -4971,8 +5075,10 @@
   "style": "art_nouveau",
   "built": 1899,
   "wikidata": "Q113560628",
-  "note": "courtyard photo only: unrendered red brick industrial block; Commons photos: \"Красный Треугольник, корпус 110.jpg\"; \"%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%A2%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%2C%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20110.jpg\"; style: from construction year 1899",
-  "confidence": "low"
+  "note": "courtyard photo only: unrendered red brick industrial block; Commons photos: \"Красный Треугольник, корпус 110.jpg\"; \"%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%A2%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%2C%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20110.jpg\"; style: from construction year 1899; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "528557412": {
   "name": "улица Декабристов 36/1",
@@ -5366,8 +5472,10 @@
   "style": "eclectic",
   "built": 1850,
   "wikidata": "Q123999103",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q123999103 P18); style: from construction year 1850",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123999103 P18); style: from construction year 1850; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1043270000": {
   "name": "Казанская улица 43",
@@ -6055,8 +6163,10 @@
   "style": "empire",
   "built": 1835,
   "wikidata": "Q119228821",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q119228821 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119228821 P18); style: OSM/Wikidata style tag; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "1101398000": {
   "name": "Почтамтская улица 8",
@@ -6119,8 +6229,10 @@
   "style": "constructivism",
   "built": 1932,
   "wikidata": "Q4146889",
-  "note": "colour read from Commons photo \"Государственный музей |Почтамтская ул 14\"; style: from construction year 1932",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Государственный музей |Почтамтская ул 14\"; style: from construction year 1932; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "1102512000": {
   "name": "Почтамтская улица 15, Здание Управления городского телефона и телеграфа",
@@ -6188,8 +6300,10 @@
   "style": "eclectic",
   "built": 1867,
   "wikidata": "Q635201",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q635201 P18); style: from construction year 1867",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q635201 P18); style: from construction year 1867; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1109065000": {
   "name": "переулок Пирогова 19",
@@ -6531,8 +6645,10 @@
   "style": "eclectic",
   "built": 1894,
   "wikidata": "Q113560577",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560577 P18); style: from construction year 1894",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560577 P18); style: from construction year 1894; levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1240748301": {
   "name": "Корпус 95",
@@ -6551,8 +6667,10 @@
   "style": "eclectic",
   "built": 1879,
   "wikidata": "Q113560611",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560611 P18); style: from construction year 1879",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560611 P18); style: from construction year 1879; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1240748306": {
   "name": "Корпус 50",
@@ -6560,8 +6678,10 @@
   "wall": "#8e4c3e",
   "style": "eclectic",
   "wikidata": "Q113560576",
-  "note": "colour read from Commons photo \"Корпус 50|набережная Обв 134-136-138 литАЖ\"; style: default (no date found)",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Корпус 50|набережная Обв 134-136-138 литАЖ\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "low"
  },
  "1240748309": {
   "name": "Корпус 48",
@@ -6570,8 +6690,10 @@
   "style": "neoclassical_1910s",
   "built": 1913,
   "wikidata": "Q113560625",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560625 P18); style: from construction year 1913",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q113560625 P18); style: from construction year 1913; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 6,
+  "levels_conf": "low"
  },
  "1240748330": {
   "name": "Корпус газового завода (Корпус 234)",
@@ -6580,8 +6702,10 @@
   "style": "eclectic",
   "built": 1873,
   "wikidata": "Q123982270",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q123982270 P18); style: from construction year 1873",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q123982270 P18); style: from construction year 1873; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 5,
+  "levels_conf": "low"
  },
  "1251285000": {
   "name": "Дом страхового общества «Россия» (Большая Морская улица, 37)",
@@ -6590,8 +6714,10 @@
   "trim": "#efe9da",
   "style": "eclectic",
   "wikidata": "Q129101510",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q129101510 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q129101510 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1256650850": {
   "name": "Подольская улица 41 литБ",
@@ -6713,8 +6839,10 @@
   "trim": "#f4f0e6",
   "style": "baroque",
   "built": 1730,
-  "note": "pale yellow classical mansion with white colonnade on the Neva; Commons photos: \"Английская набережная 12.JPG\"; \"Дом Лаваль Английская наб., 4 1.JPG\"; \"Здание Сената и Синода - panoramio.jpg\"; style: from construction year 1730",
-  "confidence": "medium"
+  "note": "pale yellow classical mansion with white colonnade on the Neva; Commons photos: \"Английская набережная 12.JPG\"; \"Дом Лаваль Английская наб., 4 1.JPG\"; \"Здание Сената и Синода - panoramio.jpg\"; style: from construction year 1730; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "1374229000": {
   "name": "Здание Сената и Синода (Сенат)",
@@ -6792,8 +6920,10 @@
   "style": "eclectic",
   "built": 1857,
   "wikidata": "Q119247263",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q119247263 P18); style: from construction year 1857",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q119247263 P18); style: from construction year 1857; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1404103000": {
   "name": "Английская набережная 22",
@@ -6898,8 +7028,10 @@
   "wall": "#d8b8b8",
   "style": "eclectic",
   "built": 1858,
-  "note": "colour read from Commons photo \"Английская наб 62|Angliyskaya Embankment SPB 62-64.jp\"; style: from construction year 1858",
-  "confidence": "low"
+  "note": "colour read from Commons photo \"Английская наб 62|Angliyskaya Embankment SPB 62-64.jp\"; style: from construction year 1858; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "1426077000": {
   "name": "Английская набережная 38",
@@ -7023,8 +7155,10 @@
   "style": "soviet_modernism",
   "built": 1968,
   "wikidata": "Q4313372",
-  "note": "colour read from Commons photo \"Народный музей «А музы|набережная рек 4-6\"; style: from construction year 1968",
-  "confidence": "medium"
+  "note": "colour read from Commons photo \"Народный музей «А музы|набережная рек 4-6\"; style: from construction year 1968; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1426620000": {
   "name": "улица Декабристов 31",
@@ -7101,8 +7235,10 @@
   "style": "classicism",
   "built": 1789,
   "wikidata": "Q4155913",
-  "note": "Quarenghi 1789-93 (PGUPS); pale yellow with white portico facing the Yusupov garden; colour read from Wikimedia Commons photo (Wikidata Q4155913 P18)",
-  "confidence": "medium"
+  "note": "Quarenghi 1789-93 (PGUPS); pale yellow with white portico facing the Yusupov garden; colour read from Wikimedia Commons photo (Wikidata Q4155913 P18); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "1482920895": {
   "name": "Здание Пробирной палаты",
@@ -7179,8 +7315,10 @@
   "trim": "#f4f1ea",
   "style": "eclectic",
   "wikidata": "Q132410638",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q132410638 P18); style: default (no date found)",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q132410638 P18); style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "1759650000": {
   "name": "Улица Декабристов 57",
@@ -7682,8 +7820,10 @@
   "style": "art_nouveau",
   "built": 1901,
   "wikidata": "Q130221741",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q130221741 P18); style: from construction year 1901",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q130221741 P18); style: from construction year 1901; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "3310356000": {
   "name": "Общежитие №1 Санкт-Петербургского банковского колледжа",
@@ -7806,8 +7946,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q136745060",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745060 P18); style: from construction year 1896",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745060 P18); style: from construction year 1896; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "8305582000": {
   "name": "Сенная площадь 7",
@@ -8004,8 +8146,10 @@
   "style": "empire",
   "built": 1829,
   "wikidata": "Q20667112",
-  "note": "Main building of the Technological Institute (founded 1828), Moskovsky pr. 26 on Tekhnologicheskaya pl.; pale cream-beige with white; colour read from Wikimedia Commons photo (Wikidata Q20667112 P18)",
-  "confidence": "medium"
+  "note": "Main building of the Technological Institute (founded 1828), Moskovsky pr. 26 on Tekhnologicheskaya pl.; pale cream-beige with white; colour read from Wikimedia Commons photo (Wikidata Q20667112 P18); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "11737909000": {
   "name": "Загородный проспект 52А",
@@ -8023,8 +8167,10 @@
   "style": "art_nouveau",
   "built": 1904,
   "wikidata": "Q136745050",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745050 P18); style: from construction year 1904",
-  "confidence": "low"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745050 P18); style: from construction year 1904; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "low",
+  "levels": 9,
+  "levels_conf": "low"
  },
  "12903683000": {
   "name": "Верейская улица 30-32",
@@ -8062,8 +8208,10 @@
   "wall": "#c9a65a",
   "style": "constructivism",
   "wikidata": "Q21026976",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q21026976 P18); style: OSM/Wikidata style tag",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q21026976 P18); style: OSM/Wikidata style tag; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 2,
+  "levels_conf": "low"
  },
  "12907225000": {
   "name": "Подольская улица 28",
@@ -8116,8 +8264,10 @@
   "trim": "#f4f1ea",
   "style": "art_nouveau",
   "built": 1902,
-  "note": "Imperial pavilion of the Vitebsky station (same palette as the main building)",
-  "confidence": "medium"
+  "note": "Imperial pavilion of the Vitebsky station (same palette as the main building); levels estimated from building type, no neighbours with known storeys, no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "14322016000": {
   "name": "Почтамтская улица 15",
@@ -8329,8 +8479,10 @@
   "style": "eclectic",
   "built": 1896,
   "wikidata": "Q136745058",
-  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745058 P18); style: from construction year 1896",
-  "confidence": "medium"
+  "note": "colour read from Wikimedia Commons photo (Wikidata Q136745058 P18); style: from construction year 1896; levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 3,
+  "levels_conf": "low"
  },
  "17335346000": {
   "name": "Доходный дом общества Бертгольда",
@@ -8338,8 +8490,10 @@
   "wall": "#c8ac8c",
   "trim": "#e0d4c0",
   "style": "eclectic",
-  "note": "sand-tan Art Nouveau revenue house (Gutenberg); Commons photos: \"Гражданская 13-15 02.jpg\"; \"Гражданская 13-15 01.jpg\"; \"Гражданская 13-15 03.jpg\"; style: default (no date found)",
-  "confidence": "medium"
+  "note": "sand-tan Art Nouveau revenue house (Gutenberg); Commons photos: \"Гражданская 13-15 02.jpg\"; \"Гражданская 13-15 01.jpg\"; \"Гражданская 13-15 03.jpg\"; style: default (no date found); levels inferred from median of neighbouring buildings within 60 m (same block), no photo",
+  "confidence": "medium",
+  "levels": 4,
+  "levels_conf": "low"
  },
  "17336193000": {
   "name": "Национальный государственный университет физической культуры, спорта и здоровья имени П. Ф. Лесгафта",
@@ -8441,5 +8595,3654 @@
   "style": "baroque",
   "note": "levels 3 and colour read from Wikimedia Commons photo (File:Пер. Пирогова 3.jpg, WLM 2018, 'Дом Болотникова: переулок Пирогова, 3'): street facade ground floor + 2, no mansard; fixes a 5-storey party-wall default between 3 and 7; style from the rococo window surrounds on the photo",
   "confidence": "high"
+ },
+ "45574369": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "45750682": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "45750684": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "45750686": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "46173927": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "46173939": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "46188462": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "46188466": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "49832676": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50582014": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50582017": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50582032": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50583014": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50583015": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50583020": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50583021": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50583027": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50583033": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50583121": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50584887": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50584888": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50584890": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50584904": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50584905": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50585315": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50585320": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "50585326": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597483": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597485": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50597495": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597498": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597502": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "50597512": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50597514": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597516": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50597520": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597527": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597530": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "50597535": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597536": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "50597824": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050662": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050970": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050973": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050975": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050977": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050978": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050979": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050980": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050982": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050983": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51050985": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "51050988": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "51450714": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "52080617": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "52080618": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "52080619": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "52080626": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53500964": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53500965": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53500966": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53500967": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501003": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501006": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501009": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501010": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501016": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501017": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501018": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501019": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "53501022": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "53501023": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "53501027": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "53501033": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501035": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501036": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501037": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501038": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501039": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501040": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "53501042": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501043": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501044": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501047": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501048": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "53501049": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501050": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501051": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501052": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501053": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501054": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501055": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501056": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501057": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "53501058": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501059": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "53501060": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501066": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53501068": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53569946": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53569948": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53569949": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53569950": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "53569951": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "56165094": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165103": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165107": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165138": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165152": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165167": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56165186": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56223663": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "56223668": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "60541790": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032893": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032895": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032899": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "62032900": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032902": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "62032904": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "62032909": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032911": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032916": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032917": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62032928": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "62064605": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "62847250": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "63227487": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "63227527": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "63634733": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "63634752": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "63673503": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64448237": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64537541": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64804723": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "64804753": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64804756": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64804770": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963429": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963430": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963431": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963434": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963435": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963437": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963442": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963443": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963445": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963447": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963448": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963449": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963453": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "64963458": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963459": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963460": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963462": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963465": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963466": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963468": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "64963472": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "65624486": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624516": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "65624543": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624553": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624610": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624623": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624637": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "65624650": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624653": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "65624665": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "65624682": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "65624739": {
+  "levels": 7,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331468": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331470": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331483": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331489": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331501": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331517": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66331526": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66339281": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "66647852": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "67143266": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "67143283": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "67143288": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "67386861": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "67386874": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "68874998": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "68875024": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "68944003": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "68944028": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69741391": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69741418": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69907656": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69907663": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69907697": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "69907702": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70128840": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70128851": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70128903": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70128918": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70523547": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574543": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574577": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574581": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574591": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574620": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70574627": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70732338": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70732341": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70732343": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "70732355": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70732359": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "70736442": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "70836079": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "71390889": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "71390896": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72036006": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1028492000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1028527000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1043520000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1082856000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1082857000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1083483000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72471305": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72592303": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72592308": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72729037": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72729048": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72729055": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72864960": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72890309": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72890312": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72890328": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72890333": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "72890361": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "73047666": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "79095358": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "80329888": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "80343015": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "80424625": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "80424631": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "89582372": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "89582382": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "89582383": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "89582384": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "89582386": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "89582413": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "90989280": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "90989286": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "94728065": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "95091990": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "95091991": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "95200968": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "2595501000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96113466": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96487440": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96487463": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96590237": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "96590239": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96590257": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "96590262": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96590271": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96590283": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "96809218": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809225": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96809226": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809231": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809245": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809278": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96809295": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809310": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809311": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96809316": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96809319": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96809321": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "96826863": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96826865": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96826874": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96826886": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "96826888": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97038662": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "97038684": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "97674361": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97683065": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "97683085": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97685987": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97685989": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97699611": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "97699638": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97699642": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97699663": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97721115": {
+  "levels": 8,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97805757": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97805772": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97985435": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97985438": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97985458": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97985464": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "97985474": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "98052317": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "98614608": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99214533": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698212": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "99698214": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698234": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698236": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698243": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698250": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "99698251": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698263": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698270": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698271": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698286": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698289": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698299": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698308": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698319": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698320": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698323": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99698333": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99884321": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "99884338": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100062762": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100425843": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100436700": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100436719": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100438887": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100443737": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1413911000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1426082000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100732248": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100732257": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100732266": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100732290": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100760878": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100760911": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100760915": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100760919": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100760963": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100760971": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100760976": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "100787211": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "100794357": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101370318": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370327": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370352": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370362": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "101370400": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370401": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370414": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101370419": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "101500704": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101519058": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101519081": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101522245": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101522250": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "101522257": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "106547200": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "114777630": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "124081397": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "124244203": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "125619500": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "130504474": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "130740194": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132414372": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132414374": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132414376": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132414378": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132953785": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953787": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "132953788": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953791": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "132953792": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953795": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953797": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953801": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953805": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953809": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953812": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "132953814": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "133635195": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "134659602": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "135546704": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "135770768": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699620000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1835697000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "140136457": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "140136459": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "140136462": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "140143978": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "140391945": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "141491452": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "141498176": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1898989000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1898986000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1913415000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1916449000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1410679000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "141623611": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "141623685": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "142050661": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "142054028": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "142054029": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "142054034": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "142054035": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "142942627": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "143040287": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "143802001": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "145428620": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "148740401": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765874": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "150765875": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765878": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765879": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765881": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765883": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765884": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765885": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765886": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150765888": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "150766416": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "154032171": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "154032173": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "154032175": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "155728243": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "155728245": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "161779791": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "162428025": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "162428026": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "165642827": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "2207290000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "167921892": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "4552428000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "4552428001": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "170383197": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "170455465": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "174295311": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "174500349": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "174500355": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "174500356": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "174500358": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "174500365": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "177037787": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "181602624": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "2417499000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2417500000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "188484312": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "188484313": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "191235567": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "191235568": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "192598835": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595508000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595520000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595519000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595517000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "201575937": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "201575942": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "201584744": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "203391668": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "205210490": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "206880237": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "209086599": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "217843726": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222657312": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222657332": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "222657334": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938398": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938401": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938402": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938403": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938465": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938473": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938474": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "222938476": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938478": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938479": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938490": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938493": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938496": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938499": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "222938501": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938502": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938511": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938524": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938527": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938532": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938537": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "222938542": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "222938549": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2957704000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "231595805": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "232266725": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "232349542": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3084755000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3084757000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "243281602": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "243286318": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "243286319": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "243286320": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "245048752": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "245048753": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "245048754": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "247212719": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3284858000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3284872000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3284863000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3284867000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3289309000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3290647000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3290650000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3296470000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "292090601": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "299844286": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "299852967": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "299852970": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "299921581": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "336758323": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "336758324": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "358653734": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "363290712": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "386666884": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "425274792": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "6598561000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3284870000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "464710497": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "464710498": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "481140309": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "500776960": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "532701207": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "534849374": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "543670309": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543670315": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802403": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802406": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802409": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "543802412": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802414": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802415": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "543802424": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802428": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "543802445": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "543802466": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "544596520": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544596524": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "544599994": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544615120": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544615121": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544659179": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544659185": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "544659213": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544659216": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "544659221": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "544659244": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "544659257": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "7699589000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699592000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699594000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699600000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699601000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699607000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699597000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1816347000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "544910958": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "548984417": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "565914929": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "567721265": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "583593287": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "584010686": {
+  "levels": 9,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "584033452": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "584381311": {
+  "levels": 7,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "584385216": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "584408778": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "584408782": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "584490241": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "585930025": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "597186601": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "605748255": {
+  "levels": 7,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "622497413": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "622497414": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "622497416": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "629612555": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "631004072": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "643389851": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "683671776": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "684995898": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "686477716": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "736784097": {
+  "levels": 9,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1344667000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10605630000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10605642000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1354124000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "777314860": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "777338069": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10716067000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10716088000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10716095000": {
+  "levels": 7,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10716076000": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "792653975": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "792653979": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "792653980": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "792653991": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "10996764000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10996958000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "10996962000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3284869000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3284864000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "11003847000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "839827850": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3084752000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3084754000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "856083951": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "857209593": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "857209605": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "857209612": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "857865368": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "858154397": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "864499906": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "865712169": {
+  "levels": 9,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "897530197": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "907099798": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "909408810": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "909408812": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "915222968": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "957124651": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "960113159": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "13012700000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1020971531": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1021058822": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1021058823": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1021058824": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1021058827": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1021058828": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1021062236": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1022260480": {
+  "levels": 9,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "13933406000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1091300190": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "14564642001": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1111229949": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1111229950": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1131030248": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1131030253": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3296465000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15054944000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "3296472000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15055022000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "15343418000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1102511000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15343420000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1150198725": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1150198726": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1157131302": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1161221072": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1161221073": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1161221074": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1161221075": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1161221076": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1164797096": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1164797097": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1164801560": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1164805441": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1164805442": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15705629000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1165908622": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1165908684": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1171299242": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15809108000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "14985852000": {
+  "levels": 6,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "15834800000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1177819984": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1229842586": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748288": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748289": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748290": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748296": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1240748298": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1240748299": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748303": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748304": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748305": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748310": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1240748321": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240748322": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1240748324": {
+  "levels": 5,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1240933780": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1240933782": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1256352758": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1256650851": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1256993060": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1256993061": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1256993066": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1257166743": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1257166744": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1257166745": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "17298236000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "3284865000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "7699616000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17301037000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "17301038000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17301035000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1816349000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17301040000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17301034000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17331232000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "1290491951": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from building type (small utility/garage/industrial), no photo"
+ },
+ "17875651000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "17875652000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "18286229000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1353153613": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18584691000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18585149000": {
+  "levels": 2,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595518000": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18585482000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18585481000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18585484000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595504000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "2595513000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "18585485000": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1451364652": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1467863558": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1533598497": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels estimated from building type, no neighbours with known storeys, no photo"
+ },
+ "1043273000": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1540386566": {
+  "levels": 1,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1540766627": {
+  "levels": 3,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "1567897356": {
+  "levels": 4,
+  "levels_conf": "low",
+  "note": "levels inferred from median of neighbouring buildings within 60 m (same block), no photo"
+ },
+ "121015683": {
+  "levels": 4,
+  "levels_conf": "high",
+  "axes": 9,
+  "axes_conf": "medium",
+  "note": "photo count (storeys, axes) from Commons: File:784. St. Petersburg. Griboyedov Canal Embankment, 91.jpg"
+ },
+ "68926306": {
+  "levels": 3,
+  "levels_conf": "high",
+  "axes": 14,
+  "axes_conf": "medium",
+  "note": "photo count (storeys, axes) from Commons: File:799. St. Petersburg. Griboyedov Canal Embankment, 99.jpg"
+ },
+ "79095353": {
+  "levels": 4,
+  "levels_conf": "medium",
+  "note": "photo count (storeys) from Commons: File:Sadovaya 119.JPG"
+ },
+ "67027937": {
+  "levels": 3,
+  "levels_conf": "high",
+  "note": "photo count (storeys) from Commons: File:St. Petersburg. Sadovaya Street 33. Profitable House.JPG"
+ },
+ "80329835": {
+  "levels": 7,
+  "levels_conf": "medium",
+  "note": "photo count (storeys) from Commons: File:3016. Griboedov Canal Embankment, 146.jpg"
+ },
+ "80415283": {
+  "levels": 3,
+  "levels_conf": "medium",
+  "note": "photo count (storeys) from Commons: File:3017. St. Petersburg. Rimsky-Korsakov Avenue, 24.jpg"
  }
 }
